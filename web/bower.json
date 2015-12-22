@@ -1,0 +1,32 @@
+{
+  "name": "anicloud-app",
+  "description": "The Anicloud app project",
+  "version": "0.0.0",
+  "homepage": "https://github.com/yqz411/wilddragon.git",
+  "license": "Apache 2.0",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "^3.2.0",
+    "angular": "^1.4.0",
+    "angular-animate": "^1.4.0",
+    "angular-cookies": "^1.4.0",
+    "angular-messages": "^1.4.0",
+    "angular-resource": "^1.4.0",
+    "angular-route": "^1.4.0",
+    "angular-touch": "^1.4.0",
+    "html5-boilerplate": "^5.2.0"
+  },
+  "devDependencies": {
+    "angular-mocks": "^1.4.0"
+  },
+  "overrides": {
+    "bootstrap": {
+      "main": [
+        "less/bootstrap.less",
+        "dist/css/bootstrap.css",
+        "dist/js/bootstrap.js"
+      ]
+    }
+  }
+    
+}
