@@ -1,0 +1,15 @@
+bin/
+/db
+.idea
+/lib/
+/logs/
+/modules
+/project/target
+/project/project
+/target
+tmp/
+test-result
+server.pid
+*.eml
+/dist/
+.cache
