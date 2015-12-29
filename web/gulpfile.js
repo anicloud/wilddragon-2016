@@ -13,7 +13,7 @@ var runSequence = require('run-sequence');
 var app = {
   src: 'app',
   dist: 'dist',
-  tmp: '.tmp'
+  tmp: 'public'
 };
 
 var paths = {
@@ -210,6 +210,9 @@ gulp.task('clean:dist', function (cb) {
   rimraf(app.dist, cb);
 });
 
+gulp.task('link', $.shell.task ([
+  'ln -s ../app/bower_components public/bower_components'
+]));
 
 ///////////
 // Build //
@@ -244,6 +247,7 @@ gulp.task('build', function (cb) {
       'extras'
     ],
     'inject',
+    'link',
     cb);
 });
 
@@ -267,7 +271,7 @@ gulp.task('start:client', function () {
 
 gulp.task('start:server', function() {
   $.connect.server({
-    root: [app.tmp, app.src],
+    root: [app.tmp],
     livereload: true,
     // Change this to '0.0.0.0' to access the server from outside.
     port: 8000
