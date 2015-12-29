@@ -3,6 +3,8 @@
 // Declare app level module which depends on views, and components
 angular.module('app', [
   'ui.router',
+  'ngWebSocket',
+  'app.service',
   'app.main',
   'app.home',
   'app.contact',

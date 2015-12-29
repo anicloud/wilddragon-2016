@@ -15,6 +15,7 @@
     "angular-route": "*",
     "angular-touch": "*",
     "angular-ui-router": "*",
+    "angular-websocket": "*",
     "html5-boilerplate": "*"
   },
   "devDependencies": {

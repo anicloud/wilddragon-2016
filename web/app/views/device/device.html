@@ -1,4 +1,10 @@
-<p>This is the partial for view 2.</p>
-<p>
-  Showing of 'interpolate' filter:
-</p>
+<div>
+  <div>devices:</div>
+  <div ng-repeat="device in devices">
+    {{device.deviceId}}:
+    <ul>
+      <li>{{device.name}}</li>
+      <li>{{device.description}}</li>
+    </ul>
+  </div>
+</div>

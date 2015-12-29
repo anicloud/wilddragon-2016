@@ -9,10 +9,10 @@ angular.module('app.device', ['ui.router'])
     $stateProvider
       .state('main.device', {
         url: '/device',
-        templateUrl: 'views/device/device.html'
+        templateUrl: 'views/device/device.html',
+        controller: 'DeviceCtrl'
       });
   }])
 
-  .controller('DeviceCtrl', function () {
-
+  .controller('DeviceCtrl', function ($rootScope, $scope) {
   });
