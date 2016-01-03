@@ -22,7 +22,7 @@ angular.module('app.service.notification-service', [])
     };
     return {
       getAllNotifications: function () {
-        return new RetDataDto(true, '', notification0);
+        return new RetData(true, '', notification0);
       }
     };
   });

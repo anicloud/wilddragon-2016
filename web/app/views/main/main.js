@@ -28,7 +28,7 @@ angular.module('app.main', ['ui.router'])
             return NotificationService.getAllNotifications();
           }
         },
-        controller: function ($rootScope, account, contacts, devices, apps) {
+        controller: function ($rootScope, $scope, account, contacts, devices, apps) {
           if (account.success) {
             console.log("Got account data:");
             console.log(account.data);
@@ -57,6 +57,23 @@ angular.module('app.main', ['ui.router'])
           } else {
             console.error('Error in getting apps');
           }
+
+          $scope.sidebarCollapse = true;
+          $scope.toggleSidebar = function () {
+            $scope.sidebarCollapse = !$scope.sidebarCollapse;
+          };
+
+          $scope.searchbarCollapse = true;
+          $scope.search = function () {
+            if ($scope.searchbarCollapse) {
+              $scope.searchbarCollapse = false;
+              $scope.sidebarCollapse = true;
+            } else {
+            //  todo: search logic
+            }
+          };
+
+
         }
       });
   }]);

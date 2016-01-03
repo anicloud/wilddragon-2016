@@ -102,7 +102,7 @@ angular.module('app.service.device-service', [])
     };
     return {
       getDevices: function () {
-        return new RetDataDto(true, '', [device0, device1]);
+        return new RetData(true, '', [device0, device1]);
       }
     };
   });

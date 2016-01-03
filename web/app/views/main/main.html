@@ -1,26 +1,63 @@
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#/home">WildDragon</a>
-    </div>
-    <div class="collapse navbar-collapse" id="navbar-collapse">
-      <ul class="nav navbar-nav">
-        <li><a href="#/home">Home</a></li>
-        <li><a href="#/device">Device</a></li>
-        <li><a href="#/application">Application</a></li>
-        <li><a href="#/store">Store</a></li>
-        <li><a href="#/contact">Contact</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
+<div >
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <div type="button" class="sidebar-toggle" data-ng-click="toggleSidebar()">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </div>
+      </div>
 
-<section>
-  <div ui-view>
+      <div class="navbar-logo collapse" data-ng-class="{'in': searchbarCollapse}">
+        <a href="#/home">WildDragon</a>
+      </div>
+
+      <div class="navbar-tool">
+        <span class="icon glyphicon glyphicon-bell"></span>
+      </div>
+
+      <div class="navbar-tool" data-ng-click="search()">
+        <span class="icon glyphicon glyphicon-search"></span>
+      </div>
+
+      <div class="searchbar collapse" data-ng-class="{'in': !searchbarCollapse}">
+        <div class="navbar-tool">
+          <span class="icon glyphicon glyphicon-remove" data-ng-click="searchbarCollapse=true"></span>
+        </div>
+        <div class="navbar-tool">
+          <input type="text" class="input" placeholder="search" ng-focus on-focus="!searchbarCollapse">
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="sidebar-shade collapse" data-ng-class="{'in': !sidebarCollapse}" data-ng-click="sidebarCollapse=true"></div>
+
+  <div class="sidebar sidebar-collapse" data-ng-class="{'in': !sidebarCollapse}" >
+    <div class="sidebar-wrapper">
+      <div class="sidebar-header">
+        header
+      </div>
+      <!--<div class="list-group">-->
+        <!--<a href="#/home" class="list-group-item">Home</a>-->
+        <!--<a href="#/device" class="list-group-item">Device</a>-->
+        <!--<a href="#/application" class="list-group-item">Applications</a>-->
+        <!--<a href="#/contact" class="list-group-item">Store</a>-->
+      <!--</div>-->
+      <div class="sidebar-list">
+        <a class="sidebar-list-item" href="#/home">Home</a>
+        <a class="sidebar-list-item" href="#/device">Device</a>
+        <a class="sidebar-list-item" href="#/application">Application</a>
+        <a class="sidebar-list-item" href="#/store">Store</a>
+        <a class="sidebar-list-item" href="#/contact">Contact</a>
+      </div>
+    </div>
   </div>
-</section>
+
+  <div class="content">
+    <div ui-view>
+    </div>
+  </div>
+
+</div>

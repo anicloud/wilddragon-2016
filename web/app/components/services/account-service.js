@@ -35,7 +35,7 @@ angular.module('app.service.account-service', [])
           owner: 10101,
           name: 'home',
           type: 'CUSTOM',
-          accounts: [10101, 10102],
+          accounts: [10101, 10102]
         },
         {
           groupId: 2001,
@@ -73,10 +73,10 @@ angular.module('app.service.account-service', [])
     };
     return {
       getAccount: function () {
-        return new RetDataDto(true, '', account0);
+        return new RetData(true, '', account0);
       },
       getContacts: function () {
-        return new RetDataDto(true, '', [account0, account1]);
+        return new RetData(true, '', [account0, account1]);
       }
     };
   })

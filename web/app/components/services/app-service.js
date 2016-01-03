@@ -22,7 +22,7 @@ angular.module('app.service.app-service', [])
     };
     return {
       getApps: function () {
-        return new RetDataDto(true, '', app0);
+        return new RetData(true, '', app0);
       }
     };
 

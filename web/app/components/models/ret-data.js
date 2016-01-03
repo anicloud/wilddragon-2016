@@ -3,7 +3,7 @@
  */
 'use strict';
 
-var RetDataDto = function (success, message, data) {
+var RetData = function (success, message, data) {
   var self = this;
   this.success = success;
   this.message = message;

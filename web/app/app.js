@@ -4,6 +4,7 @@
 angular.module('app', [
   'ui.router',
   'ngWebSocket',
+  'app.directive',
   'app.service',
   'app.main',
   'app.home',
