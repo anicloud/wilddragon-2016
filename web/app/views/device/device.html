@@ -1,10 +1,33 @@
+<div ng-include="'views/device/device-navbar.html'"></div>
 <div>
-  <div>devices:</div>
-  <div ng-repeat="device in devices">
-    {{device.deviceId}}:
-    <ul>
-      <li>{{device.name}}</li>
-      <li>{{device.description}}</li>
-    </ul>
+  <div class="expander" ng-repeat="device in devices">
+    <div class="expander-header">
+      <div class="row">
+        <div class="col-xs-8">
+          {{device.name}}
+        </div>
+        <div class="col-xs-4">
+          <a href="#/device-detail/{{device.deviceId}}/info">
+            detail
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="expander-body">
+      <div class="list">
+        <div class="list-item" ng-repeat="slave in device.slaves">
+          <div class="row">
+            <div class="col-xs-8">
+              {{slave.name}}
+            </div>
+            <div class="col-xs-4">
+              <a href="#/device-detail/{{device.deviceId}}/slave/{{slave.deviceId}}">
+                detail
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

@@ -3,7 +3,7 @@
  */
 'use strict';
 
-angular.module('app.main', ['ui.router'])
+angular.module('app.view.main', ['ui.router'])
 
   .config(['$stateProvider', function ($stateProvider) {
     $stateProvider
@@ -62,17 +62,6 @@ angular.module('app.main', ['ui.router'])
           $scope.toggleSidebar = function () {
             $scope.sidebarCollapse = !$scope.sidebarCollapse;
           };
-
-          $scope.searchbarCollapse = true;
-          $scope.search = function () {
-            if ($scope.searchbarCollapse) {
-              $scope.searchbarCollapse = false;
-              $scope.sidebarCollapse = true;
-            } else {
-            //  todo: search logic
-            }
-          };
-
 
         }
       });

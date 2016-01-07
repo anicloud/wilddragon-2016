@@ -16,5 +16,5 @@ angular.module('app.directive.focus', [])
           }
         });
       }
-    }
+    };
   });

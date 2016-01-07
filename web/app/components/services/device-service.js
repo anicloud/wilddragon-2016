@@ -28,7 +28,7 @@ angular.module('app.service.device-service', [])
       owner: 10102,
       accountGroups: [10101, 10102],
       state: 'ACTIVE',
-      deviceId: '100001',
+      deviceId: 100001,
       slaves: [
         {
           physicalId: 'a00001',
@@ -40,8 +40,8 @@ angular.module('app.service.device-service', [])
             {functionId: 2, groupId: 1}
           ],
           state: 'ACTIVE',
-          deviceId: '1',
-          masterId: '100001'
+          deviceId: 1,
+          masterId: 100001
         },
         {
           physicalId: 'a00002',
@@ -53,8 +53,8 @@ angular.module('app.service.device-service', [])
             {functionId: 2, groupId: 1}
           ],
           state: 'ACTIVE',
-          deviceId: '2',
-          masterId: '100001'
+          deviceId: 2,
+          masterId: 100001
         }
       ]
     };
@@ -70,7 +70,7 @@ angular.module('app.service.device-service', [])
       owner: 10102,
       accountGroups: [10101, 10102],
       state: 'ACTIVE',
-      deviceId: '100002',
+      deviceId: 100002,
       slaves: [
         {
           physicalId: 'b00001',
@@ -82,8 +82,8 @@ angular.module('app.service.device-service', [])
             {functionId: 2, groupId: 1}
           ],
           state: 'ACTIVE',
-          deviceId: '1',
-          masterId: '100001'
+          deviceId: 1,
+          masterId: 100001
         },
         {
           physicalId: 'b00002',
@@ -95,8 +95,8 @@ angular.module('app.service.device-service', [])
             {functionId: 2, groupId: 1}
           ],
           state: 'ACTIVE',
-          deviceId: '2',
-          masterId: '100001'
+          deviceId: 2,
+          masterId: 100001
         }
       ]
     };

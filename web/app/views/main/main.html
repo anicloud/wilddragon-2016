@@ -1,63 +1,24 @@
-<div >
-  <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <div type="button" class="sidebar-toggle" data-ng-click="toggleSidebar()">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </div>
-      </div>
-
-      <div class="navbar-logo collapse" data-ng-class="{'in': searchbarCollapse}">
-        <a href="#/home">WildDragon</a>
-      </div>
-
-      <div class="navbar-tool">
-        <span class="icon glyphicon glyphicon-bell"></span>
-      </div>
-
-      <div class="navbar-tool" data-ng-click="search()">
-        <span class="icon glyphicon glyphicon-search"></span>
-      </div>
-
-      <div class="searchbar collapse" data-ng-class="{'in': !searchbarCollapse}">
-        <div class="navbar-tool">
-          <span class="icon glyphicon glyphicon-remove" data-ng-click="searchbarCollapse=true"></span>
-        </div>
-        <div class="navbar-tool">
-          <input type="text" class="input" placeholder="search" ng-focus on-focus="!searchbarCollapse">
-        </div>
-      </div>
-    </div>
-  </nav>
-
-  <div class="sidebar-shade collapse" data-ng-class="{'in': !sidebarCollapse}" data-ng-click="sidebarCollapse=true"></div>
-
-  <div class="sidebar sidebar-collapse" data-ng-class="{'in': !sidebarCollapse}" >
+<div class="main-wrapper">
+  <div class="sidebar" data-ng-class="{'sidebar-collapse': sidebarCollapse}">
     <div class="sidebar-wrapper">
+      <div class="sidebar-top">
+        <a href="#/home" class="sidebar-brand">WildDragon</a>
+      </div>
       <div class="sidebar-header">
-        header
+        <img class="avatar">
+        <a class="info"> anicloud@anicloud.com </a>
       </div>
-      <!--<div class="list-group">-->
-        <!--<a href="#/home" class="list-group-item">Home</a>-->
-        <!--<a href="#/device" class="list-group-item">Device</a>-->
-        <!--<a href="#/application" class="list-group-item">Applications</a>-->
-        <!--<a href="#/contact" class="list-group-item">Store</a>-->
-      <!--</div>-->
-      <div class="sidebar-list">
-        <a class="sidebar-list-item" href="#/home">Home</a>
-        <a class="sidebar-list-item" href="#/device">Device</a>
-        <a class="sidebar-list-item" href="#/application">Application</a>
-        <a class="sidebar-list-item" href="#/store">Store</a>
-        <a class="sidebar-list-item" href="#/contact">Contact</a>
+      <div class="list navs">
+        <a class="list-item nav active" href="#/home">Home</a>
+        <a class="list-item nav" href="#/device">Device</a>
+        <a class="list-item nav" href="#/application">Application</a>
+        <a class="list-item nav" href="#/store">Store</a>
+        <a class="list-item nav" href="#/contact">Contact</a>
       </div>
     </div>
   </div>
 
-  <div class="content">
-    <div ui-view>
-    </div>
+  <div class="content" data-ng-class="{'content-collapse': !sidebarCollapse}">
+    <div ui-view></div>
   </div>
-
 </div>

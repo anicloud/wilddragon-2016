@@ -3,7 +3,7 @@
  */
 'use strict';
 
-angular.module('app.application', ['ui.router'])
+angular.module('app.view.application', ['ui.router'])
 
   .config(['$stateProvider', function ($stateProvider) {
     $stateProvider

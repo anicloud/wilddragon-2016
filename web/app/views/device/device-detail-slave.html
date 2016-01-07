@@ -1,0 +1,74 @@
+<div>
+  <div class="expander">
+    <div class="expander-header">
+      <div class="row">
+        <div class="col-xs-8">
+          Device information:
+        </div>
+      </div>
+    </div>
+    <div class="expander-body">
+      <div class="list">
+        <div class="list-item">
+          <div class="row">
+            <div class="col-xs-6">Device name</div>
+            <div class="col-xs-6">{{slave.name}}</div>
+          </div>
+        </div>
+        <div class="list-item">
+          <div class="row">
+            <div class="col-xs-6">Device state</div>
+            <div class="col-xs-6">{{slave.state}}</div>
+          </div>
+        </div>
+        <div class="list-item">
+          <div class="row">
+            <div class="col-xs-6">Device description</div>
+            <div class="col-xs-6">{{slave.description}}</div>
+          </div>
+        </div>
+        <div class="list-item">
+          <div class="row">
+            <div class="col-xs-6">Device Id</div>
+            <div class="col-xs-6">{{slave.deviceId}}</div>
+          </div>
+        </div>
+        <div class="list-item">
+          <div class="row">
+            <div class="col-xs-6">Device physical Id</div>
+            <div class="col-xs-6">{{slave.physicalId}}</div>
+          </div>
+        </div>
+        <div class="list-item">
+          <div class="row">
+            <div class="col-xs-6">Device MAC</div>
+            <div class="col-xs-6">{{slave.physicalAddress}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="expander">
+    <div class="expander-header">
+      <div class="row">
+        <div class="col-xs-8">
+          Device functions:
+        </div>
+      </div>
+    </div>
+    <div class="expander-body">
+      <div class="list" ng-repeat="function in slave.functions">
+        <div class="list-item">
+          <div class="row">
+            <div class="col-xs-3">Function Id</div>
+            <div class="col-xs-3">{{function.functionId}}</div>
+            <div class="col-xs-3">Function group id</div>
+            <div class="col-xs-3">{{function.groupId}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

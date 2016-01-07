@@ -1,0 +1,25 @@
+
+/* expander*/
+.expander {
+  display: block;
+  height: auto;
+  padding: 0;
+}
+
+.expander-header {
+  padding: 15px;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.expander-body {
+  display: block;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.expander-footer {
+
+}
+
+.expander-body.collapse {
+  display: none;
+}

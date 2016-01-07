@@ -4,6 +4,8 @@
 'use strict';
 
 angular.module('app.directive', [
+  'app.directive.navs',
+  'app.directive.expander',
   'app.directive.focus',
   'app.directive.screenMatch'
 ]);

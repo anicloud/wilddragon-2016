@@ -3,7 +3,7 @@
  */
 'use strict';
 
-angular.module('app.contact', ['ui.router'])
+angular.module('app.view.contact', ['ui.router'])
 
   .config(['$stateProvider', function ($stateProvider) {
     $stateProvider

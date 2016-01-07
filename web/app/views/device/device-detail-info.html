@@ -1,0 +1,98 @@
+<div>
+  <div class="expander">
+    <div class="expander-header">
+      <div class="row">
+        <div class="col-xs-8">
+          Device information:
+        </div>
+      </div>
+    </div>
+    <div class="expander-body">
+      <div class="list">
+        <div class="list-item">
+          <div class="row">
+            <div class="col-xs-6">Device name</div>
+            <div class="col-xs-6">{{device.name}}</div>
+          </div>
+        </div>
+        <div class="list-item">
+          <div class="row">
+            <div class="col-xs-6">Device state</div>
+            <div class="col-xs-6">{{device.state}}</div>
+          </div>
+        </div>
+        <div class="list-item">
+          <div class="row">
+            <div class="col-xs-6">Device description</div>
+            <div class="col-xs-6">{{device.description}}</div>
+          </div>
+        </div>
+        <div class="list-item">
+          <div class="row">
+            <div class="col-xs-6">Device Id</div>
+            <div class="col-xs-6">{{device.deviceId}}</div>
+          </div>
+        </div>
+        <div class="list-item">
+          <div class="row">
+            <div class="col-xs-6">Device physical Id</div>
+            <div class="col-xs-6">{{device.physicalId}}</div>
+          </div>
+        </div>
+        <div class="list-item">
+          <div class="row">
+            <div class="col-xs-6">Device MAC</div>
+            <div class="col-xs-6">{{device.physicalAddress}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="expander">
+    <div class="expander-header">
+      <div class="row">
+        <div class="col-xs-8">
+          Device functions:
+        </div>
+      </div>
+    </div>
+    <div class="expander-body">
+      <div class="list" ng-repeat="function in device.functions">
+        <div class="list-item">
+          <div class="row">
+            <div class="col-xs-3">Function Id</div>
+            <div class="col-xs-3">{{function.functionId}}</div>
+            <div class="col-xs-3">Function group id</div>
+            <div class="col-xs-3">{{function.groupId}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="expander">
+    <div class="expander-header">
+      <div class="row">
+        <div class="col-xs-8">
+          Slave devices:
+        </div>
+      </div>
+    </div>
+    <div class="expander-body">
+      <div class="list" ng-repeat="slave in device.slaves">
+        <div class="list-item">
+          <div class="row">
+            <div class="col-xs-3">Slave device Id</div>
+            <div class="col-xs-3">{{slave.deviceId}}</div>
+            <div class="col-xs-3">
+              <a href="#/device-detail/{{device.deviceId}}/slave/{{slave.deviceId}}">
+                Detail
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
