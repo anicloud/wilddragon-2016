@@ -4,9 +4,9 @@
 'use strict';
 
 angular.module('app.service', [
-  'app.service.account-service',
-  'app.service.device-service',
-  'app.service.app-service',
-  'app.service.notification-service'
+  'app.service.account',
+  'app.service.device',
+  'app.service.app',
+  'app.service.notification'
 ]);
 

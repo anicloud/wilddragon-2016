@@ -20,6 +20,10 @@ a.active {
   color: #111;
 }
 
+video {
+  background-color: black;
+}
+
 .screen-wrapper {
   margin: auto;
   max-width: 1440px;

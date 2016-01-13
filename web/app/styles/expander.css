@@ -3,16 +3,18 @@
 .expander {
   display: block;
   height: auto;
-  padding: 0;
+  margin: 15px 5px;
+  box-shadow: 1px 1px 6px rgba(128, 128, 128, 0.25);
 }
 
 .expander-header {
-  padding: 15px;
+  padding:15px;
   border-bottom: 1px solid #e8e8e8;
 }
 
 .expander-body {
   display: block;
+  background-color: #fcfcfc;
   border-bottom: 1px solid #e8e8e8;
 }
 
@@ -22,4 +24,9 @@
 
 .expander-body.collapse {
   display: none;
+}
+
+.expander-body .list {
+  margin: 0;
+  padding: 10px;
 }

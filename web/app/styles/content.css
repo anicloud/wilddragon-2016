@@ -20,9 +20,17 @@
   }
 }
 
-
-.content-container {
-
+.content-header {
+  height: 50px;
 }
 
+.content-body {
+  padding: 15px;
+  width: 100%;
+  min-height: calc(100% - 100px);
+}
+
+.content-footer {
+  height: 50px;
+}
 

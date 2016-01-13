@@ -9,7 +9,16 @@ angular.module('app.view.home', ['ui.router'])
     $stateProvider
       .state('main.home', {
         url: '/home',
-        templateUrl: 'views/home/home.html'
+        views: {
+          'header': {
+            templateUrl: 'views/home/home-navbar.html',
+            controller: 'HomeCtrl'
+          },
+          'body': {
+            templateUrl: 'views/home/home.html',
+            controller: 'HomeCtrl'
+          }
+        }
       });
   }])
 

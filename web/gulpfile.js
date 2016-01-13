@@ -25,7 +25,8 @@ var paths = {
   styles: [
     app.src + '/app.css',
     app.src + '/views*/**/*.css',
-    app.src + '/components*/**/*.css'
+    app.src + '/components*/**/*.css',
+    app.src + '/styles*/**/*.css'
   ],
   views: {
     main: app.src + '/index.html',

@@ -1,0 +1,5 @@
+<div class="btn btn-default" data-ng-click="qrcodeStart=!qrcodeStart">
+  Qrcode
+</div>
+<!--<div class="qrcode" data-qrcode-start="{{qrcodeStart}}" data-qrcode-success="qrcodeSuccess(result)"></div>-->
+<div width="300" height="200" qrcode qrcode-start="{{qrcodeStart}}" qrcode-success="qrcodeSuccess(result)"></div>

@@ -3,7 +3,7 @@
  */
 'use strict';
 
-angular.module('app.service.account-service', [])
+angular.module('app.service.account', [])
   .factory('AccountServiceDist', function ($http) {
     return {
       getAccount: function () {

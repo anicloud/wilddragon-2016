@@ -6,17 +6,17 @@
   "license": "Apache 2.0",
   "private": true,
   "dependencies": {
-    "bootstrap": "*",
-    "angular": "*",
-    "angular-animate": "*",
-    "angular-cookies": "*",
-    "angular-messages": "*",
-    "angular-resource": "*",
-    "angular-route": "*",
-    "angular-touch": "*",
-    "angular-ui-router": "*",
-    "angular-websocket": "*",
-    "html5-boilerplate": "*"
+    "bootstrap": "~3.3.6",
+    "angular": "~1.4.8",
+    "angular-animate": "~1.4.8",
+    "angular-cookies": "~1.4.8",
+    "angular-messages": "~1.4.8",
+    "angular-resource": "~1.4.8",
+    "angular-route": "~1.4.8",
+    "angular-touch": "~1.4.8",
+    "angular-ui-router": "~0.2.15",
+    "angular-websocket": "~1.0.13",
+    "html5-qrcode": "https://github.com/fantasybh/html5-qrcode.git"
   },
   "devDependencies": {
     "angular-mocks": "*"
@@ -30,5 +30,4 @@
       ]
     }
   }
-    
 }

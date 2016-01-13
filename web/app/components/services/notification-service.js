@@ -3,7 +3,7 @@
  */
 'use strict';
 
-angular.module('app.service.notification-service', [])
+angular.module('app.service.notification', [])
   .factory('NotificationServiceDist', function ($http, $websocket) {
     return {
       getAllNotifications: $http({

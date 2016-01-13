@@ -5,20 +5,23 @@
         <a href="#/home" class="sidebar-brand">WildDragon</a>
       </div>
       <div class="sidebar-header">
-        <img class="avatar">
+        <img class="avatar" src="">
         <a class="info"> anicloud@anicloud.com </a>
       </div>
-      <div class="list navs">
-        <a class="list-item nav active" href="#/home">Home</a>
-        <a class="list-item nav" href="#/device">Device</a>
-        <a class="list-item nav" href="#/application">Application</a>
-        <a class="list-item nav" href="#/store">Store</a>
-        <a class="list-item nav" href="#/contact">Contact</a>
+      <div class="list" data-ng-navs>
+        <a class="list-item active" data-ng-nav href="#/home">Home</a>
+        <a class="list-item" data-ng-nav href="#/device/list">Device</a>
+        <a class="list-item" data-ng-nav href="#/application">Application</a>
+        <a class="list-item" data-ng-nav href="#/store">Store</a>
+        <a class="list-item" data-ng-nav href="#/contact">Contact</a>
       </div>
     </div>
   </div>
 
-  <div class="content" data-ng-class="{'content-collapse': !sidebarCollapse}">
-    <div ui-view></div>
+  <div class="content" data-ng-class="{'content-collapse': !sidebarCollapse}" >
+    <div class="content-header" data-ui-view="header"></div>
+    <div class="content-body" data-ui-view="body"></div>
+    <div class="content-footer" data-ng-include="'views/footbar/footbar.html'"></div>
   </div>
+
 </div>

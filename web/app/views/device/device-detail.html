@@ -1,14 +1,9 @@
-<div ng-include="'views/device/device-navbar.html'">
-
+<div class="navbar-tabs" data-ng-navs>
+  <a class="navbar-tab active" data-ng-nav href="#/device/detail/{{device.deviceId}}/info">
+    Info
+  </a>
+  <a class="navbar-tab" data-ng-nav href="#/device/detail/{{device.deviceId}}/share">
+    Share
+  </a>
 </div>
-<div class="content-container">
-  <div class="navbar-tabs navs">
-    <a class="navbar-tab nav active" href="#/device-detail/{{device.deviceId}}/info">
-      Info
-    </a>
-    <a class="navbar-tab nav" href="#/device-detail/{{device.deviceId}}/share">
-      Share
-    </a>
-  </div>
-  <div ui-view=""></div>
-</div>
+<div data-ui-view=""></div>

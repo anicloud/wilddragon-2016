@@ -3,7 +3,7 @@
  */
 'use strict';
 
-angular.module('app.service.device-service', [])
+angular.module('app.service.device', [])
   .factory('DeviceServiceDist', function ($http) {
     return {
       getDevices: function () {

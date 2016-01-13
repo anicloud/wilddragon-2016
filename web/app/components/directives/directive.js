@@ -7,5 +7,7 @@ angular.module('app.directive', [
   'app.directive.navs',
   'app.directive.expander',
   'app.directive.focus',
-  'app.directive.screenMatch'
+  'app.directive.screenMatch',
+  'app.directive.history',
+  'app.directive.qrcode'
 ]);

@@ -3,7 +3,7 @@
  */
 'use strict';
 
-angular.module('app.service.app-service', [])
+angular.module('app.service.app', [])
   .factory('AppServiceDist', function ($http) {
     return {
       getApps: function () {

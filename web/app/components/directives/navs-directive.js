@@ -4,7 +4,7 @@
 'use strict';
 
 angular.module('app.directive.navs', [])
-  .directive('navs', function () {
+  .directive('ngNavs', function () {
     return {
       restrict: 'AC',
       scope: {},
@@ -37,9 +37,9 @@ angular.module('app.directive.navs', [])
       }
     };
   })
-  .directive('nav', function ($timeout) {
+  .directive('ngNav', function ($timeout) {
     return {
-      require: '^navs',
+      require: '^ngNavs',
       restrict: 'AC',
       scope: {},
       link: function (scope, element, attrs, navsCtrl) {
