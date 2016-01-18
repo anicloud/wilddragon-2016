@@ -9,6 +9,7 @@
   z-index: 1000;
   transition: all 0.35s ease;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.26);
+  background-color: white;
 }
 
 .sidebar-collapse {
@@ -73,19 +74,19 @@
 
 }
 
-.sidebar-shade {
+.sidebar-mask {
   position: absolute;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: transparent;
-  /*background-color: rgba(61, 61, 61, 0.52);*/
-  z-index: 0;
+  /*background-color: transparent;*/
+  background-color: rgba(61, 61, 61, 0.52);
+  z-index: 1;
 }
 
 @media (min-width: 768px) {
-  .sidebar-shade.in {
+  .sidebar-mask {
     display: none;
   }
 }
