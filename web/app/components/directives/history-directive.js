@@ -10,7 +10,6 @@ angular.module('app.directive.history', [])
       link: function(scope, element, attrs) {
         element.on('click', function () {
           $timeout(function() {
-            console.log("hello");
             $window.history.back();
           }, 0);
         });
