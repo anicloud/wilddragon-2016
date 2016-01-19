@@ -57,11 +57,11 @@
 
 .navbar-tool .icon {
   padding: 14px 5px;
-  color: #888;
+  color: #000;
 }
 
 .navbar-tool .icon:hover {
-  color: #555;
+  color: #8BC34A;
 }
 
 .navbar-tool .input {

@@ -7,4 +7,8 @@ angular.module('app', [
   'app.directive',
   'app.service',
   'app.view'
-]);
+])
+
+  .run(function () {
+    FastClick.attach(document.body);
+  });

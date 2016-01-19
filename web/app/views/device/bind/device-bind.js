@@ -10,11 +10,11 @@ angular.module('app.view.device.bind', ['ui.router'])
         url: '/bind',
         views: {
           'header@main': {
-            templateUrl: 'views/device/device-bind-navbar.html',
+            templateUrl: 'views/device/bind/device-bind-navbar.html',
             controller: 'DeviceCtrl'
           },
           'body@main': {
-            templateUrl: 'views/device/device-bind.html',
+            templateUrl: 'views/device/bind/device-bind.html',
             controller: 'DeviceBindCtrl'
           }
         }
