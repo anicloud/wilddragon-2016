@@ -17,7 +17,8 @@
     "angular-ui-router": "~0.2.15",
     "angular-websocket": "~1.0.13",
     "html5-qrcode": "https://github.com/fantasybh/html5-qrcode.git",
-    "fastclick": "~1.0.6"
+    "fastclick": "~1.0.6",
+    "font-awesome": "~4.5.0"
   },
   "devDependencies": {
     "angular-mocks": "*"
@@ -28,6 +29,13 @@
         "less/bootstrap.less",
         "dist/css/bootstrap.css",
         "dist/js/bootstrap.js"
+      ]
+    },
+    "font-awesome": {
+      "main": [
+        "css/font-awesome.css",
+        "less/font-awesome.less",
+        "scss/font-awesome.scss"
       ]
     }
   }
