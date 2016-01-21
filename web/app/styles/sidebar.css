@@ -7,7 +7,7 @@
   bottom: 0;
   width: 260px;
   z-index: 1000;
-  transition: all 0.2s ease;
+  transition: all 0.35s ease;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.26);
   background-color: white;
   overflow-y: auto;
@@ -81,15 +81,19 @@
   top: 0;
   width: 100%;
   height: 100%;
-  /*background-color: transparent;*/
-  /*background-color: rgba(61, 61, 61, 0.52);*/
-  background-color: #000;
-  opacity: 0.5;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0.8;
   z-index: 1;
+  visibility: hidden;
+  /*transition: visibility 0.1s ease;*/
+}
+
+.sidebar-mask.visible {
+  visibility: visible;
 }
 
 @media (min-width: 768px) {
-  .sidebar-mask {
-    display: none;
+  .sidebar-mask.visible {
+    visibility: hidden;
   }
 }

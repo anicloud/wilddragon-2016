@@ -103,7 +103,7 @@ gulp.task('inject', function () {
 //////////////////////
 
 gulp.task('copy:prod', function () {
-  gulp.src(app.src + '/views*/**/*')
+  gulp.src(app.src + '/views*/**/*.html')
     .pipe(gulp.dest(app.dist));
   gulp.src(app.src + '/images*/**/*')
     .pipe($.cache($.imagemin({
@@ -130,8 +130,8 @@ gulp.task('optimize', function () {
     .pipe(cssFilter)
     .pipe($.minifyCss({cache: true}))
     .pipe(cssFilter.restore())
-    .pipe($.rev())
-    .pipe($.revReplace())
+    // .pipe($.rev())
+    // .pipe($.revReplace())
     .pipe(gulp.dest(app.dist));
 });
 
