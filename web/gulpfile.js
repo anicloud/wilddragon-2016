@@ -12,8 +12,8 @@ var runSequence = require('run-sequence');
 
 var app = {
   src: 'app',
-  dist: 'dist',
-  dev: 'public'
+  dist: '../public',
+  dev: 'dev'
 };
 
 var paths = {
@@ -38,9 +38,11 @@ var paths = {
     app.src + '/images*/**/*'
   ],
   fonts: [
-    app.src + '/fonts*/**/*'
+    app.src + '/fonts*/**/*',
+    app.src + '/bower_components/bootstrap/fonts*/*',
+    app.src + '/bower_components/font-awesome/fonts*/*'
   ],
-  karma: 'karma.conf.js',
+  karma: 'karma.conf.js'
 };
 
 ///////////////////////
@@ -63,11 +65,9 @@ gulp.task('scripts', function () {
 gulp.task('copy', function () {
   gulp.src(paths.views.files)
     .pipe(gulp.dest(app.dev));
-  gulp.src(app.src + '/images*/**/*')
+  gulp.src(paths.images)
     .pipe(gulp.dest(app.dev));
-  gulp.src(app.src + '/fonts*/**/*')
-    .pipe(gulp.dest(app.dev));
-  gulp.src(app.src + '/*/.*', {dot: true})
+  gulp.src(paths.fonts)
     .pipe(gulp.dest(app.dev));
 });
 
@@ -103,26 +103,24 @@ gulp.task('inject', function () {
 //////////////////////
 
 gulp.task('copy:prod', function () {
-  gulp.src(app.src + '/views*/**/*.html')
+  gulp.src(paths.views.files)
     .pipe(gulp.dest(app.dist));
-  gulp.src(app.src + '/images*/**/*')
+  gulp.src(paths.images)
     .pipe($.cache($.imagemin({
       optimizationLevel: 5,
       progressive: true,
       interlaced: true
     })))
     .pipe(gulp.dest(app.dist));
-  gulp.src(app.src + '/fonts*/**/*')
-    .pipe(gulp.dest(app.dist));
-  gulp.src(app.src + '/*/.*', {dot: true})
+  gulp.src(paths.fonts)
     .pipe(gulp.dest(app.dist));
 });
 
-gulp.task('optimize', function () {
+gulp.task('minimize', function () {
   var jsFilter = $.filter('**/*.js');
   var cssFilter = $.filter('**/*.css');
   return gulp.src(app.dev + '/index.html')
-    .pipe($.useref({searchPath: [app.src, app.dev]}))
+    .pipe($.useref({searchPath: [app.dev, app.src]}))
     .pipe(jsFilter)
     .pipe($.ngAnnotate())
     .pipe($.uglify())
@@ -163,12 +161,12 @@ gulp.task('clean', function (cb) {
   rimraf(app.dev, cb);
 });
 
-gulp.task('clean:dist', function (cb) {
+gulp.task('clean:prod', function (cb) {
   rimraf(app.dist, cb);
 });
 
 gulp.task('link', $.shell.task([
-  'ln -s ../app/bower_components public/bower_components'
+  'ln -s ../' + app.src + '/bower_components ' + app.dev + '/bower_components'
 ]));
 
 ///////////
@@ -196,9 +194,9 @@ gulp.task('build', function (cb) {
   runSequence(
     'clean',
     [
+      'copy',
       'styles',
-      'scripts',
-      'copy'
+      'scripts'
     ],
     'inject',
     'link',
@@ -208,10 +206,10 @@ gulp.task('build', function (cb) {
 gulp.task('build:prod', function (cb) {
   runSequence(
     'build',
-    'clean:dist',
+    'clean:prod',
     [
       'copy:prod',
-      'optimize'
+      'minimize'
     ],
     cb);
 });
