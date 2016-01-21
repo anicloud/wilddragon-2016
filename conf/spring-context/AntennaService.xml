@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:amq="http://activemq.apache.org/schema/core"
+       xmlns:jms="http://www.springframework.org/schema/jms"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://activemq.apache.org/schema/core
+       http://activemq.apache.org/schema/core/activemq-core-5.11.1.xsd
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-4.0.xsd
+       http://www.springframework.org/schema/jms
+       http://www.springframework.org/schema/jms/spring-jms-4.0.xsd">
+
+    <context:component-scan base-package="com.ani.octopus.antenna" />
+
+    <context:property-placeholder location="spring-context/properties/antenna.properties" ignore-unresolvable="true" order="101"/>
+
+    <bean id="messageTopicDestination" class="org.apache.activemq.command.ActiveMQTopic">
+        <constructor-arg value="${jms.queue.service.octopus}.message"/>
+    </bean>
+    
+    <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <property name="defaultDestination" ref="messageTopicDestination"/>
+        <property name="pubSubDomain" value="true"/>
+        <!-- Value = javax.jms.DeliveryMode.PERSISTENT -->
+        <property name="deliveryMode" value="2"/>
+        <!-- Value = javax.jms.Session.CLIENT_ACKNOWLEDGE -->
+        <property name="sessionAcknowledgeMode" value="1"/>
+        <!-- Needs to be true for the deliveryMode to work -->
+        <property name="explicitQosEnabled" value="true"/>
+    </bean>
+    
+    <!-- AniObjectController-->
+    <bean id="aniObjectController" class="org.springframework.jms.remoting.JmsInvokerProxyFactoryBean">
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <property name="queueName" value="${jms.queue.service.octopus}.aniObjectService"/>
+        <property name="serviceInterface" value="com.ani.octopus.object.controller.AniObjectController"/>
+    </bean>
+
+    <!-- ObjectMessageListener-->
+    <jms:listener-container connection-factory="connectionFactory" destination-type="durableTopic">
+        <jms:listener destination="${jms.queue.service.octopus}.message"
+                      ref="objectMessageListener"
+                      method="onNotifyMessage" />
+    </jms:listener-container>
+
+    <!-- rmi-->
+    <!-- ObjectInvokeListener-->
+    <bean class="org.springframework.remoting.rmi.RmiServiceExporter">
+        <property name="serviceName" value="ObjectInvokeListener" />
+        <property name="service" ref="objectInvokeListener" />
+        <property name="serviceInterface" value="com.ani.octopus.antenna.infrastructure.service.ObjectInvokeListener" />
+        <property name="replaceExistingBinding" value="true"/>
+        <!--<property name="registryHost" value="${rmi.host}"/>-->
+        <property name="registryPort" value="${rmi.service.invoke.port}" />
+    </bean>
+</beans>

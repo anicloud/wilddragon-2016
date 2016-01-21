@@ -1,0 +1,40 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET         /                              @controllers.Application.index()
+GET         /login                         @controllers.Application.login()
+
+# Map static resources from the /public folder to the /assets URL path
+GET         /views/*file                   controllers.Assets.at(path="/public/views", file)
+GET         /styles/*file                  controllers.Assets.at(path="/public/styles", file)
+GET         /scripts/*file                 controllers.Assets.at(path="/public/scripts", file)
+GET         /fonts/*file                   controllers.Assets.at(path="/public/fonts", file)
+
+# Notification
+GET         /notification/all              @controllers.NotificationController.getAllNotifications()
+GET         /notification/websocket        @controllers.NotificationController.getWebSocket()
+
+# Account
+GET         /account                       @controllers.AccountController.getAccount()
+GET         /account/contacts              @controllers.AccountController.getContacts()
+POST        /account/login                 @controllers.AccountController.login()
+GET         /account/logout                @controllers.AccountController.logout()
+POST        /account/createGroup           @controllers.AccountController.createGroup()
+POST        /account/deleteGroup           @controllers.AccountController.deleteGroup()
+POST        /account/invite                @controllers.AccountController.inviteAccount()
+POST        /account/join                  @controllers.AccountController.joinAccountGroup()
+POST        /account/quit                  @controllers.AccountController.quitAccountGroup()
+# Device
+GET         /device/all                    @controllers.DeviceController.getAllDevices()
+POST        /device/bind                   @controllers.DeviceController.bindDevice()
+POST        /device/unbind                 @controllers.DeviceController.unbindDevice()
+POST        /device/update                 @controllers.DeviceController.updateDevice()
+POST        /account/shareDevice           @controllers.DeviceController.shareDevice()
+POST        /account/unshareDevice         @controllers.DeviceController.unshareDevice()
+
+# App
+GET         /app/all                       @controllers.AppController.getAllApps()
+POST        /app/install                   @controllers.AppController.installApp()
+POST        /app/uninstall                 @controllers.AppController.uninstallApp()
