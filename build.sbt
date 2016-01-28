@@ -13,6 +13,19 @@ libraryDependencies ++= Seq(
   javaWs
 )
 
+//log4j
+libraryDependencies += "org.apache.logging.log4j" % "log4j-core" % "2.5"
+
+libraryDependencies += "org.slf4j" % "slf4j-api" % "1.7.13"
+
+libraryDependencies += "org.slf4j" % "slf4j-log4j12" % "1.7.13"
+
+//pac4j
+libraryDependencies += "org.pac4j" % "play-pac4j_java" % "1.4.0"
+
+libraryDependencies += "org.pac4j" % "pac4j-cas" % "1.7.0"
+
+//aspectj
 libraryDependencies += "org.aspectj" % "aspectjrt" % "1.7.3"
 
 libraryDependencies += "org.aspectj" % "aspectjweaver" % "1.8.5"

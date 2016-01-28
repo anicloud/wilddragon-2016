@@ -6,6 +6,8 @@ import models.domain.session.SessionManager;
 import models.dto.RetDataDto;
 import models.dto.notification.NotificationData;
 import models.service.notification.NotificationService;
+import org.pac4j.play.java.JavaController;
+import org.pac4j.play.java.RequiresAuthentication;
 import org.springframework.stereotype.Component;
 import play.libs.Json;
 import play.mvc.*;
@@ -17,8 +19,9 @@ import java.util.Set;
  * Created by huangbin on 12/14/15.
  */
 @Component
-@Security.Authenticated(AccessAuthenticator.class)
-public class NotificationController extends Controller {
+//@Security.Authenticated(AccessAuthenticator.class)
+@RequiresAuthentication(clientName = "CasClient")
+public class NotificationController extends JavaController {
     @Resource
     private SessionManager sessionManager;
 

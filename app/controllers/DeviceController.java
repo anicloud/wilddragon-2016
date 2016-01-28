@@ -8,6 +8,8 @@ import models.dto.device.DeviceMasterData;
 import models.dto.device.DeviceShareData;
 import models.service.account.AccountServiceAdapter;
 import models.service.device.DeviceServiceAdapter;
+import org.pac4j.play.java.JavaController;
+import org.pac4j.play.java.RequiresAuthentication;
 import org.springframework.stereotype.Component;
 import play.libs.Json;
 import play.mvc.*;
@@ -20,8 +22,9 @@ import java.util.Set;
  */
 
 @Component
-@Security.Authenticated(AccessAuthenticator.class)
-public class DeviceController extends Controller {
+//@Security.Authenticated(AccessAuthenticator.class)
+@RequiresAuthentication(clientName = "CasClient")
+public class DeviceController extends JavaController {
     @Resource
     private DeviceServiceAdapter deviceServiceAdapter;
 

@@ -5,6 +5,8 @@ import models.domain.security.AccessAuthenticator;
 import models.dto.RetDataDto;
 import models.dto.account.*;
 import models.service.account.AccountServiceAdapter;
+import org.pac4j.play.java.JavaController;
+import org.pac4j.play.java.RequiresAuthentication;
 import org.springframework.stereotype.Component;
 import play.libs.Json;
 import play.mvc.Controller;
@@ -18,8 +20,9 @@ import java.util.Set;
  * Created by huangbin on 12/14/15.
  */
 @Component
-@Security.Authenticated(AccessAuthenticator.class)
-public class AccountController extends Controller {
+//@Security.Authenticated(AccessAuthenticator.class)
+@RequiresAuthentication(clientName = "CasClient")
+public class AccountController extends JavaController {
     @Resource
     private AccountServiceAdapter accountServiceAdapter;
 

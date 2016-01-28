@@ -3,29 +3,90 @@
 <!--[if IE 7]>         <html lang="en" ng-app="app" class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html lang="en" ng-app="app" class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html lang="en" ng-app="app" class="no-js"> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Anicloud</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Anicloud</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- build:css styles/bower.min.css -->
+  <!-- bower:css -->
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
+  <!-- endbower -->
+  <!-- endbuild -->
 
-        <link rel="stylesheet" href="styles/bower.min.css">
-
-        <link rel="stylesheet" href="styles/app.min.css">
-    </head>
-    <body>
-            <!--[if lt IE 7]>
+  <!-- build:css styles/app.min.css -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="/app.css">
+  <link rel="stylesheet" href="/styles/content.css">
+  <link rel="stylesheet" href="/styles/expander.css">
+  <link rel="stylesheet" href="/styles/footbar.css">
+  <link rel="stylesheet" href="/styles/list.css">
+  <link rel="stylesheet" href="/styles/navbar.css">
+  <link rel="stylesheet" href="/styles/sidebar.css">
+  <link rel="stylesheet" href="/views/device/device.css">
+  <!-- endinject -->
+  <!-- endbuild -->
+</head>
+<body>
+  <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
 
-        <div class="screen-wrapper" ui-view></div>
+  <div class="screen-wrapper" ui-view></div>
 
-            <!-- In production use:
+  <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
   -->
-        <script src="scripts/bower.min.js"></script>
-
-        <script src="scripts/app.min.js"></script>
-    </body>
+  <!-- build:js scripts/bower.min.js-->
+  <!-- bower:js -->
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-animate/angular-animate.js"></script>
+  <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+  <script src="bower_components/angular-messages/angular-messages.js"></script>
+  <script src="bower_components/angular-resource/angular-resource.js"></script>
+  <script src="bower_components/angular-route/angular-route.js"></script>
+  <script src="bower_components/angular-touch/angular-touch.js"></script>
+  <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+  <script src="bower_components/angular-websocket/angular-websocket.min.js"></script>
+  <script src="bower_components/html5-qrcode/lib/jsqrcode.min.js"></script>
+  <script src="bower_components/html5-qrcode/lib/html5-qrcode.min.js"></script>
+  <script src="bower_components/fastclick/lib/fastclick.js"></script>
+  <!-- endbower -->
+  <!-- endbuild -->
+  
+  <!-- build:js scripts/app.min.js -->
+  <!-- inject:js -->
+  <script src="/views/device/list/device-list.js"></script>
+  <script src="/views/device/detail/device-detail.js"></script>
+  <script src="/views/device/bind/device-bind.js"></script>
+  <script src="/views/store/store.js"></script>
+  <script src="/views/main/main.js"></script>
+  <script src="/views/home/home.js"></script>
+  <script src="/views/device/device.js"></script>
+  <script src="/views/contact/contact.js"></script>
+  <script src="/views/application/application.js"></script>
+  <script src="/views/account/account.js"></script>
+  <script src="/components/services/serivce.js"></script>
+  <script src="/components/services/notification-service.js"></script>
+  <script src="/components/services/device-service.js"></script>
+  <script src="/components/services/app-service.js"></script>
+  <script src="/components/services/account-service.js"></script>
+  <script src="/components/models/ret-data.js"></script>
+  <script src="/components/directives/screen-directive.js"></script>
+  <script src="/components/directives/qrcode-directive.js"></script>
+  <script src="/components/directives/navs-directive.js"></script>
+  <script src="/components/directives/history-directive.js"></script>
+  <script src="/components/directives/focus-directive.js"></script>
+  <script src="/components/directives/expander-directive.js"></script>
+  <script src="/components/directives/directive.js"></script>
+  <script src="/views/view.js"></script>
+  <script src="/app.js"></script>
+  <!-- endinject -->
+  <!-- endbuild -->
+</body>
 </html>

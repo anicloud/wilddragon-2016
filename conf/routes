@@ -6,11 +6,21 @@
 GET         /                              @controllers.Application.index()
 GET         /login                         @controllers.Application.login()
 
+GET         /callback                      org.pac4j.play.CallbackController.callback()
+POST        /callback                      org.pac4j.play.CallbackController.callback()
+GET         /casProxyCallback              org.pac4j.play.CallbackController.callback()
+POST        /casProxyCallback              org.pac4j.play.CallbackController.callback()
+GET         /logout                        org.pac4j.play.CallbackController.logoutAndRedirect()
+
 # Map static resources from the /public folder to the /assets URL path
 GET         /views/*file                   controllers.Assets.at(path="/public/views", file)
 GET         /styles/*file                  controllers.Assets.at(path="/public/styles", file)
 GET         /scripts/*file                 controllers.Assets.at(path="/public/scripts", file)
 GET         /fonts/*file                   controllers.Assets.at(path="/public/fonts", file)
+GET         /components/*file              controllers.Assets.at(path="/public/components", file)
+GET         /bower_components/*file        controllers.Assets.at(path="/public/bower_components", file)
+GET         /app.css                       controllers.Assets.at(path="/public", file="app.css")
+GET         /app.js                        controllers.Assets.at(path="/public", file="app.js")
 
 # Notification
 GET         /notification/all              @controllers.NotificationController.getAllNotifications()
