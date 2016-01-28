@@ -12,8 +12,8 @@ var runSequence = require('run-sequence');
 
 var app = {
   src: 'app',
-  dist: '../public',
-  dev: 'dev'
+  dist: 'dist',
+  dev: '../public'
 };
 
 var paths = {
@@ -166,7 +166,7 @@ gulp.task('clean:prod', function (cb) {
 });
 
 gulp.task('link', $.shell.task([
-  'ln -s ../' + app.src + '/bower_components ' + app.dev + '/bower_components'
+  'ln -s ../web/app/bower_components ../public/bower_components'
 ]));
 
 ///////////

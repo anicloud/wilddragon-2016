@@ -10,6 +10,10 @@ angular.module('app.service.notification', [])
         method: 'GET',
         url: '/notification/all'
       }),
+      getWebSocket: $http({
+        method: 'GET',
+        url: '/notification/websocket'
+      }),
       connect: $websocket.$new({
         url: 'ws://localhost:8000/notification/websocket',
         reconnect: true
