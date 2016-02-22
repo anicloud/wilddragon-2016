@@ -8,8 +8,8 @@
   width: 260px;
   z-index: 1000;
   transition: all 0.35s ease;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.26);
-  background-color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  background-color: #F1F3F5;
   overflow-y: auto;
 }
 
@@ -30,10 +30,12 @@
 
 .sidebar-top {
   position: relative;
-  border-bottom: 1px solid #e8e8e8;
+  /*border-bottom: 1px solid #e8e8e8;*/
   margin: 0;
   padding: 0;
-  height: 50px;
+  height: 54px;
+  background-color: #5c5d5f;
+  color: #ffffff;
 }
 
 .sidebar-brand {
@@ -42,13 +44,13 @@
   padding: 16px 25px;
   font-size: 16px;
   line-height: 20px;
-  color: #777;
+  color: #ffffff !important;
 }
 
 .sidebar-brand:hover,
 .sidebar-brand:focus {
   text-decoration: none;
-  color: #5e5e5e;
+  color: #eaeaea;
   background-color: transparent;
 }
 
@@ -59,21 +61,60 @@
 .sidebar-header {
   position: relative;
   border-bottom: 1px solid #e8e8e8;
-  padding: 12px;
-  height: 60px
+  padding: 10px;
+  height: 72px;
+  /*box-shadow: 0 2px 1px rgba(0, 0, 0, 0.05);*/
 }
 
-.sidebar-header .avatar {
-  margin: 0 4px;
-  width: 36px;
-  height: 36px;
-  border: 1px solid #111;
-  border-radius: 18px;
+.sidebar-header div {
+  display: inline-block;
+}
+
+.sidebar-header .avatar img {
+  /*margin: 0 4px;*/
+  position: absolute;
+  top:11px;
+  left:10px;
+  width:48px;
+  height: 48px;
+  border: 1px solid #f5f7f9;
+  border-radius: 48px;
+  box-shadow:0 2px 12px rgba(0, 0, 0, 0.05) ;
 }
 
 .sidebar-header .info {
-
+  font-size: 12px;
+  /*margin-left:56px;*/
+  /*margin-top: 8px;*/
+  position: absolute;
+  top:18px;
+  left:66px;
 }
+
+.sidebar-header .info .logout {
+  color: #666;
+}
+
+.sidebar-header .info .logout:hover {
+  color: #8BC34A;
+}
+
+.sidebar-header .notif {
+  /*border: 1px solid;*/
+  border-radius: 50px;
+  padding: 4px 7px;
+  position: absolute;
+  top:22px;
+  right:14px;
+  /*background-color: #fff;*/
+  /*background-color: #eaeaea;*/
+}
+
+.sidebar-header .notif:active{
+  background-color: #f7f8f9;
+  /*border: 1px solid #8BC34A;*/
+}
+
 
 .sidebar-mask {
   position: fixed;

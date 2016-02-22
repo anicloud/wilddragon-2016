@@ -21,10 +21,15 @@
 }
 
 .content-header {
-  height: 50px;
+  width: calc(100% - 240px);
+  height: 54px;
+  position: fixed;
+  z-index: 10;
+  background-color: #fff;
 }
 
 .content-body {
+  margin-top: 49px;
   padding: 15px;
   width: 100%;
   min-height: calc(100% - 100px);

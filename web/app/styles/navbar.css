@@ -2,12 +2,13 @@
 
 .navbar {
   position: relative;
-  min-height: 50px;
+  min-height: 54px;
   border-radius: 0;
+  border-bottom: 1px solid #eaeaea;
   margin: 0;
   padding: 0 10px;
   /*border-bottom: 1px solid #e8e8e8;*/
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.26);
+  /*box-shadow: 0 1px 6px rgba(0, 0, 0, 0.26);*/
 }
 
 .navbar-toggle {

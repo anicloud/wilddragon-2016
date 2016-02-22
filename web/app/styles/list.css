@@ -16,11 +16,13 @@
 .list-item:focus {
   background-color: #f8f8f8;
   box-shadow: 1px 1px 6px #e8e8e8;
+  /*color:#8BC34A;*/
 }
 
 .list-item.active {
   box-shadow: 1px 1px 6px #e8e8e8;
   background-color: rgba(93, 219, 0, 0.46);
+
 }
 
 .list .list-item + .list-item {
@@ -34,6 +36,6 @@ a.list-item {
 }
 
 a.list-item.active {
-  color: #111;
+  color: #fff;
 }
 
