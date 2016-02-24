@@ -28,7 +28,7 @@ angular.module('app.view.main', ['ui.router'])
             return NotificationService.getAllNotifications();
           }
         },
-        controller: function ($rootScope, $scope, account, contacts, devices, apps) {
+        controller: function ($rootScope, $scope, $state, account, contacts, devices, apps) {
           if (account.success) {
             console.log("Got account data:");
             console.log(account.data);
@@ -57,6 +57,29 @@ angular.module('app.view.main', ['ui.router'])
           } else {
             console.error('Error in getting apps');
           }
+
+          $scope.sideTabs = {
+            app: {
+              name: '应用',
+              href: '#/application',
+              active: true
+            },
+            device: {
+              name: '设备',
+              href: '#/device/list/my',
+              active: false
+            },
+            store: {
+              name: '商店',
+              href: '#/store',
+              active: false
+            },
+            notify: {
+              name: '通知',
+              href: '',
+              active: false
+            }
+          };
 
           $scope.sidebarCollapse = true;
           $scope.toggleSidebar = function () {

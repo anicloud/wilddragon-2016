@@ -4,8 +4,8 @@
 'use strict';
 
 angular.module('app.directive', [
-  'app.directive.navs',
-  'app.directive.expander',
+  'app.directive.tab',
+  'app.directive.panel',
   'app.directive.focus',
   'app.directive.screenMatch',
   'app.directive.history',

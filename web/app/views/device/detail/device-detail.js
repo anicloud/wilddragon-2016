@@ -3,7 +3,10 @@
  */
 'use strict';
 
-angular.module('app.view.device.detail', ['ui.router'])
+angular.module('app.view.device.detail', [
+  'ui.router',
+  'app.view.device.detail.share'
+])
   .config(['$stateProvider', function ($stateProvider) {
     $stateProvider
       .state('main.device.detail', {
@@ -19,39 +22,54 @@ angular.module('app.view.device.detail', ['ui.router'])
 
       .state('main.device.detail.info', {
         url: '/info',
-        templateUrl: 'views/device/detail/device-detail-info.html',
+        templateUrl: 'views/device/detail/info/device-detail-info.html',
         controller: 'DeviceDetailInfoCtrl'
       })
 
-      .state('main.device.detail.share', {
-        url: '/share',
-        templateUrl: 'views/device/detail/device-detail-share.html',
-        controller: 'DeviceDetailShareCtrl'
-      })
-
       .state('main.device.detail.slave', {
-        url: '/slave/:slaveId',
-        templateUrl: 'views/device/detail/device-detail-slave.html',
+        url: '/:slaveId',
+        templateUrl: 'views/device/detail/info/device-detail-slave.html',
         controller: 'DeviceDetailSlaveCtrl'
       });
   }])
 
   .controller('DeviceDetailCtrl', function ($rootScope, $scope, $stateParams) {
     $scope.device = null;
+    $scope.isOwner = false;
     for (var i = 0; i < $rootScope.devices.length; i++) {
       if ($rootScope.devices[i].deviceId == $stateParams.id) {
         $scope.device = $rootScope.devices[i];
         break;
       }
     }
+    if ($scope.device.owner == $rootScope.account.accountId) {
+      $scope.isOwner = true;
+    }
     if ($scope.device === null) {
-      console.warn(typeof $stateParams.id);
       console.warn('cannot find device with id: ' + $stateParams.id);
     }
+    $scope.mainTabs = {
+      info: {
+        active: true
+      },
+      share: {
+        active: false
+      }
+    };
   })
 
   .controller('DeviceDetailInfoCtrl', function ($rootScope, $scope) {
-
+    $scope.detais = {
+      info: {
+        name: ['名称', '状态', '描述', 'ID', '出厂序列号', 'MAC地址']
+      },
+      function: {
+        name: []
+      },
+      slave: {
+        name: []
+      }
+    }
   })
 
   .controller('DeviceDetailSlaveCtrl', function ($rootScope, $scope, $stateParams) {
@@ -66,8 +84,4 @@ angular.module('app.view.device.detail', ['ui.router'])
     if ($scope.slave === null) {
       console.warn('cannot find slave device with id: ' + $stateParams.slaveId);
     }
-  })
-
-  .controller('DeviceDetailShareCtrl', function ($rootScope, $scope) {
-
   });

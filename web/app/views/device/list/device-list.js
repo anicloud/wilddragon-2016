@@ -31,6 +31,28 @@ angular.module('app.view.device.list', ['ui.router'])
       });
   }])
 
-  .controller('DeviceListCtrl', function ($rootScope, $scope) {
+  .controller('DeviceListCtrl', function ($rootScope, $scope, $state) {
+    $scope.listTabs = {
+      my: {
+        name: '我的设备',
+        href: '#/device/list/my',
+        active: true
+      },
+      shared: {
+        name: '共享的设备',
+        href: '#/device/list/shared',
+        active: false
+      }
+    };
+
+    $scope.myDevices = [];
+    $scope.sharedDevices = [];
+    for (var i = 0; i < $rootScope.devices.length; i++) {
+      if ($rootScope.devices[i].owner == $rootScope.account.accountId) {
+        $scope.myDevices.push($rootScope.devices[i]);
+      } else {
+        $scope.sharedDevices.push($rootScope.devices[i]);
+      }
+    }
   });
 

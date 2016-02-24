@@ -4,7 +4,7 @@
 'use strict';
 
 angular.module('app.directive.history', [])
-  .directive('ngHistoryBack', function ($timeout, $window) {
+  .directive('historyBack', function ($timeout, $window) {
     return {
       restrict: 'AC',
       link: function(scope, element, attrs) {

@@ -9,7 +9,12 @@ angular.module('app.view.application', ['ui.router'])
     $stateProvider
       .state('main.application', {
         url: '/application',
-        templateUrl: 'views/application/application.html'
+        views: {
+          'header@main': {
+            templateUrl: 'views/application/application-navbar.html',
+            controller: 'ApplicationCtrl'
+          }
+        }
       });
   }])
 

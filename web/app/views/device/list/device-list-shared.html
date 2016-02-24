@@ -1,27 +1,63 @@
-<div class="expander" data-ng-repeat="device in devices">
-  <div class="expander-header">
-    <div class="row">
-      <div class="col-xs-8">
-        {{device.name}}
-      </div>
-      <div class="col-xs-4">
+<div class="device-list">
+  <div class="panel device-panel" data-collapsed="collapsed" data-ng-repeat="device in sharedDevices">
+    <div class="panel-header">
+      <div class="cover">
         <a href="#/device/detail/{{device.deviceId}}/info">
-          detail
+          <img src="/images/IMG_5369.JPG">
         </a>
       </div>
+      <div class="info">
+        <div class="title">
+          <a href="#/device/detail/{{device.deviceId}}/info">
+            {{device.name}}
+          </a>
+        </div>
+        <div class="subtitle">
+          {{device.state}}
+        </div>
+      </div>
+      <div class="option">
+        <span uib-dropdown>
+          <a href uib-dropdown-toggle>
+            <i href class="fa fa-ellipsis-v"></i>
+          </a>
+          <ul uib-dropdown-menu>
+            <li>
+              <a href="#/device/detail/{{device.deviceId}}/info">设备详情</a>
+            </li>
+          </ul>
+        </span>
+        <span>
+          <a href data-panel-toggle>
+            <i class="fa" data-ng-class="{'fa-angle-right': collapsed, 'fa-angle-down': !collapsed}"></i>
+          </a>
+        </span>
+      </div>
     </div>
-  </div>
-  <div class="expander-body">
-    <div class="list">
-      <div class="list-item" data-ng-repeat="slave in device.slaves">
-        <div class="row">
-          <div class="col-xs-8">
-            {{slave.name}}
-          </div>
-          <div class="col-xs-4">
-            <a href="#/device/detail/{{device.deviceId}}/slave/{{slave.deviceId}}">
-              detail
-            </a>
+    <div class="panel-body" data-ng-class="{'collapse': collapsed}">
+      <div class="">
+        <div class="device-item" data-ng-repeat="slave in device.slaves">
+          <div class="row">
+            <div class="col-xs-7 col-md-3">
+              <div class="header" data-ng-class="{'active': slave.state==='ACTIVE'}">
+                <i class="fa fa-circle"></i>
+              </div>
+              <div class="title">
+                <a href="#/device/detail/{{device.deviceId}}/{{slave.deviceId}}">
+                  {{slave.name}}
+                </a>
+              </div>
+            </div>
+            <div class="col-xs-2 col-md-8">
+              <div class="subtitle">
+                {{slave.state}}
+              </div>
+            </div>
+            <div class="col-xs-1 col-md-1">
+              <a href="#/device/detail/{{device.deviceId}}/{{slave.deviceId}}">
+                <div class="more">更多</div>
+              </a>
+            </div>
           </div>
         </div>
       </div>

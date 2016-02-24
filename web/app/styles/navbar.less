@@ -2,19 +2,18 @@
 
 .navbar {
   position: relative;
+  //background-color: #8BC34A;
   min-height: 54px;
   border-radius: 0;
-  border-bottom: 1px solid #eaeaea;
   margin: 0;
-  padding: 0 10px;
   /*border-bottom: 1px solid #e8e8e8;*/
-  /*box-shadow: 0 1px 6px rgba(0, 0, 0, 0.26);*/
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.26);
 }
 
 .navbar-toggle {
-  /*position: relative;*/
-  /*float: left;*/
-  margin: 5px 0;
+  position: relative;
+  float: left;
+  margin: 9px;
   padding: 10px 10px;
   background: transparent none;
 }
@@ -56,6 +55,18 @@
   float: right;
 }
 
+.navbar-plus {
+  float: right;
+  margin: 5px 15px;
+  font-size: 30px;
+}
+
+.navbar-tool a {
+  display: block;
+  font-size: 1.3em;
+  padding: 10px 0;
+}
+
 .navbar-tool .icon {
   padding: 14px 5px;
   color: #000;
@@ -87,22 +98,53 @@
   box-shadow: 0 0 1px 1px rgba(0, 0, 0, .6) inset;
 }
 
-.navbar-tabs {
+.navbar .title {
+  position: absolute;
+  left: 50%;
+  max-width: 200px;
+  margin: 14px 0 14px -30px;
+  white-space: nowrap;
+  font-size: 16px;
+  color: #181818
+}
 
+.navbar-tabs {
+  position: relative;
   text-align: center;
-  height: 50px;
+  height: 65px;
+  padding-top: 15px;
+  margin:0 15px;
   border-bottom: 1px solid #e8e8e8;
 }
 .navbar-tabs .navbar-tab + .navbar-tab {
-  margin: 0 10px;
+  margin: 0 8px;
 }
+
 .navbar-tab {
   padding-top: 15px;
   height: 100%;
   min-width: 50px;
   display: inline-block;
+  font-size: 16px;
 }
 
 .navbar-tab.active {
-  border-bottom: 1px solid #111;
+  color: #8BC34A;
+  border-bottom: 3px solid #8BC34A;
+}
+
+.navbar-tab .icon {
+  font-size: 18px;
+  padding: 5px;
+}
+
+.navbar-tab .text {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .navbar-tab .text {
+    padding-right: 5px;
+    display: inline-block;
+  }
 }

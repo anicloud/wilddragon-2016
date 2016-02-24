@@ -20,7 +20,7 @@ angular.module('app.service.account', [])
       }
     };
   })
-  .factory('AccountService', function ($http) {
+  .factory('AccountService', function ($rootScope, $http) {
     var account0 = {
       accountId: 10101,
       email: 'anicloud@anicloud.com',

@@ -23,10 +23,10 @@ var paths = {
     app.src + '/components*/**/*.js'
   ],
   styles: [
-    app.src + '/app.css',
-    app.src + '/views*/**/*.css',
-    app.src + '/components*/**/*.css',
-    app.src + '/styles*/**/*.css'
+    app.src + '/app.less',
+    app.src + '/views*/**/*.less',
+    app.src + '/components*/**/*.less',
+    app.src + '/styles*/**/*.less'
   ],
   views: {
     main: app.src + '/index.html',
@@ -51,6 +51,7 @@ var paths = {
 
 gulp.task('styles', function () {
   return gulp.src(paths.styles)
+    .pipe($.less())
     .pipe($.autoprefixer('>1%'))
     .pipe(gulp.dest(app.dev));
 });
@@ -136,6 +137,7 @@ gulp.task('minimize', function () {
 gulp.task('watch', function () {
   $.watch(paths.styles)
     .pipe($.plumber())
+    .pipe($.less())
     .pipe($.autoprefixer('>1%'))
     .pipe(gulp.dest(app.dev))
     .pipe($.connect.reload());

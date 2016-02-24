@@ -1,0 +1,102 @@
+/*device list*/
+.device-list {
+  height: 100%;
+  margin: 0 15px;
+
+  .panel {
+    margin: 15px 0;
+
+    .panel-header {
+      height: 70px;
+
+      .cover {
+        float: left;
+        width: 70px;
+        height: 70px;
+      }
+
+      .cover img {
+        width: 70px;
+        height: 70px;
+      }
+
+      .info {
+        float: left;
+        margin-left: 16px;
+
+        .title {
+          padding: 10px 0 5px 0;
+          overflow-x: hidden;
+          white-space: nowrap;
+          font-size: 17px;
+          color: #111;
+        }
+        .subtitle {
+          color: #888;
+        }
+      }
+
+      .option {
+        float: right;
+        margin: 20px 8px 20px;
+        font-size: 22px;
+        span {
+          width: auto;
+          padding-right: 13px;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .device-list {
+    margin: 0 35px;
+  }
+}
+
+.device-item {
+  height: 50px;
+  border-top: 1px solid #e8e8e8;
+  .header {
+    float: left;
+    margin: 14px;
+    color: #e8e8e8;
+
+    &.active {
+      color: #8BC34A;
+    }
+  }
+  .title {
+    margin: 12px 0;
+    font-size: 15px;
+    color: #111;
+    white-space: nowrap;
+    overflow-x: hidden;
+  }
+
+  .subtitle {
+    width: 50px;
+    margin: 18px 0;
+    font-size: 10px;
+    color: #888;
+    white-space: nowrap;
+    overflow-x: hidden;
+  }
+
+  .more {
+    margin: 17px 0;
+    font-size: 13px;
+    color: #8BC34A;
+    white-space: nowrap;
+  }
+
+}
+
+.dropdown-menu {
+  min-width: 100px;
+}
+
+.dropdown-menu > li > a {
+  padding: 2px 8px;
+}

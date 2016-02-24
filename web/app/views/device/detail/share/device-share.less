@@ -1,0 +1,61 @@
+.device-share {
+  .panel {
+    margin: 15px;
+
+    .panel-header {
+      border-bottom: 1px solid #e8e8e8;
+
+      .title {
+        float: left;
+        margin: 15px 0 15px 30px;
+        font-size: 16px;
+        color: #111;
+      }
+
+      .option {
+        float: right;
+        margin: 15px 8px 15px;
+        font-size: 22px;
+      }
+
+      span {
+        width: auto;
+        padding-right: 12px;
+      }
+    }
+
+    .panel-body {
+      .item {
+        height: 50px;
+
+        .cover {
+          float: left;
+          width: 50px;
+          height: 50px;
+          padding: 7px 15px;
+
+          img {
+            width: 36px;
+            height: 36px;
+            border-radius: 36px;
+          }
+        }
+
+        .info {
+          float: left;
+          padding: 15px;
+        }
+      }
+
+      .item + .item {
+        border-top: 1px solid #e8e8e8;
+      }
+    }
+  }
+  @media (min-width: 768px) {
+    .panel {
+      margin: 15px 35px;
+    }
+  }
+
+}

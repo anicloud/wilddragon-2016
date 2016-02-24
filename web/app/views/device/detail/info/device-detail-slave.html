@@ -3,7 +3,7 @@
     <div class="expander-header">
       <div class="row">
         <div class="col-xs-8">
-          Device information:
+          设备基本信息
         </div>
       </div>
     </div>
@@ -11,37 +11,37 @@
       <div class="list">
         <div class="list-item">
           <div class="row">
-            <div class="col-xs-6">Device name</div>
+            <div class="col-xs-4">名称</div>
             <div class="col-xs-6">{{slave.name}}</div>
           </div>
         </div>
         <div class="list-item">
           <div class="row">
-            <div class="col-xs-6">Device state</div>
+            <div class="col-xs-4">状态</div>
             <div class="col-xs-6">{{slave.state}}</div>
           </div>
         </div>
         <div class="list-item">
           <div class="row">
-            <div class="col-xs-6">Device description</div>
+            <div class="col-xs-4">描述</div>
             <div class="col-xs-6">{{slave.description}}</div>
           </div>
         </div>
         <div class="list-item">
           <div class="row">
-            <div class="col-xs-6">Device Id</div>
+            <div class="col-xs-4">ID</div>
             <div class="col-xs-6">{{slave.deviceId}}</div>
           </div>
         </div>
         <div class="list-item">
           <div class="row">
-            <div class="col-xs-6">Device physical Id</div>
+            <div class="col-xs-4">出厂序列号</div>
             <div class="col-xs-6">{{slave.physicalId}}</div>
           </div>
         </div>
         <div class="list-item">
           <div class="row">
-            <div class="col-xs-6">Device MAC</div>
+            <div class="col-xs-4">MAC地址</div>
             <div class="col-xs-6">{{slave.physicalAddress}}</div>
           </div>
         </div>
@@ -53,7 +53,7 @@
     <div class="expander-header">
       <div class="row">
         <div class="col-xs-8">
-          Device functions:
+          设备功能详情
         </div>
       </div>
     </div>
@@ -61,10 +61,10 @@
       <div class="list" ng-repeat="function in slave.functions">
         <div class="list-item">
           <div class="row">
-            <div class="col-xs-3">Function Id</div>
-            <div class="col-xs-3">{{function.functionId}}</div>
-            <div class="col-xs-3">Function group id</div>
-            <div class="col-xs-3">{{function.groupId}}</div>
+            <div class="col-xs-1">ID</div>
+            <div class="col-xs-4">{{function.functionId}}</div>
+            <div class="col-xs-2">所属功能组ID</div>
+            <div class="col-xs-4">{{function.groupId}}</div>
           </div>
         </div>
       </div>

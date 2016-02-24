@@ -1,0 +1,93 @@
+.device-detail {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .device-detail {
+    margin: 0 20px;
+  }
+}
+
+.detail-content {
+  float: left;
+  width: 100%;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e8e8e8;
+
+  .title {
+    margin: 15px;
+    font-size: 16px;
+    color: #111;
+  }
+
+  .left {
+    padding-bottom: 15px;
+  }
+
+  .left .description {
+    padding: 0 15px;
+    font-size: 14px;
+    color: #757575;
+  }
+
+  .right {
+    padding-left: 15px;
+    padding-right: 15px;
+
+    .panel-body {
+
+      .item {
+        height: 50px;
+
+        .item-name {
+          margin: 13px 0 13px 20px;
+          font-size: 16px;
+          color: #111;
+          white-space: nowrap;
+        }
+        .item-detail {
+          margin: 14px 0;
+          font-size: 14px;
+          color: #757575;
+        }
+
+        .item-next {
+          margin: 14px 0;
+          font-size: 14px;
+        }
+      }
+
+      hr {
+        margin: 0;
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .detail-content .left {
+    float: left;
+    width: 30%;
+  }
+
+  .detail-content .right {
+    float: left;
+    width: 70%;
+  }
+}
+
+.detail-panel {
+
+}
+
+.detail-panel .panel-body {
+
+}
+
+.detail-item {
+  height: 50px;
+  padding: 14px 5px;
+  border-top: 1px solid #e8e8e8;
+}

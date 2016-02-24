@@ -5,7 +5,6 @@
 
 angular.module('app.view', [
   'app.view.main',
-  'app.view.home',
   'app.view.device',
   'app.view.application',
   'app.view.contact',
@@ -19,6 +18,6 @@ angular.module('app.view', [
     $locationProvider.html5Mode(false);
 
     // Defaults to dashboard
-    $urlRouterProvider.otherwise('/home');
+    $urlRouterProvider.otherwise('/application');
 
   }]);
