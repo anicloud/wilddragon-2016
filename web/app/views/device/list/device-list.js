@@ -10,29 +10,25 @@ angular.module('app.view.device.list', ['ui.router'])
       .state('main.device.list', {
         abstract: true,
         url: '/list',
-        views: {
-          'body@main': {
-            templateUrl: 'views/device/list/device-list.html',
-            controller: 'DeviceListCtrl'
-          }
-        }
+        templateUrl: 'views/device/list/device-list.html',
+        controller: 'DeviceListCtrl'
       })
 
       .state('main.device.list.my', {
         url: '/my',
         templateUrl: 'views/device/list/device-list-my.html',
-        controller: 'DeviceListCtrl'
+        controller: 'DeviceListMyCtrl'
       })
 
       .state('main.device.list.shared', {
         url: '/shared',
         templateUrl: 'views/device/list/device-list-shared.html',
-        controller: 'DeviceListCtrl'
+        controller: 'DeviceListSharedCtrl'
       });
   }])
 
   .controller('DeviceListCtrl', function ($rootScope, $scope, $state) {
-    $scope.listTabs = {
+    $scope.listNavTabs = {
       my: {
         name: '我的设备',
         href: '#/device/list/my',
@@ -54,5 +50,15 @@ angular.module('app.view.device.list', ['ui.router'])
         $scope.sharedDevices.push($rootScope.devices[i]);
       }
     }
+  })
+
+  .controller('DeviceListMyCtrl', function ($rootScope, $scope) {
+    $scope.listNavTabs.my.active = true;
+    $scope.listNavTabs.shared.active = false;
+  })
+
+  .controller('DeviceListSharedCtrl', function ($rootScope, $scope) {
+    $scope.listNavTabs.my.active = false;
+    $scope.listNavTabs.shared.active = true;
   });
 

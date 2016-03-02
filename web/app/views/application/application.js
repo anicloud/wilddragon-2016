@@ -18,6 +18,6 @@ angular.module('app.view.application', ['ui.router'])
       });
   }])
 
-  .controller('ApplicationCtrl', function () {
-
+  .controller('ApplicationCtrl', function ($scope) {
+    $scope.selectSideNavTab('app');
   });

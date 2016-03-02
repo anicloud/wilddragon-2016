@@ -5,11 +5,11 @@
 
 angular.module('app.view', [
   'app.view.main',
-  'app.view.device',
+  'app.view.account',
   'app.view.application',
-  'app.view.contact',
+  'app.view.device',
   'app.view.store',
-  'app.view.account'
+  'app.view.contact'
 ])
 
   .config(['$stateProvider', '$locationProvider', '$urlRouterProvider', function ($stateProvider, $locationProvider, $urlRouterProvider) {

@@ -4,31 +4,25 @@
 'use strict';
 
 angular.module('app.view.device.detail', [
-  'ui.router',
-  'app.view.device.detail.share'
+  'ui.router'
 ])
   .config(['$stateProvider', function ($stateProvider) {
     $stateProvider
       .state('main.device.detail', {
-        abstract: true,
         url: '/detail/:id',
-        views: {
-          'body@main': {
-            templateUrl: 'views/device/detail/device-detail.html',
-            controller: 'DeviceDetailCtrl'
-          }
-        }
+        templateUrl: 'views/device/detail/device-detail.html',
+        controller: 'DeviceDetailCtrl'
       })
 
       .state('main.device.detail.info', {
         url: '/info',
-        templateUrl: 'views/device/detail/info/device-detail-info.html',
-        controller: 'DeviceDetailInfoCtrl'
+        templateUrl: 'views/device/detail/device-detail-info.html',
+        controller: 'DeviceDetailCtrl'
       })
 
       .state('main.device.detail.slave', {
         url: '/:slaveId',
-        templateUrl: 'views/device/detail/info/device-detail-slave.html',
+        templateUrl: 'views/device/detail/device-detail-slave.html',
         controller: 'DeviceDetailSlaveCtrl'
       });
   }])
@@ -48,7 +42,7 @@ angular.module('app.view.device.detail', [
     if ($scope.device === null) {
       console.warn('cannot find device with id: ' + $stateParams.id);
     }
-    $scope.mainTabs = {
+    $scope.detailNavTabs = {
       info: {
         active: true
       },
@@ -56,32 +50,22 @@ angular.module('app.view.device.detail', [
         active: false
       }
     };
-  })
 
-  .controller('DeviceDetailInfoCtrl', function ($rootScope, $scope) {
-    $scope.detais = {
-      info: {
-        name: ['名称', '状态', '描述', 'ID', '出厂序列号', 'MAC地址']
-      },
-      function: {
-        name: []
-      },
-      slave: {
-        name: []
-      }
-    }
   })
 
   .controller('DeviceDetailSlaveCtrl', function ($rootScope, $scope, $stateParams) {
     $scope.slave = null;
-    for (var i = 0; i < $scope.device.slaves.length; i++) {
-      var slave = $scope.device.slaves[i];
-      if (slave.deviceId == $stateParams.slaveId) {
-        $scope.slave = slave;
-        break;
+    if (typeof($stateParams.slaveId) != 'undefined') {
+      for (var i = 0; i < $scope.device.slaves.length; i++) {
+        var slave = $scope.device.slaves[i];
+        if (slave.deviceId == $stateParams.slaveId) {
+          $scope.slave = slave;
+          break;
+        }
+      }
+      if ($scope.slave === null) {
+        console.warn('cannot find slave device with id: ' + $stateParams.slaveId);
       }
     }
-    if ($scope.slave === null) {
-      console.warn('cannot find slave device with id: ' + $stateParams.slaveId);
-    }
-  });
+  })
+;

@@ -59,3 +59,66 @@
   }
 
 }
+
+.modal-dialog {
+  margin: 100px auto;
+  width: 300px;
+  .modal-content {
+    border-radius: 4px;
+  }
+}
+
+@media (min-width: 768px) {
+  .modal-dialog {
+    width: 400px;
+  }
+}
+
+.share-modal {
+  .modal-header {
+    margin: 0;
+    padding: 0;
+    border: none;
+    .modal-close {
+      float: right;
+      padding: 12px;
+      font-size: 12px;
+      color: #aeaeae;
+    }
+  }
+  .modal-body {
+    margin: 0;
+    padding: 0;
+    border: none;
+    .line {
+      margin: 10px 0;
+      text-align: center;
+      &:last-child {
+        margin-bottom: 30px;
+      }
+
+      .icon {
+      color: #8BC34A;
+      font-size: 20px;
+      }
+
+      .text {
+        font-size: 16px;
+      }
+
+      input {
+        width: 240px;
+      }
+
+      button {
+        height: 30px;
+        font-size: 13px;
+      }
+    }
+  }
+  .modal-footer {
+    border: none;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+}

@@ -6,15 +6,21 @@
   left: 0;
   bottom: 0;
   width: 260px;
+  background-color: #f8f8f8;
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.26);
   z-index: 1000;
   transition: left 0.35s ease;
-  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.26);
-  background-color: #F5F5F5;
   overflow-y: auto;
 }
 
 .sidebar-collapse {
   left: -280px;
+}
+
+
+.sidebar-inner {
+  position: relative;
+  height: 100%;
 }
 
 @media (min-width: 768px) {
@@ -25,11 +31,6 @@
   }
 }
 
-.sidebar-inner {
-  position: relative;
-  min-height: 240px;
-}
-
 .sidebar-top {
   position: relative;
   /*border-bottom: 1px solid #e8e8e8;*/
@@ -37,7 +38,7 @@
   padding: 0;
   height: 54px;
   /*background-color: #5c5d5f;*/
-  background-color: #8BC34A;
+  background-color: #7CB342;
   color: #ffffff;
 }
 
@@ -137,7 +138,7 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   opacity: 0.8;
-  z-index: 1;
+  z-index: 10;
   visibility: hidden;
   /*transition: visibility 0.1s ease;*/
 }

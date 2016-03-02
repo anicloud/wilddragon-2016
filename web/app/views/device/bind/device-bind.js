@@ -4,7 +4,7 @@
 'use strict';
 
 angular.module('app.view.device.bind', ['ui.router'])
-  .config(['$stateProvider', function($stateProvider) {
+  .config(['$stateProvider', function ($stateProvider) {
     $stateProvider
       .state('main.device.bind', {
         url: '/bind',
@@ -18,13 +18,65 @@ angular.module('app.view.device.bind', ['ui.router'])
             controller: 'DeviceBindCtrl'
           }
         }
-      });
+      })
+
+      .state('main.device.bind.wifi', {
+        url: '/wifi',
+        views: {
+          'body@main': {
+            templateUrl: 'views/device/bind/device-bind-wifi.html',
+            controller: 'DeviceBindCtrl'
+          }
+        }
+      })
+
+      .state('main.device.bind.confirm', {
+        url: '/confirm',
+        views: {
+          'body@main': {
+            templateUrl: 'views/device/bind/device-bind-confirm.html',
+            controller: 'DeviceBindCtrl'
+          }
+        }
+      })
+    ;
   }])
 
-  .controller('DeviceBindCtrl', function ($rootScope, $scope) {
+  .controller('DeviceBindCtrl', function ($rootScope, $scope, $state) {
+    $scope.bindMethod = 'qrcode';
+    $scope.bindInfo = {
+      physicalId: '',
+      mac: ''
+    };
     $scope.qrcodeStart = false;
     $scope.qrcodeSuccess = function (result) {
       alert(result);
       $scope.qrcodeStart = false;
+      $scope.bindInfo.mac = result;
+      $scope.submitBindInfo();
+    };
+
+    $scope.submitBindInfo = function () {
+      console.log($scope.bindInfo);
+      $state.go('.wifi');
+      //  todo: if the wifi configuration has been done, then we shall go '.'
+    };
+
+    // wifi configuration
+    $scope.wifiInfo = {
+      ssid: '',
+      password: ''
+    };
+    $scope.wifiStart = false;
+    $scope.startWifiConfig = function () {
+      $scope.wifiStart = true;
+    };
+    $scope.stopWifiConfig = function () {
+      $scope.wifiStart = false;
+    };
+
+    // bind confirm
+    $scope.confirmBind = function () {
+
     };
   });

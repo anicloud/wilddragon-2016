@@ -8,7 +8,7 @@ angular.module('app.directive.panel', [])
     return {
       restrict: 'AC',
       scope: {
-        collapsed: '='
+        panelCollapsed: '='
       },
       controller: function ($scope) {
         this.body = null;
@@ -18,7 +18,7 @@ angular.module('app.directive.panel', [])
         };
 
         this.toggle = function () {
-          $scope.collapsed = !$scope.collapsed;
+          $scope.panelCollapsed = !$scope.panelCollapsed;
         };
       }
     };

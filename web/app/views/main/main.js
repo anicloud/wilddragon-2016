@@ -58,11 +58,11 @@ angular.module('app.view.main', ['ui.router'])
             console.error('Error in getting apps');
           }
 
-          $scope.sideTabs = {
+          $scope.sideNavTabs = {
             app: {
               name: '应用',
               href: '#/application',
-              active: true
+              active: false
             },
             device: {
               name: '设备',
@@ -79,6 +79,14 @@ angular.module('app.view.main', ['ui.router'])
               href: '',
               active: false
             }
+          };
+
+          $scope.selectSideNavTab = function (tabName) {
+            $scope.sideNavTabs.app.active = false;
+            $scope.sideNavTabs.device.active = false;
+            $scope.sideNavTabs.store.active = false;
+            $scope.sideNavTabs.notify.active = false;
+            $scope.sideNavTabs[tabName].active = true;
           };
 
           $scope.sidebarCollapse = true;

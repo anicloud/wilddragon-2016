@@ -10,17 +10,8 @@ angular.module('app.view.account', ['ui.router'])
     $stateProvider
       .state('main.account', {
         url: '/account',
-        views: {
-          'header@main': {
-            templateUrl: 'views/account/account-navbar.html',
-            controller: 'AccountCtrl'
-          },
-          'body@main': {
-            templateUrl: 'views/account/account.html',
-            controller: 'AccountCtrl'
-          }
-        }
-
+        templateUrl: 'views/account/account.html',
+        controller: 'AccountCtrl'
       });
   }])
 

@@ -13,18 +13,15 @@ angular.module('app.view.device', [
   .config(['$stateProvider', function ($stateProvider) {
     $stateProvider
       .state('main.device', {
-        abstract: true,
         url: '/device',
-        views: {
-          'header@main': {
-            templateUrl: 'views/device/device-navbar.html',
-            controller: 'DeviceCtrl'
-          }
-        }
+        controller: 'DeviceCtrl',
+        template: '<ui-view/>'
       });
   }])
 
   .controller('DeviceCtrl', function ($rootScope, $scope) {
+    $scope.selectSideNavTab('device');
+
     $scope.searchbarCollapse = true;
     $scope.search = function () {
       //  todo: search logic

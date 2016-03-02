@@ -9,10 +9,19 @@ angular.module('app.view.store', ['ui.router'])
     $stateProvider
       .state('main.store', {
         url: '/store',
-        templateUrl: 'views/store/store.html'
+        views: {
+          'header@main': {
+            templateUrl: 'views/store/store-navbar.html',
+            controller: 'StoreCtrl'
+          },
+          'body@main': {
+            templateUrl: 'views/store/store.html',
+            controller: 'StoreCtrl'
+          }
+        }
       });
   }])
 
-  .controller('StoreCtrl', function () {
-
+  .controller('StoreCtrl', function ($scope) {
+    $scope.selectSideNavTab('store');
   });

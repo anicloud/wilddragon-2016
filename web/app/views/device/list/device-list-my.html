@@ -1,5 +1,5 @@
 <div class="device-list">
-  <div class="panel" data-collapsed="collapsed" data-ng-repeat="device in myDevices">
+  <div class="panel" data-panel-collapsed="collapsed" data-ng-repeat="device in myDevices">
     <div class="panel-header">
       <div class="cover">
         <a href="#/device/detail/{{device.deviceId}}/info">
@@ -24,7 +24,7 @@
           <ul uib-dropdown-menu>
             <li>
               <a href="#/device/detail/{{device.deviceId}}/info">设备详情</a>
-              <a href>共享设备</a>
+              <a href="#/device/detail/{{device.deviceId}}/share">共享管理</a>
               <a href>解除绑定</a>
               <a href>删除共享</a>
             </li>

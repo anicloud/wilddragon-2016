@@ -1,11 +1,27 @@
-<div class="navbar-tabs" data-tabs>
-  <a class="navbar-tab" data-ng-class="{'active': listTabs.my.active}" data-tab data-tab-active="listTabs.my.active" href="{{listTabs.my.href}}">
-    <span class="icon"><i class="fa fa-user"></i> </span>
-    <span class="text">{{listTabs.my.name}}</span>
-  </a>
-  <a class="navbar-tab" data-ng-class="{'active': listTabs.shared.active}" data-tab data-tab-active="listTabs.shared.active" href="{{listTabs.shared.href}}">
-    <span class="icon"><i class="fa fa-users"></i> </span>
-    <span class="text">{{listTabs.shared.name}}</span>
-  </a>
+<div class="content-header">
+  <div class="navbar">
+    <div class="navbar-toggle" data-ng-click="toggleSidebar()">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="navbar-plus">
+      <a href="#/device/bind">
+        +
+      </a>
+    </div>
+  </div>
 </div>
-<div data-ui-view=""></div>
+<div class="content-body">
+  <div class="nav-tabs">
+    <a class="nav-tab" data-ng-class="{'active': listNavTabs.my.active}" href="{{listNavTabs.my.href}}">
+      <span class="icon"><i class="fa fa-user"></i> </span>
+      <span class="text">{{listNavTabs.my.name}}</span>
+    </a>
+    <a class="nav-tab" data-ng-class="{'active': listNavTabs.shared.active}" href="{{listNavTabs.shared.href}}">
+      <span class="icon"><i class="fa fa-users"></i> </span>
+      <span class="text">{{listNavTabs.shared.name}}</span>
+    </a>
+  </div>
+  <div data-ui-view=""></div>
+</div>

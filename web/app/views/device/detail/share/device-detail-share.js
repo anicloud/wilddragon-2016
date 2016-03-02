@@ -16,6 +16,9 @@ angular.module('app.view.device.detail.share', [
   }])
 
   .controller('DeviceDetailShareCtrl', function ($rootScope, $scope, $uibModal) {
+    $scope.detailNavTabs.share.active = true;
+    $scope.detailNavTabs.info.active = false;
+
     $scope.getDeviceGroups = function (device) {
       var deviceGroups = [];
       var accountGroups = $rootScope.account.groups;
@@ -43,18 +46,24 @@ angular.module('app.view.device.detail.share', [
     };
     $scope.deviceGroups = $scope.getDeviceGroups($scope.device);
 
-    $scope.shareForm = {};
+    $scope.shareForm = {
+      name: '',
+      members: [],
+      permissions: []
+    };
     $scope.openShareModal = function () {
-      $scope.shareForm.name = '';
-      var shareModal = $uibModal.open({
+      console.log($scope.shareForm);
+      var modal = $uibModal.open({
         animation: true,
-        templateUrl: 'views/device/detail/share/share-modal-open.html',
+        templateUrl: 'views/device/detail/share/share-modal-name.html',
         controller: 'ShareModalCtrl'
       });
-      shareModal.result.then(
-        function (name) {
-          $scope.shareForm.name = name;
-          $scope.openMemberModal();
+      modal.result.then(
+        function (result) {
+          if (result.success) {
+            $scope.shareForm.name = result.data;
+            $scope.openMemberModal();
+          }
         },
         function () {
           $scope.shareForm.name = '';
@@ -62,36 +71,46 @@ angular.module('app.view.device.detail.share', [
     };
 
     $scope.openMemberModal = function () {
-      $scope.shareForm.members = [];
-      var shareModal = $uibModal.open({
+      console.log($scope.shareForm);
+      var modal = $uibModal.open({
         animation: true,
         templateUrl: 'views/device/detail/share/share-modal-member.html',
         controller: 'MemberModalCtrl'
       });
-      shareModal.result.then(
-        function (members) {
-          $scope.shareForm.members = members;
-          $scope.openPermissionModal();
+      modal.result.then(
+        function (result) {
+          if (result.success) {
+            $scope.shareForm.members = result.data;
+            $scope.openPermissionModal();
+          } else {
+            $scope.openShareModal();
+            $scope.shareForm.members = [];
+          }
         },
         function () {
-
+          $scope.shareForm.members = [];
         }
       );
     };
 
     $scope.openPermissionModal = function () {
-      $scope.shareForm.permissions = [];
-      var shareModal = $uibModal.open({
+      console.log($scope.shareForm);
+      var modal = $uibModal.open({
         animation: true,
         templateUrl: 'views/device/detail/share/share-modal-permission.html',
         controller: 'PermissionModalCtrl'
       });
-      shareModal.result.then(
-        function (permissions) {
-          $scope.shareForm.permissions = permissions;
-          console.log($scope.shareForm);
+      modal.result.then(
+        function (result) {
+          if (result.success) {
+            $scope.shareForm.permissions = result.data;
+          } else {
+            $scope.openMemberModal();
+            $scope.shareForm.permissions = [];
+          }
         },
         function () {
+          $scope.shareForm.permissions = [];
         }
       );
     }
@@ -99,8 +118,10 @@ angular.module('app.view.device.detail.share', [
 
   .controller('ShareModalCtrl', function ($scope, $uibModalInstance) {
     $scope.name = '';
-    $scope.ok = function () {
-      $uibModalInstance.close($scope.name);
+    var result = { success: true, data: undefined};
+    $scope.forward = function () {
+      result.data = $scope.name;
+      $uibModalInstance.close(result);
     };
     $scope.cancel = function () {
       $uibModalInstance.dismiss();
@@ -109,8 +130,14 @@ angular.module('app.view.device.detail.share', [
 
   .controller('MemberModalCtrl', function ($scope, $uibModalInstance) {
     $scope.members = [];
-    $scope.ok = function () {
-      $uibModalInstance.close($scope.members);
+    var result = { success: true, data: undefined};
+    $scope.backward = function() {
+      result.success = false;
+      $uibModalInstance.close(result);
+    };
+    $scope.forward = function () {
+      result.data = $scope.members;
+      $uibModalInstance.close(result);
     };
     $scope.cancel = function () {
       $uibModalInstance.dismiss();
@@ -119,8 +146,14 @@ angular.module('app.view.device.detail.share', [
 
   .controller('PermissionModalCtrl', function ($scope, $uibModalInstance) {
     $scope.permissions = [];
-    $scope.ok = function () {
-      $uibModalInstance.close($scope.permissions);
+    var result = { success: true, data: undefined};
+    $scope.backward = function () {
+      result.success = false;
+      $uibModalInstance.close(result);
+    };
+    $scope.forward = function () {
+      result.data = $scope.permissions;
+      $uibModalInstance.close(result);
     };
     $scope.cancel = function () {
       $uibModalInstance.dismiss();

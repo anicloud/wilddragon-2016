@@ -1,24 +1,17 @@
 <div class="navbar">
-  <div class="title">
-    <a href="#/device/detail/{{device.deviceId}}/info">
-      {{device.name}}
-    </a>
+  <div class="navbar-title">
+    <i class="fa fa-file-text"></i>
+    {{device.name}}
   </div>
-  <div class="navbar-tool">
-    <div class="navbar-toggle" data-ng-click="toggleSidebar()">
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-    </div>
+  <div class="navbar-toggle" data-ng-click="toggleSidebar()">
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
   </div>
-  <div class="navbar-tool" data-history-back>
-    <a href>
-      <i class="fa fa-arrow-left"></i>
-    </a>
-  </div>
-  <div class="navbar-tool navbar-tool-right" data-ng-click="">
+  <div class="navbar-plus">
     <a href="#/device/bind">
-      <i class="fa fa-plus"></i>
+      +
     </a>
+    <!--<i class="fa fa-plus"></i>-->
   </div>
 </div>
