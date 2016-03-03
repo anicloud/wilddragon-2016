@@ -9,6 +9,7 @@ angular.module('app.view.device.detail', [
   .config(['$stateProvider', function ($stateProvider) {
     $stateProvider
       .state('main.device.detail', {
+        abstract: true,
         url: '/detail/:id',
         templateUrl: 'views/device/detail/device-detail.html',
         controller: 'DeviceDetailCtrl'

@@ -7,37 +7,28 @@ angular.module('app.view.device.bind', ['ui.router'])
   .config(['$stateProvider', function ($stateProvider) {
     $stateProvider
       .state('main.device.bind', {
+        abstract: true,
         url: '/bind',
-        views: {
-          'header@main': {
-            templateUrl: 'views/device/bind/device-bind-navbar.html',
-            controller: 'DeviceCtrl'
-          },
-          'body@main': {
-            templateUrl: 'views/device/bind/device-bind.html',
-            controller: 'DeviceBindCtrl'
-          }
-        }
+        templateUrl: 'views/device/bind/device-bind.html',
+        controller: 'DeviceBindCtrl'
+      })
+
+      .state('main.device.bind.qrcode', {
+        url: '/qrcode',
+        templateUrl: 'views/device/bind/device-bind-qrcode.html',
+        controller: 'DeviceBindCtrl'
       })
 
       .state('main.device.bind.wifi', {
         url: '/wifi',
-        views: {
-          'body@main': {
-            templateUrl: 'views/device/bind/device-bind-wifi.html',
-            controller: 'DeviceBindCtrl'
-          }
-        }
+        templateUrl: 'views/device/bind/device-bind-wifi.html',
+        controller: 'DeviceBindCtrl'
       })
 
       .state('main.device.bind.confirm', {
         url: '/confirm',
-        views: {
-          'body@main': {
-            templateUrl: 'views/device/bind/device-bind-confirm.html',
-            controller: 'DeviceBindCtrl'
-          }
-        }
+        templateUrl: 'views/device/bind/device-bind-confirm.html',
+        controller: 'DeviceBindCtrl'
       })
     ;
   }])
@@ -58,7 +49,7 @@ angular.module('app.view.device.bind', ['ui.router'])
 
     $scope.submitBindInfo = function () {
       console.log($scope.bindInfo);
-      $state.go('.wifi');
+      $state.go('^.wifi');
       //  todo: if the wifi configuration has been done, then we shall go '.'
     };
 
