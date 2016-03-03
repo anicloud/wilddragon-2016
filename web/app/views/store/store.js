@@ -9,16 +9,8 @@ angular.module('app.view.store', ['ui.router'])
     $stateProvider
       .state('main.store', {
         url: '/store',
-        views: {
-          'header@main': {
-            templateUrl: 'views/store/store-navbar.html',
-            controller: 'StoreCtrl'
-          },
-          'body@main': {
-            templateUrl: 'views/store/store.html',
-            controller: 'StoreCtrl'
-          }
-        }
+        templateUrl: 'views/store/store.html',
+        controller: 'StoreCtrl'
       });
   }])
 

@@ -62,7 +62,7 @@ angular.module('app.view.main', ['ui.router'])
             app: {
               name: '应用',
               href: '#/application',
-              active: false
+              active: true
             },
             device: {
               name: '设备',
