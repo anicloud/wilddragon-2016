@@ -1,41 +1,25 @@
-<div class="device-share">
-  <div class="panel" data-panel-collapsed="collapsed" data-ng-repeat="group in deviceGroups">
-    <div class="panel-header">
-      <div class="title">
-        {{group.name}}
+<div class="contact-wrapper">
+  <div class="contact-card" data-ng-repeat="group in deviceGroups">
+    <div class="card-title"></div>
+    <div class="card-content">
+      <div class="group-name">
+         {{group.name}}
       </div>
-      <div class="option">
-        <span uib-dropdown>
-          <a href uib-dropdown-toggle>
-            <i href class="fa fa-ellipsis-v"></i>
-          </a>
-          <ul uib-dropdown-menu>
-            <li>
-              <a href>修改共享名</a>
-              <a href>添加成员</a>
-              <a href>修改共享权限</a>
-              <a href>删除共享</a>
-            </li>
-          </ul>
-        </span>
-        <span>
-          <a href data-panel-toggle>
-            <i class="fa" data-ng-class="{'fa-angle-right': collapsed, 'fa-angle-down': !collapsed}"></i>
-          </a>
-        </span>
+      <div class="group-description">
+        这是我的家庭组，里面都是我的家人
       </div>
-    </div>
-    <div class="panel-body" data-ng-class="{'collapse': collapsed}">
-      <div class="item" data-ng-repeat="account in getGroupAccounts(group)">
-        <div class="cover">
+      <div class="group-members">
+        <div class="group-member" data-ng-repeat="account in getGroupAccounts(group)">
           <img src="/images/IMG_5369.JPG">
         </div>
-        <div class="info">
-          {{account.name}}
-        </div>
+      </div>
+      <div class="action">
+        <a href="#/contact/{{account.accountId}}">
+          <div class="btn btn-default">
+            更多
+          </div>
+        </a>
       </div>
     </div>
   </div>
-
-  <div class="btn btn-default" data-ng-click="openShareModal()">添加共享</div>
 </div>
