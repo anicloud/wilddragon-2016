@@ -9,10 +9,24 @@ angular.module('app.view.contact', ['ui.router'])
     $stateProvider
       .state('main.contact', {
         url: '/contact',
-        templateUrl: 'views/contact/contact.html'
+        templateUrl: 'views/contact/contact.html',
+        controller: 'ContactCtrl'
+      })
+
+      .state('main.contact.list', {
+        url: '/list',
+        templateUrl: 'views/contact/contact-list.html',
+        controller: 'ContactCtrl'
+      })
+
+      .state('main.contact.detail', {
+        url: '/:id',
+        templateUrl: 'views/contact/contact-detail.html',
+        controller: 'ContactCtrl'
       });
+
   }])
 
-  .controller('ContactCtrl', function () {
-
+  .controller('ContactCtrl', function ($scope) {
+    $scope.selectSideNavTab('contact');
   });

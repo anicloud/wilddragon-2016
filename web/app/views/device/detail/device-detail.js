@@ -16,9 +16,22 @@ angular.module('app.view.device.detail', [
       })
 
       .state('main.device.detail.info', {
+        abstract: true,
         url: '/info',
-        templateUrl: 'views/device/detail/device-detail-info.html',
+        templateUrl: 'views/device/detail/info/device-detail-info.html',
         controller: 'DeviceDetailCtrl'
+      })
+
+      .state('main.device.detail.info.basic', {
+        url: '/basic',
+        templateUrl: 'views/device/detail/info/device-detail-info-basic.html',
+        controller: 'DeviceDetailInfoBasicCtrl'
+      })
+
+      .state('main.device.detail.info.share', {
+        url: '/share',
+        templateUrl: 'views/device/detail/info/device-detail-info-share.html',
+        controller: 'DeviceDetailInfoShareCtrl'
       })
 
       .state('main.device.detail.slave', {
@@ -43,15 +56,59 @@ angular.module('app.view.device.detail', [
     if ($scope.device === null) {
       console.warn('cannot find device with id: ' + $stateParams.id);
     }
-    $scope.detailNavTabs = {
-      info: {
+
+
+    $scope.infoNavTabs = {
+      basic: {
+        name: '设备详情',
         active: true
       },
       share: {
+        name: '共享管理',
         active: false
       }
     };
 
+    $scope.selectInfoNavTab = function (tabName) {
+      $scope.infoNavTabs.basic.active = false;
+      $scope.infoNavTabs.share.active = false;
+      $scope.infoNavTabs[tabName].active = true;
+    }
+
+  })
+
+  .controller('DeviceDetailInfoBasicCtrl', function ($rootScope, $scope, $stateParams) {
+    $scope.selectInfoNavTab('basic');
+  })
+
+  .controller('DeviceDetailInfoShareCtrl', function ($rootScope, $scope, $stateParams) {
+    $scope.selectInfoNavTab('share');
+    $scope.getDeviceGroups = function (device) {
+      var deviceGroups = [];
+      var accountGroups = $rootScope.account.groups;
+      for (var i = 0; i < device.accountGroups.length; i++) {
+        for (var j = 0; j < accountGroups.length; j++) {
+          if (accountGroups[j].groupId == device.accountGroups[i]) {
+            deviceGroups.push(accountGroups[j]);
+            break;
+          }
+        }
+      }
+      return deviceGroups;
+    };
+    $scope.getGroupAccounts = function (group) {
+      var accounts = [];
+      for (var i = 0; i < group.accounts.length; i++) {
+        for (var j = 0; j < $rootScope.contacts.length; j++) {
+          if (group.accounts[i] == $rootScope.contacts[j].accountId) {
+            accounts.push($rootScope.contacts[j]);
+            break;
+          }
+        }
+      }
+      return accounts;
+    };
+    $scope.deviceGroups = $scope.getDeviceGroups($scope.device);
   })
 
   .controller('DeviceDetailSlaveCtrl', function ($rootScope, $scope, $stateParams) {

@@ -23,20 +23,26 @@
       </div>
       <div class="sidebar-menu">
         <div class="list">
-          <a class="list-item" data-ng-class="{'active': sideNavTabs.app.active}" href="{{sideNavTabs.app.href}}">
+          <a class="list-item" data-ng-class="{'active': sideNavTabs.app.active}" href="#/application">
             <i class="fa fa-th-large"></i>
-            <span>{{sideNavTabs.app.name}}</span>
+            <span class="text">{{sideNavTabs.app.name}}</span>
           </a>
-          <a class="list-item" data-ng-class="{'active': sideNavTabs.device.active}" href="{{sideNavTabs.device.href}}">
+          <a class="list-item" data-ng-class="{'active': sideNavTabs.device.active}" href="#/device/list/my">
             <i class="fa fa-desktop"></i>
-            <span>{{sideNavTabs.device.name}}</span>
+            <span class="text">{{sideNavTabs.device.name}}</span>
           </a>
-          <a class="list-item" data-ng-class="{'active': sideNavTabs.store.active}" href="{{sideNavTabs.store.href}}">
+          <a class="list-item" data-ng-class="{'active': sideNavTabs.store.active}" href="#/store">
             <i class="fa fa-shopping-bag"></i>
-            <span>{{sideNavTabs.store.name}}</span>
+            <span class="text">{{sideNavTabs.store.name}}</span>
           </a>
-          <!--<a class="list-item" data-tab href="#/contact">通知</a>-->
-          <!--<a class="list-item" data-tab href="#/contact">登出</a>-->
+          <a class="list-item" data-ng-class="{'active': sideNavTabs.contact.active}" href="#/contact/list">
+            <i class="fa fa-users"></i>
+            <span class="text">{{sideNavTabs.contact.name}}</span>
+          </a>
+          <a class="list-item" data-ng-class="{'active': sideNavTabs.settings.active}" href="#/settings">
+            <i class="fa fa-gear"></i>
+            <span class="text">{{sideNavTabs.settings.name}}</span>
+          </a>
         </div>
       </div>
     </div>

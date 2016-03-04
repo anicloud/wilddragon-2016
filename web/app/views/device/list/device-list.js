@@ -31,12 +31,10 @@ angular.module('app.view.device.list', ['ui.router'])
     $scope.listNavTabs = {
       my: {
         name: '我的设备',
-        href: '#/device/list/my',
         active: true
       },
       shared: {
         name: '共享的设备',
-        href: '#/device/list/shared',
         active: false
       }
     };

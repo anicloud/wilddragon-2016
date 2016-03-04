@@ -9,6 +9,7 @@ angular.module('app.view', [
   'app.view.application',
   'app.view.device',
   'app.view.store',
+  'app.view.settings',
   'app.view.contact'
 ])
 

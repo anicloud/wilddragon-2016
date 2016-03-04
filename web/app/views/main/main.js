@@ -61,22 +61,26 @@ angular.module('app.view.main', ['ui.router'])
           $scope.sideNavTabs = {
             app: {
               name: '应用',
-              href: '#/application',
               active: true
             },
             device: {
               name: '设备',
-              href: '#/device/list/my',
               active: false
             },
             store: {
               name: '商店',
-              href: '#/store',
+              active: false
+            },
+            contact: {
+              name: '联系人',
               active: false
             },
             notify: {
               name: '通知',
-              href: '',
+              active: false
+            },
+            settings: {
+              name: '设置',
               active: false
             }
           };
@@ -85,7 +89,9 @@ angular.module('app.view.main', ['ui.router'])
             $scope.sideNavTabs.app.active = false;
             $scope.sideNavTabs.device.active = false;
             $scope.sideNavTabs.store.active = false;
+            $scope.sideNavTabs.contact.active = false;
             $scope.sideNavTabs.notify.active = false;
+            $scope.sideNavTabs.settings.active = false;
             $scope.sideNavTabs[tabName].active = true;
           };
 

@@ -16,8 +16,6 @@ angular.module('app.view.device.detail.share', [
   }])
 
   .controller('DeviceDetailShareCtrl', function ($rootScope, $scope, $uibModal) {
-    $scope.detailNavTabs.share.active = true;
-    $scope.detailNavTabs.info.active = false;
 
     $scope.getDeviceGroups = function (device) {
       var deviceGroups = [];
