@@ -83,7 +83,8 @@
   }
 
   .avatar img:hover {
-    box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.26);
+    transform: scale(1.05);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.26);
   }
 
   .info {
@@ -112,6 +113,10 @@
     right: 14px;
     /*background-color: #fff;*/
     /*background-color: #eaeaea;*/
+    &:hover {
+      transform: scale(1.05);
+    }
+
   }
 
   .notif:active {
@@ -125,9 +130,12 @@
   .list-item {
     font-size: 16px;
     text-align: center;
-  }
-
-  i {
+    &:hover {
+      transform: scale(1.05);
+    }
+    &.active:hover {
+      transform: none;
+    }
   }
 
   .text {

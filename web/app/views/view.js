@@ -10,7 +10,8 @@ angular.module('app.view', [
   'app.view.device',
   'app.view.store',
   'app.view.settings',
-  'app.view.contact'
+  'app.view.contact',
+  'app.view.share'
 ])
 
   .config(['$stateProvider', '$locationProvider', '$urlRouterProvider', function ($stateProvider, $locationProvider, $urlRouterProvider) {

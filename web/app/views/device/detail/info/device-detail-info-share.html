@@ -1,9 +1,16 @@
 <div class="contact-wrapper">
+  <div class="contact-action">
+    <button class="btn btn-default" data-ng-click="openShareModal()">
+      创建共享
+    </button>
+  </div>
   <div class="contact-card" data-ng-repeat="group in deviceGroups">
-    <div class="card-title"></div>
+    <div class="card-title">
+      <a href=""><i class="fa fa-times"></i></a>
+    </div>
     <div class="card-content">
       <div class="group-name">
-         {{group.name}}
+        {{group.name}}
       </div>
       <div class="group-description">
         这是我的家庭组，里面都是我的家人

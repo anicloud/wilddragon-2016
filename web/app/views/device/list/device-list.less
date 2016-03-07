@@ -5,6 +5,15 @@
 
   .panel {
     margin: 15px 0;
+    &.collapsed {
+      border: 1px solid #e8e8e8;
+      box-shadow: none;
+      &:hover {
+        border-color: #fff;
+        transform: translate(-1px, -1px);
+        box-shadow: 1px 1px 4px rgba(0,0,0,0.26);
+      }
+    }
 
     .panel-header {
       height: 70px;

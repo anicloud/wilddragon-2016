@@ -1,16 +1,33 @@
 .contact-wrapper {
   padding: 20px;
+  .contact-action {
+    width: 80px;
+    margin: 0 auto;
+  }
   .contact-card {
     width: 200px;
     height: 260px;
     margin: 15px auto;
-    //border: 1px solid #e5e5e5;
-    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.26);
+    border: 1px solid #e5e5e5;
+    &:hover {
+      border-color: #fff;
+      transform: translate(-1px, -1px);
+      box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.26);
+    }
     .card-title {
       height: 20px;
+      text-align: right;
+      padding:0 5px;
+      font-size: 15px;
+      a {
+        color: #ccc;
+        &:hover {
+          color: #8BC34A;
+        }
+      }
     }
     .card-content {
-      margin: 10px 16px;
+      margin: 10px 15px;
       .group-name {
         width: 100px;
         margin: 0 auto;
@@ -64,6 +81,9 @@
   .contact-wrapper {
     padding: 20px;
     overflow: hidden;
+    .contact-action {
+      margin: 0 12px;
+    }
     .contact-card {
       float: left;
       margin: 16px 12px;

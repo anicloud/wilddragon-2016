@@ -4,7 +4,8 @@
 'use strict';
 
 angular.module('app.view.device.detail', [
-  'ui.router'
+  'ui.router',
+  'ui.bootstrap'
 ])
   .config(['$stateProvider', function ($stateProvider) {
     $stateProvider
@@ -81,7 +82,8 @@ angular.module('app.view.device.detail', [
     $scope.selectInfoNavTab('basic');
   })
 
-  .controller('DeviceDetailInfoShareCtrl', function ($rootScope, $scope, $stateParams) {
+
+  .controller('DeviceDetailInfoShareCtrl', function ($rootScope, $scope, $uibModal) {
     $scope.selectInfoNavTab('share');
     $scope.getDeviceGroups = function (device) {
       var deviceGroups = [];
@@ -109,6 +111,102 @@ angular.module('app.view.device.detail', [
       return accounts;
     };
     $scope.deviceGroups = $scope.getDeviceGroups($scope.device);
+
+    $scope.getDeviceGroups = function (device) {
+      var deviceGroups = [];
+      var accountGroups = $rootScope.account.groups;
+      for (var i = 0; i < device.accountGroups.length; i++) {
+        for (var j = 0; j < accountGroups.length; j++) {
+          if (accountGroups[j].groupId == device.accountGroups[i]) {
+            deviceGroups.push(accountGroups[j]);
+            break;
+          }
+        }
+      }
+      return deviceGroups;
+    };
+    $scope.getGroupAccounts = function (group) {
+      var accounts = [];
+      for (var i = 0; i < group.accounts.length; i++) {
+        for (var j = 0; j < $rootScope.contacts.length; j++) {
+          if (group.accounts[i] == $rootScope.contacts[j].accountId) {
+            accounts.push($rootScope.contacts[j]);
+            break;
+          }
+        }
+      }
+      return accounts;
+    };
+    $scope.deviceGroups = $scope.getDeviceGroups($scope.device);
+
+    $scope.shareForm = {
+      name: '',
+      members: [],
+      permissions: []
+    };
+    $scope.openShareModal = function () {
+      console.log($scope.shareForm);
+      var modal = $uibModal.open({
+        animation: true,
+        templateUrl: 'views/share/share-modal-name.html',
+        controller: 'ShareModalNameCtrl'
+      });
+      modal.result.then(
+        function (result) {
+          if (result.success) {
+            $scope.shareForm.name = result.data;
+            $scope.openMemberModal();
+          }
+        },
+        function () {
+          $scope.shareForm.name = '';
+        });
+    };
+
+    $scope.openMemberModal = function () {
+      console.log($scope.shareForm);
+      var modal = $uibModal.open({
+        animation: true,
+        templateUrl: 'views/share/share-modal-member.html',
+        controller: 'ShareModalMemberCtrl'
+      });
+      modal.result.then(
+        function (result) {
+          if (result.success) {
+            $scope.shareForm.members = result.data;
+            $scope.openPermissionModal();
+          } else {
+            $scope.openShareModal();
+            $scope.shareForm.members = [];
+          }
+        },
+        function () {
+          $scope.shareForm.members = [];
+        }
+      );
+    };
+
+    $scope.openPermissionModal = function () {
+      console.log($scope.shareForm);
+      var modal = $uibModal.open({
+        animation: true,
+        templateUrl: 'views/share/share-modal-permission.html',
+        controller: 'ShareModalPermissionCtrl'
+      });
+      modal.result.then(
+        function (result) {
+          if (result.success) {
+            $scope.shareForm.permissions = result.data;
+          } else {
+            $scope.openMemberModal();
+            $scope.shareForm.permissions = [];
+          }
+        },
+        function () {
+          $scope.shareForm.permissions = [];
+        }
+      );
+    }
   })
 
   .controller('DeviceDetailSlaveCtrl', function ($rootScope, $scope, $stateParams) {

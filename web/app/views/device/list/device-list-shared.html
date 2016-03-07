@@ -1,14 +1,14 @@
 <div class="device-list">
-  <div class="panel device-panel" data-panel-collapsed="collapsed" data-ng-repeat="device in sharedDevices">
+  <div class="panel" data-panel-collapsed="collapsed" data-ng-class="{'collapsed': collapsed}" data-ng-repeat="device in sharedDevices">
     <div class="panel-header">
       <div class="cover">
-        <a href="#/device/detail/{{device.deviceId}}/info">
+        <a href="#/device/detail/{{device.deviceId}}/info/basic">
           <img src="/images/IMG_5369.JPG">
         </a>
       </div>
       <div class="info">
         <div class="title">
-          <a href="#/device/detail/{{device.deviceId}}/info">
+          <a href="#/device/detail/{{device.deviceId}}/info/basic">
             {{device.name}}
           </a>
         </div>
@@ -23,7 +23,7 @@
           </a>
           <ul uib-dropdown-menu>
             <li>
-              <a href="#/device/detail/{{device.deviceId}}/info">设备详情</a>
+              <a href="#/device/detail/{{device.deviceId}}/info/basic">设备详情</a>
             </li>
           </ul>
         </span>

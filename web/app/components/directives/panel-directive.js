@@ -11,6 +11,8 @@ angular.module('app.directive.panel', [])
         panelCollapsed: '='
       },
       controller: function ($scope) {
+        $scope.panelCollapsed = true;
+
         this.body = null;
 
         this.addBody = function (body) {
