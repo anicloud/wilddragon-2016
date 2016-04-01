@@ -15,47 +15,59 @@ angular.module('app.view.main', ['ui.router'])
           account: function (AccountService) {
             return AccountService.getAccount();
           },
+          notifications: function (NotificationService) {
+            return NotificationService.getAllNotifications();
+          },
           contacts: function (AccountService) {
             return AccountService.getContacts();
           },
+          groups: function (AccountService) {
+            return AccountService.getGroups();
+          },
           devices: function (DeviceService) {
             return DeviceService.getDevices();
-          },
-          apps: function (AppService) {
-            return AppService.getApps();
-          },
-          notifications: function (NotificationService) {
-            return NotificationService.getAllNotifications();
           }
         },
-        controller: function ($rootScope, $scope, $state, account, contacts, devices, apps) {
+        controller: function ($rootScope, $scope, $window, $state, account, contacts, groups, devices) {
+          $scope.logout = function () {
+            $window.location.href = 'http://' + $window.location.host + "/logout";
+          };
+
           if (account.success) {
-            console.log("Got account data:");
+            console.log('Got account data:');
             console.log(account.data);
-            $rootScope.account = account.data;
+            $scope.account = account.data;
           } else {
             console.error('Error in getting account');
           }
           if (contacts.success) {
-            console.log("Got contacts data:");
+            console.log('Got contacts data:');
             console.log(contacts.data);
-            $rootScope.contacts = contacts.data;
+            $scope.contacts = contacts.data;
           } else {
-            console.error('Error in getting account');
+            console.error('Error in getting contacts');
+          }
+          if (groups.success) {
+            console.log('Got groups data:');
+            console.log(groups.data);
+            $scope.groups = groups.data;
+            $scope.groupMap = {};
+            angular.forEach($scope.groups, function (group) {
+              $scope.groupMap[group.groupId] = group;
+            });
+          } else {
+            console.error('Error in getting groups');
           }
           if (devices.success) {
-            console.log("Got devices data");
+            console.log('Got devices data');
             console.log(devices.data);
-            $rootScope.devices = devices.data;
+            $scope.devices = devices.data;
+            $scope.deviceMap = {};
+            angular.forEach($scope.devices, function (device) {
+              $scope.deviceMap[device.deviceId] = device;
+            });
           } else {
             console.error('Error in getting devices');
-          }
-          if (apps.success) {
-            console.log("Got apps data");
-            console.log(apps.data);
-            $rootScope.apps = apps.data;
-          } else {
-            console.error('Error in getting apps');
           }
 
           $scope.sideNavTabs = {
@@ -71,7 +83,7 @@ angular.module('app.view.main', ['ui.router'])
               name: '商店',
               active: false
             },
-            contact: {
+            group: {
               name: '分组',
               active: false
             },
@@ -89,7 +101,7 @@ angular.module('app.view.main', ['ui.router'])
             $scope.sideNavTabs.app.active = false;
             $scope.sideNavTabs.device.active = false;
             $scope.sideNavTabs.store.active = false;
-            $scope.sideNavTabs.contact.active = false;
+            $scope.sideNavTabs.group.active = false;
             $scope.sideNavTabs.notify.active = false;
             $scope.sideNavTabs.settings.active = false;
             $scope.sideNavTabs[tabName].active = true;

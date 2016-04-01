@@ -10,10 +10,22 @@ angular.module('app.view.application', ['ui.router'])
       .state('main.application', {
         url: '/application',
         templateUrl: 'views/application/application.html',
-        controller: 'ApplicationCtrl'
+        controller: 'ApplicationCtrl',
+        resolve: {
+          apps: function (AppService) {
+            return AppService.getApps();
+          }
+        }
       });
   }])
 
-  .controller('ApplicationCtrl', function ($scope) {
+  .controller('ApplicationCtrl', function ($scope, apps) {
     $scope.selectSideNavTab('app');
+    if (apps.success) {
+      console.log('Got apps data');
+      console.log(apps.data);
+      $scope.apps = apps.data;
+    } else {
+      console.error('Error in getting apps');
+    }
   });

@@ -11,7 +11,7 @@ angular.module('app.view.device.detail', [
     $stateProvider
       .state('main.device.detail', {
         abstract: true,
-        url: '/detail/:id',
+        url: '/{id:[0-9]+}',
         templateUrl: 'views/device/detail/device-detail.html',
         controller: 'DeviceDetailCtrl'
       })
@@ -36,22 +36,22 @@ angular.module('app.view.device.detail', [
       })
 
       .state('main.device.detail.slave', {
-        url: '/:slaveId',
-        templateUrl: 'views/device/detail/device-detail-slave.html',
+        url: '/{slaveId:[0-9]+}',
+        templateUrl: 'views/device/detail/slave/device-detail-slave.html',
         controller: 'DeviceDetailSlaveCtrl'
       });
   }])
 
-  .controller('DeviceDetailCtrl', function ($rootScope, $scope, $stateParams) {
+  .controller('DeviceDetailCtrl', function ($scope, $stateParams) {
     $scope.device = null;
     $scope.isOwner = false;
-    for (var i = 0; i < $rootScope.devices.length; i++) {
-      if ($rootScope.devices[i].deviceId == $stateParams.id) {
-        $scope.device = $rootScope.devices[i];
+    for (var i = 0; i < $scope.devices.length; i++) {
+      if ($scope.devices[i].deviceId == $stateParams.id) {
+        $scope.device = $scope.devices[i];
         break;
       }
     }
-    if ($scope.device.owner == $rootScope.account.accountId) {
+    if ($scope.device.owner == $scope.account.accountId) {
       $scope.isOwner = true;
     }
     if ($scope.device === null) {
@@ -61,7 +61,7 @@ angular.module('app.view.device.detail', [
 
     $scope.infoNavTabs = {
       basic: {
-        name: '设备详情',
+        name: '设备信息',
         active: true
       },
       share: {
@@ -74,142 +74,166 @@ angular.module('app.view.device.detail', [
       $scope.infoNavTabs.basic.active = false;
       $scope.infoNavTabs.share.active = false;
       $scope.infoNavTabs[tabName].active = true;
-    }
+    };
 
   })
 
-  .controller('DeviceDetailInfoBasicCtrl', function ($rootScope, $scope, $stateParams) {
+  .controller('DeviceDetailInfoBasicCtrl', function ($scope, $stateParams) {
     $scope.selectInfoNavTab('basic');
   })
 
-
-  .controller('DeviceDetailInfoShareCtrl', function ($rootScope, $scope, $uibModal) {
+  .controller('DeviceDetailInfoShareCtrl', function ($scope, $uibModal, $timeout, DeviceService) {
     $scope.selectInfoNavTab('share');
-    $scope.getDeviceGroups = function (device) {
-      var deviceGroups = [];
-      var accountGroups = $rootScope.account.groups;
-      for (var i = 0; i < device.accountGroups.length; i++) {
-        for (var j = 0; j < accountGroups.length; j++) {
-          if (accountGroups[j].groupId == device.accountGroups[i]) {
-            deviceGroups.push(accountGroups[j]);
-            break;
-          }
-        }
-      }
-      return deviceGroups;
-    };
-    $scope.getGroupAccounts = function (group) {
-      var accounts = [];
-      for (var i = 0; i < group.accounts.length; i++) {
-        for (var j = 0; j < $rootScope.contacts.length; j++) {
-          if (group.accounts[i] == $rootScope.contacts[j].accountId) {
-            accounts.push($rootScope.contacts[j]);
-            break;
-          }
-        }
-      }
-      return accounts;
-    };
-    $scope.deviceGroups = $scope.getDeviceGroups($scope.device);
+    $scope.shareList = [];
 
-    $scope.getDeviceGroups = function (device) {
-      var deviceGroups = [];
-      var accountGroups = $rootScope.account.groups;
-      for (var i = 0; i < device.accountGroups.length; i++) {
-        for (var j = 0; j < accountGroups.length; j++) {
-          if (accountGroups[j].groupId == device.accountGroups[i]) {
-            deviceGroups.push(accountGroups[j]);
-            break;
-          }
-        }
-      }
-      return deviceGroups;
+    $scope.updateShareList = function () {
+      $scope.shareList = [];
+      angular.forEach($scope.device.permissions, function (permission) {
+        var item = {};
+        item.group = $scope.groupMap[permission.groupId];
+        item.types = permission.types;
+        item.owner = $scope.device.owner;
+        $scope.shareList.push(item);
+      });
     };
-    $scope.getGroupAccounts = function (group) {
-      var accounts = [];
-      for (var i = 0; i < group.accounts.length; i++) {
-        for (var j = 0; j < $rootScope.contacts.length; j++) {
-          if (group.accounts[i] == $rootScope.contacts[j].accountId) {
-            accounts.push($rootScope.contacts[j]);
-            break;
-          }
-        }
-      }
-      return accounts;
-    };
-    $scope.deviceGroups = $scope.getDeviceGroups($scope.device);
 
-    $scope.shareForm = {
-      name: '',
-      members: [],
-      permissions: []
+    $scope.updateShareList();
+
+    $scope.getPermissionTypeName = function (type) {
+      if (type === 'READABLE') {
+        return '可读';
+      } else if (type === 'READABLE') {
+        return '可写';
+      } else {
+        return '可执行';
+      }
     };
-    $scope.openShareModal = function () {
-      console.log($scope.shareForm);
+
+    $scope.addShare = function () {
       var modal = $uibModal.open({
-        animation: true,
-        templateUrl: 'views/share/share-modal-name.html',
-        controller: 'ShareModalNameCtrl'
+        animation: false,
+        backdrop: false,
+        templateUrl: 'views/device/detail/info/share-modal.html',
+        controller: 'ShareModalCtrl',
+        scope: $scope
       });
       modal.result.then(
         function (result) {
-          if (result.success) {
-            $scope.shareForm.name = result.data;
-            $scope.openMemberModal();
-          }
+
         },
         function () {
-          $scope.shareForm.name = '';
-        });
-    };
 
-    $scope.openMemberModal = function () {
-      console.log($scope.shareForm);
-      var modal = $uibModal.open({
-        animation: true,
-        templateUrl: 'views/share/share-modal-member.html',
-        controller: 'ShareModalMemberCtrl'
-      });
-      modal.result.then(
+        }
+      );
+    };
+    $scope.removeShare = function (share) {
+      var shareData = {
+        deviceId: $scope.device.deviceId,
+        types: share.types,
+        groupId: share.group.groupId
+      };
+      DeviceService.unShareDevice(shareData).then(
         function (result) {
-          if (result.success) {
-            $scope.shareForm.members = result.data;
-            $scope.openPermissionModal();
+          if (result.success && result.data !== null) {
+            console.log('移除共享成功：');
+            console.log(result.data);
+            $timeout(function () {
+              $scope.device.permissions = result.data;
+              $scope.updateShareList();
+            }, 0);
           } else {
-            $scope.openShareModal();
-            $scope.shareForm.members = [];
+            console.log('移除共享失败：' + result.message);
           }
-        },
-        function () {
-          $scope.shareForm.members = [];
         }
       );
     };
 
-    $scope.openPermissionModal = function () {
-      console.log($scope.shareForm);
-      var modal = $uibModal.open({
-        animation: true,
-        templateUrl: 'views/share/share-modal-permission.html',
-        controller: 'ShareModalPermissionCtrl'
-      });
-      modal.result.then(
-        function (result) {
-          if (result.success) {
-            $scope.shareForm.permissions = result.data;
-          } else {
-            $scope.openMemberModal();
-            $scope.shareForm.permissions = [];
-          }
-        },
-        function () {
-          $scope.shareForm.permissions = [];
-        }
-      );
-    }
   })
 
-  .controller('DeviceDetailSlaveCtrl', function ($rootScope, $scope, $stateParams) {
+  .controller('ShareModalCtrl', function ($scope, $timeout, $uibModalInstance, AccountService, DeviceService) {
+    $scope.stage = 0;
+    $scope.shareData = {
+      deviceId: $scope.device.deviceId,
+      groupId: '',
+      types: []
+    };
+
+    $scope.permission = {
+      readable: true,
+      writable: true,
+      executable: true
+    };
+    $scope.forward = function (step) {
+      $scope.stage += step;
+    };
+    $scope.backward = function (step) {
+      $scope.stage -= step;
+    };
+    $scope.submit = function () {
+      if ($scope.permission.readable) {
+        $scope.shareData.types.push('READABLE');
+      }
+      if ($scope.permission.writable) {
+        $scope.shareData.types.push('WRITABLE');
+      }
+      if ($scope.permission.executable) {
+        $scope.shareData.types.push('EXECUTABLE');
+      }
+
+      console.log($scope.shareData);
+      DeviceService.shareDevice($scope.shareData).then(
+        function (result) {
+          if (result.success && result.data !== null) {
+            console.log('共享设备成功：');
+            console.log(result.data);
+            $timeout(function () {
+              $scope.device.permissions = result.data;
+              $scope.updateShareList();
+            }, 0);
+          } else {
+            console.log('共享设备失败：' + result.message);
+          }
+        }
+      );
+      $uibModalInstance.close();
+    };
+    $scope.cancel = function () {
+      $uibModalInstance.dismiss();
+    };
+
+    $scope.groupData = {
+      name: '',
+      accounts: []
+    };
+    $scope.addGroup = function () {
+      console.log($scope.groupData);
+      AccountService.createGroup($scope.groupData).then(
+        function (result) {
+          if (result.success && result.data !== null) {
+            console.log('添加分组成功：');
+            console.log(result.data);
+            $timeout(function () {
+              $scope.groups.push(result.data);
+              $scope.stage = 0;
+            }, 0);
+          } else {
+            console.log('添加分组失败：' + result.message);
+          }
+        });
+    };
+    $scope.loadTags = function (query) {
+      return AccountService.getAccountLike(query).then(function (result) {
+        if (result.success && result.data !== null) {
+          return result.data;
+        } else {
+          return [];
+        }
+      });
+    };
+    $scope.isGroupsCollapsed = true;
+  })
+
+  .controller('DeviceDetailSlaveCtrl', function ($scope, $stateParams) {
     $scope.slave = null;
     if (typeof($stateParams.slaveId) != 'undefined') {
       for (var i = 0; i < $scope.device.slaves.length; i++) {

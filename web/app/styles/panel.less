@@ -16,12 +16,18 @@
     }
   }
   .panel-body {
+    display: block;
     padding: 0;
-    //background-color: #fcfcfc;
+    opacity: 1;
+    max-height: 999px;
+    transition: max-height .5s, opacity .5s ease-in-out;
+    overflow: hidden;
   }
 
-  .panel-body.collapse {
-    display: none;
+  .panel-body.collapsed {
+    max-height: 0;
+    opacity: 0;
+    //display: none;
   }
 
   hr {

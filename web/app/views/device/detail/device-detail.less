@@ -34,33 +34,58 @@
       .panel {
         .panel-body {
           .item {
-            height: 50px;
+            @item-height: 50px;
+            height: @item-height;
             border-bottom: 1px solid #e8e8e8;
-            &:hover {
-              transform: translate(-1px, -1px);
-              box-shadow: 0 1px 3px rgba(0, 0, 0, 0.26);
-              opacity: 1;
-              background-color: white;
-            }
             &:last-child {
               border-bottom: none;
             }
             .item-name {
-              padding: 13px 0 13px 15px;
-              font-size: 16px;
-              color: #111;
+              float: left;
+              width: 30%;
+              max-width: 120px;
+              text-align: center;
+              line-height: @item-height;
+              font-size: 14px;
+              color: #757575;
               white-space: nowrap;
+              text-overflow: ellipsis;
               overflow: hidden;
+              &.highlight {
+                font-size: 16px;
+                color: #111;
+              }
             }
             .item-detail {
-              padding-top: 14px;
-              padding-bottom: 14px;
+              float: left;
+              width: 60%;
+              padding-left: 2%;
+              padding-right: 2%;
+              text-align: center;
+              line-height: @item-height;
               font-size: 15px;
               color: #757575;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              &.highlight {
+                color: #111;
+              }
+              button {
+                appearance: none;
+                width: 70px;
+                border: none;
+                border-radius: 16px;
+                box-shadow: 0 1px 4px rgba(0,0,0,0.26);
+                color: #a00;
+                background-color: #fff;
+              }
             }
-
             .item-next {
-              padding: 14px 0;
+              float: right;
+              width: 5%;
+              text-align: left;
+              line-height: @item-height;
               font-size: 14px;
             }
           }

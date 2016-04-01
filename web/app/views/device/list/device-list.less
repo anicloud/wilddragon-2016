@@ -1,83 +1,109 @@
 /*device list*/
 .device-list {
   height: 100%;
-  margin: 0 15px;
+  .panel-wrapper {
+    margin: 0 10px;
+    border-bottom: 1px solid #e8e8e8;
 
-  .panel {
-    margin: 15px 0;
-    &.collapsed {
-      border: 1px solid #e8e8e8;
+    .panel {
       box-shadow: none;
-      &:hover {
-        border-color: #fff;
-        transform: translate(-1px, -1px);
-        box-shadow: 1px 1px 4px rgba(0,0,0,0.26);
-      }
-    }
 
-    .panel-header {
-      height: 70px;
+      .panel-header {
+        @panel-header-height: 56px;
+        height: @panel-header-height;
+        margin: 8px 10px;
+        .cover {
+          float: left;
+          width: @panel-header-height;
+          height: @panel-header-height;
+          img {
+            width: @panel-header-height;
+            height: @panel-header-height;
+          }
+        }
 
-      .cover {
-        float: left;
-        width: 70px;
-        height: 70px;
-      }
-
-      .cover img {
-        width: 70px;
-        height: 70px;
-      }
-
-      .info {
-        float: left;
-        margin-left: 16px;
-
-        .title {
-          padding: 10px 0 5px 0;
+        .info {
+          float: left;
+          margin-left: 20px;
+          max-width: 120px;
           overflow-x: hidden;
-          white-space: nowrap;
-          font-size: 17px;
-          color: #111;
+          .title {
+            margin-top: 8px;
+            white-space: nowrap;
+            font-size: 16px;
+            color: #111;
+          }
+          .subtitle {
+            margin-top: 1px;
+            font-size: 12px;
+            color: #777;
+          }
         }
-        .subtitle {
-          color: #888;
-        }
-      }
 
-      .option {
-        float: right;
-        margin: 20px 8px 20px;
-        font-size: 22px;
-        span {
-          width: auto;
-          padding-right: 13px;
+        .extra {
+          float: left;
+          line-height: @panel-header-height;
+          margin-left: 8px;
+          font-size: 12px;
+          color: #777;
+        }
+
+        .options {
+          float: right;
+          span {
+            line-height: @panel-header-height;
+            font-size: 20px;
+            width: auto;
+            padding-right: 16px;
+            overflow: hidden;
+            &.mobile-visible {
+              display: inline;
+            }
+            &.mobile-invisible {
+              display: none;
+            }
+          }
+          @media screen and (min-width: 768px) {
+            span {
+              &.mobile-visible {
+                display: none;
+              }
+              &.mobile-invisible {
+                display: inline;
+              }
+            }
+          }
         }
       }
     }
   }
 }
 
-@media (min-width: 768px) {
+@media screen and (min-width: 768px) {
   .device-list {
-    margin: 0 35px;
+    .panel-wrapper {
+      margin: 0 25px;
+    }
   }
 }
 
 .device-item {
-  height: 50px;
+  @device-item-height: 50px;
+  height: @device-item-height;
   border-top: 1px solid #e8e8e8;
   .header {
     float: left;
-    margin: 14px;
+    margin-left: 16px;
+    line-height: @device-item-height;
     color: #e8e8e8;
-
     &.active {
       color: #8BC34A;
     }
   }
   .title {
-    margin: 12px 0;
+    float:left;
+    margin-left: 16px;
+    line-height: @device-item-height;
     font-size: 15px;
     color: #111;
     white-space: nowrap;
@@ -85,8 +111,9 @@
   }
 
   .subtitle {
-    width: 50px;
-    margin: 18px 0;
+    float: left;
+    line-height: @device-item-height;
+    width: @device-item-height;
     font-size: 10px;
     color: #888;
     white-space: nowrap;
@@ -94,8 +121,10 @@
   }
 
   .more {
-    margin: 17px 0;
-    font-size: 13px;
+    float: right;
+    margin-right: 20px;
+    line-height: @device-item-height;
+    font-size: 14px;
     color: #8BC34A;
     white-space: nowrap;
   }

@@ -21,7 +21,6 @@ angular.module('app.view.device', [
 
   .controller('DeviceCtrl', function ($rootScope, $scope) {
     $scope.selectSideNavTab('device');
-
     $scope.searchbarCollapse = true;
     $scope.search = function () {
       //  todo: search logic

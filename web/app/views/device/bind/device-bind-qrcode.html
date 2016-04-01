@@ -40,15 +40,15 @@
   <div class="bind-info">
     <div class="info-item">
       <label>出厂序列号:</label>
-      <input type="text" placeholder="12345678" data-ng-model="bindInfo.physicalId">
+      <input type="text" placeholder="12345678" data-ng-model="bindData.physicalId">
     </div>
     <div class="info-item">
       <label>MAC地址:</label>
-      <input type="text" placeholder="A6-29-00-01-6C-06" data-ng-model="bindInfo.mac">
+      <input type="text" placeholder="A6-29-00-01-6C-06" data-ng-model="bindData.physicalAddress">
     </div>
   </div>
   <div class="bind-action">
-    <button class="btn btn-default" data-ng-click="submitBindInfo()">
+    <button class="btn btn-default" data-ng-click="checkQrcode()">
       下一步
     </button>
   </div>

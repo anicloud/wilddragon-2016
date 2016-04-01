@@ -1,32 +1,32 @@
-<div class="contact-wrapper">
-  <div class="contact-action">
-    <button class="btn btn-default" data-ng-click="openShareModal()">
-      创建共享
-    </button>
-  </div>
-  <div class="contact-card" data-ng-repeat="group in deviceGroups">
-    <div class="card-title">
-      <a href=""><i class="fa fa-times"></i></a>
-    </div>
-    <div class="card-content">
-      <div class="group-name">
-        {{group.name}}
-      </div>
-      <div class="group-description">
-        这是我的家庭组，里面都是我的家人
-      </div>
-      <div class="group-members">
-        <div class="group-member" data-ng-repeat="account in getGroupAccounts(group)">
-          <img src="/images/IMG_5369.JPG">
+<div class="device-share">
+  <div class="panel-wrapper" data-ng-repeat="share in shareList">
+    <div class="panel">
+      <div class="panel-header">
+        <div class="cover" data-ng-click="$event.stopPropagation()">
+          <a href="#/group/{{share.group.groupId}}">
+            <img src="/images/IMG_5369.JPG">
+            <img src="/images/IMG_5369.JPG">
+            <img src="/images/IMG_5369.JPG">
+          </a>
+        </div>
+        <div class="info">
+          <div class="title">
+            已共享至 {{share.group.name}}
+          </div>
+          <div class="subtitle">
+            权限: <span data-ng-repeat="type in share.types">{{getPermissionTypeName(type)}}</span>
+          </div>
+        </div>
+        <div class="option">
+          <button class="btn btn-default" data-ng-click="removeShare(share)">移除共享</button>
         </div>
       </div>
-      <div class="action">
-        <a href="#/contact/{{account.accountId}}">
-          <div class="btn btn-default">
-            更多
-          </div>
-        </a>
-      </div>
     </div>
+  </div>
+
+  <div class="">
+    <button class="btn btn-default" data-ng-click="addShare()">
+      创建共享
+    </button>
   </div>
 </div>

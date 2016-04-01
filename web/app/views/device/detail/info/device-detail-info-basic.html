@@ -9,59 +9,46 @@
     <div class="right">
       <div class="panel">
         <div class="panel-body">
-          <div class="item container-fluid">
+          <div class="item">
             <a href>
-              <div class="row">
-                <div class="item-name col-xs-3">名称</div>
-                <div class="item-detail col-xs-8">{{device.name}}</div>
-                <div class="item-next col-xs-1"><i class="fa fa-angle-right"></i></div>
-              </div>
+              <div class="item-name highlight">名称</div>
+              <div class="item-detail">{{device.name}}</div>
+              <div class="item-next"><i class="fa fa-angle-right"></i></div>
             </a>
           </div>
-          <div class="item container-fluid">
+          <div class="item">
             <a href>
-              <div class="row">
-                <div class="item-name col-xs-3">状态</div>
-                <div class="item-detail col-xs-8">{{device.state}}</div>
-                <div class="item-next col-xs-1"><i class="fa fa-angle-right"></i></div>
-              </div>
+              <div class="item-name highlight">状态</div>
+              <div class="item-detail">{{device.state}}</div>
+              <div class="item-next"><i class="fa fa-angle-right"></i></div>
             </a>
           </div>
-          <div class="item container-fluid">
+          <div class="item">
             <a href>
-              <div class="row">
-                <div class="item-name col-xs-3">描述</div>
-                <div class="item-detail col-xs-8">{{device.description}}</div>
-                <div class="item-next col-xs-1"><i class="fa fa-angle-right"></i></div>
-              </div>
+              <div class="item-name highlight">描述</div>
+              <div class="item-detail">{{device.description}}</div>
+              <div class="item-next"><i class="fa fa-angle-right"></i></div>
             </a>
           </div>
-
-          <div class="item container-fluid">
+          <div class="item">
             <a href>
-              <div class="row">
-                <div class="item-name col-xs-3">ID</div>
-                <div class="item-detail col-xs-8">{{device.deviceId}}</div>
-                <div class="item-next col-xs-1"><i class="fa fa-angle-right"></i></div>
-              </div>
+              <div class="item-name highlight">ID</div>
+              <div class="item-detail">{{device.deviceId}}</div>
+              <div class="item-next"><i class="fa fa-angle-right"></i></div>
             </a>
           </div>
-          <div class="item container-fluid">
+          <div class="item">
             <a href>
-              <div class="row">
-                <div class="item-name col-xs-3">序列号</div>
-                <div class="item-detail col-xs-8">{{device.physicalId}}</div>
-                <div class="item-next col-xs-1"><i class="fa fa-angle-right"></i></div>
-              </div>
+              <div class="item-name highlight">序列号</div>
+              <div class="item-detail">{{device.physicalId}}</div>
+              <div class="item-next"><i class="fa fa-angle-right"></i></div>
             </a>
           </div>
-          <div class="item container-fluid">
+          <div class="item">
             <a href>
-              <div class="row">
-                <div class="item-name col-xs-3">MAC地址</div>
-                <div class="item-detail col-xs-8">{{device.physicalAddress}}</div>
-                <div class="item-next col-xs-1"><i class="fa fa-angle-right"></i></div>
-              </div>
+              <div class="item-name highlight">MAC地址</div>
+              <div class="item-detail">{{device.physicalAddress}}</div>
+              <div class="item-next"><i class="fa fa-angle-right"></i></div>
             </a>
           </div>
         </div>
@@ -78,14 +65,14 @@
     <div class="right">
       <div class="panel">
         <div class="panel-body">
-          <div class="item container-fluid" data-ng-repeat="function in device.functions">
+          <div class="item">
+            <div class="item-name highlight">功能ID</div>
+            <div class="item-detail highlight">所属功能组ID</div>
+          </div>
+          <div class="item" data-ng-repeat="function in device.functions">
             <a href>
-              <div class="row">
-                <div class="item-name col-xs-3">功能ID</div>
-                <div class="item-detail col-xs-2">{{function.functionId}}</div>
-                <div class="item-name col-xs-3">所属功能组ID</div>
-                <div class="item-detail col-xs-2">{{function.groupId}}</div>
-              </div>
+              <div class="item-name">{{function.functionId}}</div>
+              <div class="item-detail">{{function.groupId}}</div>
             </a>
           </div>
         </div>
@@ -102,17 +89,39 @@
     <div class="right">
       <div class="panel">
         <div class="panel-body">
-          <div class="item container-fluid" data-ng-repeat="slave in device.slaves">
+          <div class="item">
+            <div class="item-name highlight">名称</div>
+            <div class="item-detail highlight">描述</div>
+          </div>
+          <div class="item item-vertical" data-ng-repeat="slave in device.slaves">
             <a href="#/device/detail/{{device.deviceId}}/slave/{{slave.deviceId}}">
-              <div class="row">
-                <div class="item-name col-xs-3">从设备ID</div>
-                <div class="item-detail col-xs-8">{{slave.deviceId}}</div>
-                <div class="item-next col-xs-1"><i class="fa fa-angle-right"></i></div>
-              </div>
+              <div class="item-name">{{slave.name}}</div>
+              <div class="item-detail">{{slave.description}}</div>
             </a>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <div class="detail-content">
+    <div class="title">解除绑定</div>
+    <div class="left">
+      <div class="description">
+        解除绑定将使设备变为无主状态,可重新绑定账号
+      </div>
+    </div>
+    <div class="right">
+      <div class="panel">
+        <div class="panel-body">
+          <div class="item">
+            <div class="item-name highlight">解除绑定</div>
+            <div class="item-detail highlight">
+              <button class="btn btn-default">确定</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>

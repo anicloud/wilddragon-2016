@@ -13,15 +13,71 @@
   </div>
 </div>
 <div class="content-body">
-  <div class="nav-tabs">
-    <a class="nav-tab" data-ng-class="{'active': listNavTabs.my.active}" href="#/device/list/my">
-      <span class="icon"><i class="fa fa-user"></i> </span>
-      <span class="text">{{listNavTabs.my.name}}</span>
-    </a>
-    <a class="nav-tab" data-ng-class="{'active': listNavTabs.shared.active}" href="#/device/list/shared">
-      <span class="icon"><i class="fa fa-users"></i> </span>
-      <span class="text">{{listNavTabs.shared.name}}</span>
-    </a>
+  <div class="device-list">
+    <div class="panel-wrapper" data-ng-repeat="device in devices">
+      <div class="panel" data-panel-collapsed="collapsed" data-ng-class="{'collapsed': collapsed}">
+        <div class="panel-header" data-panel-toggle>
+          <div class="cover" data-ng-click="$event.stopPropagation()">
+            <a href="#/device/{{device.deviceId}}/info/basic">
+              <img src="/images/IMG_5369.JPG">
+            </a>
+          </div>
+          <div class="info" data-ng-click="$event.stopPropagation()">
+            <div class="title">
+              <a href="#/device/{{device.deviceId}}/info/basic" data-ng-click="stopPropagation()">
+                {{device.name}}
+              </a>
+            </div>
+            <div class="subtitle" data-ng-show="device.owner!=account.accountId">
+              共享来自{{device.owner}}
+            </div>
+          </div>
+          <div class="extra" data-ng-click="$event.stopPropagation()">
+
+          </div>
+          <div class="options" data-ng-click="$event.stopPropagation()">
+            <span uib-dropdown>
+              <a href uib-dropdown-toggle>
+                <i href class="fa fa-ellipsis-v"></i>
+              </a>
+              <ul uib-dropdown-menu>
+                <li>
+                  <a href="#/device/{{device.deviceId}}/info/basic"><i class="fa fa-file"></i>&nbsp;&nbsp;设备详情</a>
+                  <a href="#/device/{{device.deviceId}}/info/share" data-ng-show="device.owner==account.accountId"><i
+                      class="fa fa-share-alt"></i>&nbsp;&nbsp;共享管理</a>
+                  <a href data-ng-show="device.owner==account.accountId"><i
+                      class="fa fa-unlock"></i>&nbsp;&nbsp;解除绑定</a>
+                </li>
+              </ul>
+            </span>
+            <span>
+              <a href data-panel-toggle>
+                <i class="fa" data-ng-class="{'fa-angle-down': collapsed, 'fa-angle-up': !collapsed}"></i>
+              </a>
+            </span>
+          </div>
+        </div>
+        <div class="panel-body" data-ng-class="{'collapsed': collapsed}">
+          <div class="device-item" data-ng-repeat="slave in device.slaves">
+            <div class="header" data-ng-class="{'active': slave.state==='ACTIVE'}">
+              <i class="fa fa-circle"></i>
+            </div>
+            <div class="title">
+              <a href="#/device/{{device.deviceId}}/{{slave.deviceId}}">
+                {{slave.name}}
+              </a>
+            </div>
+            <div class="subtitle">
+
+            </div>
+            <div class="more">
+              <a href="#/device/{{device.deviceId}}/{{slave.deviceId}}">
+                更多
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div data-ui-view=""></div>
 </div>

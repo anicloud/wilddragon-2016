@@ -9,23 +9,23 @@
   <div class="bind-info">
     <div class="info-detail">
       <label>提供商：</label>
-      <span>小米</span>
+      <span></span>
     </div>
     <div class="info-detail">
       <label>序列号：</label>
-      <span>12345678</span>
+      <span>{{bindData.physicalId}}</span>
     </div>
     <div class="info-detail">
       <label>MAC地址：</label>
-      <span>A6-29-00-01-6C-06</span>
+      <span>{{bindData.physicalAddress}}</span>
     </div>
     <div class="info-detail">
       <label>描述：</label>
-      <span>设备描述信息</span>
+      <span></span>
     </div>
   </div>
   <div class="bind-action">
-    <button class="btn btn-default" data-ng-click="">
+    <button class="btn btn-default" data-ng-click="checkBind()">
       绑定
     </button>
   </div>

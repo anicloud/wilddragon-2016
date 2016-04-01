@@ -10,12 +10,12 @@
       <div class="sidebar-header">
         <div class="avatar">
           <a href="#/account">
-            <img src="/images/IMG_5369.JPG">
+            <img src="{{account.avatarUrl}}">
           </a>
         </div>
         <div class="info">
-          <a href="#/account"><strong> anicloud@anicloud.com </strong></a><br>
-          <a class="logout" href=""><strong>登出</strong></a>
+          <a href="#/account"><strong> {{account.email}} </strong></a><br>
+          <a class="logout" href data-ng-click="logout()"><strong>登出</strong></a>
         </div>
         <div class="notif">
           <a href=""><i class="fa fa-bell"></i></a>
@@ -27,7 +27,7 @@
             <i class="fa fa-th-large"></i>
             <span class="text">{{sideNavTabs.app.name}}</span>
           </a>
-          <a class="list-item" data-ng-class="{'active': sideNavTabs.device.active}" href="#/device/list/my">
+          <a class="list-item" data-ng-class="{'active': sideNavTabs.device.active}" href="#/device/list">
             <i class="fa fa-desktop"></i>
             <span class="text">{{sideNavTabs.device.name}}</span>
           </a>
@@ -35,9 +35,9 @@
             <i class="fa fa-shopping-bag"></i>
             <span class="text">{{sideNavTabs.store.name}}</span>
           </a>
-          <a class="list-item" data-ng-class="{'active': sideNavTabs.contact.active}" href="#/contact/list">
+          <a class="list-item" data-ng-class="{'active': sideNavTabs.group.active}" href="#/group/list">
             <i class="fa fa-users"></i>
-            <span class="text">{{sideNavTabs.contact.name}}</span>
+            <span class="text">{{sideNavTabs.group.name}}</span>
           </a>
           <a class="list-item" data-ng-class="{'active': sideNavTabs.settings.active}" href="#/settings">
             <i class="fa fa-gear"></i>

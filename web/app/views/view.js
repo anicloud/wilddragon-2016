@@ -11,7 +11,7 @@ angular.module('app.view', [
   'app.view.store',
   'app.view.settings',
   'app.view.contact',
-  'app.view.share'
+  'app.view.group'
 ])
 
   .config(['$stateProvider', '$locationProvider', '$urlRouterProvider', function ($stateProvider, $locationProvider, $urlRouterProvider) {

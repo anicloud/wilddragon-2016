@@ -10,7 +10,39 @@ angular.module('app.service.device', [])
         console.log('Getting devices');
         return $http({
           method: 'GET',
-          url: 'devices/all'
+          url: 'device/all'
+        }).then(function (response) {
+          return response.data;
+        });
+      },
+      bindDevice: function (data) {
+        console.log('Binding device: ', data);
+        return $http({
+          method: 'POST',
+          url: 'device/bind',
+          data: data
+        }).then(function (response) {
+          return response.data;
+        });
+      },
+      shareDevice: function (data) {
+        console.log('Sharing device: ', data);
+        return $http({
+          method: 'POST',
+          url: 'device/share',
+          data: data
+        }).then(function (response) {
+          return response.data;
+        });
+      },
+      unShareDevice: function (data) {
+        console.log('unsharing device: ', data);
+        return $http({
+          method: 'POST',
+          url: 'device/unshare',
+          data: data
+        }).then(function (response) {
+          return response.data;
         });
       }
     };
@@ -19,7 +51,7 @@ angular.module('app.service.device', [])
     var device0 = {
       physicalId: 's011110',
       physicalAddress: '00-01-6C-06-A6-29',
-      name: 'home-center',
+      name: '家庭控制中心',
       description: 'home controller center',
       functions: [
         {functionId: 1, groupId: 1},
@@ -33,8 +65,8 @@ angular.module('app.service.device', [])
         {
           physicalId: 'a00001',
           physicalAddress: '',
-          name: 'kitchen light',
-          description: 'A light in kitchen',
+          name: '空气净化器',
+          description: '',
           functions: [
             {functionId: 1, groupId: 1},
             {functionId: 2, groupId: 1}
@@ -46,8 +78,8 @@ angular.module('app.service.device', [])
         {
           physicalId: 'a00002',
           physicalAddress: '',
-          name: 'bedroom light',
-          description: 'A light in bedroom',
+          name: '客厅空调',
+          description: '',
           functions: [
             {functionId: 1, groupId: 1},
             {functionId: 2, groupId: 1}
@@ -56,12 +88,22 @@ angular.module('app.service.device', [])
           deviceId: 2,
           masterId: 100001
         }
+      ],
+      permissions: [
+        {
+          groupId: 2000,
+          types: ['READABLE', 'EXECUTABLE']
+        },
+        {
+          groupId: 2001,
+          types: ['READABLE', 'WRITABLE']
+        }
       ]
     };
     var device1 = {
       physicalId: 's011110',
       physicalAddress: 'CC-01-6C-06-b6-29',
-      name: 'home-center2',
+      name: '卧室控制中心',
       description: 'home controller center',
       functions: [
         {functionId: 1, groupId: 1},
@@ -75,7 +117,7 @@ angular.module('app.service.device', [])
         {
           physicalId: 'a00001',
           physicalAddress: '',
-          name: 'kitchen light',
+          name: '卧室主灯',
           description: 'A light in kitchen',
           functions: [
             {functionId: 1, groupId: 1},
@@ -88,7 +130,7 @@ angular.module('app.service.device', [])
         {
           physicalId: 'a00002',
           physicalAddress: '',
-          name: 'bedroom light',
+          name: '卧室空调',
           description: 'A light in bedroom',
           functions: [
             {functionId: 1, groupId: 1},
@@ -98,12 +140,18 @@ angular.module('app.service.device', [])
           deviceId: 2,
           masterId: 100002
         }
+      ],
+      permissions: [
+        {
+          groupId: 2000,
+          types: ['READABLE', 'EXECUTABLE']
+        }
       ]
     };
     var device2 = {
       physicalId: 's011111',
       physicalAddress: 'A6-29-00-01-6C-06',
-      name: 'company-center',
+      name: '公司控制中心',
       description: 'company controller center',
       functions: [
         {functionId: 1, groupId: 1},
@@ -117,7 +165,7 @@ angular.module('app.service.device', [])
         {
           physicalId: 'b00001',
           physicalAddress: '',
-          name: 'meeting room light',
+          name: '会议室台灯',
           description: 'A light in meeting room',
           functions: [
             {functionId: 1, groupId: 1},
@@ -130,7 +178,7 @@ angular.module('app.service.device', [])
         {
           physicalId: 'b00002',
           physicalAddress: '',
-          name: 'restroom coffee boiler',
+          name: '休息室咖啡机',
           description: 'A coffee boiler in restroom',
           functions: [
             {functionId: 1, groupId: 1},
@@ -140,12 +188,22 @@ angular.module('app.service.device', [])
           deviceId: 2,
           masterId: 100003
         }
+      ],
+      permissions: [
+        {
+          groupId: 2000,
+          types: ['READABLE', 'EXECUTABLE']
+        },
+        {
+          groupId: 2001,
+          types: ['READABLE', 'WRITABLE']
+        }
       ]
     };
     var device3 = {
       physicalId: 's011111',
       physicalAddress: 'A6-29-00-01-6C-06',
-      name: 'company-center',
+      name: '公司控制中心',
       description: 'company controller center',
       functions: [
         {functionId: 1, groupId: 1},
@@ -159,7 +217,7 @@ angular.module('app.service.device', [])
         {
           physicalId: 'b00001',
           physicalAddress: '',
-          name: 'meeting room light',
+          name: '会议室台灯',
           description: 'A light in meeting room',
           functions: [
             {functionId: 1, groupId: 1},
@@ -172,7 +230,7 @@ angular.module('app.service.device', [])
         {
           physicalId: 'b00002',
           physicalAddress: '',
-          name: 'restroom coffee boiler',
+          name: '休息室咖啡机',
           description: 'A coffee boiler in restroom',
           functions: [
             {functionId: 1, groupId: 1},
@@ -181,6 +239,16 @@ angular.module('app.service.device', [])
           state: 'ACTIVE',
           deviceId: 2,
           masterId: 100004
+        }
+      ],
+      permissions: [
+        {
+          groupId: 2000,
+          types: ['READABLE', 'EXECUTABLE']
+        },
+        {
+          groupId: 2001,
+          types: ['READABLE', 'WRITABLE']
         }
       ]
     };

@@ -8,7 +8,6 @@ angular.module('app.directive', [
   'app.directive.panel',
   'app.directive.focus',
   'app.directive.screenMatch',
-  'app.directive.history',
   'app.directive.qrcode',
   'app.directive.affix'
 ]);

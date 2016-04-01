@@ -1,9 +1,9 @@
 <div class="nav-tabs">
-  <a class="nav-tab" data-ng-class="{'active': infoNavTabs.basic.active}" href="#/device/detail/{{device.deviceId}}/info/basic">
+  <a class="nav-tab" data-ng-class="{'active': infoNavTabs.basic.active}" href="#/device/{{device.deviceId}}/info/basic">
     <span class="icon"><i class="fa fa-file"></i> </span>
     <span class="text">{{infoNavTabs.basic.name}}</span>
   </a>
-  <a class="nav-tab" data-ng-class="{'active': infoNavTabs.share.active}" href="#/device/detail/{{device.deviceId}}/info/share">
+  <a class="nav-tab" data-ng-class="{'active': infoNavTabs.share.active}" href="#/device/{{device.deviceId}}/info/share" data-ng-show="device.owner==account.accountId">
     <span class="icon"><i class="fa fa-share-alt"></i> </span>
     <span class="text">{{infoNavTabs.share.name}}</span>
   </a>
