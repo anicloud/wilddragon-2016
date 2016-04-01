@@ -19,7 +19,8 @@
     "angular-websocket": "~1.0.13",
     "html5-qrcode": "https://github.com/fantasybh/html5-qrcode.git",
     "fastclick": "~1.0.6",
-    "font-awesome": "~4.5.0"
+    "font-awesome": "~4.5.0",
+    "angular-ui-select": "~0.14.9"
   },
   "devDependencies": {
     "angular-mocks": "*"

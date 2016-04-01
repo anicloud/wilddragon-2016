@@ -72,7 +72,7 @@ angular.module('app.view.main', ['ui.router'])
               active: false
             },
             contact: {
-              name: '联系人',
+              name: '分组',
               active: false
             },
             notify: {
