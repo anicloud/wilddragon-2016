@@ -53,6 +53,8 @@ gulp.task('styles', function () {
   return gulp.src(paths.styles)
     .pipe($.less())
     .pipe($.autoprefixer('>1%'))
+    // .pipe($.rev())
+    // .pipe($.revReplace())
     .pipe(gulp.dest(app.dev));
 });
 
@@ -60,15 +62,23 @@ gulp.task('scripts', function () {
   return gulp.src(paths.scripts)
     .pipe($.jshint('.jshintrc'))
     .pipe($.jshint.reporter('jshint-stylish'))
+    // .pipe($.rev())
+    // .pipe($.revReplace())
     .pipe(gulp.dest(app.dev));
 });
 
 gulp.task('copy', function () {
   gulp.src(paths.views.files)
+    // .pipe($.rev())
+    // .pipe($.revReplace())
     .pipe(gulp.dest(app.dev));
   gulp.src(paths.images)
+    // .pipe($.rev())
+    // .pipe($.revReplace())
     .pipe(gulp.dest(app.dev));
   gulp.src(paths.fonts)
+    // .pipe($.rev())
+    // .pipe($.revReplace())
     .pipe(gulp.dest(app.dev));
 });
 
