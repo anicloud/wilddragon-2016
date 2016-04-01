@@ -1,0 +1,223 @@
+
+.modal-open {
+  .screen-wrapper {
+    filter: blur(10px);
+  }
+}
+
+.modal {
+  height: 100%;
+
+  .modal-dialog {
+    //margin: 100px auto;
+    //width: 300px;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    .modal-content {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      border: none;
+      border-radius: 0;
+      background: rgba(255, 255, 255, .5);
+      overflow: hidden;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font: 700 20px Arial, sans-serif;
+      line-height: normal;
+      color: #777;
+      &:hover {
+        cursor: pointer;
+        color: #8BC34A;
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .modal-dialog {
+    //width: 400px;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.group-modal {
+  opacity: 0;
+  width: 0;
+  max-height: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: none;
+  transition: opacity .35s ease;
+  &.active {
+    opacity: 1;
+    width: 90%;
+    max-width: 400px;
+    max-height: 999px;
+    padding-top: 100px;
+    margin: 0 auto;
+  }
+  .modal-header {
+    margin: 0;
+    padding: 0;
+    border: none;
+    .modal-icon {
+      height: 50px;
+      line-height: 50px;
+      color: #8BC34A;
+      font: 100 30px arial, sans-serif;
+      text-align: center;
+    }
+    .modal-title {
+      margin-bottom: 10px;
+      text-align: center;
+      font-size: 16px;
+    }
+  }
+  .modal-footer {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    .item-button {
+      text-align: center;
+      button {
+        outline: 0;
+        padding-left: 30px;
+        padding-right: 30px;
+        height: 30px;
+        font-size: 12px;
+        border-radius: 15px;
+      }
+      button + button {
+        margin-left: 5px;
+      }
+    }
+  }
+  .modal-body {
+    margin: 0;
+    padding: 15px 0 0 0;
+    border: none;
+    .modal-item {
+      margin: 10px 9%;
+
+      .item-label {
+        text-align: center;
+        margin-bottom: 5px;
+        font-size: 14px;
+        color: #757575;
+      }
+      .item-input {
+        margin-bottom: 15px;
+
+        input[type="text"] {
+          width: 100%;
+        }
+
+        input[type="checkbox"] {
+          margin: 0 0 0 20%;
+          color: #8BC34A;
+        }
+
+        .checkbox-label {
+          display: inline-block;
+          padding-left: 8px;
+          color: #aaa;
+          line-height: 23px;
+        }
+
+        tags-input {
+          .tags {
+            width: 100%;
+            min-height: 32px;
+            border: 1px solid #ccc;
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+            transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+            appearance: none;
+            &.focused {
+              border: 1px solid #8BC34A;
+              box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px #AED581;
+            }
+
+            input[type="text"] {
+              width: 100%;
+              height: 100%;
+              margin: 0;
+              padding: 4px;
+              border: none;
+              box-shadow: none;
+              transition: none;
+              font: inherit;
+            }
+
+            .tag-item {
+              background: #AED581;
+            }
+          }
+        }
+      }
+
+      .item-button {
+        margin-top: 20px;
+        margin-bottom: 30px;
+        text-align: center;
+        button {
+          padding-left: 30px;
+          padding-right: 30px;
+          height: 30px;
+          font-size: 12px;
+          border-radius: 15px;
+        }
+        button + button {
+          margin-left: 5px;
+        }
+      }
+      .item-groups {
+        height: 50px;
+        &.collapsed {
+          overflow: hidden;
+        }
+        .item-group {
+          float: left;
+          height: 34px;
+          width: 70px;
+          margin: 4px;
+          padding: 0 4px;
+          border: 1px solid #e8e8e8;
+          border-radius: 5px;
+          line-height: 34px;
+          text-align: center;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+          color: #757575;
+          &.active, &:hover {
+            cursor: pointer;
+            color: white;
+            background-color: #9CCC65;
+            border: none;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.26);
+          }
+        }
+      }
+      .item-collapse {
+        clear: both;
+        text-align: center;
+        font-size: 25px;
+      }
+    }
+  }
+  .modal-footer {
+    border: none;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+}

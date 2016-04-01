@@ -1,0 +1,54 @@
+<div class="modal-close" data-ng-click="cancel()">
+  <a href data-ng-click="cancel()">x</a>
+</div>
+<div class="group-modal" data-ng-class="{'active': stage==0}">
+  <div class="modal-header">
+    <div class="modal-icon">
+      <h3>
+        <i class="fa fa-users"></i>
+      </h3>
+    </div>
+    <div class="modal-title">
+      新建分组
+    </div>
+  </div>
+  <div class="modal-body">
+    <div class="modal-item">
+      <div class="item-input">
+        <input type="text" placeholder="输入分组名称" data-ng-model="groupData.name">
+      </div>
+      <div class="item-button">
+        <button class="btn btn-default" data-ng-click="forward()">下一步</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="group-modal" data-ng-class="{'active': stage==1}">
+  <div class="modal-header">
+    <div class="modal-icon">
+      <h3>
+        <i class="fa fa-users"></i>
+      </h3>
+    </div>
+    <div class="modal-title">
+      添加组成员
+    </div>
+    <div class="modal-close" data-ng-click="cancel()">
+      <a href data-ng-click="cancel()">x</a>
+    </div>
+  </div>
+  <div class="modal-body">
+    <div class="modal-item">
+      <div class="item-input">
+        <tags-input type="text" placeholder="输入成员昵称或邮箱" data-ng-model="groupData.accounts"
+                    display-property="name" add-from-autocomplete-only="true">
+          <auto-complete source="loadTags($query)"></auto-complete>
+        </tags-input>
+      </div>
+      <div class="item-button">
+        <button class="btn btn-default" data-ng-click="backward()">上一步</button>
+        <button class="btn btn-default" data-ng-click="submit()">确定</button>
+      </div>
+    </div>
+  </div>
+</div>
