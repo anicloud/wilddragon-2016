@@ -25,7 +25,8 @@ angular.module('app.view.group', [
 
       .state('main.group.detail', {
         url: '/:id',
-        templateUrl: 'views/group/group-detail.html'
+        templateUrl: 'views/group/group-detail.html',
+        controller: 'GroupDetailCtrl'
       });
 
   }])
@@ -68,6 +69,19 @@ angular.module('app.view.group', [
           alert('未成功删除分组');
         }
       });
+    };
+  })
+
+  .controller('GroupDetailCtrl', function($scope) {
+    $scope.editMode = false;
+    $scope.enterEditMode = function () {
+      //$scope.newPermission = $scope.selectedPermission;
+      //$scope.newInputName = $scope.
+      $scope.editMode = true;
+    };
+
+    $scope.setInputName = function () {
+      $scope.editMode = false;
     };
   })
 

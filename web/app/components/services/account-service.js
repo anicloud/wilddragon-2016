@@ -103,22 +103,40 @@ angular.module('app.service.account', [])
       name: 'libiya',
       address: '#6 yard, East Ave.',
       company: 'anicloud',
-      avatarUrl: '/images/IMG_5369.JPG'
+      avatarUrl: '/images/1.PNG'
+    };
+    var account2 = {
+      accountId: 10103,
+      email: 'yeh@anicloud.com',
+      phoneNumber: '15901505193',
+      name: 'yeh',
+      address: '#6 yard, East Ave.',
+      company: 'anicloud',
+      avatarUrl: '/images/2.PNG'
+    };
+    var account3 = {
+      accountId: 10104,
+      email: 'ye@anicloud.com',
+      phoneNumber: '15901505193',
+      name: 'ye',
+      address: '#6 yard, East Ave.',
+      company: 'anicloud',
+      avatarUrl: '/images/3.jpg'
     };
     var groups = [
       {
         groupId: 2000,
         owner: 10101,
-        name: 'home',
+        name: '家庭',
         type: 'CUSTOM',
-        accounts: [account0, account1]
+        accounts: [account1, account3,account2]
       },
       {
         groupId: 2001,
         owner: 10102,
-        name: 'company',
+        name: '公司',
         type: 'CUSTOM',
-        accounts: [account0, account1]
+        accounts: [account0, account3]
       }
     ];
 

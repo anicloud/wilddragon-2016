@@ -4,9 +4,9 @@
       <div class="panel-header">
         <div class="cover" data-ng-click="$event.stopPropagation()">
           <a href="#/group/{{share.group.groupId}}">
-            <img src="/images/IMG_5369.JPG">
-            <img src="/images/IMG_5369.JPG">
-            <img src="/images/IMG_5369.JPG">
+            <img src="/images/1.png">
+            <img src="/images/2.png">
+            <img src="/images/3.JPG">
           </a>
         </div>
         <div class="info">
@@ -18,13 +18,13 @@
           </div>
         </div>
         <div class="option">
-          <button class="btn btn-default" data-ng-click="removeShare(share)">移除共享</button>
+          <a class="removeshare" data-ng-click="removeShare(share)">移除共享</a>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="">
+  <div class="sharebutton">
     <button class="btn btn-default" data-ng-click="addShare()">
       创建共享
     </button>

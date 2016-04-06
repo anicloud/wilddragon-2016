@@ -5,6 +5,9 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </div>
+    <div class="navbar-title">
+      设备列表
+    </div>
     <div class="navbar-plus">
       <a href="#/device/bind/qrcode">
         +
@@ -19,7 +22,7 @@
         <div class="panel-header" data-panel-toggle>
           <div class="cover" data-ng-click="$event.stopPropagation()">
             <a href="#/device/{{device.deviceId}}/info/basic">
-              <img src="/images/IMG_5369.JPG">
+              <img src="{{device.avatarUrl}}">
             </a>
           </div>
           <div class="info" data-ng-click="$event.stopPropagation()">

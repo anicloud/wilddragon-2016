@@ -6,7 +6,7 @@
   bottom: 0;
   width: 260px;
   background-color: #f8f8f8;
-  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.26);
+  //box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.06);
   z-index: 1000;
   transition: left 0.35s ease;
   overflow-y: auto;
@@ -37,7 +37,7 @@
   padding: 0;
   height: 54px;
   /*background-color: #5c5d5f;*/
-  background-color: #7CB342;
+  background-color: #4DA47C;
   color: #ffffff;
 }
 
@@ -84,8 +84,8 @@
   }
 
   .avatar img:hover {
-    transform: scale(1.05);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.26);
+    //transform: scale(1.05);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.16);
   }
 
   .info {
@@ -102,7 +102,7 @@
   }
 
   .info .logout:hover {
-    color: #8BC34A;
+    color: #4DA47C;
   }
 
   .notif {
@@ -130,17 +130,23 @@
 .sidebar-menu {
   .list-item {
     font-size: 16px;
-    text-align: center;
+    //text-align: center;
     &:hover {
-      transform: scale(1.05);
+      //transform: scale(1.05);
     }
     &.active:hover {
       transform: none;
     }
+    i {
+      display: inline-block;
+      width: 18px;
+      text-align: center;
+    }
+
   }
 
   .text {
-    padding-left: 10px;
+    padding-left: 12px;
   }
 }
 

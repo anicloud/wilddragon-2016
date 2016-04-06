@@ -49,6 +49,7 @@ angular.module('app.service.device', [])
   })
   .factory('DeviceService', function ($http) {
     var device0 = {
+      avatarUrl: '/images/Washing_machine.svg',
       physicalId: 's011110',
       physicalAddress: '00-01-6C-06-A6-29',
       name: '家庭控制中心',
@@ -101,6 +102,7 @@ angular.module('app.service.device', [])
       ]
     };
     var device1 = {
+      avatarUrl: '/images/microwave.svg',
       physicalId: 's011110',
       physicalAddress: 'CC-01-6C-06-b6-29',
       name: '卧室控制中心',
@@ -149,6 +151,7 @@ angular.module('app.service.device', [])
       ]
     };
     var device2 = {
+      avatarUrl: '/images/fan.svg',
       physicalId: 's011111',
       physicalAddress: 'A6-29-00-01-6C-06',
       name: '公司控制中心',
@@ -201,6 +204,7 @@ angular.module('app.service.device', [])
       ]
     };
     var device3 = {
+      avatarUrl: '/images/refrigerator.svg',
       physicalId: 's011111',
       physicalAddress: 'A6-29-00-01-6C-06',
       name: '公司控制中心',

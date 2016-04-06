@@ -62,19 +62,40 @@
           margin-right: 5px;
           line-height: @panel-header-height;
           button {
-            border: none;
+            //border: solid 1px #4DA47C;
             border-radius: 16px;
-            background-color: #8BC34A;
-            color: white;
+            //background-color: #4DA47C;
+            color: #4DA47C;
             font-size: 10px;
             padding-left: 12px;
             padding-right: 12px;
-            box-shadow: 1px 1px 4px rgba(0,0,0,0.26);
+            //box-shadow: 1px 1px 4px rgba(0,0,0,0.26);
+          }
+          button:hover{
+            background-color: #4DA47C;
+            color: #fff;
+          }
+          .removeshare{
+            color: #999999;
+            font-size: 12px;
+
+          }
+          .removeshare:hover{
+            color: #4DA47C;
+
           }
         }
       }
 
     }
+  }
+  .sharebutton{
+    margin-top: 18px;
+    text-align: center;
+  }
+  .sharebutton button{
+    color: #4DA47C;
+    border: solid 1px #4DA47C;
   }
 }
 
