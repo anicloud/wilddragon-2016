@@ -24,7 +24,7 @@ angular.module('app.view.group', [
       })
 
       .state('main.group.detail', {
-        url: '/:id',
+        url: '/{id:[0-9]+}',
         templateUrl: 'views/group/group-detail.html',
         controller: 'GroupDetailCtrl'
       });
@@ -52,36 +52,31 @@ angular.module('app.view.group', [
         });
     };
 
+  })
+
+  .controller('GroupDetailCtrl', function($scope, $timeout, $state, $stateParams, AccountService) {
+    $scope.group = $scope.groupMap[$stateParams.id];
+    $scope.quitGroup = function (group) {
+
+    };
     $scope.removeGroup = function (group) {
       AccountService.deleteGroup(group).then(function (result) {
         if (result.success && result.data !== null) {
-          alert('成功删除分组: ' + result.data.name);
+          alert('删除分组成功: ' + result.data.name);
           $timeout(function () {
-            delete $scope.groupMap[result.data.groupId];
             for (var i = 0; i < $scope.groups.length; i++) {
               if ($scope.groups[i].groupId == result.data.groupId) {
                 $scope.groups.splice(i, 1);
                 break;
               }
             }
+            delete $scope.groupMap[result.data.groupId];
+            $state.go('main.group.list');
           }, 0);
         } else {
-          alert('未成功删除分组');
+          alert('删除分组失败,原因: ' + result.message);
         }
       });
-    };
-  })
-
-  .controller('GroupDetailCtrl', function($scope) {
-    $scope.editMode = false;
-    $scope.enterEditMode = function () {
-      //$scope.newPermission = $scope.selectedPermission;
-      //$scope.newInputName = $scope.
-      $scope.editMode = true;
-    };
-
-    $scope.setInputName = function () {
-      $scope.editMode = false;
     };
   })
 
@@ -102,10 +97,14 @@ angular.module('app.view.group', [
       AccountService.createGroup($scope.groupData).then(
         function (result) {
           if (result.success && result.data !== null) {
-            console.log('添加分组成功：');
+            alert('添加分组成功：');
             console.log(result.data);
             $timeout(function () {
               $scope.groups.push(result.data);
+              $scope.groupMap[result.data.groupId] = result.data;
+              angular.forEach(result.data.accounts, function (account) {
+                $scope.accountMap[account.accountId] = account;
+              });
             }, 0);
           } else {
             console.log('添加分组失败：' + result.message);

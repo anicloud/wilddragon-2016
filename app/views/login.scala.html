@@ -1,15 +1,83 @@
+@(casLoginUrl: String, appLoginUrl: String, service: String)
 <!DOCTYPE html>
-<html>
-    <head lang="en">
-        <meta charset="UTF-8">
-        <title></title>
-    </head>
-    <body>
-        <div>
-            Email: <input type="text">
-        </div>
-        <div>
-            Password: <input type="password">
-        </div>
-    </body>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Anicloud</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <link rel="stylesheet" href="styles/layout.css">
+  <link rel="stylesheet" href="views/login/login.css">
+  <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css"/>
+
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="views/login/login.js"></script>
+  <script>
+          $(document).ready(function () {
+            var casLoginUrl = '@casLoginUrl';
+            var appLoginUrl = '@appLoginUrl';
+            var service = '@service';
+            $('#loginForm').attr('action', casLoginUrl + '?service=' + encodeURIComponent(service));
+            $('#loginFrom').val(appLoginUrl);
+
+            $('#submitBtn').bind('click', doLogin);
+            function doLogin() {
+              var jsonUrl = casLoginUrl + '?action=get-lt&callback=?&service=' + service;
+              $.ajax({
+                type: 'get',
+                async: false,
+                url: jsonUrl,
+                dataType: 'jsonp',
+                success: function (data) {
+                  $('#lt').val(data.lt);
+                  $('#execution').val(data.execution);
+                  $('#loginForm').submit();
+                },
+                error: function (data) {
+                  console.log(data);
+                }
+              });
+            }
+          })
+  </script>
+</head>
+<body>
+<div class="login-wrapper">
+  <div class="logo">
+    <img src="images/logo.png">
+  </div>
+  <div class="title">
+    从这里开始, 连接世界
+  </div>
+  <div class="login-panel">
+    <form id="loginForm" method="POST" action="">
+      <div class="row-input">
+        <span><i class="fa fa-user" aria-hidden="true"></i></span>
+        <span><input type="text" name="username" id="username" placeholder="用户名/邮箱/手机号"></span>
+      </div>
+      <div class="row-input">
+        <span><i class="fa fa-lock" aria-hidden="true"></i></span>
+        <span><input type="password" name="password" id="password" placeholder="密码"></span>
+      </div>
+      <div>
+        <input type="button" class="btn" id="submitBtn" value="登录">
+      </div>
+      <div class="link">
+        <a href="/register">
+          还没有账号？前往注册
+        </a>
+      </div>
+      <div>
+        <input type="hidden" name="lt" id="lt" value=""/>
+        <input type="hidden" name="execution" id="execution" value=""/>
+        <input type="hidden" name="_eventId" value="submit"/>
+        <input type="hidden" name="loginFrom" id="loginFrom" value=""/>
+      </div>
+    </form>
+  </div>
+</div>
+
+</body>
 </html>

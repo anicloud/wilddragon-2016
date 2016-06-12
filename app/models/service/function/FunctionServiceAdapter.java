@@ -1,22 +1,25 @@
 package models.service.function;
 
+import models.dto.device.FunctionData;
 import models.dto.function.FunctionMetaData;
 
+import java.util.List;
 import java.util.Set;
 
 /**
  * Created by huangbin on 12/14/15.
  */
 public interface FunctionServiceAdapter {
-    // get
-    FunctionMetaData getFunction(Long groupId, Integer FunctionId);
-    Set<FunctionMetaData> findFunctionsByGroupId(Long groupId);
+    // find
+    FunctionMetaData findFunctionMeta(Long groupId, Integer functionId);
+    List<FunctionMetaData> findFunctionMetasByDevice(Long masterId);
+    List<FunctionMetaData> findFunctionMetasByDevice(Long masterId, Integer slaveId);
 
     // update
-    FunctionMetaData updateFunction(FunctionMetaData functionMetaData);
+    FunctionMetaData updateFunctionMeta(FunctionMetaData functionMetaData);
 
     // create
-    FunctionMetaData createFunction(FunctionMetaData functionMetaData);
+    FunctionMetaData createFunctionMeta(FunctionMetaData functionMetaData);
 
     // delete
     FunctionMetaData deleteFunction(FunctionMetaData functionMetaData);

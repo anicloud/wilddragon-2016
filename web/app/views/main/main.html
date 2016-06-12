@@ -1,46 +1,56 @@
 <div class="main-wrapper">
-  <div class="sidebar-mask" data-ng-class="{'visible': !sidebarCollapse}" data-ng-click="sidebarCollapse=true">
+  <div class="sidebar-mask" data-ng-class="{'visible': !sidebarCollapsed}" data-ng-click="sidebarCollapsed=true"></div>
 
-  </div>
-  <div class="sidebar" data-ng-class="{'sidebar-collapse': sidebarCollapse}">
+  <div class="sidebar" data-ng-class="{'sidebar-collapsed': sidebarCollapsed}">
     <div class="sidebar-inner">
-      <div class="sidebar-top">
-        <a href="#/home" class="sidebar-brand">WildDragon</a>
-      </div>
+      <!--<div class="sidebar-top">-->
+      <!--<a href="#/home" class="sidebar-brand">WildDragon</a>-->
+      <!--</div>-->
       <div class="sidebar-header">
+        <!--<div class="brand"></div>-->
+        <div class="notify">
+          <a href=""><i class="fa fa-bell"></i></a>
+        </div>
+        <div class="logout">
+          <a href data-ng-click="logout()">
+            <i class="fa fa-sign-out" aria-hidden="true"></i>
+          </a>
+        </div>
         <div class="avatar">
-          <a href="#/account">
-            <img src="{{account.avatarUrl}}">
+          <a href="#/settings">
+            <img data-ng-src="{{account.avatarUrl}}">
           </a>
         </div>
         <div class="info">
-          <a href="#/account"><strong> {{account.email}} </strong></a><br>
-          <a class="logout" href data-ng-click="logout()"><strong>登出</strong></a>
-        </div>
-        <div class="notif">
-          <a href=""><i class="fa fa-bell"></i></a>
+          <div class="name">
+            <a href="#/settings">{{account.name}}</a>
+          </div>
+          <div class="email">
+            <a href="#/settings">{{account.email}} </a>
+          </div>
         </div>
       </div>
       <div class="sidebar-menu">
         <div class="list">
           <a class="list-item" data-ng-class="{'active': sideNavTabs.app.active}" href="#/application">
-            <i class="fa fa-th-large"></i>
+            <span class="icon"><i class="fa fa-th-large"></i></span>
             <span class="text">{{sideNavTabs.app.name}}</span>
           </a>
           <a class="list-item" data-ng-class="{'active': sideNavTabs.device.active}" href="#/device/list">
-            <i class="fa fa-desktop"></i>
+            <span class="icon"><i class="fa fa-desktop"></i></span>
             <span class="text">{{sideNavTabs.device.name}}</span>
           </a>
           <a class="list-item" data-ng-class="{'active': sideNavTabs.store.active}" href="#/store">
-            <i class="fa fa-shopping-bag"></i>
+            <span class="icon"><i class="fa fa-shopping-bag"></i></span>
             <span class="text">{{sideNavTabs.store.name}}</span>
           </a>
           <a class="list-item" data-ng-class="{'active': sideNavTabs.group.active}" href="#/group/list">
-            <i class="fa fa-users"></i>
+            <span class="icon"><i class="fa fa-users"></i></span>
             <span class="text">{{sideNavTabs.group.name}}</span>
           </a>
           <a class="list-item" data-ng-class="{'active': sideNavTabs.settings.active}" href="#/settings">
-            <i class="fa fa-gear"></i>
+            <span class="icon"><i class="fa fa-gear"></i></span>
+
             <span class="text">{{sideNavTabs.settings.name}}</span>
           </a>
         </div>
@@ -48,9 +58,8 @@
     </div>
   </div>
 
-  <div class="content" data-ng-class="{'content-collapse': !sidebarCollapse}" data-ui-view="">
+  <div class="content" data-ng-class="{'content-collapsed': !sidebarCollapsed}" data-ui-view="">
     <!--<div class="content-header" data-ui-view="header"></div>-->
     <!--<div class="content-body" data-ui-view="body"></div>-->
   </div>
-
 </div>

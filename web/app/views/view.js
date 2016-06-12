@@ -10,7 +10,6 @@ angular.module('app.view', [
   'app.view.device',
   'app.view.store',
   'app.view.settings',
-  'app.view.contact',
   'app.view.group'
 ])
 
@@ -20,6 +19,6 @@ angular.module('app.view', [
     $locationProvider.html5Mode(false);
 
     // Defaults to dashboard
-    $urlRouterProvider.otherwise('/application');
+    $urlRouterProvider.otherwise('/application/list');
 
   }]);

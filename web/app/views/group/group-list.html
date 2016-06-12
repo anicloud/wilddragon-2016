@@ -1,8 +1,5 @@
 <div class="group-wrapper">
   <div class="group-card" data-ng-repeat="group in groups">
-    <div class="close-button">
-      <a data-ng-click="removeGroup(group)">x</a>
-    </div>
     <div class="card-title">
       <div class="group-name">
         {{group.name}}
@@ -13,7 +10,7 @@
       <!--</div>-->
       <div class="group-members">
         <div class="group-member" data-ng-repeat="account in group.accounts">
-          <img src="{{account.avatarUrl}}">
+          <img data-ng-src="{{account.avatarUrl}}">
         </div>
       </div>
       <div class="action">

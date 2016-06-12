@@ -76,12 +76,14 @@ angular.module('app.view.device.bind', ['ui.router'])
       bindResult.then(function (result) {
         console.log(result);
         if (result.success) {
-          alert("bind ok");
+          alert('绑定设备成功');
           $timeout(function () {
             $scope.devices.push(result.data);
+            $scope.deviceMap[result.data.deviceId] = result.data;
+            $state.go('main.device.list');
           }, 0);
         } else {
-          alert("bind failed: "+ result.message);
+          alert('绑定设备失败,原因: '+ result.message);
         }
       });
     };

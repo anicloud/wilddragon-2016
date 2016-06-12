@@ -8,15 +8,27 @@ angular.module('app.view.application', ['ui.router'])
   .config(['$stateProvider', function ($stateProvider) {
     $stateProvider
       .state('main.application', {
+        abstract: true,
         url: '/application',
-        templateUrl: 'views/application/application.html',
+        template: '<ui-view/>',
         controller: 'ApplicationCtrl',
         resolve: {
           apps: function (AppService) {
             return AppService.getApps();
           }
         }
-      });
+      })
+      .state('main.application.list', {
+        url: '/list',
+        templateUrl: 'views/application/application-list.html',
+        controller: 'ApplicationListCtrl'
+      })
+      .state('main.application.container', {
+        url: '/{id:[0-9]+}',
+        templateUrl: 'views/application/application-container.html',
+        controller: 'ApplicationContainerCtrl'
+      })
+    ;
   }])
 
   .controller('ApplicationCtrl', function ($scope, apps) {
@@ -28,4 +40,14 @@ angular.module('app.view.application', ['ui.router'])
     } else {
       console.error('Error in getting apps');
     }
-  });
+  })
+
+  .controller('ApplicationListCtrl', function ($scope) {
+  })
+
+  .controller('ApplicationContainerCtrl', function ($scope, $stateParams) {
+    $scope.app = {};
+    console.log()
+
+  })
+;

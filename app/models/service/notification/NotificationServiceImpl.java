@@ -22,7 +22,7 @@ public class NotificationServiceImpl implements NotificationService {
     public void notifyDeviceChanges(DeviceMasterData deviceData) throws Exception {
         if (deviceData != null && deviceData.accountGroups != null) {
             for (int i=0; i<deviceData.accountGroups.size(); i++) {
-                Long accountId = deviceData.accountGroups.get(i);
+                String accountId = deviceData.accountGroups.get(i);
                 Set<SessionManager.WebSocketSession> sessions = sessionManager.getSessions(accountId);
                 if (sessions != null) {
                     for (SessionManager.WebSocketSession session : sessions) {

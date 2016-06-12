@@ -4,13 +4,21 @@ import com.ani.octopus.account.interfaces.AccountContactServiceFacade;
 import com.ani.octopus.account.interfaces.AccountGroupServiceFacade;
 import com.ani.octopus.account.interfaces.AccountServiceFacade;
 import com.ani.octopus.account.interfaces.GroupJoinInvitationServiceFacade;
+import com.ani.octopus.antenna.core.AntennaTemplate;
 import com.ani.octopus.commons.accout.dto.AccountDto;
 import com.ani.octopus.commons.accout.dto.AccountGroupDto;
+import com.ani.octopus.commons.accout.dto.GroupType;
+import com.ani.octopus.commons.object.dto.object.ObjectMainInfoDto;
+import com.ani.octopus.commons.object.dto.object.ObjectMainQueryDto;
+import com.ani.octopus.commons.object.dto.object.privilege.ObjectPrivilegeGrantDto;
+import com.ani.octopus.commons.object.enumeration.AniObjectType;
+import com.ani.octopus.commons.stub.enumeration.PrivilegeType;
 import models.dto.account.*;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -29,120 +37,188 @@ public class AccountServiceAdapterImpl implements AccountServiceAdapter {
 
     @Resource
     GroupJoinInvitationServiceFacade groupJoinInvitationServiceFacade;
+
+    @Resource
+    AntennaTemplate antennaTemplate;
 //
     @Override
-    public AccountData getAccountById(Long accountId) {
-        return AccountDtoUtils.fromAccountDto(accountServiceFacade.getByAccountId(accountId));
+    public AccountData findAccountById(Long accountId) {
+        if (accountId == null) {
+            return null;
+        }
+        return AccountDataUtils.fromAccountDto(accountServiceFacade.getByAccountId(accountId));
     }
 
     @Override
-    public AccountData getAccountByEmail(String email) {
-        return AccountDtoUtils.fromAccountDto(accountServiceFacade.getByEmail(email));
+    public AccountData findAccountByEmail(String email) {
+        if (email == null || email.trim().length() == 0) {
+            return null;
+        }
+        return AccountDataUtils.fromAccountDto(accountServiceFacade.getByEmail(email));
     }
 
     @Override
-    public AccountData getAccountByPhoneNumber(String phoneNumber) {
-        return AccountDtoUtils.fromAccountDto(accountServiceFacade.getByPhoneNumber(phoneNumber));
+    public AccountData findAccountByPhone(String phoneNumber) {
+        if (phoneNumber == null || phoneNumber.trim().length() == 0) {
+            return null;
+        }
+        return AccountDataUtils.fromAccountDto(accountServiceFacade.getByPhoneNumber(phoneNumber));
     }
 
     @Override
-    public AccountGroupData getAccountGroupByGroupId(Long groupId) {
-        return AccountDtoUtils.fromAccountGroupDto(accountGroupServiceFacade.getById(groupId));
+    public Set<AccountData> findAccountLike(String query) {
+        if (query == null || query.trim().length() == 0) {
+            return null;
+        }
+        return AccountDataUtils.fromAccountDtos(accountServiceFacade.getByEmailOrScreenNameLike(query));
     }
 
     @Override
-    public Set<AccountGroupData> getGroupsByAccountId(Long accountId) {
-        AccountData accountData = getAccountById(accountId);
-        if (accountData != null) {
-            return accountData.groups;
+    public Set<AccountData> findAccountByNameLike(String name) {
+        if (name == null || name.trim().length() == 0) {
+            return null;
+        }
+        return AccountDataUtils.fromAccountDtos(accountServiceFacade.getByScreenNameLike(name));
+    }
+
+    @Override
+    public Set<AccountData> findAccountByEmailLike(String email) {
+        if (email == null || email.trim().length() == 0) {
+            return null;
+        }
+        return AccountDataUtils.fromAccountDtos(accountServiceFacade.getByEmailLike(email));
+    }
+
+    @Override
+    public AccountGroupData findGroup(Long groupId) {
+        if (groupId == null) {
+            return null;
+        }
+        return AccountDataUtils.fromAccountGroupDto(accountGroupServiceFacade.getById(groupId));
+    }
+
+    @Override
+    public Set<AccountGroupData> findGroups(Long accountId) {
+        if (accountId == null) {
+            return null;
+        }
+        Set<AccountGroupDto> groupDtos = accountServiceFacade.getAccountInGroups(accountId);
+        if (groupDtos != null) {
+            Set<AccountGroupData> groupDatas = new HashSet<>();
+            for (AccountGroupDto groupDto : groupDtos) {
+                groupDatas.add(AccountDataUtils.fromAccountGroupDto(
+                        accountGroupServiceFacade.getById(groupDto.groupId)));
+            }
+            return groupDatas;
         } else {
             return null;
         }
     }
 
     @Override
-    public Set<AccountGroupData> getGroupsByEmail(String email) {
-        AccountData accountData = getAccountByEmail(email);
-        if (accountData != null) {
-            return accountData.groups;
-        } else {
+    public Set<AccountData> findContacts(Long accountId) {
+        if (accountId == null) {
             return null;
         }
+        return AccountDataUtils.fromAccountDtos(accountContactServiceFacade.getAllContacts(accountId));
     }
 
     @Override
-    public Set<AccountGroupData> getGroupsByPhoneNumber(String phoneNumber) {
-        AccountData accountData = getAccountByPhoneNumber(phoneNumber);
-        if (accountData != null) {
-            return accountData.groups;
-        } else {
+    public Set<AccountData> findContacts(String email) {
+        if (email == null || email.trim().length() == 0) {
             return null;
         }
-    }
-
-    @Override
-    public Set<AccountData> getContactsById(Long accountId) {
-        Set<AccountDto> accountDtos = accountContactServiceFacade.getAllContacts(accountId);
-        return AccountDtoUtils.fromAccountDtos(accountDtos);
-    }
-
-    @Override
-    public AccountData createAccount(AccountRegisterData registerData) {
-        AccountDto registerDto = AccountDtoUtils.toAccountDto(registerData);
-        if (registerDto == null) {
+        AccountDto accountDto = accountServiceFacade.getByEmail(email);
+        if (accountDto == null) {
             return null;
         }
-        return AccountDtoUtils.fromAccountDto(accountServiceFacade.save(registerDto));
+        return AccountDataUtils.fromAccountDtos(accountContactServiceFacade.getAllContacts(accountDto.accountId));
     }
 
     @Override
-    public AccountGroupData createAccountGroup(AccountGroupRegisterData registerData) {
-        AccountGroupDto groupDto = AccountDtoUtils.toAccountGroupDto(registerData);
-        groupDto.owner = accountServiceFacade.getByAccountId(registerData.owner);
-        return AccountDtoUtils.fromAccountGroupDto(accountGroupServiceFacade.save(groupDto));
-    }
-
-    @Override
-    public AccountData updateAccount(AccountData account) {
-        AccountDto accountDto = AccountDtoUtils.toAccountDto(account);
-        return AccountDtoUtils.fromAccountDto(accountDto);
-    }
-
-    @Override
-    public AccountGroupData updateAccountGroup(AccountGroupData group) {
-        AccountGroupDto groupDto = AccountDtoUtils.toAccountGroupDto(group);
-        groupDto.accounts = new HashSet<>();
-        for (Long id : group.accounts) {
-            groupDto.accounts.add(accountServiceFacade.getByAccountId(id));
+    public AccountData createAccount(AccountData accountData) {
+        if (accountData == null) {
+            return null;
         }
-        return AccountDtoUtils.fromAccountGroupDto(accountGroupServiceFacade.save(groupDto));
+        AccountDto accountDto = AccountDataUtils.toAccountDto(accountData);
+        if (accountDto == null) {
+            return null;
+        }
+        return AccountDataUtils.fromAccountDto(accountServiceFacade.save(accountDto));
+    }
+
+    @Override
+    public AccountGroupData createAccountGroup(AccountGroupData groupData) {
+        if (groupData == null) {
+            return null;
+        }
+        groupData.type = AccountGroupType.CUSTOM;
+        AccountGroupDto groupDto = AccountDataUtils.toAccountGroupDto(groupData);
+        Set<AccountDto> accountDtos = groupDto.accounts;
+        groupDto.accounts = null;
+        groupDto = accountGroupServiceFacade.save(groupDto);
+        if (groupDto != null && accountDtos != null) {
+            for (AccountDto accountDto : accountDtos) {
+                accountServiceFacade.addAccountGroup(accountDto.accountId, groupDto.groupId);
+                groupJoinInvitationServiceFacade.addGroup(accountDto.accountId, groupDto.groupId);
+            }
+            groupDto = accountGroupServiceFacade.getById(groupDto.groupId);
+        }
+        return AccountDataUtils.fromAccountGroupDto(groupDto);
+    }
+
+    @Override
+    public AccountData updateAccount(AccountData accountData) {
+        if (accountData == null) {
+            return null;
+        }
+        AccountDto accountDto = AccountDataUtils.toAccountDto(accountData);
+        return AccountDataUtils.fromAccountDto(accountDto);
+    }
+
+    @Override
+    public AccountGroupData updateAccountGroup(AccountGroupData groupData) {
+        if (groupData == null) {
+            return null;
+        }
+        AccountGroupDto groupDto = AccountDataUtils.toAccountGroupDto(groupData);
+        return AccountDataUtils.fromAccountGroupDto(accountGroupServiceFacade.save(groupDto));
     }
 
     @Override
     public AccountData deleteAccountById(Long accountId) {
+        if (accountId == null) {
+            return null;
+        }
         AccountDto accountDto = accountServiceFacade.getByAccountId(accountId);
         if (accountDto != null) {
             accountServiceFacade.removeByAccountId(accountId, false);
         }
-        return AccountDtoUtils.fromAccountDto(accountDto);
+        return AccountDataUtils.fromAccountDto(accountDto);
     }
 
     @Override
     public AccountData deleteAccountByEmail(String email) {
+        if (email == null || email.trim().length() == 0) {
+            return null;
+        }
         AccountDto accountDto = accountServiceFacade.getByEmail(email);
         if (accountDto != null) {
             accountServiceFacade.removeByEmail(email, false);
         }
-        return AccountDtoUtils.fromAccountDto(accountDto);
+        return AccountDataUtils.fromAccountDto(accountDto);
     }
 
     @Override
     public AccountData deleteAccountByPhoneNumber(String phoneNumber) {
+        if (phoneNumber == null || phoneNumber.trim().length() == 0) {
+            return null;
+        }
         AccountDto accountDto = accountServiceFacade.getByPhoneNumber(phoneNumber);
         if (accountDto != null) {
             accountServiceFacade.removeByAccountId(accountDto.accountId, false);
         }
-        return AccountDtoUtils.fromAccountDto(accountDto);
+        return AccountDataUtils.fromAccountDto(accountDto);
     }
 
     @Override
@@ -155,9 +231,28 @@ public class AccountServiceAdapterImpl implements AccountServiceAdapter {
     public AccountGroupData deleteAccountGroup(Long accountId, Long groupId) {
         AccountGroupDto groupDto = accountGroupServiceFacade.getById(groupId);
         if (groupDto != null) {
+            groupDto.accounts = null;
+            accountGroupServiceFacade.modify(groupDto);
             accountGroupServiceFacade.remove(accountId, groupId);
         }
-        return AccountDtoUtils.fromAccountGroupDto(groupDto);
+
+        try {
+            // get owned devices
+            List<ObjectMainInfoDto> objectDtos = antennaTemplate.objectInfoService.getObjectMainByAccountAndType(accountId, AniObjectType.DEVICE_OBJ, true, true);
+            if (objectDtos != null) {
+                for (ObjectMainInfoDto objectDto : objectDtos) {
+                    ObjectMainQueryDto mainQueryDto = new ObjectMainQueryDto(objectDto.objectId);
+                    Set<PrivilegeType> privilegeTypes = new HashSet<>();
+
+                    ObjectPrivilegeGrantDto privilegeGrantDto = new ObjectPrivilegeGrantDto(groupId, privilegeTypes);
+                    antennaTemplate.objectInfoService.grantAccountGroupPrivilege(mainQueryDto, privilegeGrantDto, true);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return AccountDataUtils.fromAccountGroupDto(groupDto);
     }
 
     @Override
@@ -177,31 +272,40 @@ public class AccountServiceAdapterImpl implements AccountServiceAdapter {
 
     @Override
     public AccountGroupData inviteAccountGroup(Long accountId, Long groupId) {
+        if (accountId == null || groupId == null) {
+            return null;
+        }
         groupJoinInvitationServiceFacade.addGroup(accountId, groupId);
-        return AccountDtoUtils.fromAccountGroupDto(accountGroupServiceFacade.getById(groupId));
+        return AccountDataUtils.fromAccountGroupDto(accountGroupServiceFacade.getById(groupId));
     }
 
     @Override
     public AccountGroupData joinAccountGroup(Long accountId, Long groupId) {
+        if (accountId == null || groupId == null) {
+            return null;
+        }
         AccountGroupDto groupDto = accountGroupServiceFacade.getById(groupId);
         AccountDto accountDto = accountServiceFacade.getByAccountId(accountId);
         if (groupDto != null && accountDto != null) {
             groupDto.accounts.add(accountDto);
             groupDto = accountGroupServiceFacade.modify(groupDto);
             groupJoinInvitationServiceFacade.removeGroup(accountId, groupId);
-            return AccountDtoUtils.fromAccountGroupDto(groupDto);
+            return AccountDataUtils.fromAccountGroupDto(groupDto);
         }
         return null;
     }
 
     @Override
     public AccountGroupData quitAccountGroup(Long accountId, Long groupId) {
+        if (accountId == null || groupId == null) {
+            return null;
+        }
         AccountGroupDto groupDto = accountGroupServiceFacade.getById(groupId);
         AccountDto accountDto = accountServiceFacade.getByAccountId(accountId);
         if (groupDto != null && accountDto != null) {
             groupDto.accounts.remove(accountDto);
             groupDto = accountGroupServiceFacade.modify(groupDto);
-            return AccountDtoUtils.fromAccountGroupDto(groupDto);
+            return AccountDataUtils.fromAccountGroupDto(groupDto);
         }
         return null;
     }

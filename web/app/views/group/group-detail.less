@@ -3,7 +3,7 @@
   border-bottom: 1px solid #eaeaea;
 
   .contact-detail-title {
-    color: #7CB342;
+    color: #4DA47C;
   }
 
   .contact-detail {
@@ -21,7 +21,7 @@
     background-image: url('/images/icon_plus.png');
     width: 54px;
     height: 54px;
-    display:inline-block;
+    display: inline-block;
   }
 
   .contact-detail .add-member:hover {
@@ -59,7 +59,7 @@
       //filter: grayscale(100%);
     }
     a {
-      background-color: rgba(0,0,0,0.7);
+      background-color: rgba(0, 0, 0, 0.7);
       width: 54px;
       height: 54px;
       border-radius: 4px;
@@ -70,9 +70,9 @@
     &:hover a {
       display: block;
       position: absolute;
-      top: 0px;
-      left: 0px;
-      color: #7CB342;
+      top: 0;
+      left: 0;
+      color: #4DA47C;
     }
   }
 
@@ -140,4 +140,105 @@
   //  margin: auto;
   //}
 
+}
+
+.group-detail {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  padding: 0 10px;
+
+  .detail-item {
+    float: left;
+    overflow: hidden;
+    width: 100%;
+    padding: 15px 12px;
+    border-bottom: 1px solid #e8e8e8;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    .left {
+      //display: inline-block;
+      float: left;
+      width: 30%;
+      max-width: 400px;
+      .item-title {
+        font-size: 15px;
+        //color: #111;
+        color: #4DA47C;
+      }
+    }
+
+    .right {
+      float: left;
+      //display: inline-block;
+      width: 65%;
+      .item-content {
+        .text {
+          font-size: 14px;
+          color: #757575;
+        }
+        .image-wrapper {
+          position: relative;
+          display: inline-block;;
+          margin: 2px;
+          width: 40px;
+          height: 40px;
+          border-radius: 4px;
+          overflow: hidden;
+          &:hover {
+            background-color: #666;
+            cursor: pointer;
+            img {
+              opacity: .4;
+            }
+            .image-mask {
+              display: block;
+            }
+          }
+          img {
+            width: 40px;
+            height: 40px;
+          }
+          .image-mask {
+            position: absolute;
+            width: 100%;
+            top: 0;
+            line-height: 40px;
+            text-align: center;
+            font-size: 13px;
+            color: #ccc;
+            display: none;
+          }
+        }
+        button {
+          padding: 4px 0;
+          width: 80px;
+          border-radius: 12px;
+          color: #a00;
+          border: none;
+          box-shadow: 0 1px 4px rgba(0,0,0,.26);
+          &:hover {
+            background-color: #fff;
+            box-shadow: 0 1px 8px rgba(0,0,0,.26);
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .group-detail {
+    padding: 0 30px;
+
+    .detail-item .left {
+
+    }
+
+    .detail-item .right {
+    }
+  }
 }

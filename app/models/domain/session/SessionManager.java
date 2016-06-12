@@ -21,7 +21,7 @@ import java.util.Set;
 @Component
 public class SessionManager {
     private static final Logger LOG = Logger.getLogger(SessionManager.class);
-    private static Map<Long, Set<WebSocketSession>> sessionMap = new HashMap<>();
+    private static Map<String, Set<WebSocketSession>> sessionMap = new HashMap<>();
 
     public static class WebSocketSession {
         private WebSocketActor actor;
@@ -59,10 +59,10 @@ public class SessionManager {
 
     public static class WebSocketActor extends UntypedActor {
         private final ActorRef actorRef;
-        private final Long key;
+        private final String key;
         private WebSocketSession session;
 
-        public WebSocketActor(ActorRef actorRef, Long key) {
+        public WebSocketActor(ActorRef actorRef, String key) {
             this.actorRef = actorRef;
             this.key = key;
             this.session = null;
@@ -101,11 +101,11 @@ public class SessionManager {
 
     }
 
-    public synchronized Set<WebSocketSession> getSessions(Long key) {
+    public synchronized Set<WebSocketSession> getSessions(String key) {
         return sessionMap.get(key);
     }
 
-    public WebSocket<JsonNode> getSocket(final Long key) {
+    public WebSocket<JsonNode> getSocket(final String key) {
         if (key == null) {
             return null;
         }

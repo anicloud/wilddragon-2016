@@ -1,0 +1,110 @@
+.device-share {
+  @panel-header-height: 44px;
+  height: 100%;
+  .panel-wrapper {
+    margin: 0 10px;
+    padding-top: 10px;
+    border-bottom: 1px solid #e8e8e8;
+
+    .panel {
+      box-shadow: none;
+      padding-bottom: 10px;
+
+      .panel-header {
+        height: @panel-header-height;
+        .cover {
+          float: left;
+          margin-left: 16px;
+          width: @panel-header-height;
+          height: @panel-header-height;
+          overflow: hidden;
+          img {
+            float: left;
+            margin: 1px;
+            width: 20px;
+            height: 20px;
+            border-radius: 20px;
+          }
+        }
+
+        .name {
+          float: left;
+          line-height: @panel-header-height;
+          width: 80px;
+          margin-left: 1%;
+          white-space: nowrap;
+          font-size: 16px;
+          color: #111;
+          text-align: center;
+        }
+
+        .info {
+          float: left;
+          margin-left: 20px;
+          max-width: 200px;
+          overflow: hidden;
+          .title {
+            margin-top: 2px;
+            font-size: 14px;
+          }
+
+          .subtitle {
+            margin-top: 2px;
+            font-size: 12px;
+            color: #888;
+            span {
+              padding-left: 3px;
+            }
+          }
+        }
+
+        .option {
+          float: right;
+          margin-right: 5px;
+          line-height: @panel-header-height;
+          button {
+            //border: solid 1px #4DA47C;
+            border-radius: 16px;
+            //background-color: #4DA47C;
+            color: #4DA47C;
+            font-size: 10px;
+            padding-left: 12px;
+            padding-right: 12px;
+            //box-shadow: 1px 1px 4px rgba(0,0,0,0.26);
+          }
+          button:hover{
+            background-color: #4DA47C;
+            color: #fff;
+          }
+          .removeshare{
+            color: #999999;
+            font-size: 12px;
+
+          }
+          .removeshare:hover{
+            color: #4DA47C;
+
+          }
+        }
+      }
+
+    }
+  }
+  .sharebutton{
+    padding-top: 18px;
+    padding-bottom: 18px;
+    text-align: center;
+  }
+  .sharebutton button{
+    color: #4DA47C;
+    border: solid 1px #4DA47C;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .device-share {
+    .panel-wrapper {
+      margin: 0 20px;
+    }
+  }
+}

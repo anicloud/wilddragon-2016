@@ -1,11 +1,120 @@
-<div class="nav-tabs">
-  <a class="nav-tab" data-ng-class="{'active': infoNavTabs.basic.active}" href="#/device/{{device.deviceId}}/info/basic">
-    <span class="icon"><i class="fa fa-file"></i> </span>
-    <span class="text">{{infoNavTabs.basic.name}}</span>
-  </a>
-  <a class="nav-tab" data-ng-class="{'active': infoNavTabs.share.active}" href="#/device/{{device.deviceId}}/info/share" data-ng-show="device.owner==account.accountId">
-    <span class="icon"><i class="fa fa-share-alt"></i> </span>
-    <span class="text">{{infoNavTabs.share.name}}</span>
-  </a>
+<div class="device-detail">
+  <div class="detail-content">
+    <div class="title">基本信息</div>
+    <div class="left">
+      <div class="description">
+        包括名称、ID、MAC地址、出厂序列号等设备基本信息
+      </div>
+    </div>
+    <div class="right">
+      <div class="panel">
+        <div class="panel-body">
+          <div class="item">
+            <a href="#/device/{{device.deviceId}}/info/name">
+              <div class="item-name highlight">名称</div>
+              <div class="item-detail">{{device.name}}</div>
+              <div class="item-next"><i class="fa fa-angle-right"></i></div>
+            </a>
+          </div>
+          <div class="item">
+            <a href="#/device/{{device.deviceId}}/info/description">
+              <div class="item-name highlight">描述</div>
+              <div class="item-detail">{{device.description}}</div>
+              <div class="item-next"><i class="fa fa-angle-right"></i></div>
+            </a>
+          </div>
+          <div class="item">
+            <a href="#/device/{{device.deviceId}}/info/state">
+              <div class="item-name highlight">状态</div>
+              <div class="item-detail"><span data-ng-bind="deviceStateFilter(device.state)"></span></div>
+              <div class="item-next"><i class="fa fa-angle-right"></i></div>
+            </a>
+          </div>
+          <div class="item">
+            <a href="#/device/{{device.deviceId}}/info/gid">
+              <div class="item-name highlight">ID</div>
+              <div class="item-detail">{{device.deviceId}}</div>
+              <div class="item-next"><i class="fa fa-angle-right"></i></div>
+            </a>
+          </div>
+          <div class="item">
+            <a href="#/device/{{device.deviceId}}/info/sid">
+              <div class="item-name highlight">序列号</div>
+              <div class="item-detail">{{device.physicalId}}</div>
+              <div class="item-next"><i class="fa fa-angle-right"></i></div>
+            </a>
+          </div>
+          <div class="item">
+            <a href="#/device/{{device.deviceId}}/info/mac">
+              <div class="item-name highlight">MAC地址</div>
+              <div class="item-detail">{{device.physicalAddress}}</div>
+              <div class="item-next"><i class="fa fa-angle-right"></i></div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="detail-content">
+    <div class="title">设备功能</div>
+    <div class="left">
+      <div class="description">
+        设备提供的功能
+      </div>
+    </div>
+    <div class="right">
+      <div class="panel">
+        <div class="panel-body">
+          <div class="item">
+            <div class="item-name highlight">功能名称</div>
+            <div class="item-detail highlight">所属功能组名称</div>
+          </div>
+          <div class="item" data-ng-repeat="functionMeta in masterFunctionMetas">
+            <a href="#/device/{{device.deviceId}}/info/function/{{functionMeta.functionId}}">
+              <div class="item-name">{{functionMeta.name}}</div>
+              <div class="item-detail">{{functionMeta.group.name}}</div>
+              <div class="item-next"><i class="fa fa-angle-right"></i></div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="detail-content">
+    <div class="title">从设备</div>
+    <div class="left">
+      <div class="description">
+        连接到该设备的从属设备
+      </div>
+    </div>
+    <div class="right">
+      <div class="panel">
+        <div class="panel-body">
+          <div class="item">
+            <div class="item-name highlight">名称</div>
+            <div class="item-detail highlight">描述</div>
+          </div>
+          <div class="item item-vertical" data-ng-repeat="slave in device.slaves">
+            <a href="#/device/{{device.deviceId}}/info/{{slave.deviceId}}">
+              <div class="item-name">{{slave.name}}</div>
+              <div class="item-detail">{{slave.description}}</div>
+              <div class="item-next"><i class="fa fa-angle-right"></i></div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="detail-content" data-ng-show="device.owner == account.accountId">
+    <div class="title">解除绑定</div>
+    <div class="left">
+      <div class="description">
+        解除绑定将使设备变为无主状态,可重新绑定账号
+      </div>
+    </div>
+    <div class="right">
+      <button class="btn btn-default" data-ng-click="unbind(device)">解除绑定</button>
+    </div>
+  </div>
+
 </div>
-<div data-ui-view=""></div>

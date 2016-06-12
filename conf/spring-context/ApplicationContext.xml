@@ -14,6 +14,7 @@
     <context:component-scan base-package="models"/>
 
     <bean class="play.mvc.Security$AuthenticatedAction" />
+    <bean class="org.pac4j.play.java.RequiresAuthenticationAction"/>
 
     <import resource="Jms.xml"/>
     <import resource="AntennaService.xml"/>

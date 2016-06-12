@@ -68,4 +68,4 @@ libraryDependencies += "com.ani.octopus.antenna" % "octopus-antenna" % "1.0"
 
 libraryDependencies += "com.ani.bus.device" % "device-bus" % "1.0"
 
-libraryDependencies += "com.ani.bus.service" % "service-bus" % "1.0"
+//libraryDependencies += "com.ani.bus.service" % "service-bus" % "1.0"

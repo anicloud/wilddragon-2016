@@ -86,7 +86,7 @@ public class FunctionDtoUtils {
         if (groupDto == null) {
             return null;
         }
-        return new FunctionGroupData(groupDto.groupId, groupDto.name);
+        return new FunctionGroupData(String.valueOf(groupDto.groupId), groupDto.name);
     }
 
     public static FunctionMetaData fromFunctionMetaDto(Stub metaDto) {

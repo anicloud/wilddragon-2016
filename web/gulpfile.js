@@ -23,7 +23,6 @@ var paths = {
     app.src + '/components*/**/*.js'
   ],
   styles: [
-    app.src + '/app.less',
     app.src + '/views*/**/*.less',
     app.src + '/components*/**/*.less',
     app.src + '/styles*/**/*.less'

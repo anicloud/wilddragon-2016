@@ -14,14 +14,20 @@ public class DeviceData {
 
     public List<FunctionData> functions;
 
+    public String avatarUrl;
+
+    public List<String> tags;
+
     public DeviceState state;
 
-    public DeviceData(String physicalId, String physicalAddress, String name, String description, List<FunctionData> functions, DeviceState state) {
+    public DeviceData(String physicalId, String physicalAddress, String name, String description, List<FunctionData> functions, String avatarUrl, List<String> tags, DeviceState state) {
         this.physicalId = physicalId;
         this.physicalAddress = physicalAddress;
         this.name = name;
         this.description = description;
         this.functions = functions;
+        this.avatarUrl = avatarUrl;
+        this.tags = tags;
         this.state = state;
     }
 }

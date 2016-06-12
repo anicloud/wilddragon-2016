@@ -1,10 +1,12 @@
 package models.dto.device;
 
+import java.util.Set;
+
 /**
  * Created by huangbin on 12/14/15.
  */
 public class DeviceShareData {
-    public Long deviceId;
-    public Long owner;
-    public Long groupId;
+    public String deviceId;
+    public String groupId;
+    public Set<PermissionType> types;
 }

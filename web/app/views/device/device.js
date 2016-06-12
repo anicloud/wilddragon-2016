@@ -19,10 +19,17 @@ angular.module('app.view.device', [
       });
   }])
 
-  .controller('DeviceCtrl', function ($rootScope, $scope) {
+  .controller('DeviceCtrl', function ($rootScope, $scope, DeviceService) {
     $scope.selectSideNavTab('device');
     $scope.searchbarCollapse = true;
     $scope.search = function () {
       //  todo: search logic
     };
+
+    $scope.deviceStateFilter = function (state) {
+      if (state == 'ACTIVE') return '已连接';
+      else if (state == 'INACTIVE') return '未连接';
+      else return '未知';
+    };
+
   });

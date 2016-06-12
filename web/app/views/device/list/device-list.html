@@ -21,18 +21,18 @@
       <div class="panel" data-panel-collapsed="collapsed" data-ng-class="{'collapsed': collapsed}">
         <div class="panel-header" data-panel-toggle>
           <div class="cover" data-ng-click="$event.stopPropagation()">
-            <a href="#/device/{{device.deviceId}}/info/basic">
-              <img src="{{device.avatarUrl}}">
+            <a href="#/device/{{device.deviceId}}/info">
+              <img data-ng-src="{{device.avatarUrl}}">
             </a>
           </div>
           <div class="info" data-ng-click="$event.stopPropagation()">
             <div class="title">
-              <a href="#/device/{{device.deviceId}}/info/basic" data-ng-click="stopPropagation()">
+              <a href="#/device/{{device.deviceId}}/info" data-ng-click="stopPropagation()">
                 {{device.name}}
               </a>
             </div>
             <div class="subtitle" data-ng-show="device.owner!=account.accountId">
-              共享来自{{device.owner}}
+              共享来自{{accountMap[device.owner].name}}
             </div>
           </div>
           <div class="extra" data-ng-click="$event.stopPropagation()">
@@ -45,11 +45,13 @@
               </a>
               <ul uib-dropdown-menu>
                 <li>
-                  <a href="#/device/{{device.deviceId}}/info/basic"><i class="fa fa-file"></i>&nbsp;&nbsp;设备详情</a>
-                  <a href="#/device/{{device.deviceId}}/info/share" data-ng-show="device.owner==account.accountId"><i
-                      class="fa fa-share-alt"></i>&nbsp;&nbsp;共享管理</a>
-                  <a href data-ng-show="device.owner==account.accountId"><i
-                      class="fa fa-unlock"></i>&nbsp;&nbsp;解除绑定</a>
+                  <a href="#/device/{{device.deviceId}}/info"><i class="fa fa-file"></i>&nbsp;&nbsp;设备详情</a>
+                  <a href="#/device/{{device.deviceId}}/share" data-ng-show="device.owner==account.accountId">
+                    <i class="fa fa-share-alt"></i>&nbsp;&nbsp;共享管理
+                  </a>
+                  <!--<a href data-ng-show="device.owner==account.accountId">-->
+                    <!--<i class="fa fa-unlock"></i>&nbsp;&nbsp;解除绑定-->
+                  <!--</a>-->
                 </li>
               </ul>
             </span>
@@ -66,7 +68,7 @@
               <i class="fa fa-circle"></i>
             </div>
             <div class="title">
-              <a href="#/device/{{device.deviceId}}/{{slave.deviceId}}">
+              <a href="#/device/{{device.deviceId}}/info/{{slave.deviceId}}">
                 {{slave.name}}
               </a>
             </div>
@@ -74,7 +76,7 @@
 
             </div>
             <div class="more">
-              <a href="#/device/{{device.deviceId}}/{{slave.deviceId}}">
+              <a href="#/device/{{device.deviceId}}/info/{{slave.deviceId}}">
                 更多
               </a>
             </div>

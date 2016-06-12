@@ -25,6 +25,16 @@ angular.module('app.service.device', [])
           return response.data;
         });
       },
+      unbindDevice: function (data) {
+        console.log('Unbinding device: ', data);
+        return $http({
+          method: 'POST',
+          url: 'device/unbind',
+          data: data
+        }).then(function (response) {
+          return response.data;
+        });
+      },
       shareDevice: function (data) {
         console.log('Sharing device: ', data);
         return $http({
@@ -44,7 +54,26 @@ angular.module('app.service.device', [])
         }).then(function (response) {
           return response.data;
         });
+      },
+      getSlaveFunctions: function (masterId, slaveId) {
+        console.log('getting slave functions: ', masterId, slaveId);
+        return $http({
+          method: 'GET',
+          url: 'device/function/' + masterId + '/' + slaveId
+        }).then(function (response) {
+          return response.data;
+        });
+      },
+      getMasterFunctions: function (masterId) {
+        console.log('getting master functions: ', masterId);
+        return $http({
+          method: 'GET',
+          url: 'device/function/' + masterId
+        }).then(function (response) {
+          return response.data;
+        });
       }
+
     };
   })
   .factory('DeviceService', function ($http) {
@@ -151,7 +180,7 @@ angular.module('app.service.device', [])
       ]
     };
     var device2 = {
-      avatarUrl: '/images/fan.svg',
+      avatarUrl: '/images/Fan.svg',
       physicalId: 's011111',
       physicalAddress: 'A6-29-00-01-6C-06',
       name: '公司控制中心',
@@ -256,9 +285,39 @@ angular.module('app.service.device', [])
         }
       ]
     };
+    var funcMeta0 = {
+      functionId: 1,
+      name: 'powerOn',
+      group: {
+        name: 'Power',
+        groupId: '1'
+      },
+      input: [],
+      output: [],
+      privilegeType: 'EXECUTABLE',
+      connType: 'SYNC'
+    };
+    var funcMeta1 = {
+      functionId: 2,
+      name: 'powerOff',
+      group: {
+        name: 'Power',
+        groupId: '1'
+      },
+      input: [],
+      output: [],
+      privilegeType: 'EXECUTABLE',
+      connType: 'SYNC'
+    };
     return {
       getDevices: function () {
         return new RetData(true, '', [device0, device1, device2, device3]);
+      },
+      getSlaveFunctions: function (masterId, slaveId) {
+        return new RetData(true, '', [funcMeta0, funcMeta1]);
+      },
+      getMasterFunctions: function (masterId) {
+        return new RetData(true, '', [funcMeta0, funcMeta1]);
       }
     };
   });

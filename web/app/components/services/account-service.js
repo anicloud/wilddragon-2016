@@ -103,7 +103,7 @@ angular.module('app.service.account', [])
       name: 'libiya',
       address: '#6 yard, East Ave.',
       company: 'anicloud',
-      avatarUrl: '/images/1.PNG'
+      avatarUrl: '/images/1.png'
     };
     var account2 = {
       accountId: 10103,
@@ -112,7 +112,7 @@ angular.module('app.service.account', [])
       name: 'yeh',
       address: '#6 yard, East Ave.',
       company: 'anicloud',
-      avatarUrl: '/images/2.PNG'
+      avatarUrl: '/images/2.png'
     };
     var account3 = {
       accountId: 10104,

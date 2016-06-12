@@ -1,14 +1,16 @@
 .group-wrapper {
-  padding: 10px;
+  padding: 16px 20px;
   .group-action {
     width: 80px;
     margin: 0 auto;
   }
   .group-card {
-    width: 200px;
-    height: 240px;
-    margin: 15px auto;
+    float: left;
+    width: 116px;
+    height: 146px;
+    margin: 15px 10px;
     border: 1px solid #e5e5e5;
+    border-radius: 4px;
     &:hover {
       border-color: #fff;
       transform: scale(1.001);
@@ -16,12 +18,12 @@
     }
     .close-button {
       position: absolute;
-      top: 5px;
-      right: 10px;
+      top: 2px;
+      right: 5px;
       //float: right;
       //margin-right: 10px;
       //margin-top: 5px;
-      font: 700 16px Arial,sans-serif;
+      font: 700 14px Arial,sans-serif;
       a {
         color: #ccc;
         &:hover {
@@ -32,9 +34,9 @@
     .card-title {
       .group-name {
         max-width: 100px;
-        line-height: 36px;
-        margin: 10px auto 0;
-        font-size: 16px;
+        line-height: 16px;
+        margin: 5px auto 0;
+        font-size: 14px;
         color: #4DA47C;
         overflow: hidden;
         white-space: nowrap;
@@ -42,7 +44,6 @@
       }
     }
     .card-content {
-      margin: 0 15px;
       .group-description {
         padding-top: 5px;
         text-align: center;
@@ -53,30 +54,34 @@
       }
       .group-members {
         //padding-top: 10px;
-        height: 122px;
-        margin-left: auto;
-        margin-right: auto;
+        height: 80px;
+        width: 80px;
+        margin: 4px auto;
         overflow: hidden;
         .group-member {
+          @group-member-height: 36px;
           float: left;
-          margin: 3px;
-          height: 50px;
-          width: 50px;
+          margin: 2px;
+          height: @group-member-height;
+          width: @group-member-height;
           //background-color: #a8a8a8;
           img {
-            height: 50px;
-            width: 50px;
+            height: @group-member-height;
+            width: @group-member-height;
+            //border-radius: @group-member-height;
           }
         }
       }
       .action {
         clear: both;
-        padding-top: 15px;
+        margin: 10px 16px;
         text-align: center;
 
         .btn-default {
           width: 100%;
-          font-size: 13px;
+          padding: 1px 0;
+          font-size: 11px;
+          border-radius: 12px;
         }
       }
     }

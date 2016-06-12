@@ -1,11 +1,11 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import models.domain.security.AccessAuthenticator;
 import models.domain.session.SessionManager;
-import models.dto.RetDataDto;
+import models.dto.RetData;
 import models.dto.notification.NotificationData;
 import models.service.notification.NotificationService;
+import org.pac4j.core.profile.CommonProfile;
 import org.pac4j.play.java.JavaController;
 import org.pac4j.play.java.RequiresAuthentication;
 import org.springframework.stereotype.Component;
@@ -28,27 +28,28 @@ public class NotificationController extends JavaController {
     @Resource
     private NotificationService notificationService;
 
+    private Long getAccountId() {
+        final CommonProfile profile = getUserProfile();
+        return Long.parseLong((String) profile.getAttribute("accountId"));
+    }
+
     public WebSocket<JsonNode> getWebSocket() {
-        Http.Cookie cookie = Http.Context.current().request().cookie("accountId");
         try {
-            Long id = Long.valueOf(cookie.value());
-            return sessionManager.getSocket(id);
+            return sessionManager.getSocket(String.valueOf(getAccountId()));
         } catch (Exception e) {
             return null;
         }
     }
 
     public Result getAllNotifications() {
-        Http.Cookie cookie = Http.Context.current().request().cookie("accountId");
-        RetDataDto retDataDto = null;
+        RetData retData = null;
         try {
-            Long id = Long.valueOf(cookie.value());
-            Set<NotificationData> data = notificationService.getNotificationsByAccount(id);
-            retDataDto = new RetDataDto(true, "", data);
+            Set<NotificationData> data = notificationService.getNotificationsByAccount(getAccountId());
+            retData = new RetData(true, "", data);
         } catch (Exception e) {
-            retDataDto = new RetDataDto(false, e.getMessage());
+            retData = new RetData(false, e.getMessage());
         } finally {
-            return ok(Json.toJson(retDataDto));
+            return ok(Json.toJson(retData));
         }
     }
 }

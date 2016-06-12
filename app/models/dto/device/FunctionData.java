@@ -5,9 +5,9 @@ package models.dto.device;
  */
 public class FunctionData {
     public Integer functionId;
-    public Long groupId;
+    public String groupId;
 
-    public FunctionData(Integer functionId, Long groupId) {
+    public FunctionData(Integer functionId, String groupId) {
         this.functionId = functionId;
         this.groupId = groupId;
     }

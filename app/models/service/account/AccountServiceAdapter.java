@@ -8,25 +8,27 @@ import java.util.Set;
  * Created by huangbin on 12/11/15.
  */
 public interface AccountServiceAdapter {
-    // get
-    AccountData getAccountById(Long accountId);
-    AccountData getAccountByEmail(String email);
-    AccountData getAccountByPhoneNumber(String phoneNumber);
+    // find
+    AccountData findAccountById(Long accountId);
+    AccountData findAccountByEmail(String email);
+    AccountData findAccountByPhone(String phoneNumber);
+    Set<AccountData> findAccountLike(String query);
+    Set<AccountData> findAccountByNameLike(String name);
+    Set<AccountData> findAccountByEmailLike(String email);
 
-    AccountGroupData getAccountGroupByGroupId(Long groupId);
-    Set<AccountGroupData> getGroupsByAccountId(Long accountId);
-    Set<AccountGroupData> getGroupsByEmail(String email);
-    Set<AccountGroupData> getGroupsByPhoneNumber(String phoneNumber);
+    AccountGroupData findGroup(Long groupId);
+    Set<AccountGroupData> findGroups(Long accountId);
 
-    Set<AccountData> getContactsById(Long accountId);
-    
+    Set<AccountData> findContacts(Long accountId);
+    Set<AccountData> findContacts(String email);
+
     // create
-    AccountData createAccount(AccountRegisterData registerData);
-    AccountGroupData createAccountGroup(AccountGroupRegisterData registerData);
+    AccountData createAccount(AccountData accountData);
+    AccountGroupData createAccountGroup(AccountGroupData accountGroupData);
 
     // update
-    AccountData updateAccount(AccountData account);
-    AccountGroupData updateAccountGroup(AccountGroupData group);
+    AccountData updateAccount(AccountData accountData);
+    AccountGroupData updateAccountGroup(AccountGroupData groupData);
 
     // delete
     AccountData deleteAccountById(Long accountId);

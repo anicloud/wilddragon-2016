@@ -22,56 +22,41 @@
       <div class="right">
         <div class="panel">
           <div class="panel-body">
-
-            <a href="">
-              <div class="container-fluid">
-                <div class="item row">
-                  <div class="item-name col-xs-3">头像</div>
-                  <div class="item-detail col-xs-8"><img src="{{account.avatarUrl}}"></div>
-                  <div class="item-next col-xs-1"><i class="fa fa-angle-right"></i></div>
-                </div>
+            <div class="item avatar">
+              <a href="">
+                <div class="item-name highlight highlight">头像</div>
+                <div class="item-detail img"><img data-ng-src="{{account.avatarUrl}}"></div>
+                <div class="item-next"><i class="fa fa-angle-right"></i></div>
+              </a>
+            </div>
+            <div class="item">
+              <div href="">
+                <div class="item-name highlight">名称</div>
+                <div class="item-detail"> {{account.name}}</div>
+                <div class="item-next"><i class="fa fa-angle-right"></i></div>
               </div>
-            </a>
-            <hr>
-            <a href="">
-              <div class="container-fluid">
-                <div class="item row">
-                  <div class="item-name col-xs-3">名称</div>
-                  <div class="item-detail col-xs-8"> {{account.name}}</div>
-                  <div class="item-next col-xs-1"><i class="fa fa-angle-right"></i></div>
-                </div>
+            </div>
+            <div class="item">
+              <div href="">
+                <div class="item-name highlight">邮箱</div>
+                <div class="item-detail">{{account.email}}</div>
+                <div class="item-next"><i class="fa fa-angle-right"></i></div>
               </div>
-            </a>
-            <hr>
-            <a href="">
-              <div class="container-fluid">
-                <div class="item row">
-                  <div class="item-name col-xs-3">邮箱</div>
-                  <div class="item-detail col-xs-8">{{account.email}}</div>
-                  <div class="item-next col-xs-1"><i class="fa fa-angle-right"></i></div>
-                </div>
+            </div>
+            <div class="item">
+              <div href="">
+                <div class="item-name highlight">电话</div>
+                <div class="item-detail">{{account.phoneNumber}}</div>
+                <div class="item-next"><i class="fa fa-angle-right"></i></div>
               </div>
-            </a>
-            <hr>
-            <a href="">
-              <div class="container-fluid">
-                <div class="item row">
-                  <div class="item-name col-xs-3">电话</div>
-                  <div class="item-detail col-xs-8">{{account.phoneNumber}}</div>
-                  <div class="item-next col-xs-1"><i class="fa fa-angle-right"></i></div>
-                </div>
+            </div>
+            <div class="item">
+              <div href="">
+                <div class="item-name highlight">公司</div>
+                <div class="item-detail">{{account.company}}</div>
+                <div class="item-next"><i class="fa fa-angle-right"></i></div>
               </div>
-            </a>
-            <hr>
-            <a href="">
-              <div class="container-fluid">
-                <div class="item row">
-                  <div class="item-name col-xs-3">公司</div>
-                  <div class="item-detail col-xs-8">{{account.company}}</div>
-                  <div class="item-next col-xs-1"><i class="fa fa-angle-right"></i></div>
-                </div>
-              </div>
-            </a>
+            </div>
           </div>
         </div>
       </div>

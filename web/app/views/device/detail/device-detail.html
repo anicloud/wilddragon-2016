@@ -13,6 +13,16 @@
     </div>
   </div>
 </div>
-<div class="content-body" data-ui-view="">
-
+<div class="content-body">
+  <div class="nav-tabs">
+    <a class="nav-tab" data-ng-class="{'active': detailNavTabs.info.active}" href="#/device/{{device.deviceId}}/info">
+      <span class="icon"><i class="fa fa-file"></i> </span>
+      <span class="text">{{detailNavTabs.info.name}}</span>
+    </a>
+    <a class="nav-tab" data-ng-class="{'active': detailNavTabs.share.active}" href="#/device/{{device.deviceId}}/share" data-ng-show="device.owner==account.accountId">
+      <span class="icon"><i class="fa fa-share-alt"></i> </span>
+      <span class="text">{{detailNavTabs.share.name}}</span>
+    </a>
+  </div>
+  <div data-ui-view=""></div>
 </div>

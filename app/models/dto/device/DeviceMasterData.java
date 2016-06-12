@@ -6,14 +6,16 @@ import java.util.List;
  * Created by huangbin on 12/11/15.
  */
 public class DeviceMasterData extends DeviceData {
-    public Long deviceId;
+    public String deviceId;
     public List<DeviceSlaveData> slaves;
 
-    public Long owner;
-    public List<Long> accountGroups;
+    public String owner;
+    public List<String> accountGroups;
 
-    public DeviceMasterData(String physicalId, String physicalAddress, String name, String description, List<FunctionData> functions, DeviceState state, Long deviceId, List<DeviceSlaveData> slaves, Long owner, List<Long> accountGroups) {
-        super(physicalId, physicalAddress, name, description, functions, state);
+    public List<PermissionData> permissions;
+
+    public DeviceMasterData(String physicalId, String physicalAddress, String name, String description, List<FunctionData> functions, String avatarUrl, List<String> tags, DeviceState state, String deviceId, List<DeviceSlaveData> slaves, String owner, List<String> accountGroups) {
+        super(physicalId, physicalAddress, name, description, functions, avatarUrl, tags, state);
         this.deviceId = deviceId;
         this.slaves = slaves;
         this.owner = owner;

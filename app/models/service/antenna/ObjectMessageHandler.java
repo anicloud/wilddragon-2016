@@ -6,9 +6,10 @@ import com.ani.octopus.antenna.core.dto.message.account.AccountGroupDisinviteMes
 import com.ani.octopus.antenna.core.dto.message.account.AccountGroupInviteMessage;
 import com.ani.octopus.antenna.core.dto.message.account.AccountGroupRemoveMessage;
 import com.ani.octopus.antenna.core.dto.message.device.DeviceConnectMessage;
-import com.ani.octopus.antenna.core.dto.message.device.DeviceModifyMessage;
+import com.ani.octopus.antenna.core.dto.message.device.DeviceUpdateMessage;
 import com.ani.octopus.antenna.infrastructure.service.ObjectMessageListener;
 import models.domain.session.SessionManager;
+import models.dto.account.AccountData;
 import models.dto.account.AccountGroupData;
 import models.dto.device.DeviceMasterData;
 import models.dto.notification.NotificationData;
@@ -36,43 +37,39 @@ public class ObjectMessageHandler implements ObjectMessageListener {
     @Override
     public void onNotifyMessage(ObjectMessage message) {
         switch (message.type) {
-            case DEVICE_ADD:
+            case DEVICE_UPDATED:
+                onDeviceUpdate((DeviceUpdateMessage) message);
                 break;
-            case DEVICE_REMOVE:
-                break;
-            case DEVICE_MODIFY:
-                onDeviceModify((DeviceModifyMessage) message);
-                break;
-            case DEVICE_CONNECT:
+            case DEVICE_CONNECTED:
                 onDeviceConnect((DeviceConnectMessage) message);
                 break;
-            case DEVICE_DISCONNECT:
+            case DEVICE_DISCONNECTED:
                 onDeviceDisconnect((DeviceConnectMessage) message);
                 break;
-            case DEVICE_BIND:
+            case DEVICE_BOUND:
                 break;
-            case DEVICE_UNBIND:
+            case DEVICE_UNBOUND:
                 break;
-            case DEVICE_SHARE:
+            case DEVICE_SHARED:
                 break;
-            case DEVICE_UNSHARE:
+            case DEVICE_UNSHARED:
                 break;
-            case ACCOUNT_GROUP_ADD:
+            case ACCOUNT_GROUP_ADDED:
                 onAccountGroupAdd((AccountGroupAddMessage) message);
                 break;
-            case ACCOUNT_GROUP_REMOVE:
+            case ACCOUNT_GROUP_REMOVED:
                 onAccountGroupRemove((AccountGroupRemoveMessage) message);
                 break;
-            case ACCOUNT_GROUP_MODIFY:
+            case ACCOUNT_GROUP_MODIFIED:
                 onAccountGroupModify((AccountGroupRemoveMessage) message);
                 break;
-            case ACCOUNT_GROUP_INVITE:
+            case ACCOUNT_GROUP_INVITED:
                 onAccountGroupInvite((AccountGroupInviteMessage) message);
                 break;
-            case ACCOUNT_GROUP_DISINVITE:
+            case ACCOUNT_GROUP_DISINVITED:
                 onAccountGroupDisinvite((AccountGroupDisinviteMessage) message);
                 break;
-            case ACCOUNT_GROUP_JOIN:
+            case ACCOUNT_GROUP_JOINED:
                 break;
             case ACCOUNT_GROUP_QUIT:
                 break;
@@ -82,14 +79,14 @@ public class ObjectMessageHandler implements ObjectMessageListener {
 
 
 
-    private void onDeviceModify(DeviceModifyMessage message) {
-        DeviceMasterData deviceMasterData = deviceServiceAdapter.getDeviceByDeviceId(message.deviceId);
+    private void onDeviceUpdate(DeviceUpdateMessage message) {
+        DeviceMasterData deviceMasterData = deviceServiceAdapter.findDevice(message.deviceId);
         if (deviceMasterData != null && deviceMasterData.accountGroups != null) {
             NotificationData notificationData = new NotificationData(
                     NotificationData.Type.DEVICE_MODIFY,
                     "device modify notification",
                     deviceMasterData);
-            for (Long accountId : deviceMasterData.accountGroups) {
+            for (String accountId : deviceMasterData.accountGroups) {
                 Set<SessionManager.WebSocketSession> accountSessions = sessionManager.getSessions(accountId);
                 if (accountSessions != null) {
                     for (SessionManager.WebSocketSession accountSession : accountSessions) {
@@ -101,13 +98,13 @@ public class ObjectMessageHandler implements ObjectMessageListener {
     }
 
     private void onDeviceConnect(DeviceConnectMessage message) {
-        DeviceMasterData deviceMasterData = deviceServiceAdapter.getDeviceByDeviceId(message.deviceId);
+        DeviceMasterData deviceMasterData = deviceServiceAdapter.findDevice(message.deviceId);
         if (deviceMasterData != null && deviceMasterData.accountGroups != null) {
             NotificationData notificationData = new NotificationData(
                     NotificationData.Type.DEVICE_CONNECT,
                     "device connect notification",
                     deviceMasterData.deviceId);
-            for (Long accountId : deviceMasterData.accountGroups) {
+            for (String accountId : deviceMasterData.accountGroups) {
                 Set<SessionManager.WebSocketSession> accountSessions = sessionManager.getSessions(accountId);
                 if (accountSessions != null) {
                     for (SessionManager.WebSocketSession accountSession : accountSessions) {
@@ -119,13 +116,13 @@ public class ObjectMessageHandler implements ObjectMessageListener {
     }
 
     private void onDeviceDisconnect(DeviceConnectMessage message) {
-        DeviceMasterData deviceMasterData = deviceServiceAdapter.getDeviceByDeviceId(message.deviceId);
+        DeviceMasterData deviceMasterData = deviceServiceAdapter.findDevice(message.deviceId);
         if (deviceMasterData != null && deviceMasterData.accountGroups != null) {
             NotificationData notificationData = new NotificationData(
                     NotificationData.Type.DEVICE_DISCONNECT,
                     "device disconnect notification",
                     deviceMasterData.deviceId);
-            for (Long accountId : deviceMasterData.accountGroups) {
+            for (String accountId : deviceMasterData.accountGroups) {
                 Set<SessionManager.WebSocketSession> accountSessions = sessionManager.getSessions(accountId);
                 if (accountSessions != null) {
                     for (SessionManager.WebSocketSession accountSession : accountSessions) {
@@ -137,14 +134,14 @@ public class ObjectMessageHandler implements ObjectMessageListener {
     }
 
     private void onAccountGroupAdd(AccountGroupAddMessage message) {
-        AccountGroupData accountGroupData = accountServiceAdapter.getAccountGroupByGroupId(message.groupId);
+        AccountGroupData accountGroupData = accountServiceAdapter.findGroup(message.groupId);
         if (accountGroupData != null && accountGroupData.accounts != null) {
             NotificationData notificationData = new NotificationData(
                     NotificationData.Type.ACCOUNT_GROUP_ADD,
                     "account group add notification",
                     accountGroupData);
-            for (Long accountId : accountGroupData.accounts) {
-                Set<SessionManager.WebSocketSession> accountSessions = sessionManager.getSessions(accountId);
+            for (AccountData accountData : accountGroupData.accounts) {
+                Set<SessionManager.WebSocketSession> accountSessions = sessionManager.getSessions(accountData.accountId);
                 if (accountSessions != null) {
                     for (SessionManager.WebSocketSession accountSession : accountSessions) {
                         accountSession.send(notificationData);
@@ -155,14 +152,14 @@ public class ObjectMessageHandler implements ObjectMessageListener {
     }
 
     private void onAccountGroupRemove(AccountGroupRemoveMessage message) {
-        AccountGroupData accountGroupData = accountServiceAdapter.getAccountGroupByGroupId(message.groupId);
+        AccountGroupData accountGroupData = accountServiceAdapter.findGroup(message.groupId);
         if (accountGroupData != null && accountGroupData.accounts != null) {
             NotificationData notificationData = new NotificationData(
                     NotificationData.Type.ACCOUNT_GROUP_REMOVE,
                     "account group remove notification",
                     accountGroupData);
-            for (Long accountId : accountGroupData.accounts) {
-                Set<SessionManager.WebSocketSession> accountSessions = sessionManager.getSessions(accountId);
+            for (AccountData accountData : accountGroupData.accounts) {
+                Set<SessionManager.WebSocketSession> accountSessions = sessionManager.getSessions(accountData.accountId);
                 if (accountSessions != null) {
                     for (SessionManager.WebSocketSession accountSession : accountSessions) {
                         accountSession.send(notificationData);
@@ -173,14 +170,14 @@ public class ObjectMessageHandler implements ObjectMessageListener {
     }
 
     private void onAccountGroupModify(AccountGroupRemoveMessage message) {
-        AccountGroupData accountGroupData = accountServiceAdapter.getAccountGroupByGroupId(message.groupId);
+        AccountGroupData accountGroupData = accountServiceAdapter.findGroup(message.groupId);
         if (accountGroupData != null && accountGroupData.accounts != null) {
             NotificationData notificationData = new NotificationData(
                     NotificationData.Type.ACCOUNT_GROUP_MODIFY,
                     "account group modify notification",
                     accountGroupData);
-            for (Long accountId : accountGroupData.accounts) {
-                Set<SessionManager.WebSocketSession> accountSessions = sessionManager.getSessions(accountId);
+            for (AccountData accountData : accountGroupData.accounts) {
+                Set<SessionManager.WebSocketSession> accountSessions = sessionManager.getSessions(accountData.accountId);
                 if (accountSessions != null) {
                     for (SessionManager.WebSocketSession accountSession : accountSessions) {
                         accountSession.send(notificationData);
@@ -191,13 +188,13 @@ public class ObjectMessageHandler implements ObjectMessageListener {
     }
 
     private void onAccountGroupInvite(AccountGroupInviteMessage message) {
-        AccountGroupData accountGroupData = accountServiceAdapter.getAccountGroupByGroupId(message.groupId);
+        AccountGroupData accountGroupData = accountServiceAdapter.findGroup(message.groupId);
         if (accountGroupData != null) {
             NotificationData notificationData = new NotificationData(
                     NotificationData.Type.ACCOUNT_GROUP_INVITE,
                     "account group invite notification",
                     accountGroupData);
-            Set<SessionManager.WebSocketSession> accountSessions = sessionManager.getSessions(message.accountId);
+            Set<SessionManager.WebSocketSession> accountSessions = sessionManager.getSessions(String.valueOf(message.accountId));
             if (accountSessions != null) {
                 for (SessionManager.WebSocketSession accountSession : accountSessions) {
                     accountSession.send(notificationData);
@@ -207,13 +204,13 @@ public class ObjectMessageHandler implements ObjectMessageListener {
     }
 
     private void onAccountGroupDisinvite(AccountGroupDisinviteMessage message) {
-        AccountGroupData accountGroupData = accountServiceAdapter.getAccountGroupByGroupId(message.groupId);
+        AccountGroupData accountGroupData = accountServiceAdapter.findGroup(message.groupId);
         if (accountGroupData != null) {
             NotificationData notificationData = new NotificationData(
                     NotificationData.Type.ACCOUNT_GROUP_DISINVITE,
                     "account group add notification",
                     accountGroupData);
-            Set<SessionManager.WebSocketSession> accountSessions = sessionManager.getSessions(message.accountId);
+            Set<SessionManager.WebSocketSession> accountSessions = sessionManager.getSessions(String.valueOf(message.accountId));
             if (accountSessions != null) {
                 for (SessionManager.WebSocketSession accountSession : accountSessions) {
                     accountSession.send(notificationData);

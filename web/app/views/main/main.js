@@ -28,11 +28,7 @@ angular.module('app.view.main', ['ui.router'])
             return DeviceService.getDevices();
           }
         },
-        controller: function ($rootScope, $scope, $window, $state, account, contacts, groups, devices) {
-          $scope.logout = function () {
-            $window.location.href = 'http://' + $window.location.host + "/logout";
-          };
-
+        controller: function ($rootScope, $scope, $window, $timeout, $state, account, contacts, groups, devices) {
           if (account.success) {
             console.log('Got account data:');
             console.log(account.data);
@@ -52,9 +48,16 @@ angular.module('app.view.main', ['ui.router'])
             console.log(groups.data);
             $scope.groups = groups.data;
             $scope.groupMap = {};
+            $scope.accountMap = {};
             angular.forEach($scope.groups, function (group) {
               $scope.groupMap[group.groupId] = group;
+              $scope.accountMap[group.owner.accountId] = group.owner;
+              angular.forEach(group.accounts, function (account) {
+                $scope.accountMap[account.accountId] = account;
+              });
             });
+            console.log('Account map: ');
+            console.log($scope.accountMap);
           } else {
             console.error('Error in getting groups');
           }
@@ -98,20 +101,26 @@ angular.module('app.view.main', ['ui.router'])
           };
 
           $scope.selectSideNavTab = function (tabName) {
-            $scope.sideNavTabs.app.active = false;
-            $scope.sideNavTabs.device.active = false;
-            $scope.sideNavTabs.store.active = false;
-            $scope.sideNavTabs.group.active = false;
-            $scope.sideNavTabs.notify.active = false;
-            $scope.sideNavTabs.settings.active = false;
-            $scope.sideNavTabs[tabName].active = true;
+            $timeout(function() {
+              $scope.sideNavTabs.app.active = false;
+              $scope.sideNavTabs.device.active = false;
+              $scope.sideNavTabs.store.active = false;
+              $scope.sideNavTabs.group.active = false;
+              $scope.sideNavTabs.notify.active = false;
+              $scope.sideNavTabs.settings.active = false;
+              $scope.sideNavTabs[tabName].active = true;
+              $scope.sidebarCollapsed = true;
+            }, 0);
           };
 
-          $scope.sidebarCollapse = true;
+          $scope.sidebarCollapsed = true;
           $scope.toggleSidebar = function () {
-            $scope.sidebarCollapse = !$scope.sidebarCollapse;
+            $scope.sidebarCollapsed = !$scope.sidebarCollapsed;
           };
 
+          $scope.logout = function () {
+            $window.location.href = $window.location.protocol + '//' + $window.location.host + "/logout";
+          };
         }
       });
   }]);

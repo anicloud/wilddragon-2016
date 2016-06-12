@@ -1,17 +1,16 @@
 package controllers;
 
+import com.ani.octopus.account.application.service.account.AccountService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import models.domain.security.AccessAuthenticator;
-import models.dto.RetDataDto;
+import models.dto.RetData;
 import models.dto.account.*;
 import models.service.account.AccountServiceAdapter;
+import org.pac4j.core.profile.CommonProfile;
 import org.pac4j.play.java.JavaController;
 import org.pac4j.play.java.RequiresAuthentication;
 import org.springframework.stereotype.Component;
 import play.libs.Json;
-import play.mvc.Controller;
 import play.mvc.Result;
-import play.mvc.Security;
 
 import javax.annotation.Resource;
 import java.util.Set;
@@ -23,131 +22,174 @@ import java.util.Set;
 //@Security.Authenticated(AccessAuthenticator.class)
 @RequiresAuthentication(clientName = "CasClient")
 public class AccountController extends JavaController {
+
     @Resource
     private AccountServiceAdapter accountServiceAdapter;
 
+    private Long getAccountId() {
+        final CommonProfile profile = getUserProfile();
+        return Long.parseLong((String) profile.getAttribute("accountId"));
+    }
+
     public Result getAccount() {
-        RetDataDto retDataDto = null;
+        RetData retData = null;
         try {
-            Long id = Long.valueOf(request().cookie("accountId").value());
-            AccountData accountData = accountServiceAdapter.getAccountById(id);
-            retDataDto = new RetDataDto(true, "", accountData);
+            AccountData accountData = accountServiceAdapter.findAccountById(getAccountId());
+            retData = new RetData(true, "", accountData);
         } catch (Exception e) {
-            retDataDto = new RetDataDto(false, e.getMessage());
+            retData = new RetData(false, e.getMessage());
         } finally {
-            return ok(Json.toJson(retDataDto));
+            return ok(Json.toJson(retData));
+        }
+    }
+
+    public Result getAccountByEmail(String email) {
+        RetData retData = null;
+        try {
+            AccountData accountData = accountServiceAdapter.findAccountByEmail(email);
+            retData = new RetData(true, "", accountData);
+        } catch (Exception e) {
+            retData = new RetData(false, e.getMessage());
+        } finally {
+            return ok(Json.toJson(retData));
+        }
+    }
+
+    public Result getAccountLike(String query) {
+        RetData retData = null;
+        try {
+            Set<AccountData> accountData = accountServiceAdapter.findAccountLike(query);
+            retData = new RetData(true, "", accountData);
+        } catch (Exception e) {
+            retData = new RetData(false, e.getMessage());
+        } finally {
+            return ok(Json.toJson(retData));
         }
     }
 
     public Result getContacts() {
-        RetDataDto retDataDto = null;
+        RetData retData = null;
         try {
-            Long id = Long.valueOf(request().cookie("accountId").value());
-            Set<AccountData> contactsData = accountServiceAdapter.getContactsById(id);
-            retDataDto = new RetDataDto(true, "", contactsData);
+            Set<AccountData> contactsData = accountServiceAdapter.findContacts(getAccountId());
+            retData = new RetData(true, "", contactsData);
         } catch (Exception e) {
-            retDataDto = new RetDataDto(false, e.getMessage());
+            retData = new RetData(false, e.getMessage());
         } finally {
-            return ok(Json.toJson(retDataDto));
+            return ok(Json.toJson(retData));
         }
     }
 
-    public Result login() {
-        RetDataDto retDataDto = null;
+    public Result getGroups() {
+        RetData retData = null;
         try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            AccountLoginData loginData = objectMapper.treeToValue(request().body().asJson(), AccountLoginData.class);
-            AccountData accountData = accountServiceAdapter.loginAccount(loginData);
-            retDataDto = new RetDataDto(true, "", accountData);
+            Set<AccountGroupData> groupDatas = accountServiceAdapter.findGroups(getAccountId());
+            retData = new RetData(true, "", groupDatas);
         } catch (Exception e) {
-            retDataDto = new RetDataDto(false, e.getMessage());
+            retData = new RetData(false, e.getMessage());
         } finally {
-            return ok(Json.toJson(retDataDto));
+            return ok(Json.toJson(retData));
         }
-    }
 
-    public Result logout() {
-        RetDataDto retDataDto = null;
-        try {
-            Long id = Long.valueOf(request().cookie("accountId").value());
-            accountServiceAdapter.logoutAccountById(id);
-            retDataDto = new RetDataDto(true, "");
-        } catch (Exception e) {
-            retDataDto = new RetDataDto(false, e.getMessage());
-        } finally {
-            return ok(Json.toJson(retDataDto));
-        }
     }
 
     public Result createGroup() {
-        RetDataDto retDataDto = null;
+        RetData retData = null;
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-            AccountGroupRegisterData registerData = objectMapper.treeToValue(request().body().asJson(), AccountGroupRegisterData.class);
-            AccountGroupData groupData = accountServiceAdapter.createAccountGroup(registerData);
-            retDataDto = new RetDataDto(true, "", groupData);
+            AccountGroupData groupData = objectMapper.treeToValue(request().body().asJson(), AccountGroupData.class);
+            groupData.owner = accountServiceAdapter.findAccountById(getAccountId());
+            groupData.type = AccountGroupType.CUSTOM;
+            groupData = accountServiceAdapter.createAccountGroup(groupData);
+            retData = new RetData(true, "", groupData);
         } catch (Exception e) {
-            retDataDto = new RetDataDto(false, e.getMessage());
+            retData = new RetData(false, e.getMessage());
         } finally {
-            return ok(Json.toJson(retDataDto));
+            return ok(Json.toJson(retData));
         }
     }
 
     public Result deleteGroup() {
-        RetDataDto retDataDto = null;
+        RetData retData = null;
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             AccountGroupData groupData = objectMapper.treeToValue(request().body().asJson(), AccountGroupData.class);
-            groupData = accountServiceAdapter.deleteAccountGroup(groupData.owner, groupData.groupId);
-            retDataDto = new RetDataDto(true, "", groupData);
+            groupData = accountServiceAdapter.deleteAccountGroup(getAccountId(), Long.valueOf(groupData.groupId));
+            retData = new RetData(true, "", groupData);
         } catch (Exception e) {
-            retDataDto = new RetDataDto(false, e.getMessage());
+            retData = new RetData(false, e.getMessage());
         } finally {
-            return ok(Json.toJson(retDataDto));
+            return ok(Json.toJson(retData));
         }
     }
 
     public Result inviteAccount() {
-        RetDataDto retDataDto = null;
+        RetData retData = null;
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             AccountGroupInviteData inviteData = objectMapper.treeToValue(request().body().asJson(), AccountGroupInviteData.class);
-            AccountGroupData groupData = accountServiceAdapter.inviteAccountGroup(inviteData.accountId, inviteData.groupId);
-            retDataDto = new RetDataDto(true, "", groupData);
+            AccountGroupData groupData = accountServiceAdapter.inviteAccountGroup(Long.valueOf(inviteData.accountId), Long.valueOf(inviteData.groupId));
+            retData = new RetData(true, "", groupData);
         } catch (Exception e) {
-            retDataDto = new RetDataDto(false, e.getMessage());
+            retData = new RetData(false, e.getMessage());
         } finally {
-            return ok(Json.toJson(retDataDto));
+            return ok(Json.toJson(retData));
         }
     }
 
     public Result joinAccountGroup() {
-        RetDataDto retDataDto = null;
+        RetData retData = null;
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             AccountGroupInviteData inviteData = objectMapper.treeToValue(request().body().asJson(), AccountGroupInviteData.class);
-            AccountGroupData groupData = accountServiceAdapter.joinAccountGroup(inviteData.accountId, inviteData.groupId);
-            retDataDto = new RetDataDto(true, "", groupData);
+            AccountGroupData groupData = accountServiceAdapter.joinAccountGroup(getAccountId(), Long.valueOf(inviteData.groupId));
+            retData = new RetData(true, "", groupData);
         } catch (Exception e) {
-            retDataDto = new RetDataDto(false, e.getMessage());
+            retData = new RetData(false, e.getMessage());
         } finally {
-            return ok(Json.toJson(retDataDto));
+            return ok(Json.toJson(retData));
         }
     }
 
     public Result quitAccountGroup() {
-        RetDataDto retDataDto = null;
+        RetData retData = null;
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             AccountGroupInviteData inviteData = objectMapper.treeToValue(request().body().asJson(), AccountGroupInviteData.class);
-            AccountGroupData groupData = accountServiceAdapter.quitAccountGroup(inviteData.accountId, inviteData.groupId);
-            retDataDto = new RetDataDto(true, "", groupData);
+            AccountGroupData groupData = accountServiceAdapter.quitAccountGroup(getAccountId(), Long.valueOf(inviteData.groupId));
+            retData = new RetData(true, "", groupData);
         } catch (Exception e) {
-            retDataDto = new RetDataDto(false, e.getMessage());
+            retData = new RetData(false, e.getMessage());
         } finally {
-            return ok(Json.toJson(retDataDto));
+            return ok(Json.toJson(retData));
         }
     }
 
 
+    public Result login() {
+        RetData retData = null;
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            AccountLoginData loginData = objectMapper.treeToValue(request().body().asJson(), AccountLoginData.class);
+            AccountData accountData = accountServiceAdapter.loginAccount(loginData);
+            retData = new RetData(true, "", accountData);
+        } catch (Exception e) {
+            retData = new RetData(false, e.getMessage());
+        } finally {
+            return ok(Json.toJson(retData));
+        }
+    }
+
+    public Result logout() {
+        RetData retData = null;
+        try {
+            final CommonProfile profile = getUserProfile();
+            Long id = Long.valueOf(request().cookie("accountId").value());
+            accountServiceAdapter.logoutAccountById(id);
+            retData = new RetData(true, "");
+        } catch (Exception e) {
+            retData = new RetData(false, e.getMessage());
+        } finally {
+            return ok(Json.toJson(retData));
+        }
+    }
 }

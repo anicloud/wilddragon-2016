@@ -1,0 +1,178 @@
+.device-detail {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  padding: 0 15px;
+
+  .detail-content {
+    float: left;
+    width: 100%;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e8e8e8;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    .title {
+      padding: 15px 0;
+      font-size: 16px;
+      //color: #111;
+      color: #4DA47C;
+    }
+
+    .left {
+      padding-bottom: 15px;
+    }
+
+    .left .description {
+      font-size: 14px;
+      color: #757575;
+    }
+
+    .right {
+      .panel {
+        .panel-body {
+          .item {
+            @item-height: 50px;
+            height: @item-height;
+            border-bottom: 1px solid #e8e8e8;
+            &:last-child {
+              border-bottom: none;
+            }
+            .item-name {
+              float: left;
+              width: 30%;
+              max-width: 120px;
+              text-align: center;
+              line-height: @item-height;
+              font-size: 15px;
+              color: #757575;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              &.highlight {
+                font-size: 16px;
+                color: #111;
+              }
+            }
+            .item-detail {
+              float: left;
+              width: 60%;
+              padding-left: 2%;
+              padding-right: 2%;
+              text-align: center;
+              line-height: @item-height;
+              font-size: 15px;
+              color: #757575;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              &.highlight {
+                color: #111;
+              }
+            }
+            .item-next {
+              float: right;
+              width: 5%;
+              text-align: left;
+              line-height: @item-height;
+              font-size: 14px;
+            }
+          }
+        }
+      }
+      button {
+        appearance: none;
+        width: 90px;
+        height: 30px;
+        border: none;
+        border-radius: 16px;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.26);
+        font-size: 13px;
+        color: #a00;
+        background-color: #fff;
+        &:hover {
+
+          box-shadow: 0 1px 8px rgba(0,0,0,0.26);
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .device-detail {
+    padding: 0 30px;
+
+    .detail-content {
+      .left {
+        float: left;
+        width: 30%;
+      }
+      .right {
+        float: left;
+        width: 70%;
+        padding-left: 20px;
+      }
+    }
+  }
+}
+
+
+.device-detail-settings {
+  .panel {
+    width: 84%;
+    margin: 60px auto;
+    padding: 20px 10px;
+    background-color: #fcfcfc;
+    .panel-body {
+      .settings-name {
+        padding: 5px;
+        color: #4DA47C;
+        font-size: 16px;
+      }
+      .settings-description {
+        padding: 5px;
+        color: #757575;
+        font-size: 12px;
+      }
+      .settings-content {
+        padding: 5px;
+        input[type='text'] {
+          width: 100%;
+        }
+      }
+      .settings-action {
+        float: right;
+        padding: 10px 5px;
+        button {
+          padding: 3px;
+          width: 65px;
+          border: none;
+          border-radius: 12px;
+          box-shadow: 0 1px 4px rgba(0,0,0,.26);
+          font-size: 12px;
+        }
+        button + button {
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .device-detail-settings {
+    .panel {
+      width: 50%;
+      padding: 20px 15px;
+      .panel-body {
+        .settings-name {
+        }
+        .settings-content {
+        }
+      }
+    }
+  }
+}

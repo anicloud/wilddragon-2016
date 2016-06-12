@@ -14,7 +14,7 @@ public class DeviceDtoUtils {
         if (functionDto == null) {
             return null;
         }
-        return new FunctionData(functionDto.functionId, functionDto.groupId);
+        return new FunctionData(functionDto.functionId, String.valueOf(functionDto.groupId));
     }
 
     public static List<FunctionData> fromFunctionDtos(List<FunctionDto> functionDtos) {
@@ -38,9 +38,11 @@ public class DeviceDtoUtils {
                 slaveDto.name,
                 slaveDto.description,
                 fromFunctionDtos(slaveDto.functions),
+                slaveDto.avatarUrl,
+                slaveDto.tags,
                 DeviceState.ACTIVE,
                 slaveDto.deviceId,
-                slaveDto.masterId);
+                String.valueOf(slaveDto.masterId));
     }
 
     public static List<DeviceSlaveData> fromDeviceSlaveDtos(List<DeviceSlaveDto> slaveDtos) {
@@ -58,17 +60,26 @@ public class DeviceDtoUtils {
         if (masterDto == null) {
             return null;
         }
+        List<String> accountGroups = null;
+        if (masterDto.accountGroups != null) {
+            accountGroups = new ArrayList<>(masterDto.accountGroups.size());
+            for (Long groupId : masterDto.accountGroups) {
+                accountGroups.add(String.valueOf(groupId));
+            }
+        }
         DeviceMasterData masterData = new DeviceMasterData(
                 masterDto.physicalId,
                 masterDto.physicalAddress,
                 masterDto.name,
                 masterDto.description,
                 fromFunctionDtos(masterDto.functions),
+                masterDto.avatarUrl,
+                masterDto.tags,
                 state,
-                masterDto.deviceId,
+                String.valueOf(masterDto.deviceId),
                 fromDeviceSlaveDtos(masterDto.slaves),
-                masterDto.owner,
-                masterDto.accountGroups);
+                String.valueOf(masterDto.owner),
+                accountGroups);
         return masterData;
     }
 }

@@ -62,11 +62,11 @@ public class AccountDtoUtils {
             accountIds.add(accountDto.accountId);
         }
         AccountGroupData groupData = new AccountGroupData(
-                groupDto.groupId,
-                groupDto.owner.accountId,
+                String.valueOf(groupDto.groupId),
                 groupDto.groupName,
                 fromGroupType(groupDto.groupType),
-                accountIds
+                fromAccountDto(groupDto.owner),
+                fromAccountDtos(groupDto.accounts)
         );
         return groupData;
     }
@@ -76,15 +76,15 @@ public class AccountDtoUtils {
             return null;
         }
         AccountData accountData = new AccountData(
-                accountDto.accountId,
+                String.valueOf(accountDto.accountId),
                 accountDto.email,
+                accountDto.password,
                 accountDto.accountInfo.phoneNumber,
                 fromAccountType(accountDto.accountType),
                 accountDto.screenName,
                 accountDto.accountInfo.address,
                 accountDto.accountInfo.company,
-                accountDto.accountInfo.photoPath,
-                fromAccountGroupDtos(accountDto.groupSet)
+                accountDto.accountInfo.photoPath
         );
         return accountData;
     }

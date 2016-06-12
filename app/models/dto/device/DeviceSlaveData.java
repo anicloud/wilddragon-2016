@@ -8,10 +8,10 @@ import java.util.Set;
  */
 public class DeviceSlaveData extends DeviceData {
     public Integer deviceId;
-    public Long masterId;
+    public String masterId;
 
-    public DeviceSlaveData(String physicalId, String physicalAddress, String name, String description, List<FunctionData> functions, DeviceState state, Integer deviceId, Long masterId) {
-        super(physicalId, physicalAddress, name, description, functions, state);
+    public DeviceSlaveData(String physicalId, String physicalAddress, String name, String description, List<FunctionData> functions, String avatarUrl, List<String> tags, DeviceState state, Integer deviceId, String masterId) {
+        super(physicalId, physicalAddress, name, description, functions, avatarUrl, tags, state);
         this.deviceId = deviceId;
         this.masterId = masterId;
     }

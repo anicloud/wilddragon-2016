@@ -1,0 +1,30 @@
+<div class="device-share">
+  <div class="panel-wrapper" data-ng-repeat="share in shareList">
+    <div class="panel">
+      <div class="panel-header">
+        <a href="#/group/{{share.group.groupId}}">
+          <div class="cover" data-ng-click="$event.stopPropagation()">
+            <img data-ng-src="{{account.avatarUrl}}" data-ng-repeat="account in share.group.accounts">
+          </div>
+        </a>
+        <div class="info">
+          <div class="title">
+            已共享至{{share.group.name}}
+          </div>
+          <div class="subtitle">
+            权限: <span data-ng-repeat="type in share.types">{{getPermissionTypeName(type)}}</span>
+          </div>
+        </div>
+        <div class="option">
+          <a class="removeshare" data-ng-click="removeShare(share)">移除共享</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sharebutton">
+    <button class="btn btn-default" data-ng-click="addShare()">
+      创建共享
+    </button>
+  </div>
+</div>

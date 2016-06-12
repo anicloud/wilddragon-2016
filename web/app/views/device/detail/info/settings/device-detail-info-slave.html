@@ -1,0 +1,89 @@
+<div class="device-detail">
+  <div class="detail-content">
+    <div class="title">基本信息</div>
+    <div class="left">
+      <div class="description">
+        包括名称、ID、MAC地址、出厂序列号等设备基本信息
+      </div>
+    </div>
+    <div class="right">
+      <div class="panel">
+        <div class="panel-body">
+          <div class="item">
+            <a href>
+              <div class="item-name highlight">主设备</div>
+              <div class="item-detail">{{device.name}}</div>
+              <div class="item-next"><i class="fa fa-angle-right"></i></div>
+            </a>
+          </div>
+          <div class="item">
+            <a href>
+              <div class="item-name highlight">名称</div>
+              <div class="item-detail">{{slave.name}}</div>
+              <div class="item-next"><i class="fa fa-angle-right"></i></div>
+            </a>
+          </div>
+          <div class="item">
+            <a href>
+              <div class="item-name highlight">状态</div>
+              <div class="item-detail">{{slave.state}}</div>
+              <div class="item-next"><i class="fa fa-angle-right"></i></div>
+            </a>
+          </div>
+          <div class="item">
+            <a href>
+              <div class="item-name highlight">描述</div>
+              <div class="item-detail">{{slave.description}}</div>
+              <div class="item-next"><i class="fa fa-angle-right"></i></div>
+            </a>
+          </div>
+          <div class="item">
+            <a href>
+              <div class="item-name highlight">ID</div>
+              <div class="item-detail">{{slave.deviceId}}</div>
+              <div class="item-next"><i class="fa fa-angle-right"></i></div>
+            </a>
+          </div>
+          <div class="item">
+            <a href>
+              <div class="item-name highlight">序列号</div>
+              <div class="item-detail">{{slave.physicalId}}</div>
+              <div class="item-next"><i class="fa fa-angle-right"></i></div>
+            </a>
+          </div>
+          <div class="item">
+            <a href>
+              <div class="item-name highlight">MAC地址</div>
+              <div class="item-detail">{{slave.physicalAddress}}</div>
+              <div class="item-next"><i class="fa fa-angle-right"></i></div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="detail-content">
+    <div class="title">设备功能</div>
+    <div class="left">
+      <div class="description">
+        设备提供的功能
+      </div>
+    </div>
+    <div class="right">
+      <div class="panel">
+        <div class="panel-body">
+           <div class="item">
+            <div class="item-name highlight">功能名称</div>
+            <div class="item-detail highlight">所属功能组名称</div>
+          </div>
+          <div class="item" data-ng-repeat="functionMeta in slaveFunctionMetas">
+            <a href>
+              <div class="item-name">{{functionMeta.name}}</div>
+              <div class="item-detail">{{functionMeta.group.name}}</div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

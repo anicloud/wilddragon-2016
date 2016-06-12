@@ -42,7 +42,7 @@
       <div class="item-input">
         <tags-input type="text" placeholder="输入成员昵称或邮箱" data-ng-model="groupData.accounts"
                     display-property="name" add-from-autocomplete-only="true">
-          <auto-complete source="loadTags($query)"></auto-complete>
+          <auto-complete source="loadTags($query)" min-length="1" display-property="email"></auto-complete>
         </tags-input>
       </div>
       <div class="item-button">
