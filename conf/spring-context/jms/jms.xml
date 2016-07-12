@@ -10,7 +10,7 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context-4.0.xsd">
 
-    <context:property-placeholder location="spring-context/properties/jms.properties" ignore-unresolvable="true" order="11"/>
+    <context:property-placeholder location="spring-context/jms/jms.properties" ignore-unresolvable="true" order="101"/>
 
     <!-- jms factory-->
     <amq:connectionFactory id="targetConnectionFactory" brokerURL="tcp://${jms.broker.url}:${jms.broker.port}" clientID="${jms.clientId}"/>

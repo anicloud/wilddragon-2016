@@ -12,8 +12,8 @@ var runSequence = require('run-sequence');
 
 var app = {
   src: 'app',
-  dist: 'dist',
-  dev: '../public'
+  dist: '../public',
+  dev: '../dev'
 };
 
 var paths = {
@@ -177,8 +177,13 @@ gulp.task('clean:prod', function (cb) {
 });
 
 gulp.task('link', $.shell.task([
-  'ln -s ../web/app/bower_components ../public/bower_components'
+  'ln -sf ../web/app/bower_components ' + app.dev + '/bower_components'
 ]));
+
+gulp.task('link:prod', $.shell.task([
+  'ln -sf ../web/app/bower_components ' + app.dist + '/bower_components'
+]));
+
 
 ///////////
 // Build //
@@ -222,6 +227,7 @@ gulp.task('build:prod', function (cb) {
       'copy:prod',
       'minimize'
     ],
+    'link:prod',
     cb);
 });
 

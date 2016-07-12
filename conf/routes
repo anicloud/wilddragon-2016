@@ -4,8 +4,6 @@
 
 # Home page
 GET         /                                          @controllers.Application.index()
-GET         /login                                     @controllers.Application.login(service)
-GET         /register                                  @controllers.Application.register()
 
 GET         /callback                                  org.pac4j.play.CallbackController.callback()
 POST        /callback                                  org.pac4j.play.CallbackController.callback()

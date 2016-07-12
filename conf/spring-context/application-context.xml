@@ -16,8 +16,8 @@
     <bean class="play.mvc.Security$AuthenticatedAction" />
     <bean class="org.pac4j.play.java.RequiresAuthenticationAction"/>
 
-    <import resource="Jms.xml"/>
-    <import resource="AntennaService.xml"/>
-    <import resource="Wd.xml"/>
+    <import resource="classpath:/spring-context/jms/jms.xml"/>
+    <import resource="classpath:/spring-context/antenna/antenna.xml"/>
+    <import resource="classpath:/spring-context/wd/wd.xml"/>
 
 </beans>

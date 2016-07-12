@@ -6,6 +6,7 @@
   "license": "Apache 2.0",
   "private": true,
   "dependencies": {
+    "jquery": "~2.2.3",
     "bootstrap": "~3.3.6",
     "angular": "~1.4.8",
     "angular-animate": "~1.4.8",
@@ -16,29 +17,88 @@
     "angular-touch": "~1.4.8",
     "angular-ui-router": "~0.2.15",
     "angular-bootstrap": "~1.1.1",
+    "angular-ui-select": "~0.14.9",
     "angular-websocket": "~1.0.13",
     "html5-qrcode": "https://github.com/fantasybh/html5-qrcode.git",
     "fastclick": "~1.0.6",
     "font-awesome": "~4.5.0",
-    "angular-ui-select": "~0.14.9",
     "ng-tags-input": "~3.0.0"
   },
   "devDependencies": {
     "angular-mocks": "*"
   },
   "overrides": {
+    "jquery": {
+      "main": [
+        "dist/jquery.min.js"
+      ]
+    },
     "bootstrap": {
       "main": [
-        "less/bootstrap.less",
-        "dist/css/bootstrap.css",
-        "dist/js/bootstrap.js"
+        "dist/css/bootstrap.min.css",
+        "dist/js/bootstrap.min.js"
+      ]
+    },
+    "angular": {
+      "main": [
+        "angular.min.js"
+      ]
+    },
+    "angular-animate": {
+      "main": [
+        "angular-animate.min.js"
+      ]
+    },
+    "angular-cookies": {
+      "main": [
+        "angular-cookies.min.js"
+      ]
+    },
+    "angular-messages": {
+      "main": [
+        "angular-messages.min.js"
+      ]
+    },
+    "angular-resource": {
+      "main": [
+        "angular-resource.min.js"
+      ]
+    },
+    "angular-route": {
+      "main": [
+        "angular-route.min.js"
+      ]
+    },
+    "angular-touch": {
+      "main": [
+        "angular-touch.min.js"
+      ]
+    },
+    "angular-ui-router": {
+      "main": [
+        "release/angular-ui-router.min.js"
+      ]
+    },
+    "angular-ui-select": {
+      "main": [
+        "dist/angular-ui-router.min.js"
+      ]
+    },
+    "angular-bootstrap": {
+      "main": [
+        "ui-bootstrap-tpls.min.js"
+      ]
+    },
+    "angular-websocket": {
+      "main": [
+        "angular-websocket.min.js"
       ]
     },
     "font-awesome": {
       "main": [
-        "css/font-awesome.css",
-        "less/font-awesome.less",
-        "scss/font-awesome.scss"
+        "css/font-awesome.min.css",
+        "less/font-awesome.min.less",
+        "scss/font-awesome.min.scss"
       ]
     }
   }

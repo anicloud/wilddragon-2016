@@ -15,7 +15,7 @@ public class Global extends GlobalSettings {
     @Override
     public void onStart(Application app) {
         // spring
-        this.ctx = new ClassPathXmlApplicationContext("spring-context/ApplicationContext.xml");
+        this.ctx = new ClassPathXmlApplicationContext("spring-context/application-context.xml");
 
         // CAS
         final String baseUrl = Play.application().configuration().getString("baseUrl");
@@ -23,7 +23,7 @@ public class Global extends GlobalSettings {
         final CasClient casClient = new CasClient();
 
         casClient.setCasPrefixUrl(casUrl);
-        casClient.setCasLoginUrl(baseUrl + "/login");
+        casClient.setCasLoginUrl(casUrl + "/login");
         casClient.setLogoutHandler(new CasLogoutHandler());
 
         final Clients clients = new Clients(baseUrl + "/callback", casClient); // , casProxyReceptor);

@@ -4,7 +4,7 @@
 'use strict';
 
 angular.module('app.service.account', [])
-  .factory('AccountServiceDist', function ($http) {
+  .factory('AccountService', function ($http) {
     return {
       getAccount: function () {
         return $http({
@@ -86,7 +86,7 @@ angular.module('app.service.account', [])
     };
   })
 
-  .factory('AccountService', function ($rootScope, $http) {
+  .factory('AccountServiceMock', function ($rootScope, $http) {
     var account0 = {
       accountId: 10101,
       email: 'anicloud@anicloud.com',

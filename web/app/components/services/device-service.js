@@ -4,7 +4,7 @@
 'use strict';
 
 angular.module('app.service.device', [])
-  .factory('DeviceServiceDist', function ($http) {
+  .factory('DeviceService', function ($http) {
     return {
       getDevices: function () {
         console.log('Getting devices');
@@ -76,7 +76,7 @@ angular.module('app.service.device', [])
 
     };
   })
-  .factory('DeviceService', function ($http) {
+  .factory('DeviceServiceMock', function ($http) {
     var device0 = {
       avatarUrl: '/images/Washing_machine.svg',
       physicalId: 's011110',

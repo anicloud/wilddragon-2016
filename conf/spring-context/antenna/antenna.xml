@@ -13,7 +13,7 @@
 
     <context:component-scan base-package="com.ani.octopus.antenna" />
 
-    <context:property-placeholder location="spring-context/properties/antenna.properties" ignore-unresolvable="true" order="101"/>
+    <context:property-placeholder location="spring-context/antenna/antenna.properties" ignore-unresolvable="true" order="201"/>
 
     <bean id="messageTopicDestination" class="org.apache.activemq.command.ActiveMQTopic">
         <constructor-arg value="${jms.queue.service.octopus}.message"/>
