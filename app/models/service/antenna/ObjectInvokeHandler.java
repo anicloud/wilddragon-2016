@@ -15,6 +15,7 @@ import java.util.List;
 public class ObjectInvokeHandler implements ObjectInvokeListener {
 
     @Override
-    public void onInvokeObject(ObjectQueryDto objectQueryDto, List<StubInvocationDto> list) throws RemoteException {
+    public List<StubInvocationDto> onInvokeObject(ObjectQueryDto objectQueryDto, List<StubInvocationDto> list) throws RemoteException {
+        return null;
     }
 }
