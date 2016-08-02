@@ -1,0 +1,23 @@
+<div class="share-modal">
+  <div class="modal-header">
+    <div class="modal-close" data-ng-click="cancel()">
+      <a href data-ng-click="cancel()">X</a>
+    </div>
+  </div>
+  <div class="modal-body">
+    <div class="line">
+      <i class="icon fa fa-share-alt"></i>
+    </div>
+    <div class="line">
+      设置共享权限
+    </div>
+    <div class="line">
+      <input type="checkbox" data-ng-model="permissions">权限1
+      <input type="checkbox" data-ng-model="permissions">权限2
+    </div>
+    <div class="line">
+      <button class="btn btn-default" data-ng-click="backward()">上一步</button>
+      <button class="btn btn-default" data-ng-click="forward()">完成</button>
+    </div>
+  </div>
+</div>

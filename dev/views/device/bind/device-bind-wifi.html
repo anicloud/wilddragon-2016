@@ -1,0 +1,35 @@
+<div class="bind-wrapper">
+  <div class="bind-title">
+    <i class="fa fa-wifi"></i>
+    配置WiFi连接
+  </div>
+  <div class="bind-description">
+    配置设备连接到WiFi，您需要提供一个可连接的WiFi，并手动输入WiFi的SSID和密码
+  </div>
+  <div class="bind-info">
+    <div class="info-item">
+      <label>SSID:</label>
+      <input type="text" placeholder="12345678" data-ng-model="wifiInfo.ssid" data-ng-disabled="wifiStart">
+    </div>
+    <div class="info-item">
+      <label>密码:</label>
+      <input type="password" placeholder="******" data-ng-model="wifiInfo.password" data-ng-disabled="wifiStart">
+    </div>
+  </div>
+  <div data-ng-show="!wifiStart">
+    <div class="bind-action">
+      <button class="btn btn-default" data-ng-click="startWifiConfig()">
+        开始配置
+      </button>
+    </div>
+    <div class="bind-method">
+      <a href data-ng-click="ignoreWifi()">跳过</a>
+    </div>
+  </div>
+  <div class="bind-action" data-ng-show="wifiStart">
+    <button class="btn btn-default" data-ng-click="stopWifiConfig()">
+      停止配置
+    </button>
+  </div>
+
+</div>

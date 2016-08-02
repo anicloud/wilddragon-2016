@@ -20,6 +20,7 @@ public class AccessAuthenticator extends Security.Authenticator {
 
     @Override
     public Result onUnauthorized(Http.Context context) {
-        return redirect(controllers.routes.Application.login());
+//        return redirect(controllers.routes.Application.login(""));
+        return ok();
     }
 }

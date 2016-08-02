@@ -2,20 +2,17 @@ package models.service.device;
 
 import com.ani.bus.device.application.service.DeviceBusService;
 import com.ani.bus.device.commons.dto.device.DeviceMasterDto;
-import com.ani.octopus.account.interfaces.AccountServiceFacade;
+import com.ani.bus.device.commons.dto.device.FunctionDto;
+import com.ani.earth.commons.dto.AccountDto;
+import com.ani.earth.commons.dto.AccountGroupDto;
+import com.ani.earth.interfaces.AccountServiceFacade;
 import com.ani.octopus.antenna.core.AntennaTemplate;
-import com.ani.octopus.commons.accout.dto.AccountDto;
-import com.ani.octopus.commons.accout.dto.AccountGroupDto;
 import com.ani.octopus.commons.object.dto.object.ObjectMainInfoDto;
 import com.ani.octopus.commons.object.dto.object.ObjectMainQueryDto;
-import com.ani.octopus.commons.object.dto.object.privilege.ObjectMainPrivilegeDto;
 import com.ani.octopus.commons.object.dto.object.privilege.ObjectPrivilegeGrantDto;
 import com.ani.octopus.commons.object.enumeration.AniObjectState;
 import com.ani.octopus.commons.object.enumeration.AniObjectType;
-import com.ani.octopus.commons.stub.dto.StubDto;
 import com.ani.octopus.commons.stub.enumeration.PrivilegeType;
-import com.ani.octopus.stub.core.service.AniStubMetaService;
-import models.dto.account.AccountGroupData;
 import models.dto.device.*;
 import org.springframework.stereotype.Component;
 
@@ -228,7 +225,37 @@ public class DeviceServiceAdapterImpl implements DeviceServiceAdapter {
 
     @Override
     public DeviceMasterData updateDevice(DeviceMasterData device) {
-        return null;
+        DeviceMasterDto deviceMasterDto = deviceBusService.findDeviceMaster(Long.valueOf(device.deviceId));
+        if(device.physicalId != null){
+            deviceMasterDto.physicalId = device.physicalId;
+        }
+        if(device.physicalAddress != null){
+            deviceMasterDto.physicalAddress = device.physicalAddress;
+        }
+        if(device.name != null){
+            deviceMasterDto.name = device.name;
+        }
+        if(device.tags != null){
+            deviceMasterDto.tags = device.tags;
+        }
+        if(device.owner != null){
+            deviceMasterDto.owner = Long.valueOf(device.owner);
+        }
+        if(device.avatarUrl != null){
+            deviceMasterDto.avatarUrl = device.avatarUrl;
+        }
+        if(device.description != null){
+            deviceMasterDto.description = device.description;
+        }
+        if(device.functions != null){
+            List<FunctionDto> funcitonList = new ArrayList<>(Collections.EMPTY_LIST);
+            for(FunctionData function:device.functions){
+                FunctionDto functionDto = new FunctionDto(function.functionId, Long.valueOf(function.groupId));
+
+            }
+            deviceMasterDto.functions = funcitonList;
+        }
+        return DeviceDataUtils.fromDeviceMasterDto(deviceBusService.saveDeviceMaster(deviceMasterDto), device.state);
     }
 
     @Override

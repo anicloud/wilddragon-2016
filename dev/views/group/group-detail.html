@@ -1,0 +1,51 @@
+<div class="group-detail">
+  <div class="detail-item">
+    <div class="left">
+      <div class="item-title">名称</div>
+    </div>
+    <div class="right">
+      <div class="item-content">
+        <span class="text">{{group.name}}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="detail-item">
+    <div class="left">
+      <div class="item-title">成员</div>
+    </div>
+    <div class="right">
+      <div class="item-content">
+        <div class="image-wrapper" data-ng-repeat="account in group.accounts">
+          <img data-ng-src="{{account.avatarUrl}}">
+          <!--<div class="image-mask">移除</div>-->
+        </div>
+        <!--<div class="image-wrapper">-->
+          <!--<img src="/images/icon_plus.png" data-ng-click="openMember()">-->
+        <!--</div>-->
+      </div>
+    </div>
+  </div>
+
+  <div class="detail-item" data-ng-show="group.owner.accountId != account.accountId">
+    <div class="left">
+      <div class="item-title">退出</div>
+    </div>
+    <div class="right">
+      <div class="item-content">
+        <button class="btn btn-default">退出</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="detail-item" data-ng-show="group.owner.accountId == account.accountId">
+    <div class="left">
+      <div class="item-title">删除</div>
+    </div>
+    <div class="right">
+      <div class="item-content">
+        <button class="btn btn-default" data-ng-click="removeGroup(group)">删除</button>
+      </div>
+    </div>
+  </div>
+</div>

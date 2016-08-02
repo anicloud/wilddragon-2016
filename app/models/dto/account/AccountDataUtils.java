@@ -1,9 +1,9 @@
 package models.dto.account;
 
-import com.ani.octopus.commons.accout.dto.AccountDto;
-import com.ani.octopus.commons.accout.dto.AccountGroupDto;
-import com.ani.octopus.commons.accout.dto.AccountInfoDto;
-import com.ani.octopus.commons.accout.dto.GroupType;
+import com.ani.earth.commons.dto.AccountDto;
+import com.ani.earth.commons.dto.AccountGroupDto;
+import com.ani.earth.commons.dto.AccountInfoDto;
+import com.ani.earth.commons.dto.GroupType;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -14,11 +14,11 @@ import java.util.Set;
  * Created by huangbin on 12/16/15.
  */
 public class AccountDataUtils {
-    public static AccountType fromAccountType(com.ani.octopus.commons.accout.dto.AccountType dtoType) {
+    public static AccountType fromAccountType(com.ani.earth.commons.dto.AccountType dtoType) {
         AccountType type = AccountType.PERSONAL;
-        if (dtoType == com.ani.octopus.commons.accout.dto.AccountType.ORGANIZATIONAL) {
+        if (dtoType == com.ani.earth.commons.dto.AccountType.ORGANIZATIONAL) {
             type = AccountType.ORGANIZATIONAL;
-        } else if (dtoType == com.ani.octopus.commons.accout.dto.AccountType.ROOT) {
+        } else if (dtoType == com.ani.earth.commons.dto.AccountType.ROOT) {
             type = AccountType.ROOT;
         }
         return type;
@@ -117,13 +117,13 @@ public class AccountDataUtils {
         return groupData;
     }
 
-    public static com.ani.octopus.commons.accout.dto.AccountType toAccountType(AccountType dtoType) {
-        com.ani.octopus.commons.accout.dto.AccountType type =
-                com.ani.octopus.commons.accout.dto.AccountType.PERSONAL;
+    public static com.ani.earth.commons.dto.AccountType toAccountType(AccountType dtoType) {
+        com.ani.earth.commons.dto.AccountType type =
+                com.ani.earth.commons.dto.AccountType.PERSONAL;
         if (dtoType == AccountType.ORGANIZATIONAL) {
-            type = com.ani.octopus.commons.accout.dto.AccountType.ORGANIZATIONAL;
+            type = com.ani.earth.commons.dto.AccountType.ORGANIZATIONAL;
         } else if (dtoType == AccountType.ROOT) {
-            type = com.ani.octopus.commons.accout.dto.AccountType.ROOT;
+            type = com.ani.earth.commons.dto.AccountType.ROOT;
         }
         return type;
     }

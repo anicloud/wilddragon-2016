@@ -1,0 +1,60 @@
+<div class="bind-wrapper" data-ng-show="bindMethod=='qrcode'">
+  <!--<div class="bind-wrapper" data-ng-class="{'active':bindMethod=='qrcode'}">-->
+  <div class="bind-title">
+    <i class="fa fa-qrcode"></i>
+    扫描二维码（推荐）
+  </div>
+  <div class="bind-description">
+    使用二维码扫描的方式自动添加新设备，请点击扫描按钮，并将摄像头对准设备提供的二维码，等待扫描完成后按提示进行下一步操作
+  </div>
+  <div class="bind-video" data-ng-show="qrcodeStart"
+       width="280" height="200"
+       qrcode qrcode-start="{{qrcodeStart}}" qrcode-success="qrcodeSuccess(result)">
+  </div>
+  <div class="bind-action" data-ng-show="!qrcodeStart">
+    <button class="btn btn-default" data-ng-click="qrcodeStart=!qrcodeStart">
+      开始扫描
+    </button>
+  </div>
+  <div class="bind-action" data-ng-show="qrcodeStart">
+    <button class="btn btn-default" data-ng-click="qrcodeStart=!qrcodeStart">
+      停止扫描
+    </button>
+  </div>
+  <div class="bind-method">
+    <a href data-ng-click="bindMethod='manual'">
+      手动添加
+    </a>
+  </div>
+</div>
+
+<div class="bind-wrapper" data-ng-show="bindMethod=='manual'">
+  <!--<div class="bind-wrapper" data-ng-class="{'active':bindMethod=='manual'}">-->
+  <div class="bind-title">
+    <i class="fa fa-pencil-square-o"></i>
+    手动添加
+  </div>
+  <div class="bind-description">
+    使用手动输入设备信息的方式添加新设备，请输入设备提供的出厂序列号和MAC地址，按提示进行下一步操作
+  </div>
+  <div class="bind-info">
+    <div class="info-item">
+      <label>出厂序列号:</label>
+      <input type="text" placeholder="12345678" data-ng-model="bindData.physicalId">
+    </div>
+    <div class="info-item">
+      <label>MAC地址:</label>
+      <input type="text" placeholder="A6-29-00-01-6C-06" data-ng-model="bindData.physicalAddress">
+    </div>
+  </div>
+  <div class="bind-action">
+    <button class="btn btn-default" data-ng-click="checkQrcode()">
+      下一步
+    </button>
+  </div>
+  <div class="bind-method">
+    <a href data-ng-click="bindMethod='qrcode'">
+      二维码添加
+    </a>
+  </div>
+</div>

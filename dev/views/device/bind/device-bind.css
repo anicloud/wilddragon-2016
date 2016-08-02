@@ -1,0 +1,65 @@
+.bind-wrapper {
+  width: 300px;
+  margin: 20px auto;
+}
+.bind-wrapper .bind-title {
+  text-align: center;
+  font-size: 16px;
+  color: #4DA47C;
+}
+.bind-wrapper .bind-description {
+  padding-top: 20px;
+  font-size: 14px;
+  color: #aeaeae;
+}
+.bind-wrapper .bind-action {
+  padding-top: 80px;
+  text-align: center;
+}
+.bind-wrapper .bind-method {
+  padding-top: 15px;
+  text-align: center;
+}
+.bind-wrapper .bind-method a {
+  font-size: 14px;
+  color: #4DA47C;
+  text-decoration: underline;
+}
+.bind-wrapper .bind-video {
+  text-align: center;
+  padding-top: 20px;
+}
+.bind-wrapper .bind-info {
+  margin-top: 20px;
+  text-align: center;
+}
+.bind-wrapper .bind-info .info-item {
+  padding-top: 10px;
+}
+.bind-wrapper .bind-info .info-item label {
+  display: inline-block;
+  width: 80px;
+  font-weight: normal;
+  color: #3f3f3f;
+}
+.bind-wrapper .bind-info .info-detail {
+  padding-top: 10px;
+}
+.bind-wrapper .bind-info .info-detail label {
+  display: inline-block;
+  width: 30%;
+  font-weight: normal;
+  color: #3f3f3f;
+  text-align: right;
+}
+.bind-wrapper .bind-info .info-detail span {
+  padding-left: 10px;
+  display: inline-block;
+  width: 60%;
+  color: #aeaeae;
+}
+@media screen and (min-width: 768px) {
+  .bind-wrapper {
+    width: 500px;
+  }
+}

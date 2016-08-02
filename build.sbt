@@ -60,6 +60,10 @@ libraryDependencies += "com.ani.octopus" % "octopus-commons" % "1.0"
 
 libraryDependencies += "com.ani.bus.commons" % "device-bus-commons" % "1.0"
 
+libraryDependencies += "com.ani.bus.commons" % "service-bus-commons" % "1.0"
+
+libraryDependencies += "com.ani.earth" % "earth-service" % "1.0"
+
 libraryDependencies += "com.ani.octopus.account" % "account-manager" % "1.0"
 
 libraryDependencies += "com.ani.octopus.stub" % "stub-meta" % "1.0"
@@ -68,4 +72,4 @@ libraryDependencies += "com.ani.octopus.antenna" % "octopus-antenna" % "1.0"
 
 libraryDependencies += "com.ani.bus.device" % "device-bus" % "1.0"
 
-//libraryDependencies += "com.ani.bus.service" % "service-bus" % "1.0"
+libraryDependencies += "com.ani.bus.service" % "service-core" % "1.0"

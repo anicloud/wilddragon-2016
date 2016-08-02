@@ -14,26 +14,26 @@
         <property name="connectionFactory"
                   ref="connectionFactory"/>
         <property name="queueName" value="${jms.queue.service.octopus}.AccountServiceFacade"/>
-        <property name="serviceInterface" value="com.ani.octopus.account.interfaces.AccountServiceFacade"/>
+        <property name="serviceInterface" value="com.ani.earth.interfaces.AccountServiceFacade"/>
     </bean>
 
     <bean id="accountGroupServiceFacade" class="org.springframework.jms.remoting.JmsInvokerProxyFactoryBean">
         <property name="connectionFactory"
                   ref="connectionFactory"/>
         <property name="queueName" value="${jms.queue.service.octopus}.AccountGroupServiceFacade"/>
-        <property name="serviceInterface" value="com.ani.octopus.account.interfaces.AccountGroupServiceFacade"/>
+        <property name="serviceInterface" value="com.ani.earth.interfaces.AccountGroupServiceFacade"/>
     </bean>
 
     <bean id="accountContactServiceFacade" class="org.springframework.jms.remoting.JmsInvokerProxyFactoryBean">
         <property name="connectionFactory" ref="connectionFactory"/>
         <property name="queueName" value="${jms.queue.service.octopus}.AccountContactFacade"/>
-        <property name="serviceInterface" value="com.ani.octopus.account.interfaces.AccountContactServiceFacade"/>
+        <property name="serviceInterface" value="com.ani.earth.interfaces.AccountContactServiceFacade"/>
     </bean>
 
     <bean id="groupJoinInvitationServiceFacade" class="org.springframework.jms.remoting.JmsInvokerProxyFactoryBean">
         <property name="connectionFactory" ref="connectionFactory"/>
         <property name="queueName" value="${jms.queue.service.octopus}.GroupJoinInvitationFacade"/>
-        <property name="serviceInterface" value="com.ani.octopus.account.interfaces.GroupJoinInvitationServiceFacade"/>
+        <property name="serviceInterface" value="com.ani.earth.interfaces.GroupJoinInvitationServiceFacade"/>
     </bean>
 
     <!--device service-->
@@ -44,6 +44,11 @@
     </bean>
 
     <!-- app service -->
+    <bean id="aniSerAccountObjManager" class="org.springframework.jms.remoting.JmsInvokerProxyFactoryBean">
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <property name="queueName" value="${jms.queue.service.bus}.AniServiceManager"/>
+        <property name="serviceInterface" value="com.ani.bus.service.core.interfaces.accountobj.AniSerAccountObjManager"/>
+    </bean>
     <!--<bean id="appClientService" class="org.springframework.jms.remoting.JmsInvokerProxyFactoryBean">-->
         <!--<property name="connectionFactory" ref="connectionFactory"/>-->
         <!--<property name="queueName" value="${jms.queue.service.bus}.service"/>-->

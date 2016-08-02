@@ -1,0 +1,91 @@
+.contact-wrapper {
+  padding: 20px;
+}
+.contact-wrapper .contact-action {
+  width: 80px;
+  margin: 0 auto;
+}
+.contact-wrapper .contact-card {
+  width: 200px;
+  height: 260px;
+  margin: 15px auto;
+  border: 1px solid #e5e5e5;
+}
+.contact-wrapper .contact-card:hover {
+  border-color: #fff;
+  -webkit-transform: translate(-1px, -1px);
+          transform: translate(-1px, -1px);
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.26);
+}
+.contact-wrapper .contact-card .card-title {
+  height: 20px;
+  text-align: right;
+  padding: 0 5px;
+  font-size: 15px;
+}
+.contact-wrapper .contact-card .card-title a {
+  color: #ccc;
+}
+.contact-wrapper .contact-card .card-title a:hover {
+  color: #8BC34A;
+}
+.contact-wrapper .contact-card .card-content {
+  margin: 10px 15px;
+}
+.contact-wrapper .contact-card .card-content .group-name {
+  width: 100px;
+  margin: 0 auto;
+  font-size: 16px;
+  color: #8BC34A;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: center;
+}
+.contact-wrapper .contact-card .card-content .group-description {
+  padding-top: 5px;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 12px;
+  color: #757575;
+}
+.contact-wrapper .contact-card .card-content .group-members {
+  padding-top: 10px;
+  height: 122px;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+}
+.contact-wrapper .contact-card .card-content .group-members .group-member {
+  float: left;
+  margin: 3px;
+  height: 50px;
+  width: 50px;
+  background-color: #a8a8a8;
+}
+.contact-wrapper .contact-card .card-content .group-members .group-member img {
+  height: 50px;
+  width: 50px;
+}
+.contact-wrapper .contact-card .card-content .action {
+  clear: both;
+  padding-top: 15px;
+  text-align: center;
+}
+.contact-wrapper .contact-card .card-content .action .btn-default {
+  width: 100%;
+  font-size: 13px;
+}
+@media screen and (min-width: 768px) {
+  .contact-wrapper {
+    padding: 20px;
+    overflow: hidden;
+  }
+  .contact-wrapper .contact-action {
+    margin: 0 12px;
+  }
+  .contact-wrapper .contact-card {
+    float: left;
+    margin: 16px 12px;
+  }
+}

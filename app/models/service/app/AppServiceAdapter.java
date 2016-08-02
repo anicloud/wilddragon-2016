@@ -9,6 +9,10 @@ import java.util.Set;
  */
 public interface AppServiceAdapter {
     Set<AppData> getAppsByAccount(Long accountId);
+    Set<AppData> getAppsOnshelf();
+    AppData findApp(Long appId, Long accountId);
+    AppData bindApp(AppData appData);
+    AppData unbindApp(AppData appData);
     AppData installApp(AppData appData);
     AppData uninstallApp(AppData appData);
 }

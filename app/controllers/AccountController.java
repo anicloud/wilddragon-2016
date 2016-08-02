@@ -1,10 +1,11 @@
 package controllers;
 
-import com.ani.octopus.account.application.service.account.AccountService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import models.dto.RetData;
 import models.dto.account.*;
 import models.service.account.AccountServiceAdapter;
+import models.service.notification.NotificationService;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.pac4j.core.profile.CommonProfile;
 import org.pac4j.play.java.JavaController;
 import org.pac4j.play.java.RequiresAuthentication;
@@ -22,9 +23,11 @@ import java.util.Set;
 //@Security.Authenticated(AccessAuthenticator.class)
 @RequiresAuthentication(clientName = "CasClient")
 public class AccountController extends JavaController {
-
     @Resource
     private AccountServiceAdapter accountServiceAdapter;
+
+    @Resource
+    private NotificationService notificationService;
 
     private Long getAccountId() {
         final CommonProfile profile = getUserProfile();
@@ -100,9 +103,10 @@ public class AccountController extends JavaController {
             groupData.owner = accountServiceAdapter.findAccountById(getAccountId());
             groupData.type = AccountGroupType.CUSTOM;
             groupData = accountServiceAdapter.createAccountGroup(groupData);
+            notificationService.groupAddNotice(groupData);
             retData = new RetData(true, "", groupData);
         } catch (Exception e) {
-            retData = new RetData(false, e.getMessage());
+            retData = new RetData(false, ExceptionUtils.getStackTrace(e));
         } finally {
             return ok(Json.toJson(retData));
         }
@@ -114,9 +118,10 @@ public class AccountController extends JavaController {
             ObjectMapper objectMapper = new ObjectMapper();
             AccountGroupData groupData = objectMapper.treeToValue(request().body().asJson(), AccountGroupData.class);
             groupData = accountServiceAdapter.deleteAccountGroup(getAccountId(), Long.valueOf(groupData.groupId));
+            notificationService.groupRemoveNotice(groupData);
             retData = new RetData(true, "", groupData);
         } catch (Exception e) {
-            retData = new RetData(false, e.getMessage());
+            retData = new RetData(false, ExceptionUtils.getStackTrace(e));
         } finally {
             return ok(Json.toJson(retData));
         }
@@ -127,10 +132,12 @@ public class AccountController extends JavaController {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             AccountGroupInviteData inviteData = objectMapper.treeToValue(request().body().asJson(), AccountGroupInviteData.class);
-            AccountGroupData groupData = accountServiceAdapter.inviteAccountGroup(Long.valueOf(inviteData.accountId), Long.valueOf(inviteData.groupId));
+            AccountData accountData = accountServiceAdapter.findAccountById(Long.valueOf(inviteData.accountId));
+            AccountGroupData groupData = accountServiceAdapter.inviteAccountGroup(Long.valueOf(accountData.accountId), Long.valueOf(inviteData.groupId));
+            notificationService.groupInviteNotice(groupData, accountData);
             retData = new RetData(true, "", groupData);
         } catch (Exception e) {
-            retData = new RetData(false, e.getMessage());
+            retData = new RetData(false, ExceptionUtils.getStackTrace(e));
         } finally {
             return ok(Json.toJson(retData));
         }
@@ -142,9 +149,11 @@ public class AccountController extends JavaController {
             ObjectMapper objectMapper = new ObjectMapper();
             AccountGroupInviteData inviteData = objectMapper.treeToValue(request().body().asJson(), AccountGroupInviteData.class);
             AccountGroupData groupData = accountServiceAdapter.joinAccountGroup(getAccountId(), Long.valueOf(inviteData.groupId));
+            AccountData accountData = accountServiceAdapter.findAccountById(getAccountId());
+            notificationService.groupJoinNotice(groupData, accountData);
             retData = new RetData(true, "", groupData);
         } catch (Exception e) {
-            retData = new RetData(false, e.getMessage());
+            retData = new RetData(false, ExceptionUtils.getStackTrace(e));
         } finally {
             return ok(Json.toJson(retData));
         }
@@ -156,14 +165,47 @@ public class AccountController extends JavaController {
             ObjectMapper objectMapper = new ObjectMapper();
             AccountGroupInviteData inviteData = objectMapper.treeToValue(request().body().asJson(), AccountGroupInviteData.class);
             AccountGroupData groupData = accountServiceAdapter.quitAccountGroup(getAccountId(), Long.valueOf(inviteData.groupId));
+            AccountData accountData = accountServiceAdapter.findAccountById(getAccountId());
+            notificationService.groupQuitNotice(groupData, accountData);
             retData = new RetData(true, "", groupData);
         } catch (Exception e) {
-            retData = new RetData(false, e.getMessage());
+            retData = new RetData(false, ExceptionUtils.getStackTrace(e));
         } finally {
             return ok(Json.toJson(retData));
         }
     }
 
+    public Result kickAccountGroup() {
+        RetData retData = null;
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            AccountGroupKickData groupKickData = objectMapper.treeToValue(request().body().asJson(), AccountGroupKickData.class);
+            AccountGroupData groupData = accountServiceAdapter.kickAccountGroup(getAccountId(), groupKickData);
+            AccountData accountData = accountServiceAdapter.findAccountById(getAccountId());
+            notificationService.groupQuitNotice(groupData, accountData);
+            retData = new RetData(true, "", groupData);
+        } catch (Exception e) {
+            retData = new RetData(false, ExceptionUtils.getStackTrace(e));
+        } finally {
+            return ok(Json.toJson(retData));
+        }
+    }
+
+    public Result modifyAccountGroup() {
+        RetData retData = null;
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            AccountGroupData groupModifyData = objectMapper.treeToValue(request().body().asJson(), AccountGroupData.class);
+            AccountGroupData groupData = accountServiceAdapter.modifyAccountGroup(getAccountId(), groupModifyData);
+            AccountData accountData = accountServiceAdapter.findAccountById(getAccountId());
+            notificationService.groupModifyNotice(groupData);
+            retData = new RetData(true, "", groupData);
+        } catch (Exception e) {
+            retData = new RetData(false, ExceptionUtils.getStackTrace(e));
+        } finally {
+            return ok(Json.toJson(retData));
+        }
+    }
 
     public Result login() {
         RetData retData = null;
@@ -173,7 +215,7 @@ public class AccountController extends JavaController {
             AccountData accountData = accountServiceAdapter.loginAccount(loginData);
             retData = new RetData(true, "", accountData);
         } catch (Exception e) {
-            retData = new RetData(false, e.getMessage());
+            retData = new RetData(false, ExceptionUtils.getStackTrace(e));
         } finally {
             return ok(Json.toJson(retData));
         }
@@ -187,7 +229,7 @@ public class AccountController extends JavaController {
             accountServiceAdapter.logoutAccountById(id);
             retData = new RetData(true, "");
         } catch (Exception e) {
-            retData = new RetData(false, e.getMessage());
+            retData = new RetData(false, ExceptionUtils.getStackTrace(e));
         } finally {
             return ok(Json.toJson(retData));
         }

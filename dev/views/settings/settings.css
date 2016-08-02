@@ -1,0 +1,113 @@
+.settings {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  padding: 0 15px;
+}
+.settings .settings-content {
+  float: left;
+  width: 100%;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e8e8e8;
+}
+.settings .settings-content:last-child {
+  border-bottom: none;
+}
+.settings .settings-content .title {
+  padding: 15px 0;
+  font-size: 16px;
+  color: #4DA47C;
+}
+.settings .settings-content .left {
+  padding-bottom: 15px;
+}
+.settings .settings-content .left .description {
+  font-size: 14px;
+  color: #757575;
+}
+.settings .settings-content .right .panel .panel-body .item {
+  height: 50px;
+  border-bottom: 1px solid #e8e8e8;
+}
+.settings .settings-content .right .panel .panel-body .item:last-child {
+  border-bottom: none;
+}
+.settings .settings-content .right .panel .panel-body .item.avatar {
+  height: 56px;
+}
+.settings .settings-content .right .panel .panel-body .item .item-name {
+  float: left;
+  width: 30%;
+  max-width: 120px;
+  text-align: center;
+  line-height: 50px;
+  font-size: 15px;
+  color: #757575;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.settings .settings-content .right .panel .panel-body .item .item-name.highlight {
+  font-size: 16px;
+  color: #111;
+}
+.settings .settings-content .right .panel .panel-body .item .item-detail {
+  float: left;
+  width: 60%;
+  padding-left: 2%;
+  padding-right: 2%;
+  text-align: center;
+  line-height: 50px;
+  font-size: 14px;
+  color: #757575;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.settings .settings-content .right .panel .panel-body .item .item-detail.highlight {
+  color: #111;
+}
+.settings .settings-content .right .panel .panel-body .item .item-detail img {
+  width: 48px;
+  height: 48px;
+  border: 1px solid #f5f7f9;
+  border-radius: 48px;
+}
+.settings .settings-content .right .panel .panel-body .item .item-next {
+  float: right;
+  width: 5%;
+  text-align: left;
+  line-height: 50px;
+  font-size: 14px;
+}
+.settings .settings-content .right button {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  width: 90px;
+  height: 30px;
+  margin-left: 20px;
+  border: none;
+  border-radius: 16px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.26);
+  font-size: 13px;
+  color: #a00;
+  background-color: #fff;
+}
+.settings .settings-content .right button:hover {
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.26);
+}
+@media screen and (min-width: 768px) {
+  .settings {
+    padding: 0 30px;
+  }
+  .settings .settings-content .left {
+    float: left;
+    width: 30%;
+  }
+  .settings .settings-content .right {
+    float: left;
+    width: 70%;
+    padding-left: 20px;
+  }
+}

@@ -1,0 +1,98 @@
+.device-detail {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+  padding: 0 15px;
+}
+.device-detail .detail-content {
+  float: left;
+  width: 100%;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e8e8e8;
+}
+.device-detail .detail-content:last-child {
+  border-bottom: none;
+}
+.device-detail .detail-content .title {
+  padding: 15px 0;
+  font-size: 16px;
+  color: #4DA47C;
+}
+.device-detail .detail-content .left {
+  padding-bottom: 15px;
+}
+.device-detail .detail-content .left .description {
+  font-size: 14px;
+  color: #757575;
+}
+.device-detail .detail-content .right .panel .panel-body .item {
+  height: 50px;
+  border-bottom: 1px solid #e8e8e8;
+}
+.device-detail .detail-content .right .panel .panel-body .item:last-child {
+  border-bottom: none;
+}
+.device-detail .detail-content .right .panel .panel-body .item .item-name {
+  float: left;
+  width: 30%;
+  max-width: 120px;
+  text-align: center;
+  line-height: 50px;
+  font-size: 14px;
+  color: #757575;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.device-detail .detail-content .right .panel .panel-body .item .item-name.highlight {
+  font-size: 16px;
+  color: #111;
+}
+.device-detail .detail-content .right .panel .panel-body .item .item-detail {
+  float: left;
+  width: 60%;
+  padding-left: 2%;
+  padding-right: 2%;
+  text-align: center;
+  line-height: 50px;
+  font-size: 15px;
+  color: #757575;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.device-detail .detail-content .right .panel .panel-body .item .item-detail.highlight {
+  color: #111;
+}
+.device-detail .detail-content .right .panel .panel-body .item .item-detail button {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  width: 70px;
+  border: none;
+  border-radius: 16px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.26);
+  color: #a00;
+  background-color: #fff;
+}
+.device-detail .detail-content .right .panel .panel-body .item .item-next {
+  float: right;
+  width: 5%;
+  text-align: left;
+  line-height: 50px;
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  .device-detail {
+    padding: 0 30px;
+  }
+  .device-detail .detail-content .left {
+    float: left;
+    width: 30%;
+  }
+  .device-detail .detail-content .right {
+    float: left;
+    width: 70%;
+    padding-left: 20px;
+  }
+}

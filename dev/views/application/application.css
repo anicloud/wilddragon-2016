@@ -1,0 +1,52 @@
+.app-wrapper {
+  position: relative;
+  overflow: hidden;
+  padding: 10px 20px;
+}
+.app-wrapper .app-card {
+  position: relative;
+  display: inline-block;
+  margin: 10px 4px;
+  width: 70px;
+}
+.app-wrapper .app-card .card-image {
+  position: relative;
+  background-color: #111;
+  cursor: pointer;
+}
+.app-wrapper .app-card .card-image:hover img {
+  opacity: .7;
+}
+.app-wrapper .app-card .card-image:hover .card-option {
+  opacity: 1;
+}
+.app-wrapper .app-card .card-image img {
+  background-color: #fff;
+  width: 70px;
+  height: 70px;
+  -webkit-transition: opacity 0.35s ease-in-out;
+          transition: opacity 0.35s ease-in-out;
+}
+.app-wrapper .app-card .card-image .card-option {
+  position: absolute;
+  top: 2px;
+  right: 5px;
+  z-index: 2;
+  height: 20px;
+  line-height: 20px;
+  font-size: 18px;
+  color: #757575;
+  opacity: 0;
+  -webkit-transition: opacity 0.35s ease-in-out;
+          transition: opacity 0.35s ease-in-out;
+}
+.app-wrapper .app-card .card-title {
+  width: 100%;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}

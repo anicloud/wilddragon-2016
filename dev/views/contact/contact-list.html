@@ -1,0 +1,23 @@
+<div class="contact-wrapper">
+  <div class="contact-card" data-ng-repeat="contactId in [1,2,3,4,5,6,7,8]">
+    <div class="card-title"></div>
+    <div class="card-content">
+      <div class="group-name">
+        家庭（3）
+      </div>
+      <div class="group-description">
+        这是我的家庭组，里面都是我的家人
+      </div>
+      <div class="group-members">
+        <div class="group-member" data-ng-repeat="a in [1,2,3,4,5,6]"></div>
+      </div>
+      <div class="action">
+        <a href="#/contact/{{contactId}}">
+          <div class="btn btn-default">
+            编辑
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

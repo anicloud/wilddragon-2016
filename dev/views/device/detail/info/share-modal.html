@@ -1,0 +1,110 @@
+<div class="modal-close" data-ng-click="cancel()">
+  x
+</div>
+<div class="group-modal" data-ng-class="{'active': stage==0}">
+  <div class="modal-header">
+    <div class="modal-icon">
+      <i class="fa fa-share-alt"></i>
+    </div>
+    <div class="modal-title">
+      选择分组
+    </div>
+  </div>
+  <div class="modal-body">
+    <div class="modal-item">
+      <div class="item-groups" data-ng-class="{'collapsed': isGroupsCollapsed}">
+        <div class="item-group" data-ng-click="forward(1)">
+          <i class="fa fa-plus"></i>
+        </div>
+        <div class="item-group" data-ng-click="selectGroup(a)" data-ng-repeat="group in groups"
+             data-ng-model="shareData.groupId" uib-btn-radio="group.groupId">
+          {{group.name}}
+        </div>
+      </div>
+      <div class="item-collapse">
+        <a href data-ng-click="isGroupsCollapsed=!isGroupsCollapsed">
+          <i class="fa fa-angle-down" data-ng-show="isGroupsCollapsed"></i>
+          <i class="fa fa-angle-up" data-ng-show="!isGroupsCollapsed"></i>
+        </a>
+      </div>
+      <div class="item-button">
+        <button class="btn btn-default" data-ng-click="forward(3)">下一步</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="group-modal" data-ng-class="{'active': stage==1}">
+  <div class="modal-header">
+    <div class="modal-icon">
+      <i class="fa fa-share-alt"></i>
+    </div>
+    <div class="modal-title">
+      新建分组
+    </div>
+  </div>
+  <div class="modal-body">
+    <div class="modal-item">
+      <div class="item-input">
+        <input type="text" placeholder="输入分组名称" data-ng-model="groupData.name">
+      </div>
+      <div class="item-button">
+        <button class="btn btn-default" data-ng-click="backward(1)">上一步</button>
+        <button class="btn btn-default" data-ng-click="forward(1)">下一步</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="group-modal" data-ng-class="{'active': stage==2}">
+  <div class="modal-header">
+    <div class="modal-icon">
+      <i class="fa fa-share-alt"></i>
+    </div>
+    <div class="modal-title">
+      添加组成员
+    </div>
+  </div>
+  <div class="modal-body">
+    <div class="modal-item">
+      <div class="item-input">
+        <tags-input type="text" placeholder="输入成员昵称或邮箱" data-ng-model="groupData.accounts"
+                    display-property="name" add-from-autocomplete-only="true">
+          <auto-complete source="loadTags($query)"></auto-complete>
+        </tags-input>
+      </div>
+      <div class="item-button">
+        <button class="btn btn-default" data-ng-click="backward(1)">上一步</button>
+        <button class="btn btn-default" data-ng-click="addGroup()">下一步</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="group-modal" data-ng-class="{'active': stage==3}">
+  <div class="modal-header">
+    <div class="modal-icon">
+      <i class="fa fa-share-alt"></i>
+    </div>
+    <div class="modal-title">
+      设置共享权限
+    </div>
+  </div>
+  <div class="modal-body">
+    <div class="modal-item">
+      <div class="item-input">
+        <input type="checkbox" data-ng-model="permission.readable">
+        <span class="checkbox-label">允许读取设备信息</span>
+      </div>
+      <div class="item-input">
+        <input type="checkbox" data-ng-model="permission.writable">
+        <span class="checkbox-label">允许更改设备</span>
+      </div>
+      <div class="item-input">
+        <input type="checkbox" data-ng-model="permission.executable">
+        <span class="checkbox-label">允许访问设备功能</span>
+      </div>
+      <div class="item-button">
+        <button class="btn btn-default" data-ng-click="backward(3)">上一步</button>
+        <button class="btn btn-default" data-ng-click="submit()">确定</button>
+      </div>
+    </div>
+  </div>
+</div>

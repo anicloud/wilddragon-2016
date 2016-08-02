@@ -1,0 +1,17 @@
+/* list */
+.list {
+  /*margin: 10px;*/
+}
+.list .list-item {
+  display: block;
+}
+.list .list-item:focus {
+  border: none;
+}
+.list .list-item.active {
+  background-color: #f1f2f6;
+  color: #4DA47C;
+}
+.list .list-item + .list-item {
+  margin: 5px 0;
+}

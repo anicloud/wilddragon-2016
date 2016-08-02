@@ -1,0 +1,32 @@
+<div class="bind-wrapper">
+  <div class="bind-title">
+    <i class="fa fa-file-text"></i>
+    设备信息
+  </div>
+  <div class="bind-description">
+    已连接设备的相关信息，包含设备的提供商，MAC地址，出厂序列号，功能等
+  </div>
+  <div class="bind-info">
+    <div class="info-detail">
+      <label>提供商：</label>
+      <span></span>
+    </div>
+    <div class="info-detail">
+      <label>序列号：</label>
+      <span>{{bindData.physicalId}}</span>
+    </div>
+    <div class="info-detail">
+      <label>MAC地址：</label>
+      <span>{{bindData.physicalAddress}}</span>
+    </div>
+    <div class="info-detail">
+      <label>描述：</label>
+      <span></span>
+    </div>
+  </div>
+  <div class="bind-action">
+    <button class="btn btn-default" data-ng-click="checkBind()">
+      绑定
+    </button>
+  </div>
+</div>

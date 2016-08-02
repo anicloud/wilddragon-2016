@@ -5,6 +5,7 @@ import models.domain.session.SessionManager;
 import models.dto.RetData;
 import models.dto.notification.NotificationData;
 import models.service.notification.NotificationService;
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.pac4j.core.profile.CommonProfile;
 import org.pac4j.play.java.JavaController;
 import org.pac4j.play.java.RequiresAuthentication;
@@ -33,7 +34,7 @@ public class NotificationController extends JavaController {
         return Long.parseLong((String) profile.getAttribute("accountId"));
     }
 
-    public WebSocket<JsonNode> getWebSocket() {
+    public WebSocket<String> getWebSocket() {
         try {
             return sessionManager.getSocket(String.valueOf(getAccountId()));
         } catch (Exception e) {
@@ -47,7 +48,7 @@ public class NotificationController extends JavaController {
             Set<NotificationData> data = notificationService.getNotificationsByAccount(getAccountId());
             retData = new RetData(true, "", data);
         } catch (Exception e) {
-            retData = new RetData(false, e.getMessage());
+            retData = new RetData(false, ExceptionUtils.getStackTrace(e));
         } finally {
             return ok(Json.toJson(retData));
         }

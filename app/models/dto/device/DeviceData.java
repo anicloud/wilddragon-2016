@@ -20,6 +20,8 @@ public class DeviceData {
 
     public DeviceState state;
 
+    public DeviceData(){}
+
     public DeviceData(String physicalId, String physicalAddress, String name, String description, List<FunctionData> functions, String avatarUrl, List<String> tags, DeviceState state) {
         this.physicalId = physicalId;
         this.physicalAddress = physicalAddress;

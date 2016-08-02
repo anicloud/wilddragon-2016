@@ -4,16 +4,13 @@ import akka.actor.ActorRef;
 import akka.actor.PoisonPill;
 import akka.actor.Props;
 import akka.actor.UntypedActor;
-import com.fasterxml.jackson.databind.JsonNode;
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 import play.libs.F;
 import play.mvc.WebSocket;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by huangbin on 12/11/15.
@@ -32,7 +29,7 @@ public class SessionManager {
 
         public void send(Object  message) {
             try {
-                actor.actorRef.tell(message, actor.self());
+                actor.tell(message);
             } catch (Exception e) {
                 LOG.warn(e);
             }
@@ -99,17 +96,31 @@ public class SessionManager {
             }
         }
 
+        public void tell(Object message){
+            this.actorRef.tell(message, self());
+        }
+
     }
 
     public synchronized Set<WebSocketSession> getSessions(String key) {
         return sessionMap.get(key);
     }
 
-    public WebSocket<JsonNode> getSocket(final String key) {
+    public static void sessionSend(String key, Object message){
+        if(!sessionMap.containsKey(key)){
+            return;
+        }
+        Iterator<WebSocketSession> iterator = sessionMap.get(key).iterator();
+        while(iterator.hasNext()){
+            iterator.next().send(message.toString());
+        }
+    }
+
+    public WebSocket<String> getSocket(final String key) {
         if (key == null) {
             return null;
         }
-        WebSocket<JsonNode> webSocket = WebSocket.withActor(new F.Function<ActorRef, Props>() {
+        WebSocket<String> webSocket = WebSocket.withActor(new F.Function<ActorRef, Props>() {
             @Override
             public Props apply(ActorRef actorRef) throws Throwable {
                 return Props.create(WebSocketActor.class, actorRef, key);

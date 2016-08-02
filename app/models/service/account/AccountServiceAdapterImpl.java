@@ -1,13 +1,13 @@
 package models.service.account;
 
-import com.ani.octopus.account.interfaces.AccountContactServiceFacade;
-import com.ani.octopus.account.interfaces.AccountGroupServiceFacade;
-import com.ani.octopus.account.interfaces.AccountServiceFacade;
-import com.ani.octopus.account.interfaces.GroupJoinInvitationServiceFacade;
+import com.ani.earth.commons.dto.AccountDto;
+import com.ani.earth.commons.dto.AccountGroupDto;
+import com.ani.earth.core.application.service.dtoadapter.AccountDtoAdapter;
+import com.ani.earth.interfaces.AccountContactServiceFacade;
+import com.ani.earth.interfaces.AccountGroupServiceFacade;
+import com.ani.earth.interfaces.AccountServiceFacade;
+import com.ani.earth.interfaces.GroupJoinInvitationServiceFacade;
 import com.ani.octopus.antenna.core.AntennaTemplate;
-import com.ani.octopus.commons.accout.dto.AccountDto;
-import com.ani.octopus.commons.accout.dto.AccountGroupDto;
-import com.ani.octopus.commons.accout.dto.GroupType;
 import com.ani.octopus.commons.object.dto.object.ObjectMainInfoDto;
 import com.ani.octopus.commons.object.dto.object.ObjectMainQueryDto;
 import com.ani.octopus.commons.object.dto.object.privilege.ObjectPrivilegeGrantDto;
@@ -155,15 +155,19 @@ public class AccountServiceAdapterImpl implements AccountServiceAdapter {
         groupData.type = AccountGroupType.CUSTOM;
         AccountGroupDto groupDto = AccountDataUtils.toAccountGroupDto(groupData);
         Set<AccountDto> accountDtos = groupDto.accounts;
+        if(accountDtos == null){
+            accountDtos = new HashSet<>();
+        }
+        accountDtos.add(groupDto.owner);
         groupDto.accounts = null;
         groupDto = accountGroupServiceFacade.save(groupDto);
-        if (groupDto != null && accountDtos != null) {
-            for (AccountDto accountDto : accountDtos) {
-                accountServiceFacade.addAccountGroup(accountDto.accountId, groupDto.groupId);
+        for (AccountDto accountDto : accountDtos) {
+            accountServiceFacade.addAccountGroup(accountDto.accountId, groupDto.groupId);
+            if(!accountDto.accountId.equals(groupDto.owner)){
                 groupJoinInvitationServiceFacade.addGroup(accountDto.accountId, groupDto.groupId);
             }
-            groupDto = accountGroupServiceFacade.getById(groupDto.groupId);
         }
+        groupDto.accounts = accountDtos;
         return AccountDataUtils.fromAccountGroupDto(groupDto);
     }
 
@@ -230,7 +234,9 @@ public class AccountServiceAdapterImpl implements AccountServiceAdapter {
     @Override
     public AccountGroupData deleteAccountGroup(Long accountId, Long groupId) {
         AccountGroupDto groupDto = accountGroupServiceFacade.getById(groupId);
+        Set<AccountDto> accountDtos = new HashSet<>();
         if (groupDto != null) {
+            accountDtos.addAll(groupDto.accounts);
             groupDto.accounts = null;
             accountGroupServiceFacade.modify(groupDto);
             accountGroupServiceFacade.remove(accountId, groupId);
@@ -251,7 +257,7 @@ public class AccountServiceAdapterImpl implements AccountServiceAdapter {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        groupDto.accounts = accountDtos;
         return AccountDataUtils.fromAccountGroupDto(groupDto);
     }
 
@@ -287,8 +293,9 @@ public class AccountServiceAdapterImpl implements AccountServiceAdapter {
         AccountGroupDto groupDto = accountGroupServiceFacade.getById(groupId);
         AccountDto accountDto = accountServiceFacade.getByAccountId(accountId);
         if (groupDto != null && accountDto != null) {
-            groupDto.accounts.add(accountDto);
-            groupDto = accountGroupServiceFacade.modify(groupDto);
+            accountDto.groupSet.add(groupDto);
+            accountServiceFacade.modify(accountDto);
+            accountServiceFacade.addAccountGroup(accountId, groupId);
             groupJoinInvitationServiceFacade.removeGroup(accountId, groupId);
             return AccountDataUtils.fromAccountGroupDto(groupDto);
         }
@@ -303,10 +310,52 @@ public class AccountServiceAdapterImpl implements AccountServiceAdapter {
         AccountGroupDto groupDto = accountGroupServiceFacade.getById(groupId);
         AccountDto accountDto = accountServiceFacade.getByAccountId(accountId);
         if (groupDto != null && accountDto != null) {
-            groupDto.accounts.remove(accountDto);
-            groupDto = accountGroupServiceFacade.modify(groupDto);
-            return AccountDataUtils.fromAccountGroupDto(groupDto);
+            accountServiceFacade.removeAccountGroup(accountId, groupId);
+            return AccountDataUtils.fromAccountGroupDto(accountGroupServiceFacade.getById(groupDto.groupId));
         }
         return null;
     }
+
+    @Override
+    public AccountGroupData kickAccountGroup(Long accountId, AccountGroupKickData groupKickData) {
+        if (accountId == null || groupKickData == null) {
+            return null;
+        }
+        AccountGroupDto groupDto = accountGroupServiceFacade.getById(Long.valueOf(groupKickData.groupId));
+        AccountDto accountDto = accountServiceFacade.getByAccountId(accountId);
+        if (groupDto == null || accountDto == null || accountId.equals(groupKickData.accountId)) {
+            return null;
+        }
+        accountServiceFacade.removeAccountGroup(accountDto.accountId, groupDto.groupId);
+        return AccountDataUtils.fromAccountGroupDto(accountGroupServiceFacade.getById(groupDto.groupId));
+    }
+
+    @Override
+    public AccountGroupData modifyAccountGroup(Long accountId, AccountGroupData groupModifyData) {
+        if(accountId == null || groupModifyData == null){
+            return null;
+        }
+        AccountGroupDto groupDto = accountGroupServiceFacade.getById(Long.valueOf(groupModifyData.groupId));
+        if(!accountId.equals(groupDto.owner.accountId)){
+            return null;
+        }
+        if(groupModifyData.name != null){
+            groupDto.groupName = groupModifyData.name;
+        }
+        if(groupModifyData.type != null){
+            groupDto.groupType = AccountDataUtils.toGroupType(groupModifyData.type);
+        }
+        Set<AccountDto> accountDtos = groupDto.accounts;
+        if(accountDtos == null){
+            accountDtos = new HashSet<>();
+        }
+        groupDto.accounts = null;
+        groupDto = accountGroupServiceFacade.modify(groupDto);
+        for(AccountDto account:accountDtos){
+            accountServiceFacade.addAccountGroup(account.accountId, groupDto.groupId);
+        }
+        groupDto.accounts = accountDtos;
+        return AccountDataUtils.fromAccountGroupDto(groupDto);
+    }
+
 }

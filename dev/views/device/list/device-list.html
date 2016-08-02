@@ -1,0 +1,88 @@
+<div class="content-header">
+  <div class="navbar">
+    <div class="navbar-toggle" data-ng-click="toggleSidebar()">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="navbar-title">
+      设备列表
+    </div>
+    <div class="navbar-plus">
+      <a href="#/device/bind/qrcode">
+        +
+      </a>
+    </div>
+  </div>
+</div>
+<div class="content-body">
+  <div class="device-list">
+    <div class="panel-wrapper" data-ng-repeat="device in devices">
+      <div class="panel" data-panel-collapsed="collapsed" data-ng-class="{'collapsed': collapsed}">
+        <div class="panel-header" data-panel-toggle>
+          <div class="cover" data-ng-click="$event.stopPropagation()">
+            <a href="#/device/{{device.deviceId}}/info">
+              <img data-ng-src="{{device.avatarUrl}}">
+            </a>
+          </div>
+          <div class="info" data-ng-click="$event.stopPropagation()">
+            <div class="title">
+              <a href="#/device/{{device.deviceId}}/info" data-ng-click="stopPropagation()">
+                {{device.name}}
+              </a>
+            </div>
+            <div class="subtitle" data-ng-show="device.owner!=account.accountId">
+              共享来自{{accountMap[device.owner].name}}
+            </div>
+          </div>
+          <div class="extra" data-ng-click="$event.stopPropagation()">
+
+          </div>
+          <div class="options" data-ng-click="$event.stopPropagation()">
+            <span uib-dropdown>
+              <a href uib-dropdown-toggle>
+                <i href class="fa fa-ellipsis-v"></i>
+              </a>
+              <ul uib-dropdown-menu>
+                <li>
+                  <a href="#/device/{{device.deviceId}}/info"><i class="fa fa-file"></i>&nbsp;&nbsp;设备详情</a>
+                  <a href="#/device/{{device.deviceId}}/share" data-ng-show="device.owner==account.accountId">
+                    <i class="fa fa-share-alt"></i>&nbsp;&nbsp;共享管理
+                  </a>
+                  <!--<a href data-ng-show="device.owner==account.accountId">-->
+                    <!--<i class="fa fa-unlock"></i>&nbsp;&nbsp;解除绑定-->
+                  <!--</a>-->
+                </li>
+              </ul>
+            </span>
+            <span>
+              <a href data-panel-toggle>
+                <i class="fa" data-ng-class="{'fa-angle-down': collapsed, 'fa-angle-up': !collapsed}"></i>
+              </a>
+            </span>
+          </div>
+        </div>
+        <div class="panel-body" data-ng-class="{'collapsed': collapsed}">
+          <div class="device-item" data-ng-repeat="slave in device.slaves">
+            <div class="header" data-ng-class="{'active': slave.state==='ACTIVE'}">
+              <i class="fa fa-circle"></i>
+            </div>
+            <div class="title">
+              <a href="#/device/{{device.deviceId}}/info/{{slave.deviceId}}">
+                {{slave.name}}
+              </a>
+            </div>
+            <div class="subtitle">
+
+            </div>
+            <div class="more">
+              <a href="#/device/{{device.deviceId}}/info/{{slave.deviceId}}">
+                更多
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

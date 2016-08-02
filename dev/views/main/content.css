@@ -1,0 +1,40 @@
+.content {
+  position: relative;
+  -webkit-transition: margin-left 0.35s ease;
+          transition: margin-left 0.35s ease;
+  width: 100%;
+  height: 100%;
+  border-right: 1px solid #e8e8e8;
+  overflow-y: auto;
+}
+.content-collapsed {
+  margin-left: 300px;
+}
+.content-header {
+  position: fixed;
+  width: 100%;
+  height: 54px;
+  background-color: #fff;
+  z-index: 2;
+}
+.content-body {
+  position: relative;
+  padding-top: 54px;
+  width: 100%;
+  background-color: white;
+  height: calc(100% - 54px);
+  overflow: hidden;
+}
+.content-footer {
+  clear: both;
+  height: 50px;
+}
+@media (min-width: 768px) {
+  .content {
+    width: calc(100% - 300px);
+    margin-left: 300px;
+  }
+  .content-header {
+    position: absolute;
+  }
+}

@@ -1,14 +1,18 @@
 package models.dto.notification;
 
+import play.libs.Json;
+
 /**
  * Created by huangbin on 12/29/15.
  */
 public class NotificationData {
     public Type type;
     public String message;
-    public Object data;
+    public MsgContentData data;
 
-    public NotificationData(Type type, String message, Object data) {
+    public NotificationData(){}
+
+    public NotificationData(Type type, String message, MsgContentData data) {
         this.type = type;
         this.message = message;
         this.data = data;
@@ -36,7 +40,20 @@ public class NotificationData {
         ACCOUNT_GROUP_INVITE,
         ACCOUNT_GROUP_DISINVITE,
         ACCOUNT_GROUP_JOIN,
-        ACCOUNT_GROUP_QUIT
+        ACCOUNT_GROUP_QUIT,
+        ACCOUNT_GROUP_KICK,
+
+        //app
+        APP_BIND,
+        APP_UNBIND,
+        APP_INSTALL,
+        APP_UNINSTALL,
+        APP_START,
+        APP_STOP;
     }
 
+    @Override
+    public String toString() {
+        return Json.toJson(this).toString();
+    }
 }

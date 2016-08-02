@@ -1,0 +1,69 @@
+<div class="content-header">
+  <div class="navbar">
+    <div class="navbar-title">
+      账号信息
+    </div>
+    <div class="navbar-toggle" data-ng-click="toggleSidebar()">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+  </div>
+</div>
+<div class="content-body">
+  <div class="account-info">
+    <div class="panel">
+      <div class="panel-body">
+        <a href="">
+          <div class="container-fluid">
+            <div class="item row">
+              <div class="item-name col-xs-3">头像</div>
+              <div class="item-detail col-xs-8"><img src="{{account.avatarUrl}}"></div>
+              <div class="item-next col-xs-1"><i class="fa fa-angle-right"></i></div>
+            </div>
+          </div>
+        </a>
+        <hr>
+        <a href="">
+          <div class="container-fluid">
+            <div class="item row">
+              <div class="item-name col-xs-3">名称</div>
+              <div class="item-detail col-xs-8"> {{account.name}}</div>
+              <div class="item-next col-xs-1"><i class="fa fa-angle-right"></i></div>
+            </div>
+          </div>
+        </a>
+        <hr>
+        <a href="">
+          <div class="container-fluid">
+            <div class="item row">
+              <div class="item-name col-xs-3">邮箱</div>
+              <div class="item-detail col-xs-8">{{account.email}}</div>
+              <div class="item-next col-xs-1"><i class="fa fa-angle-right"></i></div>
+            </div>
+          </div>
+        </a>
+        <hr>
+        <a href="">
+          <div class="container-fluid">
+            <div class="item row">
+              <div class="item-name col-xs-3">电话</div>
+              <div class="item-detail col-xs-8">{{account.phoneNumber}}</div>
+              <div class="item-next col-xs-1"><i class="fa fa-angle-right"></i></div>
+            </div>
+          </div>
+        </a>
+        <hr>
+        <a href="">
+          <div class="container-fluid">
+            <div class="item row">
+              <div class="item-name col-xs-3">公司</div>
+              <div class="item-detail col-xs-8">{{account.company}}</div>
+              <div class="item-next col-xs-1"><i class="fa fa-angle-right"></i></div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

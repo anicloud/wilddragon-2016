@@ -40,6 +40,7 @@ POST        /group/delete                              @controllers.AccountContr
 POST        /group/join                                @controllers.AccountController.joinAccountGroup()
 POST        /group/quit                                @controllers.AccountController.quitAccountGroup()
 POST        /group/invite                              @controllers.AccountController.inviteAccount()
+POST        /group/modify                              @controllers.AccountController.modifyAccountGroup()
 
 # Device
 GET         /device/all                                @controllers.DeviceController.getAllDevices()
@@ -53,5 +54,7 @@ GET         /device/function/:masterId                 @controllers.DeviceContro
 
 # App
 GET         /app/all                                   @controllers.AppController.getAllApps()
+POST        /app/bind                                  @controllers.AppController.bindApp()
+POST        /app/unbind                                @controllers.AppController.unbindApp()
 POST        /app/install                               @controllers.AppController.installApp()
 POST        /app/uninstall                             @controllers.AppController.uninstallApp()

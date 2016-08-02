@@ -1,0 +1,154 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="contact-list">
+      <div class="contact-detail-title col-lg-4">
+        <strong>共享名称</strong>
+      </div>
+      <div class="contact-detail">
+        <form data-ng-controller="ContactCtrl" class="editable-select centered" data-ng-submit="setInputName()">
+          <input data-ng-disabled="!editMode"
+                 type="text"
+                 value="家庭"
+                 data-ng-model="newInputName"
+                 data-ng-click="enterEditMode()">
+
+          <div class="controls">
+            <a data-ng-show="!editMode" data-ng-click="enterEditMode()"><i class="fa fa-pencil"></i></a>
+            <button data-ng-show="editMode"><i class="fa fa-check"></i></button>
+            <a data-ng-show="editMode" data-ng-click="editMode = !editMode"><i class="fa fa-times"></i></a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-list">
+    <div class="contact-detail-title col-lg-4">
+      <strong>描述</strong>
+    </div>
+    <div class="contact-detail">
+      <form data-ng-controller="ContactCtrl" class="editable-select centered" data-ng-submit="setInputName()">
+        <input data-ng-disabled="!editMode"
+               type="text"
+               value="家庭"
+               data-ng-model="newInputName"
+               data-ng-click="enterEditMode()">
+
+        <div class="controls">
+          <a data-ng-show="!editMode" data-ng-click="enterEditMode()"><i class="fa fa-pencil"></i></a>
+          <button data-ng-show="editMode"><i class="fa fa-check"></i></button>
+          <a data-ng-show="editMode" data-ng-click="editMode = !editMode"><i class="fa fa-times"></i></a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!--<div class="contact-list">-->
+  <!--<div class="contact-detail-title col-lg-4">-->
+  <!--<strong>共享设备</strong>-->
+  <!--</div>-->
+  <!--<div class="contact-detail">-->
+  <!--<div class="device-icon"></div>-->
+  <!--<div class="device-icon"></div>-->
+  <!--&lt;!&ndash;<div class="device-icon">&ndash;&gt;-->
+  <!--&lt;!&ndash;<div class="plus-sign"></div>&ndash;&gt;-->
+  <!--&lt;!&ndash;</div>&ndash;&gt;-->
+  <!--<div>-->
+  <!--<img src="/images/icon_plus.png" data-ng-click="open()">-->
+  <!--</div>-->
+  <!--<img src="/images/icon_minus.png">-->
+
+
+  <!--&lt;!&ndash;<div class="device-icon">&ndash;&gt;-->
+  <!--&lt;!&ndash;<div class="minus-sign"></div>&ndash;&gt;-->
+  <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+  <!--</div>-->
+  <!--</div>-->
+
+  <div class="contact-list">
+    <div class="contact-detail-title col-lg-4">
+      <strong>成员</strong>
+    </div>
+    <div class="contact-detail">
+      <div class="image-temp">
+        <img src="/images/IMG_5369.JPG" class="device-icon">
+        <a href="">移除</a>
+      </div>
+
+      <div class="image-temp">
+        <img src="/images/IMG_5369.JPG" class="device-icon">
+        <a href="">移除</a>
+      </div>
+      <div class="image-temp">
+        <img src="/images/IMG_5369.JPG" class="device-icon">
+        <a href="">移除</a>
+      </div>
+      <div class="image-temp">
+      <img src="/images/IMG_5369.JPG" class="device-icon">
+      <a href data-ng-click="open()" >移除</a>
+    </div>
+
+      <div class="add-member" data-ng-click="openMember()"></div>
+      <!--<img src="/images/icon_plus@3x.png" data-ng-click="">-->
+      <!--<a><img src="/images/icon_minus.png"></a>-->
+      <!--<button data-ng-click="open()">tanchu</button>-->
+
+      <!--<img src="/images/3.svg">-->
+
+      <!--<div class="device-icon btn">-->
+      <!--<div class="minus-sign"></div>-->
+      <!--</div>-->
+
+      <!--<a href="" class="device-icon">-->
+      <!--<i class="fa fa-plus"></i>-->
+      <!--</a>-->
+      <!--<div></div>-->
+
+      <!--<a class="device-icon" href="">-->
+      <!--<i class="fa fa-minus"></i>-->
+      <!--</a>-->
+    </div>
+  </div>
+
+  <!--<div class="contact-list">-->
+  <!--<div class="contact-detail-title col-lg-4">-->
+  <!--<strong>权限</strong>-->
+  <!--</div>-->
+  <!--<div class="contact-detail">-->
+  <!--<form data-ng-controller="ContactCtrl" class="editable-select centered" data-ng-submit="submitPermission()">-->
+  <!--<div class="editable-data">-->
+  <!--&lt;!&ndash;<select data-ng-show="!editMode" disabled>&ndash;&gt;-->
+  <!--&lt;!&ndash;<option>{{ selectedInstructor.name }}</option>&ndash;&gt;-->
+  <!--&lt;!&ndash;</select>&ndash;&gt;-->
+  <!--&lt;!&ndash;<select data-ng-disabled="!editMode" data-ng-model="newPermission"&ndash;&gt;-->
+  <!--&lt;!&ndash;data-ng-options="instructor as instructor.name for instructor in instructors">&ndash;&gt;-->
+  <!--&lt;!&ndash;<option>{{oldPermission}}</option>&ndash;&gt;-->
+  <!--&lt;!&ndash;</select>&ndash;&gt;-->
+  <!--<ui-select ng-model="selected.value" data-ng-disabled="!editMode">-->
+  <!--<ui-select-match>-->
+  <!--<span ng-bind="$select.selected.name"></span>-->
+  <!--</ui-select-match>-->
+  <!--<ui-select-choices repeat="item in (itemArray | filter: $select.search) track by item.id">-->
+  <!--<span ng-bind="item.name"></span>-->
+  <!--</ui-select-choices>-->
+  <!--</ui-select>-->
+  <!--</div>-->
+  <!--<div class="controls">-->
+  <!--<a data-ng-show="!editMode" data-ng-click="enterEditMode()"><i class="fa fa-pencil"></i></a>-->
+  <!--<button data-ng-show="editMode"><i class="fa fa-check"></i></button>-->
+  <!--<a data-ng-show="editMode" data-ng-click="editMode = !editMode"><i class="fa fa-times"></i></a>-->
+  <!--</div>-->
+  <!--</form>-->
+  <!--</div>-->
+  <!--</div>-->
+
+  <div class="contact-list">
+    <div class="contact-detail-title col-lg-4">
+      <strong>删除</strong>
+    </div>
+    <div class="contact-detail">
+      <button class="btn btn-default">删除</button>
+    </div>
+  </div>
+</div>

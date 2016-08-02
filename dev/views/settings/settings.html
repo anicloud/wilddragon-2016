@@ -1,0 +1,65 @@
+<div class="content-header">
+  <div class="navbar">
+    <div class="navbar-title">
+      设置
+    </div>
+    <div class="navbar-toggle" data-ng-click="toggleSidebar()">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+  </div>
+</div>
+<div class="content-body">
+  <div class="settings">
+    <div class="settings-content" id="account-settings">
+      <div class="title">账号信息</div>
+      <div class="left">
+        <div class="description">
+          您可以查看和修改头像，名称等个人账号信息
+        </div>
+      </div>
+      <div class="right">
+        <div class="panel">
+          <div class="panel-body">
+            <div class="item avatar">
+              <a href="">
+                <div class="item-name highlight highlight">头像</div>
+                <div class="item-detail img"><img data-ng-src="{{account.avatarUrl}}"></div>
+                <div class="item-next"><i class="fa fa-angle-right"></i></div>
+              </a>
+            </div>
+            <div class="item">
+              <div href="">
+                <div class="item-name highlight">名称</div>
+                <div class="item-detail"> {{account.name}}</div>
+                <div class="item-next"><i class="fa fa-angle-right"></i></div>
+              </div>
+            </div>
+            <div class="item">
+              <div href="">
+                <div class="item-name highlight">邮箱</div>
+                <div class="item-detail">{{account.email}}</div>
+                <div class="item-next"><i class="fa fa-angle-right"></i></div>
+              </div>
+            </div>
+            <div class="item">
+              <div href="">
+                <div class="item-name highlight">电话</div>
+                <div class="item-detail">{{account.phoneNumber}}</div>
+                <div class="item-next"><i class="fa fa-angle-right"></i></div>
+              </div>
+            </div>
+            <div class="item">
+              <div href="">
+                <div class="item-name highlight">公司</div>
+                <div class="item-detail">{{account.company}}</div>
+                <div class="item-next"><i class="fa fa-angle-right"></i></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

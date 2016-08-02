@@ -1,0 +1,107 @@
+.login-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  background-color: #fff;
+}
+.login-wrapper .logo {
+  padding-top: 12%;
+}
+.login-wrapper .logo img {
+  width: 180px;
+}
+.login-wrapper .title {
+  margin-top: 18px;
+  font-size: 20px;
+  color: #9c9c9c;
+  letter-spacing: 1px;
+}
+.login-wrapper .login-panel {
+  position: absolute;
+  bottom: 10%;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 4px;
+  text-align: center;
+}
+.login-wrapper .login-panel .row-input {
+  width: 70%;
+  margin: 12px auto;
+  border-bottom: 1px solid #ccc;
+  -webkit-transition: border-color ease-in-out 0.25s;
+          transition: border-color ease-in-out 0.25s;
+}
+.login-wrapper .login-panel .row-input.focus {
+  border-bottom: 2px solid #43A047;
+}
+.login-wrapper .login-panel .row-input i {
+  width: 18px;
+  color: #555;
+  font-size: 16px;
+}
+.login-wrapper .login-panel .row-input input[type="text"],
+.login-wrapper .login-panel .row-input input[type="password"] {
+  width: 86%;
+  height: 28px;
+  margin: 0;
+  padding: 4px;
+  line-height: 28px;
+  font-size: 16px;
+  border: none;
+  box-shadow: none;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+.login-wrapper .login-panel .btn {
+  width: 70%;
+  height: 38px;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #43A047;
+  color: #eee;
+  font-size: 16px;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+.login-wrapper .login-panel .link {
+  margin-top: 16px;
+}
+.login-wrapper .login-panel .link a {
+  text-decoration: underline;
+  color: #43A047;
+}
+@media (min-width: 768px) {
+  .login-wrapper .logo {
+    padding-top: 80px;
+  }
+  .login-wrapper .logo img {
+    width: 280px;
+  }
+  .login-wrapper .title {
+    margin-top: 36px;
+    font-size: 24px;
+    letter-spacing: 2px;
+  }
+  .login-wrapper .login-panel {
+    position: relative;
+    width: 480px;
+    margin: 240px auto 0;
+    padding: 20px 10px 40px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 1px 4px 4px rgba(0, 0, 0, 0.025);
+  }
+  .login-wrapper .login-panel .row-input {
+    margin: 18px auto;
+    width: 360px;
+    font-size: 18px;
+  }
+  .login-wrapper .login-panel .btn {
+    width: 360px;
+    margin-top: 10px;
+  }
+}

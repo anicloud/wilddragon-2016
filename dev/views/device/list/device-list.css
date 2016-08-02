@@ -1,0 +1,127 @@
+/*device list*/
+.device-list {
+  padding-bottom: 50px;
+  height: 100%;
+}
+.device-list .panel-wrapper {
+  margin: 0 10px;
+  border-bottom: 1px solid #e8e8e8;
+}
+.device-list .panel-wrapper .panel {
+  box-shadow: none;
+}
+.device-list .panel-wrapper .panel .panel-header {
+  height: 52px;
+  margin: 8px 10px;
+}
+.device-list .panel-wrapper .panel .panel-header .cover {
+  float: left;
+  width: 52px;
+  height: 52px;
+}
+.device-list .panel-wrapper .panel .panel-header .cover img {
+  width: 52px;
+  height: 52px;
+}
+.device-list .panel-wrapper .panel .panel-header .info {
+  float: left;
+  margin-left: 20px;
+  max-width: 120px;
+}
+.device-list .panel-wrapper .panel .panel-header .info .title {
+  margin-top: 8px;
+  font-size: 16px;
+  color: #111;
+  white-space: nowrap;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+}
+.device-list .panel-wrapper .panel .panel-header .info .subtitle {
+  margin-top: 1px;
+  font-size: 12px;
+  color: #777;
+  white-space: nowrap;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+}
+.device-list .panel-wrapper .panel .panel-header .extra {
+  float: left;
+  line-height: 52px;
+  margin-left: 8px;
+  font-size: 12px;
+  color: #777;
+}
+.device-list .panel-wrapper .panel .panel-header .options {
+  float: right;
+}
+.device-list .panel-wrapper .panel .panel-header .options span {
+  line-height: 52px;
+  font-size: 20px;
+  width: auto;
+  padding-right: 16px;
+  overflow: hidden;
+}
+.device-list .panel-wrapper .panel .panel-header .options span.mobile-visible {
+  display: inline;
+}
+.device-list .panel-wrapper .panel .panel-header .options span.mobile-invisible {
+  display: none;
+}
+@media screen and (min-width: 768px) {
+  .device-list .panel-wrapper .panel .panel-header .options span.mobile-visible {
+    display: none;
+  }
+  .device-list .panel-wrapper .panel .panel-header .options span.mobile-invisible {
+    display: inline;
+  }
+}
+@media screen and (min-width: 768px) {
+  .device-list .panel-wrapper {
+    margin: 0 25px;
+  }
+}
+.device-item {
+  height: 50px;
+  border-top: 1px solid #e8e8e8;
+}
+.device-item .header {
+  float: left;
+  margin-left: 16px;
+  line-height: 50px;
+  color: #e8e8e8;
+}
+.device-item .header.active {
+  color: #4DA47C;
+}
+.device-item .title {
+  float: left;
+  margin-left: 16px;
+  line-height: 50px;
+  font-size: 15px;
+  color: #111;
+  white-space: nowrap;
+  overflow-x: hidden;
+}
+.device-item .subtitle {
+  float: left;
+  line-height: 50px;
+  width: 50px;
+  font-size: 10px;
+  color: #888;
+  white-space: nowrap;
+  overflow-x: hidden;
+}
+.device-item .more {
+  float: right;
+  margin-right: 20px;
+  line-height: 50px;
+  font-size: 14px;
+  color: #4DA47C;
+  white-space: nowrap;
+}
+.dropdown-menu {
+  min-width: 100px;
+}
+.dropdown-menu > li > a {
+  padding: 2px 8px;
+}
