@@ -16,7 +16,6 @@ public class ObjectInvokeHandler implements ObjectInvokeListener {
 
     @Override
     public List<StubInvocationDto> onInvokeObject(ObjectQueryDto objectQueryDto, List<StubInvocationDto> list) throws RemoteException {
-        System.out.println("invoke");
         return null;
     }
 }
