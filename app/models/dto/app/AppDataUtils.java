@@ -51,17 +51,29 @@ public class AppDataUtils {
         aniServiceDto.version = appData.version;
         aniServiceDto.clientSecret = appData.clientSecret;
         Set<String> resourceIds = new HashSet<>();
-        for(DeviceMasterData deviceMasterData:appData.devices){
-            resourceIds.add(deviceMasterData.deviceId);
+        if(appData.devices!=null){
+            for(DeviceMasterData deviceMasterData:appData.devices){
+                resourceIds.add(deviceMasterData.deviceId);
+            }
         }
         aniServiceDto.resourceIds = resourceIds;
-        aniServiceDto.registerDate = Date.from(Instant.ofEpochMilli(Long.valueOf(appData.registerDate)));
+        if(appData.registerDate != null){
+            aniServiceDto.registerDate = Date.from(Instant.ofEpochMilli(Long.valueOf(appData.registerDate)));
+        }
         aniServiceDto.scope = appData.scope;
         aniServiceDto.autoApprove = appData.autoApprove;
-        aniServiceDto.archived = Boolean.getBoolean(appData.archived);
-        aniServiceDto.trusted = Boolean.getBoolean(appData.trusted);
-        aniServiceDto.accessTokenValidity = Integer.valueOf(appData.accessTokenValidity);
-        aniServiceDto.refreshTokenValidity = Integer.valueOf(appData.refreshTokenValidity);
+        if(appData.archived != null){
+            aniServiceDto.archived = Boolean.getBoolean(appData.archived);
+        }
+        if(appData.trusted != null){
+            aniServiceDto.trusted = Boolean.getBoolean(appData.trusted);
+        }
+        if(appData.accessTokenValidity != null){
+            aniServiceDto.accessTokenValidity = Integer.valueOf(appData.accessTokenValidity);
+        }
+        if(appData.refreshTokenValidity != null){
+            aniServiceDto.refreshTokenValidity = Integer.valueOf(appData.refreshTokenValidity);
+        }
         aniServiceDto.authorities = appData.authorities;
         aniServiceDto.authorizedGrantTypes = appData.authorizedGrantTypes;
         aniServiceDto.entranceList =  toAniServiceEntranceDtos(appData.entranceList);

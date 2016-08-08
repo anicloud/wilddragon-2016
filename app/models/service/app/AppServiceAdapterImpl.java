@@ -1,7 +1,6 @@
 package models.service.app;
 
 import com.ani.bus.service.commons.dto.aniservice.AniServiceDto;
-import com.ani.bus.service.commons.dto.aniservice.AniServiceInfoDto;
 import com.ani.bus.service.core.interfaces.accountobj.AniSerAccountObjManager;
 import com.ani.octopus.antenna.core.AntennaTemplate;
 import com.ani.octopus.commons.object.dto.object.ObjectMainInfoDto;
@@ -9,13 +8,13 @@ import com.ani.octopus.commons.object.dto.object.ObjectMainQueryDto;
 import com.ani.octopus.commons.object.enumeration.AniObjectState;
 import models.dto.app.AppData;
 import models.dto.app.AppDataUtils;
-import models.dto.device.DeviceState;
+import models.dto.app.AppState;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -31,8 +30,7 @@ public class AppServiceAdapterImpl implements AppServiceAdapter {
 
     @Override
     public Set<AppData> getAppsByAccount(Long accountId) {
-        Set<AniServiceDto> aniServiceDtos = Collections.emptySet();
-//        aniServiceDtos = aniSerAccountObjManager.getBindApps(accountId);
+        List<AniServiceDto> aniServiceDtos = aniSerAccountObjManager.getAniServiceByAccount(accountId);
         Set<AppData> appDatas = new HashSet<>();
         Iterator<AniServiceDto> iterator = aniServiceDtos.iterator();
         while(iterator.hasNext()){
@@ -44,13 +42,12 @@ public class AppServiceAdapterImpl implements AppServiceAdapter {
 
     @Override
     public Set<AppData> getAppsOnshelf() {
-        Set<AniServiceInfoDto> appServices = Collections.emptySet();
-//        appServices = aniSerAccountObjManager.getServiceOnshelf();
+        List<AniServiceDto> appServices = aniSerAccountObjManager.getAniServiceOnshelf();
         Set<AppData> appDatas = new HashSet<>();
-        Iterator<AniServiceInfoDto> iterator = appServices.iterator();
+        Iterator<AniServiceDto> iterator = appServices.iterator();
         while(iterator.hasNext()){
             AppData appData = new AppData();
-            appData.appInfo = AppDataUtils.fromAniServiceInfoDto(iterator.next());
+            appData.appInfo = AppDataUtils.fromAniServiceInfoDto(iterator.next().aniServiceInfo);
             appDatas.add(appData);
         }
         return appDatas;
@@ -65,16 +62,15 @@ public class AppServiceAdapterImpl implements AppServiceAdapter {
 
     @Override
     public AppData bindApp(AppData appData) {
-        AniServiceDto aniServiceDto = AppDataUtils.toAniServiceDto(appData);
-//        aniServiceDto = aniSerAccountObjManager.bindApp(aniServiceDto);
+        AniServiceDto aniServiceDto = aniSerAccountObjManager.bindService(AppDataUtils.toAniServiceDto(appData));
         try {
             ObjectMainInfoDto objectMainInfoDto = antennaTemplate.objectInfoService.bindAccount(new ObjectMainQueryDto(Long.valueOf(appData.id)), Long.valueOf(appData.accountId));
-            DeviceState state = DeviceState.INACTIVE;
+            AppState state = AppState.INACTIVE;
             for (AniObjectState objectState : objectMainInfoDto.hostsState.values()) {
                 if (objectState == AniObjectState.ACTIVE) {
-                    state = DeviceState.ACTIVE;
+                    state = AppState.ACTIVE;
                 } else if (objectState == AniObjectState.REMOVED) {
-                    state = DeviceState.REMOVED;
+                    state = AppState.REMOVED;
                     break;
                 }
             }
@@ -86,16 +82,15 @@ public class AppServiceAdapterImpl implements AppServiceAdapter {
 
     @Override
     public AppData unbindApp(AppData appData) {
-        AniServiceDto aniServiceDto = AppDataUtils.toAniServiceDto(appData);
-//        aniServiceDto = aniSerAccountObjManager.unbindApp(aniServiceDto);
+        AniServiceDto aniServiceDto = aniSerAccountObjManager.unbindService(AppDataUtils.toAniServiceDto(appData));
         try {
             ObjectMainInfoDto objectMainInfoDto = antennaTemplate.objectInfoService.releaseFromAccount(new ObjectMainQueryDto(Long.valueOf(appData.id)), Long.valueOf(appData.accountId));
-            DeviceState state = DeviceState.INACTIVE;
+            AppState state = AppState.INACTIVE;
             for (AniObjectState objectState : objectMainInfoDto.hostsState.values()) {
                 if (objectState == AniObjectState.ACTIVE) {
-                    state = DeviceState.ACTIVE;
+                    state = AppState.ACTIVE;
                 } else if (objectState == AniObjectState.REMOVED) {
-                    state = DeviceState.REMOVED;
+                    state = AppState.REMOVED;
                     break;
                 }
             }

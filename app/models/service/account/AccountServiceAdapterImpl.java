@@ -177,7 +177,7 @@ public class AccountServiceAdapterImpl implements AccountServiceAdapter {
             return null;
         }
         AccountDto accountDto = AccountDataUtils.toAccountDto(accountData);
-        return AccountDataUtils.fromAccountDto(accountDto);
+        return AccountDataUtils.fromAccountDto(accountServiceFacade.modify(accountDto));
     }
 
     @Override
@@ -293,6 +293,7 @@ public class AccountServiceAdapterImpl implements AccountServiceAdapter {
         AccountGroupDto groupDto = accountGroupServiceFacade.getById(groupId);
         AccountDto accountDto = accountServiceFacade.getByAccountId(accountId);
         if (groupDto != null && accountDto != null) {
+            groupDto.accounts.add(accountDto);
             accountDto.groupSet.add(groupDto);
             accountServiceFacade.modify(accountDto);
             accountServiceFacade.addAccountGroup(accountId, groupId);

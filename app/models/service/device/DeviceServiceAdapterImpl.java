@@ -278,6 +278,11 @@ public class DeviceServiceAdapterImpl implements DeviceServiceAdapter {
         if (mainInfoDto == null) {
             return null;
         } else {
+            DeviceMasterDto deviceMasterDto = deviceBusService.findDeviceMaster(Long.valueOf(shareData.deviceId));
+            if(deviceMasterDto.accountGroups!=null && !deviceMasterDto.accountGroups.contains(shareData.groupId)){
+                deviceMasterDto.accountGroups.add(Long.valueOf(shareData.groupId));
+                deviceBusService.saveDeviceMaster(deviceMasterDto);
+            }
             return DeviceDataUtils.fromPrivilegeDtos(mainInfoDto.privileges);
         }
     }
@@ -298,6 +303,11 @@ public class DeviceServiceAdapterImpl implements DeviceServiceAdapter {
         if (mainInfoDto == null) {
             return null;
         } else {
+            DeviceMasterDto deviceMasterDto = deviceBusService.findDeviceMaster(Long.valueOf(shareData.deviceId));
+            if(deviceMasterDto.accountGroups!=null){
+                deviceMasterDto.accountGroups.remove(Long.valueOf(shareData.groupId));
+                deviceBusService.saveDeviceMaster(deviceMasterDto);
+            }
             return DeviceDataUtils.fromPrivilegeDtos(mainInfoDto.privileges);
         }
     }

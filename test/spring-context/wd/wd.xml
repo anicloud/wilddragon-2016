@@ -46,7 +46,7 @@
     <!-- app service -->
     <bean id="aniSerAccountObjManager" class="org.springframework.jms.remoting.JmsInvokerProxyFactoryBean">
         <property name="connectionFactory" ref="connectionFactory"/>
-            <property name="queueName" value="${jms.queue.service.bus}.AniServiceManager"/>
+        <property name="queueName" value="${jms.queue.service.bus}.AniServiceManager"/>
         <property name="serviceInterface" value="com.ani.bus.service.core.interfaces.accountobj.AniSerAccountObjManager"/>
     </bean>
     <!--<bean id="appClientService" class="org.springframework.jms.remoting.JmsInvokerProxyFactoryBean">-->
