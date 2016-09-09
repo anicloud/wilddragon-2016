@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+    <context:property-placeholder location="spring-context/wd/wd.properties" ignore-unresolvable="true" order="1"/>
+
+    <!-- account service -->
+    <bean id="accountServiceFacade" class="org.springframework.jms.remoting.JmsInvokerProxyFactoryBean">
+        <property name="connectionFactory"
+                  ref="connectionFactory"/>
+        <property name="queueName" value="${jms.queue.service.octopus}.AccountServiceFacade"/>
+        <property name="serviceInterface" value="com.ani.earth.interfaces.AccountServiceFacade"/>
+    </bean>
+
+    <bean id="accountGroupServiceFacade" class="org.springframework.jms.remoting.JmsInvokerProxyFactoryBean">
+        <property name="connectionFactory"
+                  ref="connectionFactory"/>
+        <property name="queueName" value="${jms.queue.service.octopus}.AccountGroupServiceFacade"/>
+        <property name="serviceInterface" value="com.ani.earth.interfaces.AccountGroupServiceFacade"/>
+    </bean>
+
+    <bean id="accountContactServiceFacade" class="org.springframework.jms.remoting.JmsInvokerProxyFactoryBean">
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <property name="queueName" value="${jms.queue.service.octopus}.AccountContactFacade"/>
+        <property name="serviceInterface" value="com.ani.earth.interfaces.AccountContactServiceFacade"/>
+    </bean>
+
+    <bean id="groupJoinInvitationServiceFacade" class="org.springframework.jms.remoting.JmsInvokerProxyFactoryBean">
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <property name="queueName" value="${jms.queue.service.octopus}.GroupJoinInvitationFacade"/>
+        <property name="serviceInterface" value="com.ani.earth.interfaces.GroupJoinInvitationServiceFacade"/>
+    </bean>
+
+    <!--device service-->
+    <bean id="deviceBusService" class="org.springframework.jms.remoting.JmsInvokerProxyFactoryBean">
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <property name="queueName" value="${jms.queue.service.bus}.DeviceBusService"/>
+        <property name="serviceInterface" value="com.ani.bus.device.application.service.DeviceBusService"/>
+    </bean>
+
+    <!-- app service -->
+    <bean id="aniSerAccountObjManager" class="org.springframework.jms.remoting.JmsInvokerProxyFactoryBean">
+        <property name="connectionFactory" ref="serviceTargetConnectionFactory"/>
+            <property name="queueName" value="${jms.queue.service.bus}.AniServiceManager"/>
+        <property name="serviceInterface" value="com.ani.bus.service.core.interfaces.accountobj.AniSerAccountObjManager"/>
+    </bean>
+    <!--<bean id="appClientService" class="org.springframework.jms.remoting.JmsInvokerProxyFactoryBean">-->
+        <!--<property name="connectionFactory" ref="connectionFactory"/>-->
+        <!--<property name="queueName" value="${jms.queue.service.bus}.service"/>-->
+        <!--<property name="serviceInterface" value="com.ani.cel.rect.manager.application.service.app.AppClientService"/>-->
+    <!--</bean>-->
+
+    <!--anise-->
+    <!--<bean id="searchService" class="org.springframework.jms.remoting.JmsInvokerProxyFactoryBean">-->
+    <!--<property name="connectionFactory"-->
+    <!--ref="serviceJmsConnectionFactory"/>-->
+    <!--<property name="queueName" value="${jms.queue.anise}.search"/>-->
+    <!--<property name="serviceInterface" value="com.ani.se.on.service.SearchService"/>-->
+    <!--</bean>-->
+</beans>
