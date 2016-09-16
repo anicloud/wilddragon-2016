@@ -1,0 +1,33 @@
+<div class="content-header">
+  <div class="navbar">
+    <div class="navbar-title">
+      通知
+    </div>
+    <div class="navbar-toggle" data-ng-click="toggleSidebar()">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+  </div>
+</div>
+<div class="content-body">
+  <table class="table-bordered table-striped">
+    <thead>
+    <tr><th>序号</th><th>消息内容</th><th>操作</th></tr>
+    </thead>
+    <tbody data-ng-repeat="message in notifications">
+    <tr>
+      <button class="btn btn-default btn-sm btn-clear">删除所有消息</button>
+      <td data-ng-bind="$index+1"></td>
+      <td data-ng-bind="message.body"></td>
+      <td class="operation">
+        <span ng-if="message.choice">
+          <button class="btn btn-xs btn-success" data-ng-bind="message.choice[0]" data-ng-click="acceptMessage(message)"></button>
+          <button class="btn btn-xs btn-danger" data-ng-bind="message.choice[1]" data-ng-click="refuseMessage(message)"></button>
+        </span>
+        <button class="btn btn-xs btn-default" data-ng-click="deleteMessage(message)">删除</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

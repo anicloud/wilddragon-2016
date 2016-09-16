@@ -8,7 +8,7 @@ angular.module('app.directive.panel', [])
     return {
       restrict: 'AC',
       scope: {
-        panelCollapsed: '='
+        panelCollapsed: '=?'
       },
       controller: function ($scope) {
         $scope.panelCollapsed = true;
@@ -32,7 +32,8 @@ angular.module('app.directive.panel', [])
       restrict: 'AC',
       scope: {},
       link: function (scope, element, attrs, ctrl) {
-        element.on('click', function () {
+        element.on('click', function (e) {
+          if((e.target.className!=="panel-header ng-isolate-scope")&&(e.target.className!=="fa fa-angle-down")&&(e.target.className!=="fa fa-angle-up")) return;
           $timeout(function () {
             ctrl.toggle();
           }, 0);

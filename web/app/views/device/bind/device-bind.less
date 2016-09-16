@@ -1,7 +1,6 @@
 .bind-wrapper {
   width: 300px;
   margin: 20px auto;
-
   .bind-title {
     text-align: center;
     font-size: 16px;
@@ -32,13 +31,77 @@
 
   .bind-video {
     text-align: center;
-    padding-top: 20px;
+    padding-top: 16px;
+  }
+  .qrmessage{
+    text-align: center;
+    height:221px;
+    width: 300px;
+    padding-top:16px;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    margin-left:-150px;
+    .error-wrapper{
+      padding-top: 50px;
+      font-size: 18px;
+      line-height: 40px;
+      color: red;
+      font-weight: bold;
+      i{
+        display: inline-block;
+      }
+      .error-title{
+        padding-left: 20px;
+        padding-right: 20px;
+        font-size: 30px;
+        display: inline-block;
+      }
+    }
+    .error-detail{
+      line-height: 25px;
+       padding-top: 10px;
+       font-size: 15px;
+       color:#444;
+     }
+    .correct-wrapper{
+      padding-top: 50px;
+      font-size: 18px;
+      line-height: 40px;
+      color: green;
+      font-weight: bold;
+      i{
+        display: inline-block;
+      }
+      .correct-title{
+        padding-left: 20px;
+        padding-right: 20px;
+        font-size: 30px;
+        display: inline-block;
+      }
+    }
+    .correct-detail{
+       padding-top: 10px;
+       font-size: 15px;
+       color: #444;
+     }
   }
 
+
   .bind-info {
+    position: relative;
     margin-top: 20px;
     text-align: center;
-
+    .info-error {
+      position: absolute;
+      left: 50%;
+      margin-left: -85px;
+      display: inline-block;
+      width: 184px;
+      color: red;
+      margin-top: 10px;
+      text-align: center;
+    }
     .info-item {
       padding-top: 10px;
       label {
@@ -47,8 +110,10 @@
         font-weight: normal;
         color: #3f3f3f;
       }
+      input{
+        width:100%;
+      }
     }
-    
     .info-detail {
       padding-top: 10px;
       label {
@@ -58,7 +123,6 @@
         color: #3f3f3f;
         text-align: right;
       }
-
       span {
         padding-left: 10px;
         display: inline-block;

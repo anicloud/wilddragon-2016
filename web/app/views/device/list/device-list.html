@@ -5,6 +5,7 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </div>
+    <div state-back current-state="currentState"></div>
     <div class="navbar-title">
       设备列表
     </div>
@@ -20,25 +21,25 @@
     <div class="panel-wrapper" data-ng-repeat="device in devices">
       <div class="panel" data-panel-collapsed="collapsed" data-ng-class="{'collapsed': collapsed}">
         <div class="panel-header" data-panel-toggle>
-          <div class="cover" data-ng-click="$event.stopPropagation()">
+          <div class="cover">
             <a href="#/device/{{device.deviceId}}/info">
               <img data-ng-src="{{device.avatarUrl}}">
             </a>
           </div>
-          <div class="info" data-ng-click="$event.stopPropagation()">
+          <div class="info">
             <div class="title">
-              <a href="#/device/{{device.deviceId}}/info" data-ng-click="stopPropagation()">
+              <a href="#/device/{{device.deviceId}}/info">
                 {{device.name}}
               </a>
             </div>
-            <div class="subtitle" data-ng-show="device.owner!=account.accountId">
+            <div class="subtitle">
               共享来自{{accountMap[device.owner].name}}
             </div>
           </div>
-          <div class="extra" data-ng-click="$event.stopPropagation()">
+          <div class="extra">
 
           </div>
-          <div class="options" data-ng-click="$event.stopPropagation()">
+          <div class="options">
             <span uib-dropdown>
               <a href uib-dropdown-toggle>
                 <i href class="fa fa-ellipsis-v"></i>
@@ -56,7 +57,7 @@
               </ul>
             </span>
             <span>
-              <a href data-panel-toggle>
+              <a href>
                 <i class="fa" data-ng-class="{'fa-angle-down': collapsed, 'fa-angle-up': !collapsed}"></i>
               </a>
             </span>

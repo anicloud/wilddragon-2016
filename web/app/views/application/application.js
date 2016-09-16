@@ -43,6 +43,7 @@ angular.module('app.view.application', ['ui.router'])
   })
 
   .controller('ApplicationListCtrl', function ($scope) {
+      
   })
 
   .controller('ApplicationContainerCtrl', function ($scope, $stateParams) {

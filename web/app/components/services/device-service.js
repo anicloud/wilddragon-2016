@@ -2,7 +2,6 @@
  * Created by huangbin on 12/29/15.
  */
 'use strict';
-
 angular.module('app.service.device', [])
   .factory('DeviceService', function ($http) {
     return {
@@ -55,6 +54,16 @@ angular.module('app.service.device', [])
           return response.data;
         });
       },
+      modifyDevice:function (data) {
+        console.log('modify device: ', data);
+        return $http({
+          method: 'PUT',
+          url: 'device/modify',
+          data: data
+        }).then(function (response) {
+          return response.data;
+        });
+      },
       getSlaveFunctions: function (masterId, slaveId) {
         console.log('getting slave functions: ', masterId, slaveId);
         return $http({
@@ -73,7 +82,6 @@ angular.module('app.service.device', [])
           return response.data;
         });
       }
-
     };
   })
   .factory('DeviceServiceMock', function ($http) {

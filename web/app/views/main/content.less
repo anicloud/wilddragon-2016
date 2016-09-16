@@ -1,16 +1,18 @@
 .content {
-  position: relative;
+  position: fixed;
+  left: 0;
+  top: 0;
   transition: margin-left 0.35s ease;
   width: 100%;
   height: 100%;
   border-right: 1px solid #e8e8e8;
   overflow-y: auto;
 }
-
-.content-collapsed {
-  margin-left: 300px;
+.content-wrapper{
+  position:absolute;
+  left: 0;
+  top: 0;
 }
-
 
 .content-header {
   position: fixed;
@@ -21,12 +23,12 @@
 }
 
 .content-body {
-  position: relative;
+  position: absolute;
   padding-top: 54px;
   width: 100%;
   background-color: white;
-  height: calc(~"100% - 54px");
-  overflow: hidden;
+  height: auto;
+  overflow: auto;
 }
 
 .content-footer {
@@ -39,6 +41,7 @@
   .content {
     width: calc(~"100% - 300px");
     margin-left: 300px;
+    //position: fixed;
   }
 
   .content-header {

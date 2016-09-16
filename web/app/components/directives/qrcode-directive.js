@@ -12,7 +12,8 @@ angular.module('app.directive.qrcode', [])
         width: '@',
         height: '@',
         qrcodeSuccess: '&',
-        qrcodeError: '&'
+        qrcodeError: '&',
+        qrcodeFinished:'@'
       },
       replace: false,
       template: '<video width="{{width}}" height="{{height}}"></video>' +
@@ -47,7 +48,7 @@ angular.module('app.directive.qrcode', [])
           navigator.mozGetUserMedia ||
           navigator.msGetUserMedia;
 
-        var qrcodeStart = function () {
+        var qrcodeBegin = function () {
           if (!start) {
             if (navigator.getUserMedia) {
               start = true;
@@ -89,17 +90,29 @@ angular.module('app.directive.qrcode', [])
         qrcode.callback = function (result) {
           $timeout(function () {
             scope.qrcodeSuccess({result: result});
-          }, 0);
+          },0);
         };
 
         scope.$watch('qrcodeStart', function (value) {
-          if (value === 'true') {
-            qrcodeStart();
-          } else if (value === 'false') {
-            qrcodeStop();
+          if(scope.qrcodeFinished==='false'){ //must be string instead of boolean
+            if (value === 'true') { //ready -->scanning
+              qrcodeBegin();
+            }
+            else if (value === 'false') {  //scanning -->ready
+              qrcodeStop();
+            }
           }
         });
-
+        scope.$watch('qrcodeFinished',function (value) {
+          if(scope.qrcodeStart==='true'){
+            if(value==="true"){ //scanning -->result
+              qrcodeStop();
+            }
+            if(value==="false"){  //result -->scanning
+              qrcodeBegin();
+            }
+          }
+        })
         scope.$on('$destroy', function () {
           qrcodeStop();
         });

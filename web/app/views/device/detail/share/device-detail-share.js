@@ -19,7 +19,7 @@ angular.module('app.view.device.detail.share', [
   .controller('DeviceDetailShareCtrl', function ($scope, $uibModal, $timeout, DeviceService) {
     $scope.selectDetailNavTab('share');
     $scope.shareList = [];
-
+    $scope.nextAvaliable=false;
     $scope.updateShareList = function () {
       $scope.shareList = [];
       angular.forEach($scope.device.permissions, function (permission) {
@@ -86,7 +86,7 @@ angular.module('app.view.device.detail.share', [
 
   })
 
-  .controller('ShareModalCtrl', function ($scope, $timeout, $uibModalInstance, AccountService, DeviceService) {
+  .controller('ShareModalCtrl', function ($scope, $timeout, $uibModalInstance, AccountServiceDist, DeviceService) {
     $scope.stage = 0;
     $scope.shareData = {
       deviceId: $scope.device.deviceId,
@@ -141,9 +141,12 @@ angular.module('app.view.device.detail.share', [
       name: '',
       accounts: []
     };
+    $scope.selectGroup=function () {
+      $scope.nextAvaliable=true;
+    };
     $scope.addGroup = function () {
       console.log($scope.groupData);
-      AccountService.createGroup($scope.groupData).then(
+      AccountServiceDist.createGroup($scope.groupData).then(
         function (result) {
           if (result.success && result.data !== null) {
             console.log('添加分组成功');
@@ -162,7 +165,7 @@ angular.module('app.view.device.detail.share', [
         });
     };
     $scope.loadTags = function (query) {
-      return AccountService.getAccountLike(query).then(function (result) {
+      return AccountServiceDist.getAccountLike(query).then(function (result) {
         if (result.success && result.data !== null) {
           return result.data;
         } else {

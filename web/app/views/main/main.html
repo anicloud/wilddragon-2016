@@ -1,7 +1,7 @@
 <div class="main-wrapper">
-  <div class="sidebar-mask" data-ng-class="{'visible': !sidebarCollapsed}" data-ng-click="sidebarCollapsed=true"></div>
-
-  <div class="sidebar" data-ng-class="{'sidebar-collapsed': sidebarCollapsed}">
+  <div class="sidebar-mask" data-ng-click="sidebarCollapse()" data-ng-class="{'visible': !sidebarCollapsed}" ></div>
+  <!--<div class="sidebar" ng-touchstart="touchStartCB()" ng-touchmove="touchStartCB()"  data-ng-class="{'sidebar-collapsed': sidebarCollapsed}">-->
+  <div class="sidebar" ani-sidebar-slider data-ng-class="{'sidebar-collapsed': sidebarCollapsed}">
     <div class="sidebar-inner">
       <!--<div class="sidebar-top">-->
       <!--<a href="#/home" class="sidebar-brand">WildDragon</a>-->
@@ -9,7 +9,7 @@
       <div class="sidebar-header">
         <!--<div class="brand"></div>-->
         <div class="notify">
-          <a href=""><i class="fa fa-bell"></i></a>
+          <a href="#/notification"><i class="fa fa-bell"></i></a>
         </div>
         <div class="logout">
           <a href data-ng-click="logout()">
@@ -32,7 +32,7 @@
       </div>
       <div class="sidebar-menu">
         <div class="list">
-          <a class="list-item" data-ng-class="{'active': sideNavTabs.app.active}" href="#/application">
+            <a class="list-item" data-ng-class="{'active': sideNavTabs.app.active}" href="#/application">
             <span class="icon"><i class="fa fa-th-large"></i></span>
             <span class="text">{{sideNavTabs.app.name}}</span>
           </a>
@@ -57,9 +57,13 @@
       </div>
     </div>
   </div>
-
-  <div class="content" data-ng-class="{'content-collapsed': !sidebarCollapsed}" data-ui-view="">
-    <!--<div class="content-header" data-ui-view="header"></div>-->
-    <!--<div class="content-body" data-ui-view="body"></div>-->
+  <!--<div class="content-wrapper" ani-sidebar-slider>-->
+  <div class="content-wrapper" ani-sidebar-slider>
+    <!--<div class="content" id="content" data-ng-class="{'content-collapsed': !sidebarCollapsed}" data-ui-view="">-->
+      <div class="content" id="content" data-ui-view="">
+      <!--<div class="content-header" data-ui-view="header"></div>-->
+      <!--<div class="content-body" data-ui-view="body"></div>-->
+    </div>
   </div>
+
 </div>
