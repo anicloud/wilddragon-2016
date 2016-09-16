@@ -10,12 +10,35 @@
 .navbar.affix {
   width: calc(100%-260px);
 }
+.navbar .navbar-back {
+  line-height: 54px;
+  float: left;
+  margin-left: 15px;
+  font-size: 18px;
+  font-weight: 100;
+}
+.navbar .navbar-back:hover,
+.navbar .navbar-back:focus {
+  color: #4DA47C;
+  cursor: pointer;
+}
 .navbar-toggle {
   position: relative;
   float: left;
   margin-left: 10px;
   padding: 10px 10px;
   background: transparent none;
+  margin-right: 10px;
+}
+.navbar-toggle .divide-line {
+  margin: 0;
+  position: absolute;
+  top: -2px;
+  left: 48px;
+  display: inline-block;
+  width: 2px;
+  height: 35px;
+  background-color: #DDDDDD;
 }
 @media (min-width: 768px) {
   .navbar {
@@ -23,6 +46,7 @@
   }
   .navbar-toggle {
     display: none;
+    position: relative;
   }
 }
 .navbar-toggle:hover,

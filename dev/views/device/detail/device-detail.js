@@ -20,7 +20,9 @@ angular.module('app.view.device.detail', [
 
   }])
 
-  .controller('DeviceDetailCtrl', function ($scope, $stateParams) {
+  .controller('DeviceDetailCtrl', function ($scope, $stateParams,$state) {
+    
+    console.log("statePara",$stateParams);
     $scope.device = null;
     $scope.isOwner = false;
     for (var i = 0; i < $scope.devices.length; i++) {

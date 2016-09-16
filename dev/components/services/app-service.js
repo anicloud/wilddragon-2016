@@ -10,6 +10,8 @@ angular.module('app.service.app', [])
         return $http({
           method: 'GET',
           url: '/app/all'
+        }).then(function (response) {
+          return response.data;
         });
       }
     };

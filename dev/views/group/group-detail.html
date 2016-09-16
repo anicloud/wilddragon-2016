@@ -17,7 +17,9 @@
     <div class="right">
       <div class="item-content">
         <div class="image-wrapper" data-ng-repeat="account in group.accounts">
-          <img data-ng-src="{{account.avatarUrl}}">
+          <a href="#/group/memInfo/{{group.groupId}}&{{account.accountId}}">
+            <img data-ng-src="{{account.avatarUrl}}">
+          </a>
           <!--<div class="image-mask">移除</div>-->
         </div>
         <!--<div class="image-wrapper">-->
@@ -27,18 +29,18 @@
     </div>
   </div>
 
-  <div class="detail-item" data-ng-show="group.owner.accountId != account.accountId">
+  <div class="detail-item" data-ng-show="group.owner != account.accountId">
     <div class="left">
       <div class="item-title">退出</div>
     </div>
     <div class="right">
       <div class="item-content">
-        <button class="btn btn-default">退出</button>
+        <button class="btn btn-default" data-ng-click="quitGroup(group)">退出</button>
       </div>
     </div>
   </div>
 
-  <div class="detail-item" data-ng-show="group.owner.accountId == account.accountId">
+  <div class="detail-item" data-ng-show="group.owner == account.accountId">
     <div class="left">
       <div class="item-title">删除</div>
     </div>
@@ -48,4 +50,15 @@
       </div>
     </div>
   </div>
+  <div class="detail-item" data-ng-show="group.owner == account.accountId">
+    <div class="left">
+      <div class="item-title">邀请新成员</div>
+    </div>
+    <div class="right">
+      <div class="item-content">
+        <button class="btn btn-default" data-ng-click="inviteGroup()">邀请</button>
+      </div>
+    </div>
+  </div>
+  <!--<div data-ui-view=""></div>-->
 </div>

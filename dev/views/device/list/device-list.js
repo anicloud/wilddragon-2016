@@ -15,7 +15,6 @@ angular.module('app.view.device.list', ['ui.router'])
   }])
 
   .controller('DeviceListCtrl', function ($scope, $state) {
-
   })
 ;
 

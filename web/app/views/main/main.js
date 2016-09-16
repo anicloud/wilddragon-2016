@@ -26,9 +26,13 @@ angular.module('app.view.main', ['ui.router','angular-websocket'])
               },
               devices: function (DeviceService) {
                 return DeviceService.getDevices();
+              },
+              apps:function (AppServiceDist) {
+                return AppServiceDist.getApps();
               }
-            },                                                                                   //
-            controller: function ($rootScope, $scope, $window, $timeout, $state,account,groups,devices,contacts,notifications,AccountServiceDist,NotificationService) {
+            },                                                                                   
+            controller: function ($rootScope, $scope, $window, $timeout, $state,account,groups,devices,contacts,notifications,
+                                  AccountServiceDist,NotificationService,apps) {
               console.log('contancts',contacts);
               (function () { //module about responsive setup
                 $scope.transitionFlag=false;
@@ -120,6 +124,13 @@ angular.module('app.view.main', ['ui.router','angular-websocket'])
                   $scope.contacts = contacts.data;
                 } else {
                   console.error('Error in getting contacts');
+                }
+                if (apps.success) {
+                  console.log('Got apps data:');
+                  console.log(apps.data);
+                  $scope.apps = apps.data;
+                } else {
+                  console.error('Error in getting apps');
                 }
                 if (notifications.success) {
                   angular.forEach(notifications.data,function (obj,index) {

@@ -11,12 +11,12 @@ angular.module('app.view.application', ['ui.router'])
         abstract: true,
         url: '/application',
         template: '<ui-view/>',
-        controller: 'ApplicationCtrl',
-        resolve: {
-          apps: function (AppService) {
-            return AppService.getApps();
-          }
-        }
+         controller: 'ApplicationCtrl'
+        // resolve: {
+        //   apps: function (AppService) {
+        //     return AppService.getApps();
+        //   }
+        //}
       })
       .state('main.application.list', {
         url: '/list',
@@ -43,6 +43,7 @@ angular.module('app.view.application', ['ui.router'])
   })
 
   .controller('ApplicationListCtrl', function ($scope) {
+      
   })
 
   .controller('ApplicationContainerCtrl', function ($scope, $stateParams) {

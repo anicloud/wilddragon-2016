@@ -1,5 +1,7 @@
 .content {
-  position: relative;
+  position: fixed;
+  left: 0;
+  top: 0;
   -webkit-transition: margin-left 0.35s ease;
           transition: margin-left 0.35s ease;
   width: 100%;
@@ -7,8 +9,10 @@
   border-right: 1px solid #e8e8e8;
   overflow-y: auto;
 }
-.content-collapsed {
-  margin-left: 300px;
+.content-wrapper {
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 .content-header {
   position: fixed;
@@ -18,12 +22,12 @@
   z-index: 2;
 }
 .content-body {
-  position: relative;
+  position: absolute;
   padding-top: 54px;
   width: 100%;
   background-color: white;
-  height: calc(100% - 54px);
-  overflow: hidden;
+  height: auto;
+  overflow: auto;
 }
 .content-footer {
   clear: both;

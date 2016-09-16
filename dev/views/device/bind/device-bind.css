@@ -27,10 +27,74 @@
 }
 .bind-wrapper .bind-video {
   text-align: center;
-  padding-top: 20px;
+  padding-top: 16px;
+}
+.bind-wrapper .qrmessage {
+  text-align: center;
+  height: 221px;
+  width: 300px;
+  padding-top: 16px;
+  position: relative;
+  left: 50%;
+  top: 50%;
+  margin-left: -150px;
+}
+.bind-wrapper .qrmessage .error-wrapper {
+  padding-top: 50px;
+  font-size: 18px;
+  line-height: 40px;
+  color: red;
+  font-weight: bold;
+}
+.bind-wrapper .qrmessage .error-wrapper i {
+  display: inline-block;
+}
+.bind-wrapper .qrmessage .error-wrapper .error-title {
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 30px;
+  display: inline-block;
+}
+.bind-wrapper .qrmessage .error-detail {
+  line-height: 25px;
+  padding-top: 10px;
+  font-size: 15px;
+  color: #444;
+}
+.bind-wrapper .qrmessage .correct-wrapper {
+  padding-top: 50px;
+  font-size: 18px;
+  line-height: 40px;
+  color: green;
+  font-weight: bold;
+}
+.bind-wrapper .qrmessage .correct-wrapper i {
+  display: inline-block;
+}
+.bind-wrapper .qrmessage .correct-wrapper .correct-title {
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 30px;
+  display: inline-block;
+}
+.bind-wrapper .qrmessage .correct-detail {
+  padding-top: 10px;
+  font-size: 15px;
+  color: #444;
 }
 .bind-wrapper .bind-info {
+  position: relative;
   margin-top: 20px;
+  text-align: center;
+}
+.bind-wrapper .bind-info .info-error {
+  position: absolute;
+  left: 50%;
+  margin-left: -85px;
+  display: inline-block;
+  width: 184px;
+  color: red;
+  margin-top: 10px;
   text-align: center;
 }
 .bind-wrapper .bind-info .info-item {
@@ -41,6 +105,9 @@
   width: 80px;
   font-weight: normal;
   color: #3f3f3f;
+}
+.bind-wrapper .bind-info .info-item input {
+  width: 100%;
 }
 .bind-wrapper .bind-info .info-detail {
   padding-top: 10px;

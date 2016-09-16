@@ -120,6 +120,9 @@
   color: #aaa;
   line-height: 23px;
 }
+.group-modal .modal-body .modal-item .item-input tags-input {
+  width: 100%;
+}
 .group-modal .modal-body .modal-item .item-input tags-input .tags {
   width: 100%;
   min-height: 32px;
@@ -148,6 +151,10 @@
 }
 .group-modal .modal-body .modal-item .item-input tags-input .tags .tag-item {
   background: #AED581;
+}
+.group-modal .modal-body .modal-item .item-input tags-input .host auto-complete .autocomplete {
+  position: relative;
+  z-index: 1000;
 }
 .group-modal .modal-body .modal-item .item-button {
   margin-top: 20px;

@@ -7,22 +7,62 @@
   <div class="bind-description">
     使用二维码扫描的方式自动添加新设备，请点击扫描按钮，并将摄像头对准设备提供的二维码，等待扫描完成后按提示进行下一步操作
   </div>
-  <div class="bind-video" data-ng-show="qrcodeStart"
+  <!--scan window-->
+  <div class="bind-video" data-ng-show="qrcodeStart&&(!qrcodeFinished)"
        width="280" height="200"
-       qrcode qrcode-start="{{qrcodeStart}}" qrcode-success="qrcodeSuccess(result)">
+       qrcode-success="qrcodeSuccess(result)" qrcode qrcode-start="{{qrcodeStart}}" qrcode-finished="{{qrcodeFinished}}">
   </div>
-  <div class="bind-action" data-ng-show="!qrcodeStart">
-    <button class="btn btn-default" data-ng-click="qrcodeStart=!qrcodeStart">
+  <div data-ng-model="qrcodeFinished"></div>
+  <!--success page-->
+  <div class="qrmessage" data-ng-show="qrcodeStart&&qrcodeFinished&&qrcodePass">
+    <div class="correct-wrapper"><i class="fa fa-check fa-2x"></i><div class="correct-title">扫描成功！</div></div>
+    <div class="correct-detail">
+      <label>序列号：</label>
+      <span>{{bindData.physicalId}}</span>
+    </div>
+    <div class="correct-detail">
+      <label>MAC地址：</label>
+      <span>{{bindData.physicalAddress}}</span>
+    </div>
+  </div>
+  <!--error page-->
+  <div class="qrmessage" data-ng-show="qrcodeStart&&qrcodeFinished&&qrcodeFailed">
+    <div class="error-wrapper"><i class="fa fa-close fa-2x"></i><div class="error-title">出错了</div></div>
+    <div class="error-detail">
+      没有扫描到我们想要的<br>请确认您的二维码是正确的
+    </div>
+  </div>
+  <!--button for ready-->
+  <div class="bind-action" data-ng-show="!qrcodeStart&&(!qrcodeFinished)">
+    <button class="btn btn-default" data-ng-click="toggleStart()">
       开始扫描
     </button>
   </div>
-  <div class="bind-action" data-ng-show="qrcodeStart">
-    <button class="btn btn-default" data-ng-click="qrcodeStart=!qrcodeStart">
+  <!--button for scanning-->
+  <div class="bind-action" data-ng-show="qrcodeStart&&(!qrcodeFinished)">
+    <button class="btn btn-default" data-ng-click="toggleStart()">
       停止扫描
     </button>
   </div>
+  <!--button for fail-->
+  <div class="bind-action" data-ng-show="qrcodeFailed&&qrcodeStart&&qrcodeFinished">
+    <button class="btn btn-default" data-ng-click="toggleFinish()">
+      重新扫描
+    </button>
+  </div>
+  <!--button for success-->
+  <div class="bind-action" data-ng-show="qrcodeStart&&qrcodeFinished&&qrcodePass">
+    <button class="btn btn-default" data-ng-click="switchState(1)">
+      下一步
+    </button>
+  </div>
+  <div class="bind-method" data-ng-show="qrcodePass&&qrcodeStart&&qrcodeFinished">
+    <a href data-ng-click="toggleFinish()">
+      重新扫描
+    </a>
+  </div>
   <div class="bind-method">
-    <a href data-ng-click="bindMethod='manual'">
+    <a href data-ng-click="changeBindMethod('manual')">
       手动添加
     </a>
   </div>
@@ -37,23 +77,24 @@
   <div class="bind-description">
     使用手动输入设备信息的方式添加新设备，请输入设备提供的出厂序列号和MAC地址，按提示进行下一步操作
   </div>
-  <div class="bind-info">
+  <form name="qrCode" class="bind-info">
     <div class="info-item">
       <label>出厂序列号:</label>
-      <input type="text" placeholder="12345678" data-ng-model="bindData.physicalId">
+      <input type="text" placeholder="包含数字字母下划线" name="physicalId" data-ng-model="bindData.physicalId">
     </div>
     <div class="info-item">
       <label>MAC地址:</label>
-      <input type="text" placeholder="A6-29-00-01-6C-06" data-ng-model="bindData.physicalAddress">
+      <input type="text" placeholder="XX-XX-XX-XX-XX-XX" name="physicalAddress" data-ng-model="bindData.physicalAddress" maxlength="17">
     </div>
-  </div>
+    <span class='info-error' data-ng-bind="errorMessage"></span>
+  </form>
   <div class="bind-action">
-    <button class="btn btn-default" data-ng-click="checkQrcode()">
+    <button class="btn btn-default" data-ng-click="checkQrcode()" >
       下一步
     </button>
   </div>
   <div class="bind-method">
-    <a href data-ng-click="bindMethod='qrcode'">
+    <a href data-ng-click="changeBindMethod('qrcode')">
       二维码添加
     </a>
   </div>

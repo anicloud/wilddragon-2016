@@ -16,7 +16,7 @@
         <div class="item-group" data-ng-click="forward(1)">
           <i class="fa fa-plus"></i>
         </div>
-        <div class="item-group" data-ng-click="selectGroup(a)" data-ng-repeat="group in groups"
+        <div class="item-group" data-ng-click="selectGroup()" data-ng-repeat="group in groups"
              data-ng-model="shareData.groupId" uib-btn-radio="group.groupId">
           {{group.name}}
         </div>
@@ -28,7 +28,7 @@
         </a>
       </div>
       <div class="item-button">
-        <button class="btn btn-default" data-ng-click="forward(3)">下一步</button>
+        <button class="btn btn-default" data-ng-disabled="!nextAvaliable" data-ng-click="forward(3)">下一步</button>
       </div>
     </div>
   </div>

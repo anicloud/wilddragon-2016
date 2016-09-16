@@ -30,12 +30,15 @@
   <link rel="stylesheet" href="/views/application/application.css">
   <link rel="stylesheet" href="/views/contact/contact.css">
   <link rel="stylesheet" href="/views/group/group-detail.css">
+  <link rel="stylesheet" href="/views/group/group-member-info.css">
   <link rel="stylesheet" href="/views/group/group-modal.css">
   <link rel="stylesheet" href="/views/group/group.css">
   <link rel="stylesheet" href="/views/login/login.css">
   <link rel="stylesheet" href="/views/main/content.css">
   <link rel="stylesheet" href="/views/main/sidebar.css">
+  <link rel="stylesheet" href="/views/notification/notification.css">
   <link rel="stylesheet" href="/views/settings/settings.css">
+  <link rel="stylesheet" href="/views/store/store.css">
   <link rel="stylesheet" href="/views/device/bind/device-bind.css">
   <link rel="stylesheet" href="/views/device/detail/device-detail.css">
   <link rel="stylesheet" href="/views/device/list/device-list.css">
@@ -46,67 +49,74 @@
   <!-- endbuild -->
 </head>
 <body>
-  <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-  <![endif]-->
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
 
-  <div class="" data-ui-view=""></div>
+<div class="" data-ui-view=""></div>
 
-  <!-- In production use:
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
-  -->
+<!-- In production use:
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+-->
 
-  <!-- bower:js -->
-  <script src="bower_components/jquery/dist/jquery.min.js"></script>
-  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-  <script src="bower_components/angular/angular.min.js"></script>
-  <script src="bower_components/angular-animate/angular-animate.min.js"></script>
-  <script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
-  <script src="bower_components/angular-messages/angular-messages.min.js"></script>
-  <script src="bower_components/angular-resource/angular-resource.min.js"></script>
-  <script src="bower_components/angular-route/angular-route.min.js"></script>
-  <script src="bower_components/angular-touch/angular-touch.min.js"></script>
-  <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
-  <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-  <script src="bower_components/angular-websocket/angular-websocket.min.js"></script>
-  <script src="bower_components/html5-qrcode/lib/jsqrcode.min.js"></script>
-  <script src="bower_components/html5-qrcode/lib/html5-qrcode.min.js"></script>
-  <script src="bower_components/fastclick/lib/fastclick.js"></script>
-  <script src="bower_components/ng-tags-input/ng-tags-input.min.js"></script>
-  <!-- endbower -->
+<!-- bower:js -->
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/angular-animate/angular-animate.min.js"></script>
+<script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
+<script src="bower_components/angular-messages/angular-messages.min.js"></script>
+<script src="bower_components/angular-resource/angular-resource.min.js"></script>
+<script src="bower_components/angular-route/angular-route.min.js"></script>
+<script src="bower_components/angular-touch/angular-touch.min.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+<script src="bower_components/angular-websocket/angular-websocket.min.js"></script>
+<script src="bower_components/html5-qrcode/lib/jsqrcode.min.js"></script>
+<script src="bower_components/html5-qrcode/lib/html5-qrcode.min.js"></script>
+<script src="bower_components/fastclick/lib/fastclick.js"></script>
+<script src="bower_components/ng-tags-input/ng-tags-input.min.js"></script>
+<!-- endbower -->
 
-  <!-- build:js scripts/app.min.js -->
-  <!-- inject:js -->
-  <script src="/views/device/detail/share/device-detail-share.js"></script>
-  <script src="/views/device/detail/info/device-detail-info.js"></script>
-  <script src="/views/device/list/device-list.js"></script>
-  <script src="/views/device/detail/device-detail.js"></script>
-  <script src="/views/device/bind/device-bind.js"></script>
-  <script src="/views/store/store.js"></script>
-  <script src="/views/settings/settings.js"></script>
-  <script src="/views/main/main.js"></script>
-  <script src="/views/login/login.js"></script>
-  <script src="/views/group/group.js"></script>
-  <script src="/views/device/device.js"></script>
-  <script src="/views/contact/contact.js"></script>
-  <script src="/views/application/application.js"></script>
-  <script src="/views/account/account.js"></script>
-  <script src="/components/services/serivce.js"></script>
-  <script src="/components/services/notification-service.js"></script>
-  <script src="/components/services/device-service.js"></script>
-  <script src="/components/services/app-service.js"></script>
-  <script src="/components/services/account-service.js"></script>
-  <script src="/components/models/ret-data.js"></script>
-  <script src="/components/directives/tab-directive.js"></script>
-  <script src="/components/directives/screen-directive.js"></script>
-  <script src="/components/directives/qrcode-directive.js"></script>
-  <script src="/components/directives/panel-directive.js"></script>
-  <script src="/components/directives/focus-directive.js"></script>
-  <script src="/components/directives/directive.js"></script>
-  <script src="/components/directives/affix-directive.js"></script>
-  <script src="/views/view.js"></script>
-  <script src="/app.js"></script>
-  <!-- endinject -->
-  <!-- endbuild -->
+<!-- build:js scripts/app.min.js -->
+<!-- inject:js -->
+<script src="/views/device/detail/share/device-detail-share.js"></script>
+<script src="/views/device/detail/info/device-detail-info.js"></script>
+<script src="/views/device/list/device-list.js"></script>
+<script src="/views/device/detail/device-detail.js"></script>
+<script src="/views/device/bind/device-bind.js"></script>
+<script src="/views/store/store.js"></script>
+<script src="/views/settings/settings.js"></script>
+<script src="/views/notification/notification.js"></script>
+<script src="/views/main/main.js"></script>
+<script src="/views/login/login.js"></script>
+<script src="/views/group/group.js"></script>
+<script src="/views/device/device.js"></script>
+<script src="/views/contact/contact.js"></script>
+<script src="/views/application/application.js"></script>
+<script src="/views/account/account.js"></script>
+<script src="/components/services/serivce.js"></script>
+<script src="/components/services/notification-service.js"></script>
+<script src="/components/services/device-service.js"></script>
+<script src="/components/services/app-service.js"></script>
+<script src="/components/services/account-service.js"></script>
+<script src="/components/models/ret-data.js"></script>
+<script src="/components/models/model.js"></script>
+<script src="/components/models/filters.js"></script>
+<script src="/components/directives/touchEvent-directive.js"></script>
+<script src="/components/directives/tab-directive.js"></script>
+<script src="/components/directives/switchPage-directive.js"></script>
+<script src="/components/directives/stateBack-directive.js"></script>
+<script src="/components/directives/sidebarSlider-directive.js"></script>
+<script src="/components/directives/screen-directive.js"></script>
+<script src="/components/directives/qrcode-directive.js"></script>
+<script src="/components/directives/panel-directive.js"></script>
+<script src="/components/directives/focus-directive.js"></script>
+<script src="/components/directives/directive.js"></script>
+<script src="/components/directives/affix-directive.js"></script>
+<script src="/views/view.js"></script>
+<script src="/app.js"></script>
+<!-- endinject -->
+<!-- endbuild -->
 </body>
 </html>

@@ -12,23 +12,23 @@
 </div>
 <div class="content-body">
   <div class="app-wrapper">
-    <div class="app-card" data-ng-repeat="appId in [1]">
+    <div class="app-card" data-ng-repeat="app in apps">
+      <a href={{app.serviceServerUrl}} target="view_window">
       <div class="card-image">
-        <div class="card-option">
-          <a >
-            <i class="fa fa-ellipsis-v"></i>
-          </a>
-        </div>
-        <img data-ng-src="/images/sunny-2.png">
+          <div class="card-option">
+              <i class="fa fa-ellipsis-v"></i>
+          </div>
+          <img data-ng-src={{app.logoPath}}>
       </div>
       <div class="card-title">
-        <span>Sunny</span>
+        <span>{{app.serviceName}}</span>
       </div>
       <!--<div class="card-option">-->
         <!--<a>-->
           <!--<i class="fa fa-ellipsis-v"></i>-->
         <!--</a>-->
       <!--</div>-->
+      </a>
     </div>
   </div>
 </div>
