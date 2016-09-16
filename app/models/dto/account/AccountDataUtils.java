@@ -1,9 +1,6 @@
 package models.dto.account;
 
-import com.ani.earth.commons.dto.AccountDto;
-import com.ani.earth.commons.dto.AccountGroupDto;
-import com.ani.earth.commons.dto.AccountInfoDto;
-import com.ani.earth.commons.dto.GroupType;
+import com.ani.earth.commons.dto.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -41,12 +38,13 @@ public class AccountDataUtils {
                 String.valueOf(accountDto.accountId),
                 accountDto.email,
                 "",
-                accountDto.accountInfo.phoneNumber,
                 fromAccountType(accountDto.accountType),
                 accountDto.screenName,
                 accountDto.accountInfo.address,
                 accountDto.accountInfo.company,
-                accountDto.accountInfo.photoPath
+                accountDto.accountInfo.photoPath,
+                accountDto.accountPhoneDto.region,
+                accountDto.accountPhoneDto.phoneNumber
         );
         return accountData;
     }
@@ -140,8 +138,9 @@ public class AccountDataUtils {
         if (accountData == null) {
             return null;
         }
-        AccountInfoDto infoDto = new AccountInfoDto(accountData.phoneNumber, accountData.address,
+        AccountInfoDto infoDto = new AccountInfoDto( accountData.address,
                 accountData.company, accountData.avatarUrl);
+        AccountPhoneDto phoneDto = new AccountPhoneDto(accountData.region,accountData.phoneNumber);
         AccountDto accountDto = new AccountDto();
         accountDto.accountId = Long.parseLong(accountData.accountId);
         accountDto.screenName = accountData.name;
@@ -149,6 +148,7 @@ public class AccountDataUtils {
         accountDto.password = accountData.password;
         accountDto.accountType = toAccountType(accountData.type);
         accountDto.accountInfo = infoDto;
+        accountDto.accountPhoneDto = phoneDto;
         return accountDto;
     }
 

@@ -1,0 +1,52 @@
+New log file opened at Tue Sep 13 11:38:59 CST 2016 by 17207@hey-ThinkPad-X250
+Taking next connection to: 44156
+New client attempting to connect on port: 36986-44156
+  Address = /127.0.1.1:44156
+This client on port 36986 has uuid 2d880d1c-e48c-4a0a-8a1e-d2b099b2eba5 configName activator humanReadableName Activator protocolVersion 3 featureTags Vector()
+Connected Clients: activator-2d880d1c-e48c-4a0a-8a1e-d2b099b2eba5
+Taking next connection to: 44156
+New client attempting to connect on port: 37000-44156
+  Address = /127.0.1.1:44156
+Handshake exception on socket: 37000
+sbt.impl.ipc.HandshakeException: Unable to perform handshake
+	at sbt.impl.ipc.Peer.handshake(IPC.scala:46)
+	at sbt.impl.ipc.MultiClientServer.<init>(IPC.scala:150)
+	at sbt.server.SbtServerSocketHandler$$anon$1.run(SbtServerSocketHandler.scala:43)
+Caused by: java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:392)
+	at sbt.impl.ipc.Peer.receive(IPC.scala:95)
+	at sbt.impl.ipc.Peer.handshake(IPC.scala:49)
+	... 2 more
+Taking next connection to: 44156
+New client attempting to connect on port: 37002-44156
+  Address = /127.0.1.1:44156
+This client on port 37002 has uuid 42a3b89a-967f-4210-b8ce-866b688a9b57 configName activator humanReadableName Activator protocolVersion 3 featureTags Vector()
+Connected Clients: activator-42a3b89a-967f-4210-b8ce-866b688a9b57
+Taking next connection to: 44156
+New client attempting to connect on port: 37010-44156
+  Address = /127.0.1.1:44156
+Handshake exception on socket: 37010
+sbt.impl.ipc.HandshakeException: Unable to perform handshake
+	at sbt.impl.ipc.Peer.handshake(IPC.scala:46)
+	at sbt.impl.ipc.MultiClientServer.<init>(IPC.scala:150)
+	at sbt.server.SbtServerSocketHandler$$anon$1.run(SbtServerSocketHandler.scala:43)
+Caused by: java.net.SocketException: Connection reset
+	at java.net.SocketInputStream.read(SocketInputStream.java:209)
+	at java.net.SocketInputStream.read(SocketInputStream.java:141)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:246)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:265)
+	at java.io.DataInputStream.readInt(DataInputStream.java:387)
+	at sbt.impl.ipc.Peer.receive(IPC.scala:95)
+	at sbt.impl.ipc.Peer.handshake(IPC.scala:49)
+	... 2 more
+Taking next connection to: 44156
+New client attempting to connect on port: 37012-44156
+  Address = /127.0.1.1:44156
+This client on port 37012 has uuid 7aebc48d-289d-4553-a50c-3678df32fb75 configName activator humanReadableName Activator protocolVersion 3 featureTags Vector()
+Connected Clients: activator-42a3b89a-967f-4210-b8ce-866b688a9b57, activator-7aebc48d-289d-4553-a50c-3678df32fb75
+Taking next connection to: 44156
+Server socket closed java.net.SocketException: Socket closed
+Server socket thread exiting.
+0 clients open, will close them...
+All client sockets have been closed.
+Closing the 17207@hey-ThinkPad-X250 logs at Tue Sep 13 11:40:35 CST 2016, goodbye.

@@ -36,17 +36,17 @@ libraryDependencies += "org.aspectj" % "aspectjweaver" % "1.8.5"
 libraryDependencies += "javax" % "javaee-api" % "7.0"
 
 //Spring
-libraryDependencies += "org.springframework" % "spring-core" % "4.1.6.RELEASE"
+libraryDependencies += "org.springframework" % "spring-core" % "4.3.1.RELEASE"
 
-libraryDependencies += "org.springframework" % "spring-context" % "4.1.6.RELEASE"
+libraryDependencies += "org.springframework" % "spring-context" % "4.3.1.RELEASE"
 
-libraryDependencies += "org.springframework" % "spring-aop" % "4.1.6.RELEASE"
+libraryDependencies += "org.springframework" % "spring-aop" % "4.3.1.RELEASE"
 
-libraryDependencies += "org.springframework" % "spring-beans" % "4.1.6.RELEASE"
+libraryDependencies += "org.springframework" % "spring-beans" % "4.3.1.RELEASE"
 
-libraryDependencies += "org.springframework" % "spring-expression" % "4.1.6.RELEASE"
+libraryDependencies += "org.springframework" % "spring-expression" % "4.3.1.RELEASE"
 
-libraryDependencies += "org.springframework" % "spring-jms" % "4.1.6.RELEASE"
+libraryDependencies += "org.springframework" % "spring-jms" % "4.2.1.RELEASE"
 
 //activemq
 libraryDependencies += "org.apache.activemq" % "activemq-core" % "5.7.0"

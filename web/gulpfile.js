@@ -252,4 +252,4 @@ gulp.task('start:server:prod', function () {
   });
 });
 
-gulp.task('default', ['serve']);
+gulp.task('default', ['serve:prod']);
