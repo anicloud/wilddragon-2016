@@ -9,5 +9,9 @@ angular.module('app.directive', [
   'app.directive.focus',
   'app.directive.screenMatch',
   'app.directive.qrcode',
-  'app.directive.affix'
+  'app.directive.affix',
+  'app.directive.switchPage',
+  'app.directive.ngTouch', 
+  'app.directive.sidebarSlide',
+  'app.directive.stateBack'
 ]);

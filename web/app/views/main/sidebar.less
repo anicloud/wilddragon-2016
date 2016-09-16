@@ -2,7 +2,7 @@
 .sidebar {
   position: fixed;
   top: 0;
-  left: 0;
+  left: -300px;
   bottom: 0;
   width: 300px;
   height: 100%;
@@ -10,13 +10,13 @@
   border: none;
   //box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.06);
   z-index: 1000;
-  transition: left 0.35s ease;
+  transition: left 0s ease;
   //overflow-x: hidden;
   overflow-y: auto;
 
-  &.sidebar-collapsed {
-    left: -300px;
-  }
+  //&.sidebar-collapsed {
+  //  left: -300px;
+  //}
 
   .sidebar-inner {
     position: relative;
@@ -27,6 +27,7 @@
 @media (min-width: 768px) {
   .sidebar {
     border-right: solid 1px #e8e8e8;
+    left:0;
     &.sidebar-collapsed {
       left: 0;
     }
@@ -153,7 +154,7 @@
   opacity: 0.8;
   z-index: 10;
   visibility: hidden;
-  /*transition: visibility 0.1s ease;*/
+  transition: visibility 0.1s ease;
   &.visible {
     visibility: visible;
   }

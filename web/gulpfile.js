@@ -8,7 +8,7 @@ var openURL = require('open');
 var lazypipe = require('lazypipe');
 var rimraf = require('rimraf');
 var wiredep = require('wiredep').stream;
-var runSequence = require('run-sequence');
+var runSequence=require('run-sequence');
 
 var app = {
   src: 'app',
@@ -50,20 +50,20 @@ var paths = {
 
 gulp.task('styles', function () {
   return gulp.src(paths.styles)
-    .pipe($.less())
-    .pipe($.autoprefixer('>1%'))
-    // .pipe($.rev())
-    // .pipe($.revReplace())
-    .pipe(gulp.dest(app.dev));
+      .pipe($.less())
+      .pipe($.autoprefixer('>1%'))
+      // .pipe($.rev())
+      // .pipe($.revReplace())
+      .pipe(gulp.dest(app.dev));
 });
 
 gulp.task('scripts', function () {
   return gulp.src(paths.scripts)
-    .pipe($.jshint('.jshintrc'))
-    .pipe($.jshint.reporter('jshint-stylish'))
-    // .pipe($.rev())
-    // .pipe($.revReplace())
-    .pipe(gulp.dest(app.dev));
+      .pipe($.jshint('.jshintrc'))
+      .pipe($.jshint.reporter('jshint-stylish'))
+      // .pipe($.rev())
+      // .pipe($.revReplace())
+      .pipe(gulp.dest(app.dev));
 });
 
 gulp.task('copy', function () {
@@ -149,6 +149,7 @@ gulp.task('watch', function () {
     .pipe($.less())
     .pipe($.autoprefixer('>1%'))
     .pipe(gulp.dest(app.dev))
+         .pipe(gulp.dest(app.dist)) //add
     .pipe($.connect.reload());
 
   $.watch(paths.scripts)
@@ -156,11 +157,13 @@ gulp.task('watch', function () {
     .pipe($.jshint('.jshintrc'))
     .pipe($.jshint.reporter('jshint-stylish'))
     .pipe(gulp.dest(app.dev))
+      .pipe(gulp.dest(app.dist)) //add
     .pipe($.connect.reload());
 
   $.watch(paths.views.files)
     .pipe($.plumber())
     .pipe(gulp.dest(app.dev))
+      .pipe(gulp.dest(app.dist)) //add
     .pipe($.connect.reload());
 
   gulp.watch(paths.views.main, ['inject']);
@@ -197,12 +200,18 @@ gulp.task('serve', function (cb) {
     'watch',
     cb);
 });
-
+gulp.task('serve:node',function (cb) {
+  runSequence(
+      'build',
+      'watch'
+  )
+});
 gulp.task('serve:prod', function (cb) {
   runSequence(
     'build:prod',
     'start:server:prod',
     'start:client',
+      
     cb);
 });
 
@@ -251,5 +260,4 @@ gulp.task('start:server:prod', function () {
     port: 8000
   });
 });
-
-gulp.task('default', ['serve']);
+gulp.task('default', ['serve:node']);

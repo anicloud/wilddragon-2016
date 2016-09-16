@@ -14,9 +14,12 @@ angular.module('app.view.device.detail.info', [
         templateUrl: 'views/device/detail/info/device-detail-info.html',
         controller: 'DeviceDetailInfoCtrl',
         resolve: {
-          functions: function ($stateParams, DeviceService) {
-            return DeviceService.getMasterFunctions($stateParams.id);
-          }
+          // functions: function ($stateParams, DeviceService) {
+          //   return DeviceService.getMasterFunctions($stateParams.id);
+          // }
+           functions: function ($stateParams, DeviceServiceMock) {
+             return DeviceServiceMock.getMasterFunctions($stateParams.id);
+           }
         }
       })
       .state('main.device.detail.info.slave', {
@@ -26,8 +29,8 @@ angular.module('app.view.device.detail.info', [
             templateUrl: 'views/device/detail/info/settings/device-detail-info-slave.html',
             controller: 'DeviceDetailInfoSlaveCtrl',
             resolve: {
-              functions: function ($stateParams, DeviceService) {
-                return DeviceService.getSlaveFunctions($stateParams.id, $stateParams.slaveId)
+              functions: function ($stateParams, DeviceServiceMock) {
+                return DeviceServiceMock.getSlaveFunctions($stateParams.id, $stateParams.slaveId)
               }
             }
           }
@@ -158,13 +161,29 @@ angular.module('app.view.device.detail.info', [
       console.error('Error in getting functions');
     }
   })
-  .controller('DeviceDetailInfoSettingsCtrl', function ($scope, $state) {
+  .controller('DeviceDetailInfoSettingsCtrl', function ($scope, $state,DeviceService) {
     $scope.name = $scope.device.name;
     $scope.description = $scope.device.description;
     $scope.gid = $scope.device.deviceId;
     $scope.sid = $scope.device.physicalId;
     $scope.mac = $scope.device.physicalAddress;
     $scope.state = $scope.deviceStateFilter($scope.device.state);
+    $scope.modifyDevice=function (key,value){
+      var device=$scope.deviceMap[$scope.gid];
+      device[key]=value;
+      DeviceService.modifyDevice(device).then(function (res){
+        console.log(res.data);
+        if(res.success){
+          $scope[key]=value;
+          $scope.deviceMap[$scope.gid][key] =value;
+          var modiDevice=queryObjectByPropertyValue($scope.devices,'deviceId',$scope.gid)[1];
+          modiDevice[key]=value;
+          return alert('更改成功');
+        }else{
+          return alert('更改失败');
+        }
+      });
+    };
     $scope.cancel = function () {
       $state.go('^');
     }

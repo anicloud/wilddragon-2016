@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var messageStream=new WebSocket('ws://localhost:9000/notification/websocket');
+    messageStream.onmessage=function (wsEvent) {
+        var message=JSON.parse(wsEvent.data);
+        message.data.type=message.type;
+        console.log("111111",message.data);
+    }
+</script>
+</body>
+</html>

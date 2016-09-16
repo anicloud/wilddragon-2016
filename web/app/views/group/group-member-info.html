@@ -1,0 +1,44 @@
+<div class="content-body-memInfo">
+    <div class="memInfo">
+        <div class="memInfo-content">
+            <div class="title">成员信息</div>
+            <div class="center">
+                <div class="panel">
+                    <div class="panel-body">
+                        <div class="item avatar">
+                            <a href="">
+                                <div class="item-name highlight highlight">头像</div>
+                                <div class="item-detail img"><img data-ng-src="{{account.avatarUrl}}"></div>
+                            </a>
+                        </div>
+                        <div class="item">
+                            <div href="">
+                                <div class="item-name highlight">名称</div>
+                                <div class="item-detail"> {{account.name}}</div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div href="">
+                                <div class="item-name highlight">邮箱</div>
+                                <div class="item-detail">{{account.email}}</div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div href="">
+                                <div class="item-name highlight">电话</div>
+                                <div class="item-detail">{{account.phoneNumber}}</div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div href="">
+                                <div class="item-name highlight">公司</div>
+                                <div class="item-detail">{{account.company}}</div>
+                            </div>
+                        </div>
+                        <button id="kick-group-btn" class="btn btn-default" data-ng-click="kickGroup(account)">将该用户</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
