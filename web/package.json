@@ -42,7 +42,8 @@
     "rimraf": "^2.4.0",
     "run-sequence": "^1.1.1",
     "shelljs": "^0.2.6",
-    "wiredep": "^2.2.2"
+    "wiredep": "^2.2.2",
+    "ws": "^1.1.1"
   },
   "scripts": {},
   "bugs": {

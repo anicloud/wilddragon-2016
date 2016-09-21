@@ -69,15 +69,25 @@ angular.module('app.service.account', [])
            return response.data;
         });
       },
-      joinGroup: function (data) {  //waiting for websocket
+      inviteResult:function (data) { //accept or refuse invite
         return $http({
           method: 'PUT',
-          url: urlIp+'/group/join',
+          url: urlIp+'/group/invite',
           data: data
         }).then(function (response) {
-           return response.data;
+          console.log(response);
+          return response.data;
         });
       },
+      // joinGroup: function (data) {  //waiting for websocket
+      //   return $http({
+      //     method: 'PUT',
+      //     url: urlIp+'/group/join',
+      //     data: data
+      //   }).then(function (response) {
+      //      return response.data;
+      //   });
+      // },
       quitGroup: function (data) {  //finish
         return $http({
           method: 'PUT',

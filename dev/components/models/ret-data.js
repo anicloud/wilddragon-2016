@@ -9,6 +9,16 @@ var RetData = function (success, message, data) {
   this.message = message;
   this.data = data;
 };
+var NotificationCollection=function (type,body,choice,fromId,description,fromName,ObjId,ObjName) {
+  this.type=type;
+  this.body=body;
+  this.choice=choice;
+  this.fromId=fromId;
+  this.fromName=fromName;
+  this.description=description;
+  this.objId=ObjId;
+  this.objName=ObjName;
+};
 var queryObjectByPropertyValue=function (body,property,value) {
   function propertyInArray (body,property,value) { //body can be group device account,etc
     for(var i=0;i<body.length;i++){

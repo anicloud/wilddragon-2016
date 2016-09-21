@@ -45,7 +45,7 @@ var accountData=function(){
             owner: 10101,
             name: '家庭',
             type: 'CUSTOM',
-            accounts: [account1, account3,account2]
+            accounts: [account0,account1,account2]
         },
         {
             groupId: 2001,
@@ -57,11 +57,18 @@ var accountData=function(){
     ];
     var accounts=[account0,account1,account2,account3];
     var addedGroup={
-        groupId: 2001,
-        owner: 10101,
-        name: '公司',
+        groupId: 2003,
+        owner: 10104,
+        name: '新建组',
         type: 'CUSTOM',
         accounts: [account0, account3]
+    };
+    var ModifiedGroup={
+        groupId: 2000,
+        owner: 10101,
+        name: '家庭改',
+        type: 'CUSTOM',
+        accounts: [account0,account1,account2]
     };
     var currentIdMax=2001;
     function addGroup(addedGroup,newData,currentIdMax) {
@@ -70,7 +77,6 @@ var accountData=function(){
         group.accounts=newData.accounts;
         group.name=newData.name;
         groups.push(group);
-        console.log(groups);
         return group;
     }
     return {
@@ -78,10 +84,9 @@ var accountData=function(){
             return new RetData(true, '', account0);
         },
         getContacts: function () {
-            return new RetData(true, '', [account0, account1]);
+            return new RetData(true, '', [account1,account2]);
         },
         getGroups: function () {
-            console.log(groups);
             return new RetData(true, '', groups);
         },
         queryContacts:function (queryString) {
@@ -105,10 +110,25 @@ var accountData=function(){
             return new RetData(true,'',null);
         },
         inviteGroup:function (group) {
-            return new RetData(true,'',group)
+            return new RetData(true,'',group);
+        },
+        inviteResult:function (group) {
+            return new RetData(true,'',group);
         },
         quitGroup:function (group) {
-            return new RetData(true,'',group)
+            return new RetData(true,'',group);
+        },
+        getJoinAccount:function (index) {
+            return accounts[0];
+        },
+        getKickAccount:function () {
+            return account0;
+        },
+        getAddedGroup:function () {
+            return addedGroup;
+        },
+        getModifiedGroup:function () {
+            return ModifiedGroup;
         }
     };
 };

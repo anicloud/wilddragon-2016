@@ -7,6 +7,7 @@ angular.module('app.service', [
   'app.service.account',
   'app.service.device',
   'app.service.app',
-  'app.service.notification'
+  'app.service.notification',
+  'app.service.webSocket'
 ]);
 

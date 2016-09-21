@@ -15,9 +15,9 @@ angular.module('app.view.main', ['ui.router','angular-websocket'])
               account: function (AccountServiceDist) {
                 return AccountServiceDist.getAccount();
               },
-              notifications: function (NotificationService) {
-                return NotificationService.getAllNotifications();
-              },
+              // notifications: function (NotificationService) {
+              //   return NotificationService.getAllNotifications();
+              // },
               contacts: function (AccountServiceDist) {
                 return AccountServiceDist.getContacts();
               },
@@ -31,8 +31,8 @@ angular.module('app.view.main', ['ui.router','angular-websocket'])
                 return AppServiceDist.getApps();
               }
             },                                                                                   
-            controller: function ($rootScope, $scope, $window, $timeout, $state,account,groups,devices,contacts,notifications,
-                                  AccountServiceDist,NotificationService,apps) {
+            controller: function ($rootScope, $scope, $window, $timeout, $state,account,groups,devices,contacts,
+                                  AccountServiceDist,WebSocketServiceDist,apps) {
               console.log('contancts',contacts);
               (function () { //module about responsive setup
                 $scope.transitionFlag=false;
@@ -46,70 +46,7 @@ angular.module('app.view.main', ['ui.router','angular-websocket'])
                   $rootScope.mobileFlag=false;
                 };
               })();
-              var getMessage=function (message) { //packmessage as a obj to add in
-                var returnMessage={};
-                returnMessage.type=message.type;
-                switch (message.type){
-                  case 'ACCOUNT_GROUP_INVITE': //done
-                    (function (message) { //be invieted to Group
-                      var groupId=message.groupId,groupName=message.groupName,fromId=message.fromId,fromName=message.fromName;
-                      returnMessage.body=fromName+" invite you to join the group "+groupName;
-                      returnMessage.choice=["同意","拒绝"];
-                    })(message);
-                    break;
-                  case 'ACCOUNT_GROUP_JOIN':  //done
-                    (function (message) {
-                      var groupId=message.groupId,groupName=message.groupName,fromId=message.fromId,fromName=message.fromName;
-                      returnMessage.body=fromName+" has joined the group "+groupName;
-                    })(message);
-                    break;
-                  case 'ACCOUNT_GROUP_KICK':
-                    (function (message) {
-                      var groupId=message.groupId,groupName=message.groupName,fromId=message.fromId,fromName=message.fromName;
-                      returnMessage.body=fromName+" has been kicked from the group "+groupName;
-                    })(message);
-                    break;
-                  case 'ACCOUNT_GROUP_REMOVE':
-                    (function (message) {
-                      var groupId=message.groupId,groupName=message.groupName,fromId=message.fromId,fromName=message.fromName;
-                      returnMessage.body=groupName+" has been deleted by "+fromName;
-                    })(message);
-                    break;
-                  case 'ACCOUNT_GROUP_MODIFY':
-                    (function (message) {
-                      var groupId=message.groupId,groupName=message.groupName,fromId=message.fromId,fromName=message.fromName;
-                      returnMessage.body=fromName+" has been change the information of "+groupName;
-                    })(message);
-                    break;
-                  case 'DEVICE_SHARE':
-                    (function (message) {
-                      var groupId=message.groupId,groupName=message.groupName,fromId=message.fromId,fromName=message.fromName,
-                          deviceId=message.deviceId,deviceName=message.deviceName;
-                      returnMessage.body=fromName+" has shared the device "+deviceName+" for the group "+groupName;
-                    })(message);
-                    break;
-                  case 'DEVICE_UNSHARE':
-                    (function (message) {
-                      var groupId=message.groupId,groupName=message.groupName,fromId=message.fromId,fromName=message.fromName,
-                          deviceId=message.deviceId,deviceName=message.deviceName;
-                      returnMessage.body=fromName+" has canceled the share of the device "+deviceName+" for the group "+groupName;
-                    })(message);
-                    break;
-                  case 'DEVICE_CONNECT':
-                    (function (message) {
-                      var deviceId=message.fromId,deviceName=message.fromName;
-                      returnMessage.body=deviceName+" has been disconnected";
-                    })(message);
-                    break;
-                  case 'DEVICE_DISCONNECT':
-                    (function (message) {
-                      var deviceId=message.fromId,deviceName=message.fromName;
-                      returnMessage.body=deviceName+" has been connected";
-                    })(message);
-                    break;
-                }
-                return returnMessage;
-              };
+              WebSocketServiceDist.connect($scope);
               (function () { //module about model definition
                 if (account.success) {
                   console.log('Got account data:');
@@ -132,16 +69,17 @@ angular.module('app.view.main', ['ui.router','angular-websocket'])
                 } else {
                   console.error('Error in getting apps');
                 }
-                if (notifications.success) {
-                  angular.forEach(notifications.data,function (obj,index) {
-                    obj.body=getMessage(obj).body;
-                    if(getMessage(obj).choice) obj.choice=getMessage(obj).choice;
-                  });
-                  $scope.notifications = notifications.data;
-                  console.log($scope.notifications);
-                } else {
-                  console.error('Error in getting notifications');
-                }
+                // if (notifications.success) {
+                //   angular.forEach(notifications.data,function (obj,index) {
+                //     obj.body=getMessage(obj).body;
+                //     if(getMessage(obj).choice) obj.choice=getMessage(obj).choice;
+                //   });
+                //   $scope.notifications = notifications.data;
+                //   console.log($scope.notifications);
+                // } else {
+                //   console.error('Error in getting notifications');
+                // }
+                $scope.notifications=[];
                 if (groups.success) {
                   console.log('Got groups data:');
                   console.log(groups.data);

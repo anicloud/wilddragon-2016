@@ -67,8 +67,8 @@ var deviceData=function() {
             {functionId: 1, groupId: 1},
             {functionId: 2, groupId: 2}
         ],
-        owner: 10101,
-        accountGroups: [2000, 2001],
+        owner: 10104,
+        accountGroups: [2000],
         state: 'ACTIVE',
         deviceId: 100002,
         slaves: [
@@ -103,7 +103,11 @@ var deviceData=function() {
             {
                 groupId: 2000,
                 types: ['READABLE', 'EXECUTABLE']
-            }
+            },
+            // {
+            //     groupId: 2001,
+            //     types: ['READABLE', 'EXECUTABLE']
+            // },
         ]
     };
     var device2 = {
@@ -152,10 +156,6 @@ var deviceData=function() {
             {
                 groupId: 2000,
                 types: ['READABLE', 'EXECUTABLE']
-            },
-            {
-                groupId: 2001,
-                types: ['READABLE', 'WRITABLE']
             }
         ]
     };
@@ -205,10 +205,6 @@ var deviceData=function() {
             {
                 groupId: 2000,
                 types: ['READABLE', 'EXECUTABLE']
-            },
-            {
-                groupId: 2001,
-                types: ['READABLE', 'WRITABLE']
             }
         ]
     };
@@ -239,7 +235,7 @@ var deviceData=function() {
     var devices=[device0, device1, device2, device3];
     return {
         getDevices: function () {
-            return new RetData(true, '', devices);
+            return new RetData(true, '', [device0,device2]);
         },
         getSlaveFunctions: function (masterId, slaveId) {
             return new RetData(true, '', [funcMeta0, funcMeta1]);
@@ -252,6 +248,9 @@ var deviceData=function() {
             console.log(deviceObj);
             devices[deviceObj[0]]=data;
             return new RetData(true,'',data);
+        },
+        getDevice:function(deviceNum){
+            return devices[deviceNum];
         }
     };
 };

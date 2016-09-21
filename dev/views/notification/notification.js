@@ -14,7 +14,7 @@ angular.module('app.view.notification', ['ui.router'])
             });
     }])
 
-    .controller('NotificationCtrl',function ($scope,NotificationService,AccountServiceDist) {
+    .controller('NotificationCtrl',function ($scope,NotificationManager,AccountServiceDist) {
         $scope.showIndex=1;
         $scope.selectSideNavTab('notification');
        // NotificationService.deleteNotification($scope.notifications,index);
@@ -22,34 +22,29 @@ angular.module('app.view.notification', ['ui.router'])
            NotificationService.deleteNotification($scope.notifications,message)
        };
         console.log($scope.notifications);
-        $scope.acceptMessage=function (message) {
+        $scope.dealMessage=function (message,result) {
             console.log(message);
+            message.result=result;
             switch(message.type){
-                case 'inviteAccount':
+                case 'ACCOUNT_GROUP_INVITE':
                     (function (message) {
                         var data={};
-                        data.groupId=message.groupId;
+                        data.groupId=message.objId;
                         data.accountId=$scope.account.accountId;
-                        data.result=true;
-                        var jsonData=angular.toJson(data);
-                        AccountServiceDist.joinGroup(jsonData);
+                        data.result=result;
+                        console.log(data);
+                        AccountServiceDist.inviteResult(data).then(function (response) {
+                            var index=$scope.notifications.indexOf(message);
+                            if(response.data!==null&&response.success===true){
+                                $scope.notifications.splice(index,1);
+                            }
+                        });
                     })(message);
                     break;
             }
         };
-        $scope.refuseMessage=function (message) {
-            console.log(message);
-            switch(message.type){
-                case 'inviteAccount':
-                    (function (message) {
-                        var data={};
-                        data.groupId=message.groupId;
-                        data.accountId=$scope.account.accountId;
-                        data.result=false;
-                        var jsonData=angular.toJson(data);
-                        AccountServiceDist.joinGroup(jsonData);
-                    })(message);
-                    break;
-            }
+        $scope.deleteMessage=function (message) {
+            var index=$scope.notifications.indexOf(message);
+            $scope.notifications.splice(index,1);
         }
     });

@@ -17,15 +17,15 @@
     </thead>
     <tbody data-ng-repeat="message in notifications">
     <tr>
-      <button class="btn btn-default btn-sm btn-clear">删除所有消息</button>
+      <button class="btn btn-sm btn-clear btn-danger">删除所有消息</button>
       <td data-ng-bind="$index+1"></td>
       <td data-ng-bind="message.body"></td>
       <td class="operation">
-        <span ng-if="message.choice">
-          <button class="btn btn-xs btn-success" data-ng-bind="message.choice[0]" data-ng-click="acceptMessage(message)"></button>
-          <button class="btn btn-xs btn-danger" data-ng-bind="message.choice[1]" data-ng-click="refuseMessage(message)"></button>
+        <span ng-if="message.choice" ng-show="message.choice.length">
+          <button class="btn btn-xs btn-success" data-ng-bind="message.choice[0]" data-ng-click="dealMessage(message,true)"></button>
+          <button class="btn btn-xs btn-danger" data-ng-bind="message.choice[1]" data-ng-click="dealMessage(message,false)"></button>
         </span>
-        <button class="btn btn-xs btn-default" data-ng-click="deleteMessage(message)">删除</button>
+        <button class="btn btn-xs btn-default" data-ng-click="deleteMessage(message,fals)">删除</button>
       </td>
     </tr>
     </tbody>
