@@ -16,5 +16,6 @@ router.get('/query/:queryString',function (req,res,next) {
     res.send(data().queryContacts(req.params.queryString));
 });
 
+
 module.exports=router;
     

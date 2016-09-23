@@ -14,12 +14,15 @@ router.post('/delete',function (req,res,next) {
     var id=req.body.groupId;
     res.send(data().deleteGroup(id)); 
 });
-router.put('/invite',function (req,res,next) { //inviteResult
+router.post('/invite',function (req,res,next) { //inviteResult
     console.log(req.body);
     res.send(data().inviteResult(req.body));
 });
-router.put('/quit',function (req,res,next) {
+router.post('/quit',function (req,res,next) {
     res.send(data().quitGroup(req.body));
+});
+router.post('/kick',function (req,res) {
+    res.send(data().kickGroup());
 });
 module.exports=router;
     

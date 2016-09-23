@@ -118,6 +118,9 @@ var accountData=function(){
         quitGroup:function (group) {
             return new RetData(true,'',group);
         },
+        kickGroup:function () {
+            return new RetData(true,'','');
+        },
         getJoinAccount:function (index) {
             return accounts[0];
         },

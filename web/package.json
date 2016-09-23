@@ -51,5 +51,8 @@
   },
   "homepage": "https://github.com/yqz411/wilddragon#readme",
   "main": "gulpfile.js",
-  "author": ""
+  "author": "",
+  "dependencies": {
+    "eruda": "^1.1.2"
+  }
 }

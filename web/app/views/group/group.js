@@ -231,7 +231,7 @@ angular.module('app.view.group', [
         });
     };
 })
-    .controller('GroupMemberInfoCtrl', function ($stateParams, $scope,AccountServiceDist) {
+    .controller('GroupMemberInfoCtrl', function ($stateParams, $scope,AccountServiceDist,$state) {
         console.log("statePara", $stateParams);//groupId accountId
         var paraAry = $stateParams["id"].split("&");
         var groupId = paraAry[0], accountId = paraAry[1];
@@ -239,6 +239,16 @@ angular.module('app.view.group', [
         $scope.memberAccount = queryObjectByPropertyValue($scope.group.accounts, "accountId", accountId)[1];
         $scope.kickGroup=function (memberAccount) {
             var data={groupId:$scope.group.groupId,accountId:memberAccount.accountId};
-         AccountServiceDist.kickGroup(data);
+         AccountServiceDist.kickGroup(data).then(function (response) {
+             if(response.success===true){
+                 alert('移除成员成功：'+$scope.memberAccount.name);
+                 var index=$scope.groupMap[groupId].accounts.indexOf($scope.memberAccount);
+                 $scope.groupMap[groupId].accounts.splice(index,1);
+                 $state.go('main.group.detail',{id:groupId});
+             }else {
+                 alert('移除成员失败：'+$scope.memberAccount.name);
+             }
+
+         });
         }
     });
