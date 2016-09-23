@@ -42,14 +42,14 @@ var accountData=function(){
     var groups = [
         {
             groupId: 2000,
-            owner: 10101,
+            owner: account0,
             name: '家庭',
             type: 'CUSTOM',
             accounts: [account0,account1,account2]
         },
         {
             groupId: 2001,
-            owner: 10102,
+            owner: account1,
             name: '公司',
             type: 'CUSTOM',
             accounts: [account0, account3]
@@ -58,14 +58,14 @@ var accountData=function(){
     var accounts=[account0,account1,account2,account3];
     var addedGroup={
         groupId: 2003,
-        owner: 10104,
+        owner: account3,
         name: '新建组',
         type: 'CUSTOM',
         accounts: [account0, account3]
     };
     var ModifiedGroup={
         groupId: 2000,
-        owner: 10101,
+        owner: account0,
         name: '家庭改',
         type: 'CUSTOM',
         accounts: [account0,account1,account2]

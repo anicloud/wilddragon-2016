@@ -260,4 +260,4 @@ gulp.task('start:server:prod', function () {
     port: 8000
   });
 });
-gulp.task('default', ['serve:prod']);
+gulp.task('default', ['serve:node']);

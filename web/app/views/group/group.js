@@ -231,11 +231,14 @@ angular.module('app.view.group', [
         });
     };
 })
-    .controller('GroupMemberInfoCtrl', function ($stateParams, $scope) {
+    .controller('GroupMemberInfoCtrl', function ($stateParams, $scope,AccountServiceDist) {
         console.log("statePara", $stateParams);//groupId accountId
         var paraAry = $stateParams["id"].split("&");
         var groupId = paraAry[0], accountId = paraAry[1];
-        var group = queryObjectByPropertyValue($scope.groups, "groupId", groupId)[1];
-        $scope.account = queryObjectByPropertyValue(group.accounts, "accountId", accountId)[1];
-        
+        $scope.group = queryObjectByPropertyValue($scope.groups, "groupId", groupId)[1];
+        $scope.memberAccount = queryObjectByPropertyValue($scope.group.accounts, "accountId", accountId)[1];
+        $scope.kickGroup=function (memberAccount) {
+            var data={groupId:$scope.group.groupId,accountId:memberAccount.accountId};
+         AccountServiceDist.kickGroup(data);
+        }
     });
