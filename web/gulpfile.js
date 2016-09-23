@@ -209,9 +209,9 @@ gulp.task('serve:node',function (cb) {
 gulp.task('serve:prod', function (cb) {
   runSequence(
     'build:prod',
-    'start:server:prod',
-    'start:client',
-      
+    // 'start:server:prod',
+    // 'start:client'
+      'watch',
     cb);
 });
 
@@ -260,4 +260,4 @@ gulp.task('start:server:prod', function () {
     port: 8000
   });
 });
-gulp.task('default', ['serve:node']);
+gulp.task('default', ['serve:prod']);

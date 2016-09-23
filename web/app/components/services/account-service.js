@@ -61,7 +61,7 @@ angular.module('app.service.account', [])
       },
       inviteAccount: function (data) { //finish
         return $http({
-          method: 'PUT',
+          method: 'POST',
           url: urlIp+'/group/invite',
           data: data
         }).then(function (response) {
@@ -71,7 +71,7 @@ angular.module('app.service.account', [])
       },
       inviteResult:function (data) { //accept or refuse invite
         return $http({
-          method: 'PUT',
+          method: 'POST',
           url: urlIp+'/group/invite',
           data: data
         }).then(function (response) {
@@ -90,7 +90,7 @@ angular.module('app.service.account', [])
       // },
       quitGroup: function (data) {  //finish
         return $http({
-          method: 'PUT',
+          method: 'POST',
           url: urlIp+'/group/quit',
           data: data
         }).then(function (response) {
@@ -100,7 +100,7 @@ angular.module('app.service.account', [])
       },
       kickGroup:function (data) {
         return $http({
-          method: 'PUT',
+          method: 'POST',
           url: urlIp+'/group/kick',
           data: data  //group
         }).then(function (response) {

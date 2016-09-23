@@ -234,11 +234,7 @@ public class AccountServiceAdapterImpl implements AccountServiceAdapter {
     @Override
     public AccountGroupData deleteAccountGroup(Long accountId, Long groupId) {
         AccountGroupDto groupDto = accountGroupServiceFacade.getById(groupId);
-        Set<AccountDto> accountDtos = new HashSet<>();
         if (groupDto != null) {
-            accountDtos.addAll(groupDto.accounts);
-            groupDto.accounts = null;
-            accountGroupServiceFacade.modify(groupDto);
             accountGroupServiceFacade.remove(accountId, groupId);
         }
 
@@ -257,7 +253,6 @@ public class AccountServiceAdapterImpl implements AccountServiceAdapter {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        groupDto.accounts = accountDtos;
         return AccountDataUtils.fromAccountGroupDto(groupDto);
     }
 

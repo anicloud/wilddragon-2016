@@ -163,8 +163,8 @@ public class AccountController extends JavaController {
         RetData retData = null;
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-            AccountGroupInviteData inviteData = objectMapper.treeToValue(request().body().asJson(), AccountGroupInviteData.class);
-            AccountGroupData groupData = accountServiceAdapter.quitAccountGroup(getAccountId(), Long.valueOf(inviteData.groupId));
+            AccountGroupData groupData = objectMapper.treeToValue(request().body().asJson(), AccountGroupData.class);
+            groupData = accountServiceAdapter.quitAccountGroup(getAccountId(), Long.valueOf(groupData.groupId));
             AccountData accountData = accountServiceAdapter.findAccountById(getAccountId());
             notificationService.groupQuitNotice(groupData, accountData);
             retData = new RetData(true, "", groupData);

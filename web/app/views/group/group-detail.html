@@ -29,7 +29,7 @@
     </div>
   </div>
 
-  <div class="detail-item" data-ng-show="group.owner != account.accountId">
+  <div class="detail-item" data-ng-show="group.owner.accountId !== account.accountId">
     <div class="left">
       <div class="item-title">退出</div>
     </div>
@@ -40,7 +40,7 @@
     </div>
   </div>
 
-  <div class="detail-item" data-ng-show="group.owner == account.accountId">
+  <div class="detail-item" data-ng-show="group.owner.accountId == account.accountId">
     <div class="left">
       <div class="item-title">删除</div>
     </div>

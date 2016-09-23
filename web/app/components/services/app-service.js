@@ -18,13 +18,13 @@ angular.module('app.service.app', [])
   })
   .factory('AppService', function ($http) {
     var app0 = {
-      name: 'sunny',
-      description: 'smart home center',
-      organization: 'anicloud'
+      serviceName: 'sunny',
+      logoPath: 'https://raw.githubusercontent.com/anicloud/anicloud.github.io/master/images/logo/ani_logo.png',
+      serviceServerUrl: 'http://s0.drtt.bj.anicel.cn:8080/sunny'
     };
     return {
       getApps: function () {
-        return new RetData(true, '', app0);
+        return new RetData(true, '', [app0]);
       }
     };
 

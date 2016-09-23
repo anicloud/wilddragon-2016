@@ -18,17 +18,17 @@ angular.module('app.view.main', ['ui.router','angular-websocket'])
               // notifications: function (NotificationService) {
               //   return NotificationService.getAllNotifications();
               // },
-              contacts: function (AccountServiceDist) {
-                return AccountServiceDist.getContacts();
+              contacts: function (AccountServiceMock) {
+                return AccountServiceMock.getContacts();
               },
               groups: function (AccountServiceDist) {
                 return AccountServiceDist.getGroups();
               },
-              devices: function (DeviceService) {
-                return DeviceService.getDevices();
+              devices: function (DeviceServiceMock) {
+                return DeviceServiceMock.getDevices();
               },
-              apps:function (AppServiceDist) {
-                return AppServiceDist.getApps();
+              apps:function (AppService) {
+                return AppService.getApps();
               }
             },                                                                                   
             controller: function ($rootScope, $scope, $window, $timeout, $state,account,groups,devices,contacts,

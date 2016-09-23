@@ -6,6 +6,7 @@ import models.dto.app.AppData;
 import models.service.app.AppServiceAdapter;
 import models.service.notification.NotificationService;
 import org.apache.commons.lang.exception.ExceptionUtils;
+import org.pac4j.core.profile.CommonProfile;
 import org.pac4j.play.java.JavaController;
 import org.pac4j.play.java.RequiresAuthentication;
 import org.springframework.stereotype.Component;
@@ -28,12 +29,18 @@ public class AppController extends JavaController {
     @Resource
     private NotificationService notificationService;
 
+
+    public Long getAccountId(){
+        final CommonProfile profile = getUserProfile();
+        return Long.parseLong((String) profile.getAttribute("accountId"));
+    }
     public Result getAllApps() {
         RetData retData = null;
         try {
-            Long accountId = Long.valueOf(request().cookie("accountId").value());
-            Set<AppData> appDatas = appServiceAdapter.getAppsByAccount(accountId);
+            //Long accountId = Long.valueOf(request().cookie("accountId").value());
+            Set<AppData> appDatas = appServiceAdapter.getAppsByAccount(getAccountId());
             retData = new RetData(true, "", appDatas);
+            logger.info(appDatas.toString());
         } catch (Exception e) {
             retData = new RetData(false, ExceptionUtils.getStackTrace(e));
         } finally {
