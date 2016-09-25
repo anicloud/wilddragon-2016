@@ -100,16 +100,16 @@ angular.module('app.view.group', [
                 AccountServiceDist.deleteGroup(group).then(function (result) {
                     if (result.success && result.data !== null) {
                         alert('删除分组成功: ' + result.data.name);
-                        $timeout(function () {
-                            for (var i = 0; i < $scope.groups.length; i++) {
-                                if ($scope.groups[i].groupId == result.data.groupId) {
-                                    $scope.groups.splice(i, 1);
-                                    break;
-                                }
-                            }
-                            delete $scope.groupMap[result.data.groupId];
-                            $state.go('main.group.list');
-                        }, 0);
+                        // $timeout(function () {
+                        //     for (var i = 0; i < $scope.groups.length; i++) {
+                        //         if ($scope.groups[i].groupId == result.data.groupId) {
+                        //             $scope.groups.splice(i, 1);
+                        //             break;
+                        //         }
+                        //     }
+                        //     delete $scope.groupMap[result.data.groupId];
+                        // }, 0);
+                        $state.go('main.group.list');
                     } else {
                         alert('删除分组失败,原因: ' + result.message);
                     }
@@ -243,7 +243,7 @@ angular.module('app.view.group', [
              if(response.success===true){
                  alert('移除成员成功：'+$scope.memberAccount.name);
                  var index=$scope.groupMap[groupId].accounts.indexOf($scope.memberAccount);
-                 $scope.groupMap[groupId].accounts.splice(index,1);
+                 // $scope.groupMap[groupId].accounts.splice(index,1);
                  $state.go('main.group.detail',{id:groupId});
              }else {
                  alert('移除成员失败：'+$scope.memberAccount.name);

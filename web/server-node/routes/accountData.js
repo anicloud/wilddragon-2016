@@ -109,8 +109,8 @@ var accountData=function(){
             }
             return new RetData(true,'',null);
         },
-        inviteGroup:function (group) {
-            return new RetData(true,'',group);
+        inviteGroup:function () {
+            return new RetData(true,'',addedGroup);
         },
         inviteResult:function (group) {
             return new RetData(true,'',group);

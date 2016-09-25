@@ -8,34 +8,35 @@
                         <div class="item avatar">
                             <a href="">
                                 <div class="item-name highlight highlight">头像</div>
-                                <div class="item-detail img"><img data-ng-src="{{account.avatarUrl}}"></div>
+                                <div class="item-detail img"><img data-ng-src="{{memberAccount.avatarUrl}}"></div>
                             </a>
                         </div>
                         <div class="item">
                             <div href="">
                                 <div class="item-name highlight">名称</div>
-                                <div class="item-detail"> {{account.name}}</div>
+                                <div class="item-detail"> {{memberAccount.name}}</div>
                             </div>
                         </div>
                         <div class="item">
                             <div href="">
                                 <div class="item-name highlight">邮箱</div>
-                                <div class="item-detail">{{account.email}}</div>
+                                <div class="item-detail">{{memberAccount.email}}</div>
                             </div>
                         </div>
                         <div class="item">
                             <div href="">
                                 <div class="item-name highlight">电话</div>
-                                <div class="item-detail">{{account.phoneNumber}}</div>
+                                <div class="item-detail">{{memberAccount.phoneNumber}}</div>
                             </div>
                         </div>
                         <div class="item">
                             <div href="">
                                 <div class="item-name highlight">公司</div>
-                                <div class="item-detail">{{account.company}}</div>
+                                <div class="item-detail">{{memberAccount.company}}</div>
                             </div>
                         </div>
-                        <button id="kick-group-btn" class="btn btn-default" data-ng-click="kickGroup(account)">将该用户</button>
+                        <button id="kick-group-btn" class="btn btn-default" data-ng-click="kickGroup(memberAccount)"
+                                ng-show="group.owner.accountId==account.accountId&&memberAccount.accountId!=group.owner.accountId">移除该用户</button>
                     </div>
                 </div>
             </div>

@@ -10,34 +10,37 @@ angular.module('app.service.notification', [])
           switch (message.type){
               case 'ACCOUNT_GROUP_INVITE':
                   (function (message) { //be invieted to Group
-                      var groupId=message.groupId,groupName=message.groupName,fromId=message.fromId,fromName=message.fromName;
+                      var groupId=message.data.groupId,groupName=message.data.groupName,fromId=message.fromId,fromName=message.data.fromName;
                       var body=fromName+" invite you to join the group "+groupName;
                       var choice=["同意","拒绝"],type=message.type;
-                      notificationCol=new NotificationCollection(type,body,choice,fromId,message.description,fromName,groupId,groupName);
+                      var description="邀请入群通知";
+                      notificationCol=new NotificationCollection(type,body,choice,fromId,description,fromName,groupId,groupName);
                   })(message);
                   break;
               case 'ACCOUNT_GROUP_JOIN':
                   (function (message) { //be invieted to Group
-                      var groupId=message.groupId,groupName=message.groupName,fromId=message.fromId,fromName=message.fromName;
+                      var groupId=message.data.groupId,groupName=message.data.groupName,fromId=message.data.fromId,fromName=message.data.fromName;
                       var body=fromName+" has join the group "+groupName;
                       var choice=[],type=message.type;
-                      notificationCol=new NotificationCollection(type,body,choice,fromId,message.description,fromName,groupId,groupName);
+                      var description="新人入群通知";
+                      notificationCol=new NotificationCollection(type,body,choice,fromId,description,fromName,groupId,groupName);
                       if(fromId==mainScope.account.accountId){
-                          mainScope.groupMap[groupId]=message.group;
-                          mainScope.groups.push(message.group);
+                          mainScope.groupMap[groupId]=message.data.detail;
+                          mainScope.groups.push(message.data.detail);
                       }else{
-                          var account=message.account;
-                          mainScope.groupMap[groupId].accounts.push(account); 
+                          var account=message.data.detail;
+                          mainScope.groupMap[groupId].accounts.push(account);
+                          mainScope.accountMap[fromId]=queryObjectByPropertyValue(message.data.detail,'accountId',fromId)[1];
                       }
-                      mainScope.accountMap[fromId]=queryObjectByPropertyValue(message.group.accounts,'accountId',fromId)[1];
                   })(message);
                   break;
               case 'ACCOUNT_GROUP_KICK':
                   (function (message) { //be invieted to Group
-                      var groupId=message.groupId,groupName=message.groupName,fromId=message.fromId,fromName=message.fromName;
+                      var groupId=message.data.groupId,groupName=message.data.groupName,fromId=message.data.fromId,fromName=message.data.fromName;
                       var body=fromName+" has been kicked from the group "+groupName;
                       var choice=[],type=message.type;
-                      notificationCol=new NotificationCollection(type,body,choice,fromId,message.description,fromName,groupId,groupName);
+                      var description="移除群成员";
+                      notificationCol=new NotificationCollection(type,body,choice,fromId,description,fromName,groupId,groupName);
                       var account=message.account;
                       if(fromId==mainScope.account.accountId){
                           delete mainScope.groupMap[groupId];
@@ -51,10 +54,11 @@ angular.module('app.service.notification', [])
                   break;
               case 'ACCOUNT_GROUP_REMOVE':
                   (function(message) {
-                      var groupId=message.groupId,groupName=message.groupName,fromId=message.fromId,fromName=message.fromName;
+                      var groupId=message.data.groupId,groupName=message.data.groupName,fromId=message.data.fromId,fromName=message.data.fromName;
                       var body=fromName+" has removed the group "+groupName;
                       var choice=[],type=message.type;
-                      notificationCol=new NotificationCollection(type,body,choice,fromId,message.description,fromName,groupId,groupName);
+                      var description="群移除通知";
+                      notificationCol=new NotificationCollection(type,body,choice,fromId,description,fromName,groupId,groupName);
                       delete mainScope.groupMap[groupId];
                       var index=queryObjectByPropertyValue(mainScope.groups,'groupId',groupId)[0];
                       mainScope.groups.splice(index,1);
@@ -62,33 +66,36 @@ angular.module('app.service.notification', [])
                   break;
               case 'ACCOUNT_GROUP_MODIFY':
                   (function(message) {
-                      var groupId=message.groupId,groupName=message.groupName,fromId=message.fromId,fromName=message.fromName;
+                      var groupId=message.data.groupId,groupName=message.data.groupName,fromId=message.data.fromId,fromName=message.data.fromName;
                       var body=fromName+" has modify the group "+groupName;
                       var choice=[],type=message.type;
-                      notificationCol=new NotificationCollection(type,body,choice,fromId,message.description,fromName,groupId,groupName);
-                      mainScope.groupMap[groupId]=message.group;
+                      var description="群信息修改";
+                      notificationCol=new NotificationCollection(type,body,choice,fromId,description,fromName,groupId,groupName);
+                      mainScope.groupMap[groupId]=message.data.detail;
                       var index=queryObjectByPropertyValue(mainScope.groups,'groupId',groupId)[0];
-                      mainScope.groups[index]=message.group;
+                      mainScope.groups[index]=message.data.detail;
                   })(message);
                   break;
               case 'DEVICE_SHARE':
                   (function (message) { //be invieted to Group
-                      var groupId=message.groupId,groupName=message.groupName,fromId=message.fromId,fromName=message.fromName;
-                      var body=mainScope.accountMap[message.device.owner].name+" has shared the device "+fromName+"for the Group "+groupName;
+                      var groupId=message.data.groupId,groupName=message.data.groupName,fromId=message.data.fromId,fromName=message.data.fromName;
+                      var body=mainScope.accountMap[message.data.detail.owner].name+" has shared the device "+fromName+"for the Group "+groupName;
                       var choice=[],type=message.type;
-                      notificationCol=new NotificationCollection(type,body,choice,fromId,message.description,fromName,groupId,groupName);
+                      var description='设备共享通知';
+                      notificationCol=new NotificationCollection(type,body,choice,fromId,description,fromName,groupId,groupName);
                       if(!mainScope.deviceMap[fromId]){
-                          mainScope.devices.push(message.device);
+                          mainScope.devices.push(message.data.detail);
                       }
-                      mainScope.deviceMap[fromId]=message.device;
+                      mainScope.deviceMap[fromId]=message.data.detail;
                   })(message);
                   break;
               case 'DEVICE_UNSHARE':
                   (function (message) { //be invieted to Group
-                      var groupId=message.groupId,groupName=message.groupName,fromId=message.fromId,fromName=message.fromName;
+                      var groupId=message.data.groupId,groupName=message.data.groupName,fromId=message.fromId,fromName=message.fromName;
                       var body=mainScope.accountMap[mainScope.deviceMap[fromId].owner].name+" has cancel sharing the device "+fromName+"for the Group "+groupName;
                       var choice=[],type=message.type;
-                      notificationCol=new NotificationCollection(type,body,choice,fromId,message.description,fromName,groupId,groupName);
+                      var description="设备取消共享通知";
+                      notificationCol=new NotificationCollection(type,body,choice,fromId,description,fromName,groupId,groupName);
                       //looking for whether devices is still be shared
                       var deviceGroup=mainScope.deviceMap[fromId].accountGroups;
                       deviceGroup.splice(deviceGroup.indexOf(fromId),1);
@@ -110,10 +117,11 @@ angular.module('app.service.notification', [])
                   break;
               case 'DEVICE_CONNECT':
                   (function (message) { //be invieted to Group
-                      var fromId=message.fromId,fromName=message.fromName;
+                      var fromId=message.data.fromId,fromName=message.data.fromName;
                       var body=mainScope.deviceMap[fromId].name+" has connected ";
                       var choice=[],type=message.type;
-                      notificationCol=new NotificationCollection(type,body,choice,fromId,message.description,fromName,groupId,groupName);
+                      var description="设备连接通知";
+                      notificationCol=new NotificationCollection(type,body,choice,fromId,description,fromName,groupId,groupName);
                       mainScope.deviceMap[fromId].state='ACTIVE';
                   })(message);
                   break;
@@ -122,7 +130,8 @@ angular.module('app.service.notification', [])
                       var fromId=message.fromId,fromName=message.fromName;
                       var body=mainScope.deviceMap[fromId].name+" has disconnected ";
                       var choice=[],type=message.type;
-                      notificationCol=new NotificationCollection(type,body,choice,fromId,message.description,fromName,groupId,groupName);
+                      var description="设备离线通知";
+                      notificationCol=new NotificationCollection(type,body,choice,fromId,description,fromName,groupId,groupName);
                       mainScope.deviceMap[fromId].state='INACTIVE';
                   })(message);
                   break;
