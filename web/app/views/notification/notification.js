@@ -19,7 +19,7 @@ angular.module('app.view.notification', ['ui.router'])
         $scope.selectSideNavTab('notification');
        // NotificationService.deleteNotification($scope.notifications,index);
        $scope.deleteMessage=function (message) {
-           NotificationService.deleteNotification($scope.notifications,message)
+           NotificationManager.deleteNotification($scope.notifications,message)
        };
         console.log($scope.notifications);
         $scope.dealMessage=function (message,result) {

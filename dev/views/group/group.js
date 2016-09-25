@@ -100,16 +100,16 @@ angular.module('app.view.group', [
                 AccountServiceDist.deleteGroup(group).then(function (result) {
                     if (result.success && result.data !== null) {
                         alert('删除分组成功: ' + result.data.name);
-                        $timeout(function () {
-                            for (var i = 0; i < $scope.groups.length; i++) {
-                                if ($scope.groups[i].groupId == result.data.groupId) {
-                                    $scope.groups.splice(i, 1);
-                                    break;
-                                }
-                            }
-                            delete $scope.groupMap[result.data.groupId];
-                            $state.go('main.group.list');
-                        }, 0);
+                        // $timeout(function () {
+                        //     for (var i = 0; i < $scope.groups.length; i++) {
+                        //         if ($scope.groups[i].groupId == result.data.groupId) {
+                        //             $scope.groups.splice(i, 1);
+                        //             break;
+                        //         }
+                        //     }
+                        //     delete $scope.groupMap[result.data.groupId];
+                        // }, 0);
+                        $state.go('main.group.list');
                     } else {
                         alert('删除分组失败,原因: ' + result.message);
                     }
@@ -147,14 +147,21 @@ angular.module('app.view.group', [
             console.log($scope.groupData);
             AccountServiceDist.createGroup($scope.groupData).then(
                 function (result) {
-                    if (result.success && result.data !== null) {
+                    if (result.success) {
                         alert('添加分组成功：');
+                        // $timeout(function () {
+                        //     $scope.groups.push(result.data);
+                        //     $scope.groupMap[result.data.groupId] = result.data;
+                        //     angular.forEach(result.data.accounts, function (account) {
+                        //         $scope.accountMap[account.accountId] = account;
+                        //     });
+                        // }, 0);
                         $timeout(function () {
-                            $scope.groups.push(result.data);
-                            $scope.groupMap[result.data.groupId] = result.data;
-                            angular.forEach(result.data.accounts, function (account) {
-                                $scope.accountMap[account.accountId] = account;
-                            });
+                            var newGroupData=$scope.groupData;
+                            console.log('groupData',newGroupData);
+                            newGroupData.accounts=[$scope.account];
+                            $scope.groups.push(newGroupData);
+                            $scope.groupMap[newGroupData.groupId] = newGroupData;
                         }, 0);
                     } else {
                         console.log('添加分组失败：' + result.message);
@@ -224,11 +231,24 @@ angular.module('app.view.group', [
         });
     };
 })
-    .controller('GroupMemberInfoCtrl', function ($stateParams, $scope) {
+    .controller('GroupMemberInfoCtrl', function ($stateParams, $scope,AccountServiceDist,$state) {
         console.log("statePara", $stateParams);//groupId accountId
         var paraAry = $stateParams["id"].split("&");
         var groupId = paraAry[0], accountId = paraAry[1];
-        var group = queryObjectByPropertyValue($scope.groups, "groupId", groupId)[1];
-        $scope.account = queryObjectByPropertyValue(group.accounts, "accountId", accountId)[1];
-        
+        $scope.group = queryObjectByPropertyValue($scope.groups, "groupId", groupId)[1];
+        $scope.memberAccount = queryObjectByPropertyValue($scope.group.accounts, "accountId", accountId)[1];
+        $scope.kickGroup=function (memberAccount) {
+            var data={groupId:$scope.group.groupId,accountId:memberAccount.accountId};
+         AccountServiceDist.kickGroup(data).then(function (response) {
+             if(response.success===true){
+                 alert('移除成员成功：'+$scope.memberAccount.name);
+                 var index=$scope.groupMap[groupId].accounts.indexOf($scope.memberAccount);
+                 // $scope.groupMap[groupId].accounts.splice(index,1);
+                 $state.go('main.group.detail',{id:groupId});
+             }else {
+                 alert('移除成员失败：'+$scope.memberAccount.name);
+             }
+
+         });
+        }
     });

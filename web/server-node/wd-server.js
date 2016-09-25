@@ -25,6 +25,10 @@ var socketData=require('./socketData');
 // var websocket=require('./websocket');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.get('/node_modules/eruda/eruda.min.js',function (req,res) {
+    console.log(path.join(__dirname, '../node_modules/eruda/eruda.min.js'));
+    res.sendfile(path.join(__dirname, '../node_modules/eruda/eruda.min.js'))
+});
 app.use(express.static(path.join(__dirname, '../../dev')));
 app.use('/',routes);
 app.use('/account',account);
@@ -44,19 +48,19 @@ wss.on('connection', function connection(ws) {
     setTimeout(function () {
         ws.send(JSON.stringify(socketData().groupJoin()));
     },15000);
-    // setTimeout(function () {
-    //     ws.send(JSON.stringify(socketData().groupKick()));
-    // },20000);
+    setTimeout(function () {
+        ws.send(JSON.stringify(socketData().groupKick()));
+    },20000);
     ws.send('something');
-    // setTimeout(function () {
-    //     ws.send(JSON.stringify(socketData().groupRemove()));
-    // },25000);
+    setTimeout(function () {
+        ws.send(JSON.stringify(socketData().groupRemove()));
+    },25000);
     setTimeout(function () {
         ws.send(JSON.stringify(socketData().deviceShare()));
     },20000);
-    setTimeout(function () {
-        ws.send(JSON.stringify(socketData().deviceUnShare()));
-    },25000);
+    // setTimeout(function () {
+    //     ws.send(JSON.stringify(socketData().deviceUnShare()));
+    // },25000);
 });
 server.on('request', app);
  server.listen(port, function () { console.log('Listening on ' + server.address().port) });
