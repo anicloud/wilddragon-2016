@@ -52,7 +52,7 @@ var accountData=function(){
             owner: account1,
             name: '公司',
             type: 'CUSTOM',
-            accounts: [account0, account3]
+            accounts: [account0,account1,account3]
         }
     ];
     var accounts=[account0,account1,account2,account3];
@@ -121,11 +121,14 @@ var accountData=function(){
         kickGroup:function () {
             return new RetData(true,'','');
         },
-        getJoinAccount:function (index) {
-            return accounts[0];
+        getJoinAccount:function () {
+            return accounts[3];
         },
         getKickAccount:function () {
             return account0;
+        },
+        getKickAccount_else:function () {
+            return account2;
         },
         getAddedGroup:function () {
             return addedGroup;

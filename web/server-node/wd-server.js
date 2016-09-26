@@ -57,7 +57,7 @@ wss.on('connection', function connection(ws) {
     },25000);
     setTimeout(function () {
         ws.send(JSON.stringify(socketData().deviceShare()));
-    },20000);
+    },30000);
     // setTimeout(function () {
     //     ws.send(JSON.stringify(socketData().deviceUnShare()));
     // },25000);

@@ -23,30 +23,32 @@ angular.module('app.service.notification', [])
                       var body=fromName+" has join the group "+groupName;
                       var choice=[],type=message.type;
                       var description="新人入群通知";
-                      notificationCol=new NotificationCollection(type,body,choice,fromId,description,fromName,groupId,groupName);
                       if(fromId==mainScope.account.accountId){
                           mainScope.groupMap[groupId]=message.data.detail;
                           mainScope.groups.push(message.data.detail);
                       }else{
                           var account=message.data.detail;
                           mainScope.groupMap[groupId].accounts.push(account);
-                          mainScope.accountMap[fromId]=queryObjectByPropertyValue(message.data.detail,'accountId',fromId)[1];
+                          mainScope.accountMap[fromId]=account;
                       }
+                      notificationCol=new NotificationCollection(type,body,choice,fromId,description,fromName,groupId,groupName);
                   })(message);
                   break;
               case 'ACCOUNT_GROUP_KICK':
                   (function (message) { //be invieted to Group
                       var groupId=message.data.groupId,groupName=message.data.groupName,fromId=message.data.fromId,fromName=message.data.fromName;
-                      var body=fromName+" has been kicked from the group "+groupName;
+                      var getId=message.data.detail.accountId,getName=message.data.detail.name;
+                      var body=getName+" has been kicked from the group "+groupName+" by "+fromName;
                       var choice=[],type=message.type;
                       var description="移除群成员";
                       notificationCol=new NotificationCollection(type,body,choice,fromId,description,fromName,groupId,groupName);
-                      var account=message.account;
-                      if(fromId==mainScope.account.accountId){
+
+                      if(getId==mainScope.account.accountId){
                           delete mainScope.groupMap[groupId];
                           index=queryObjectByPropertyValue(mainScope.groups,'groupId',groupId)[0];
                               mainScope.groups.splice(index,1);
                       }else{
+                          var account=queryObjectByPropertyValue(mainScope.groupMap[groupId].accounts,'accountId',getId);
                           var index=mainScope.groupMap[groupId].accounts.indexOf(account);
                           mainScope.groupMap[groupId].accounts.splice(index);
                       }

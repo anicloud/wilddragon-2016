@@ -12,37 +12,63 @@ var socketData=function(){
                 type:'ACCOUNT_GROUP_INVITE',
                 // description:'邀请您入群',
                 data:{
-                    fromId:10102,
-                    fromName:'anicloud',
+                    fromId:10104,
+                    fromName:'ye',
                     groupId:2003,
                     groupName:'新建组',
-                    detail:accountData().inviteGroup() //实际是没用的
+                    detail:accountData().inviteGroup()
                 }
             };
         },
+        // groupJoin:function () {
+        //     return{
+        //         type:'ACCOUNT_GROUP_JOIN',
+        //         // description:'新人加入通知',
+        //         data:{
+        //             fromName:accountData().getJoinAccount().name,
+        //             fromId:accountData().getJoinAccount().accountId,
+        //             groupId:'2003',
+        //             groupName:'新建组',
+        //             detail:accountData().getAddedGroup(), //2003
+        //         }
+        //     };
+        // },
         groupJoin:function () {
             return{
                 type:'ACCOUNT_GROUP_JOIN',
                 // description:'新人加入通知',
                 data:{
-                    fromName:accountData().getJoinAccount().name,
-                    fromId:accountData().getJoinAccount().accountId,
-                    groupId:'2003',
-                    groupName:'新建组',
-                    detail:accountData().getAddedGroup(),
+                    fromName:"libiya",
+                    fromId:10102,
+                    groupId:'2000',
+                    groupName:'家庭',
+                    detail:accountData().getJoinAccount(),
                 }
             };
         },
+        // groupKick:function () {
+        //     return{
+        //         type:'ACCOUNT_GROUP_KICK',
+        //         //description:'踢出群通知',
+        //         data:{
+        //             fromName:'libiya',
+        //             fromId:10102,
+        //             groupId:'2001',
+        //             groupName:'公司',
+        //             detail:accountData().getKickAccount(),
+        //         }
+        //     };
+        // },
         groupKick:function () {
             return{
                 type:'ACCOUNT_GROUP_KICK',
                 //description:'踢出群通知',
                 data:{
-                    fromName:accountData().getKickAccount().name,
-                    fromId:accountData().getKickAccount().accountId,
+                    fromName:'libiya',
+                    fromId:10102,
                     groupId:'2001',
                     groupName:'公司',
-                    detail:accountData().getKickAccount(),
+                    detail:accountData().getKickAccount_else(),
                 }
             };
         },
@@ -63,8 +89,8 @@ var socketData=function(){
                 //description:'更改群信息',
                 type:'ACCOUNT_GROUP_MODIFY',
                 data:{
-                    fromId:accountData().getJoinAccount().accountId,
-                    fromName:accountData().getJoinAccount().name,
+                    fromId:'10101',
+                    fromName:'anicloud',
                     groupId:2000,
                     groupName:'家庭',
                     detail:accountData().getModifiedGroup()
@@ -76,8 +102,10 @@ var socketData=function(){
                 type:'DEVICE_SHARE',
                 //description:'共享设备'
                 data:{
-                    fromId:'100002', //device
-                    fromName:'卧室控制中心',
+                    fromId:'10104', //device
+                    fromName:'ye',
+                    deviceId:"100002",
+                    deviceName:"卧室控制中心",
                     groupId:2000,
                     groupName:'家庭',
                     detail:deviceData().getDevice(1)
@@ -89,10 +117,13 @@ var socketData=function(){
                 type:'DEVICE_UNSHARE',
                 //description:'取消设备共享'
                 data:{
-                    fromId:'100002',
-                    fromName:'卧室控制中心',
+                    fromId:'10104', //device
+                    fromName:'ye',
+                    deviceId:"100002",
+                    deviceName:"卧室控制中心",
                     groupId:2000,
-                    groupName:'家庭'
+                    groupName:'家庭',
+                    detail:deviceData().getDevice(1)
                 }
             };
         },
@@ -101,10 +132,13 @@ var socketData=function(){
                 type:'DEVICE_CONNECT',
                 //description:'设备连接'
                 data:{
-                    fromId:'100002',
-                    fromName:'卧室控制中心',
+                    fromId:'10104', //device
+                    fromName:'ye',
+                    deviceId:"100002",
+                    deviceName:"卧室控制中心",
                     groupId:2000,
-                    groupName:'家庭'
+                    groupName:'家庭',
+                    detail:deviceData().getDevice(1)
                 }
             };
         },
@@ -113,10 +147,13 @@ var socketData=function(){
                 type:'DEVICE_DISCONNECT',
                 description:'设备断开连接',
                 data:{
-                    fromId:'100002',
-                    fromName:'卧室控制中心',
+                    fromId:'10104', //device
+                    fromName:'ye',
+                    deviceId:"100002",
+                    deviceName:"卧室控制中心",
                     groupId:2000,
-                    groupName:'设备'
+                    groupName:'家庭',
+                    detail:deviceData().getDevice(1)
                 }
             };
         }
