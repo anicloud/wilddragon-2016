@@ -41,17 +41,20 @@ angular.module('app.service.notification', [])
                       var body=getName+" has been kicked from the group "+groupName+" by "+fromName;
                       var choice=[],type=message.type;
                       var description="移除群成员";
-                      notificationCol=new NotificationCollection(type,body,choice,fromId,description,fromName,groupId,groupName);
-
                       if(getId==mainScope.account.accountId){
+                          body="you has been kicked from the group "+groupName+" by "+fromName;
                           delete mainScope.groupMap[groupId];
                           index=queryObjectByPropertyValue(mainScope.groups,'groupId',groupId)[0];
                               mainScope.groups.splice(index,1);
                       }else{
-                          var account=queryObjectByPropertyValue(mainScope.groupMap[groupId].accounts,'accountId',getId);
+                          console.log('getId',getId);
+                          var account=queryObjectByPropertyValue(mainScope.groupMap[groupId].accounts,'accountId',getId)[1];
+                          console.log('account',account);
                           var index=mainScope.groupMap[groupId].accounts.indexOf(account);
-                          mainScope.groupMap[groupId].accounts.splice(index);
+                          console.log(index,mainScope.groupMap[groupId].accounts)
+                          mainScope.groupMap[groupId].accounts.splice(index,1);
                       }
+                      notificationCol=new NotificationCollection(type,body,choice,fromId,description,fromName,groupId,groupName);
                   })(message);
                   break;
               case 'ACCOUNT_GROUP_REMOVE':
