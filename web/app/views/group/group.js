@@ -148,20 +148,20 @@ angular.module('app.view.group', [
                 function (result) {
                     if (result.success) {
                         alert('添加分组成功：');
-                        // $timeout(function () {
-                        //     $scope.groups.push(result.data);
-                        //     $scope.groupMap[result.data.groupId] = result.data;
-                        //     angular.forEach(result.data.accounts, function (account) {
-                        //         $scope.accountMap[account.accountId] = account;
-                        //     });
-                        // }, 0);
                         $timeout(function () {
-                            var newGroupData=$scope.groupData;
-                            console.log('groupData',newGroupData);
-                            newGroupData.accounts=[$scope.account];
-                            $scope.groups.push(newGroupData);
-                            $scope.groupMap[newGroupData.groupId] = newGroupData;
+                            $scope.groups.push(result.data);
+                            $scope.groupMap[result.data.groupId] = result.data;
+                            angular.forEach(result.data.accounts, function (account) {
+                                $scope.accountMap[account.accountId] = account;
+                            });
                         }, 0);
+                        // $timeout(function () {
+                        //     var newGroupData=$scope.groupData;
+                        //     console.log('groupData',newGroupData);
+                        //     newGroupData.accounts=[$scope.account];
+                        //     $scope.groups.push(newGroupData);
+                        //     $scope.groupMap[newGroupData.groupId] = newGroupData;
+                        // }, 0);
                     } else {
                         console.log('添加分组失败：' + result.message);
                     }
