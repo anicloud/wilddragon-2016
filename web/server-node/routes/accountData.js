@@ -128,7 +128,7 @@ var accountData=function(){
             return account0;
         },
         getKickAccount_else:function () {
-            return account2;
+            return account3;
         },
         getAddedGroup:function () {
             return addedGroup;

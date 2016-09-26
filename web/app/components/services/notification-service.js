@@ -57,6 +57,29 @@ angular.module('app.service.notification', [])
                       notificationCol=new NotificationCollection(type,body,choice,fromId,description,fromName,groupId,groupName);
                   })(message);
                   break;
+              case 'ACCOUNT_GROUP_QUIT':
+                  (function (message) { //be invieted to Group
+                      var groupId=message.data.groupId,groupName=message.data.groupName,fromId=message.data.fromId,fromName=message.data.fromName;
+                      var getId=message.data.detail.accountId,getName=message.data.detail.name;
+                      var body=getName+" has quit the group "+groupName;
+                      var choice=[],type=message.type;
+                      var description="移除群成员";
+                      if(getId==mainScope.account.accountId){
+                          body="you has quit the group "+groupName+" successfully ";
+                          delete mainScope.groupMap[groupId];
+                          index=queryObjectByPropertyValue(mainScope.groups,'groupId',groupId)[0];
+                          mainScope.groups.splice(index,1);
+                      }else{
+                          console.log('getId',getId);
+                          var account=queryObjectByPropertyValue(mainScope.groupMap[groupId].accounts,'accountId',getId)[1];
+                          console.log('account',account);
+                          var index=mainScope.groupMap[groupId].accounts.indexOf(account);
+                          console.log(index,mainScope.groupMap[groupId].accounts);
+                          mainScope.groupMap[groupId].accounts.splice(index,1);
+                      }
+                      notificationCol=new NotificationCollection(type,body,choice,fromId,description,fromName,groupId,groupName);
+                  })(message);
+                  break;
               case 'ACCOUNT_GROUP_REMOVE':
                   (function(message) {
                       var groupId=message.data.groupId,groupName=message.data.groupName,fromId=message.data.fromId,fromName=message.data.fromName;

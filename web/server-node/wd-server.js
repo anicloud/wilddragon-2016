@@ -42,25 +42,28 @@ wss.on('connection', function connection(ws) {
     ws.on('message', function incoming(message) {
     });
     console.log('connection ok');
-    setTimeout(function () {
-        ws.send(JSON.stringify(socketData().groupInvite()));
-    },10000);
-    setTimeout(function () {
-        ws.send(JSON.stringify(socketData().groupJoin()));
-    },15000);
-    setTimeout(function () {
-        ws.send(JSON.stringify(socketData().groupKick()));
-    },20000);
-    ws.send('something');
-    setTimeout(function () {
-        ws.send(JSON.stringify(socketData().groupRemove()));
-    },25000);
-    setTimeout(function () {
-        ws.send(JSON.stringify(socketData().deviceShare()));
-    },30000);
+    // setTimeout(function () {
+    //     ws.send(JSON.stringify(socketData().groupInvite()));
+    // },10000);
+    // setTimeout(function () {
+    //     ws.send(JSON.stringify(socketData().groupJoin()));
+    // },15000);
+    // setTimeout(function () {
+    //     ws.send(JSON.stringify(socketData().groupKick()));
+    // },20000);
+    // ws.send('something');
+    // setTimeout(function () {
+    //     ws.send(JSON.stringify(socketData().groupRemove()));
+    // },25000);
+    // setTimeout(function () {
+    //     ws.send(JSON.stringify(socketData().deviceShare()));
+    // },30000);
     // setTimeout(function () {
     //     ws.send(JSON.stringify(socketData().deviceUnShare()));
     // },25000);
+    setTimeout(function () {
+        ws.send(JSON.stringify(socketData().groupQuit()));
+    },5000);
 });
 server.on('request', app);
  server.listen(port, function () { console.log('Listening on ' + server.address().port) });

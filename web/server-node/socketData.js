@@ -72,6 +72,19 @@ var socketData=function(){
                 }
             };
         },
+        groupQuit:function () {
+            return{
+                type:'ACCOUNT_GROUP_QUIT',
+                //description:'群成员退出',
+                data:{
+                    fromName:'libiya',
+                    fromId:10102,
+                    groupId:'2001',
+                    groupName:'公司',
+                    detail:accountData().getKickAccount_else(),
+                }
+            };
+        },
         groupRemove:function () {
             return{
                 type:'ACCOUNT_GROUP_REMOVE',
@@ -185,6 +198,9 @@ var socketData=function(){
         },
         deviceDisconnect: function () {
             return new RetData(true, '', messages.deviceDisconnect());
+        },
+        groupQuit:function () {
+            return new RetData(true, '', messages.groupQuit());
         }
     }
 };
