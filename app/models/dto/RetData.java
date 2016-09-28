@@ -1,5 +1,7 @@
 package models.dto;
 
+import play.libs.Json;
+
 /**
  * Created by huangbin on 12/14/15.
  */
@@ -20,5 +22,8 @@ public class RetData {
         this.data = null;
     }
 
-
+    @Override
+    public String toString()  {
+        return Json.toJson(this).toString();
+    }
 }

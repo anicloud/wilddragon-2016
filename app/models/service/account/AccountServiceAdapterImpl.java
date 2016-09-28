@@ -289,7 +289,7 @@ public class AccountServiceAdapterImpl implements AccountServiceAdapter {
         AccountDto accountDto = accountServiceFacade.getByAccountId(accountId);
         if (groupDto != null && accountDto != null) {
             groupDto.accounts.add(accountDto);
-            accountDto.groupSet.add(groupDto);
+            //accountDto.groupSet.add(groupDto);
             accountServiceFacade.modify(accountDto);
             accountServiceFacade.addAccountGroup(accountId, groupId);
             groupJoinInvitationServiceFacade.removeGroup(accountId, groupId);

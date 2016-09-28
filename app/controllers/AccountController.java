@@ -103,7 +103,7 @@ public class AccountController extends JavaController {
             groupData.owner = accountServiceAdapter.findAccountById(getAccountId());
             groupData.type = AccountGroupType.CUSTOM;
             groupData = accountServiceAdapter.createAccountGroup(groupData);
-            notificationService.groupAddNotice(groupData);
+//            notificationService.groupAddNotice(groupData);
             retData = new RetData(true, "", groupData);
         } catch (Exception e) {
             retData = new RetData(false, ExceptionUtils.getStackTrace(e));
@@ -133,8 +133,11 @@ public class AccountController extends JavaController {
             ObjectMapper objectMapper = new ObjectMapper();
             AccountGroupInviteData inviteData = objectMapper.treeToValue(request().body().asJson(), AccountGroupInviteData.class);
             AccountData accountData = accountServiceAdapter.findAccountById(Long.valueOf(inviteData.accountId));
-            AccountGroupData groupData = accountServiceAdapter.inviteAccountGroup(Long.valueOf(accountData.accountId), Long.valueOf(inviteData.groupId));
-            notificationService.groupInviteNotice(groupData, accountData);
+            AccountGroupData groupData = null;
+            for(AccountData inviteAccountData : inviteData.accounts) {
+                groupData = accountServiceAdapter.inviteAccountGroup(Long.valueOf(inviteAccountData.accountId), Long.valueOf(inviteData.groupId));
+            }
+            notificationService.groupInviteNotice(groupData, accountData,inviteData);
             retData = new RetData(true, "", groupData);
         } catch (Exception e) {
             retData = new RetData(false, ExceptionUtils.getStackTrace(e));
@@ -147,11 +150,13 @@ public class AccountController extends JavaController {
         RetData retData = null;
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-            AccountGroupInviteData inviteData = objectMapper.treeToValue(request().body().asJson(), AccountGroupInviteData.class);
-            AccountGroupData groupData = accountServiceAdapter.joinAccountGroup(getAccountId(), Long.valueOf(inviteData.groupId));
-            AccountData accountData = accountServiceAdapter.findAccountById(getAccountId());
-            notificationService.groupJoinNotice(groupData, accountData);
-            retData = new RetData(true, "", groupData);
+            AccountGroupJoinData groupJoinData = objectMapper.treeToValue(request().body().asJson(), AccountGroupJoinData.class);
+            if(groupJoinData.result.equals("true")) {
+                AccountGroupData groupData = accountServiceAdapter.joinAccountGroup(getAccountId(), Long.valueOf(groupJoinData.groupId));
+                AccountData accountData = accountServiceAdapter.findAccountById(getAccountId());
+                notificationService.groupJoinNotice(groupData, accountData);
+                retData = new RetData(true, "", groupData);
+            }
         } catch (Exception e) {
             retData = new RetData(false, ExceptionUtils.getStackTrace(e));
         } finally {
@@ -180,9 +185,9 @@ public class AccountController extends JavaController {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             AccountGroupKickData groupKickData = objectMapper.treeToValue(request().body().asJson(), AccountGroupKickData.class);
-            AccountGroupData groupData = accountServiceAdapter.kickAccountGroup(getAccountId(), groupKickData);
-            AccountData accountData = accountServiceAdapter.findAccountById(getAccountId());
-            notificationService.groupQuitNotice(groupData, accountData);
+            AccountGroupData groupData = accountServiceAdapter.kickAccountGroup(Long.parseLong(groupKickData.accountId), groupKickData);
+            AccountData accountData = accountServiceAdapter.findAccountById(Long.parseLong(groupKickData.accountId));
+            notificationService.groupKickNotice(groupData, accountData);
             retData = new RetData(true, "", groupData);
         } catch (Exception e) {
             retData = new RetData(false, ExceptionUtils.getStackTrace(e));

@@ -1,3 +1,6 @@
+import com.ani.bus.service.commons.dto.aniservice.AniServiceDto;
+import com.ani.bus.service.core.application.dto.AniSerAccountObjDto;
+import com.ani.bus.service.core.interfaces.accountobj.AniSerAccountObjManager;
 import models.dto.account.AccountData;
 import models.dto.account.AccountGroupData;
 import models.dto.device.DeviceMasterData;
@@ -14,6 +17,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import play.libs.F.Callback;
 import play.libs.Json;
 import play.test.TestBrowser;
+
+import java.util.List;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static play.test.Helpers.*;
@@ -36,12 +41,15 @@ public class IntegrationTest {
         });
     }
 
-//    @Test
+    @Test
     public void accountTest(){
         _("\n\n------------------------AccountTest---------------------");
         AccountServiceAdapter accountServiceAdapter = context.getBean(AccountServiceAdapterImpl.class);
+        AniSerAccountObjManager aniSerAccountObjManager = context.getBean(AniSerAccountObjManager.class);
         AccountData accountData = accountServiceAdapter.findAccountById(accountId);
         _(accountData);
+
+        List<AniServiceDto> aniServiceDtos = aniSerAccountObjManager.getAniServiceByAccount(accountId);
 //        _("\nTest find:");
 //        _(accountServiceAdapter.findContacts(accountId));
 //        _(accountServiceAdapter.findAccountByEmail(accountData.email));

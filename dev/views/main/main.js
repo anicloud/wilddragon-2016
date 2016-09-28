@@ -24,8 +24,8 @@ angular.module('app.view.main', ['ui.router','angular-websocket'])
               groups: function (AccountServiceDist) {
                 return AccountServiceDist.getGroups();
               },
-              devices: function (DeviceServiceMock) {
-                return DeviceServiceMock.getDevices();
+              devices: function (DeviceService) {
+                return DeviceService.getDevices();
               },
               apps:function (AppService) {
                 return AppService.getApps();

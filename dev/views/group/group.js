@@ -203,7 +203,7 @@ angular.module('app.view.group', [
         $scope.group=$scope.$parent.group;
     $scope.submit = function () {
         console.log($scope.groupData);
-        AccountServiceDist.inviteAccount({accounts:$scope.groupData.accounts,group:$scope.group}).then(
+        AccountServiceDist.inviteAccount({accounts:$scope.groupData.accounts,groupId:$scope.group.groupId,accountId:$scope.account.accountId}).then(
             function (result) {
                 if (result.success && result.data !== null) {
                     alert('邀请发送成功：'+result.data.name);

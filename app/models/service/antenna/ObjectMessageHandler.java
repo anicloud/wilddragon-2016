@@ -66,9 +66,9 @@ public class ObjectMessageHandler implements ObjectMessageListener {
                 case DEVICE_UNSHARED:
                     onDeviceUnshare((DeviceUnshareMessage) message);
                     break;
-                case ACCOUNT_GROUP_ADDED:
-                    onAccountGroupAdd((AccountGroupAddMessage) message);
-                    break;
+//                case ACCOUNT_GROUP_ADDED:
+//                    onAccountGroupAdd((AccountGroupAddMessage) message);
+//                    break;
                 case ACCOUNT_GROUP_REMOVED:
                     onAccountGroupRemove((AccountGroupRemoveMessage) message);
                     break;
@@ -197,9 +197,9 @@ public class ObjectMessageHandler implements ObjectMessageListener {
         notificationService.deviceUnShareNotice(deviceMasterData, accountData, groupData);
     }
 
-    private void onAccountGroupAdd(AccountGroupAddMessage message) {
-        notificationService.groupAddNotice(accountServiceAdapter.findGroup(message.groupId));
-    }
+//    private void onAccountGroupAdd(AccountGroupAddMessage message) {
+//        notificationService.groupAddNotice(accountServiceAdapter.findGroup(message.groupId));
+//    }
 
     private void onAccountGroupRemove(AccountGroupRemoveMessage message) {
         notificationService.groupRemoveNotice(accountServiceAdapter.findGroup(message.groupId));
@@ -212,7 +212,7 @@ public class ObjectMessageHandler implements ObjectMessageListener {
     private void onAccountGroupInvite(AccountGroupInviteMessage message) {
         AccountGroupData accountGroupData = accountServiceAdapter.findGroup(message.groupId);
         AccountData accountData = accountServiceAdapter.findAccountById(message.accountId);
-        notificationService.groupInviteNotice(accountGroupData, accountData);
+        notificationService.groupInviteNotice(accountGroupData, accountData,null);
     }
 
     private void onAccountGroupJoin(AccountGroupJoinMessage message) {

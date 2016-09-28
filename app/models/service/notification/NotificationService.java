@@ -2,6 +2,7 @@ package models.service.notification;
 
 import models.dto.account.AccountData;
 import models.dto.account.AccountGroupData;
+import models.dto.account.AccountGroupInviteData;
 import models.dto.app.AppData;
 import models.dto.device.DeviceMasterData;
 import models.dto.notification.NotificationData;
@@ -18,10 +19,10 @@ public interface NotificationService {
     Set<NotificationData> getNotificationsByAccount(Long accountId);
 
     //Account
-    void groupAddNotice(AccountGroupData accountGroupData);
+//    void groupAddNotice(AccountGroupData accountGroupData);
     void groupRemoveNotice(AccountGroupData accountGroupData);
     void groupModifyNotice(AccountGroupData accountGroupData);
-    void groupInviteNotice(AccountGroupData accountGroupData, AccountData accountData);
+    void groupInviteNotice(AccountGroupData accountGroupData, AccountData accountData, AccountGroupInviteData accountGroupInviteData);
     void groupJoinNotice(AccountGroupData accountGroupData, AccountData accountData);
     void groupQuitNotice(AccountGroupData accountGroupData, AccountData accountData);
     void groupKickNotice(AccountGroupData accountGroupData, AccountData accountData);

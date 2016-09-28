@@ -28,7 +28,7 @@ angular.module('app.service.notification', [])
                           mainScope.groups.push(message.data.detail);
                       }else{
                           var account=message.data.detail;
-                          mainScope.groupMap[groupId].accounts.push(account);
+                          mainScope.groupMap[groupId].push(account);
                           mainScope.accountMap[fromId]=account;
                       }
                       notificationCol=new NotificationCollection(type,body,choice,fromId,description,fromName,groupId,groupName);

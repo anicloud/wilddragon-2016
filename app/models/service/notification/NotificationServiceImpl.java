@@ -1,8 +1,10 @@
 package models.service.notification;
 
 import models.domain.session.SessionManager;
+import models.dto.RetData;
 import models.dto.account.AccountData;
 import models.dto.account.AccountGroupData;
+import models.dto.account.AccountGroupInviteData;
 import models.dto.app.AppData;
 import models.dto.device.DeviceData;
 import models.dto.device.DeviceMasterData;
@@ -55,21 +57,19 @@ public class NotificationServiceImpl implements NotificationService {
         return null;
     }
 
-    @Override
-    public void groupAddNotice(AccountGroupData accountGroupData) {
-        MsgContentData msgContentData = new MsgContentData();
-        msgContentData.fromId = accountGroupData.owner.accountId;
-        msgContentData.fromName = accountGroupData.owner.name;
-        msgContentData.groupId = accountGroupData.groupId;
-        msgContentData.groupName = accountGroupData.name;
-        msgContentData.detail = accountGroupData;
-        NotificationData data = new NotificationData(NotificationData.Type.ACCOUNT_GROUP_ADD,"group add notice", msgContentData);
-        for(AccountData account : accountGroupData.accounts){
-            if(!account.accountId.equals(accountGroupData.owner.accountId)){
-                SessionManager.sessionSend(account.accountId, data);
-            }
-        }
-    }
+//    @Override
+//    public void groupAddNotice(AccountGroupData accountGroupData) {
+//        MsgContentData msgContentData = new MsgContentData();
+//        msgContentData.fromId = accountGroupData.owner.accountId;
+//        msgContentData.fromName = accountGroupData.owner.name;
+//        msgContentData.groupId = accountGroupData.groupId;
+//        msgContentData.groupName = accountGroupData.name;
+//        msgContentData.detail = accountGroupData;
+//        NotificationData data = new NotificationData(NotificationData.Type.ACCOUNT_GROUP_ADD,"group add notice", msgContentData);
+//        for(AccountData account : accountGroupData.accounts){
+//                SessionManager.sessionSend(account.accountId, new RetData(true,"",data));
+//        }
+//    }
 
     @Override
     public void groupRemoveNotice(AccountGroupData accountGroupData) {
@@ -81,9 +81,7 @@ public class NotificationServiceImpl implements NotificationService {
         msgContentData.detail = accountGroupData;
         NotificationData data = new NotificationData(NotificationData.Type.ACCOUNT_GROUP_REMOVE,"group remove notice", msgContentData);
         for(AccountData account : accountGroupData.accounts){
-            if(!account.accountId.equals(accountGroupData.owner.accountId)){
-                SessionManager.sessionSend(account.accountId, data);
-            }
+                SessionManager.sessionSend(account.accountId, new RetData(true,"",data));
         }
     }
 
@@ -93,16 +91,16 @@ public class NotificationServiceImpl implements NotificationService {
         msgContentData.fromName = accountGroupData.owner.name;
         msgContentData.groupId = accountGroupData.groupId;
         msgContentData.groupName = accountGroupData.name;
-        msgContentData.detail = accountGroupData.owner;
+        msgContentData.detail = accountGroupData;
         NotificationData data = new NotificationData(NotificationData.Type.ACCOUNT_GROUP_MODIFY,"group modify notice", msgContentData);
         for(AccountData account : accountGroupData.accounts){
             if(!account.accountId.equals(accountGroupData.owner.accountId)){
-                SessionManager.sessionSend(account.accountId, data);
+                SessionManager.sessionSend(account.accountId, new RetData(true,"",data));
             }
         }
     }
 
-    public void groupInviteNotice(AccountGroupData accountGroupData, AccountData accountData){
+    public void groupInviteNotice(AccountGroupData accountGroupData, AccountData accountData , AccountGroupInviteData accountGroupInviteData){
         MsgContentData msgContentData = new MsgContentData();
         msgContentData.fromId = accountGroupData.owner.accountId;
         msgContentData.fromName = accountGroupData.owner.name;
@@ -110,7 +108,9 @@ public class NotificationServiceImpl implements NotificationService {
         msgContentData.groupName = accountGroupData.name;
         msgContentData.detail = accountGroupData;
         NotificationData data = new NotificationData(NotificationData.Type.ACCOUNT_GROUP_INVITE,"group invite notice", msgContentData);
-        SessionManager.sessionSend(accountData.accountId, data);
+        for(AccountData inviteAccount:accountGroupInviteData.accounts) {
+            SessionManager.sessionSend(inviteAccount.accountId, new RetData(true, "", data));
+        }
     }
 
     public void groupJoinNotice(AccountGroupData accountGroupData, AccountData accountData){
@@ -122,8 +122,12 @@ public class NotificationServiceImpl implements NotificationService {
         msgContentData.detail = accountData;
         NotificationData data = new NotificationData(NotificationData.Type.ACCOUNT_GROUP_JOIN,"group join notice", msgContentData);
         for(AccountData account : accountGroupData.accounts){
-            SessionManager.sessionSend(account.accountId, data);
+            if(!account.accountId.equals(accountData.accountId)) {
+                SessionManager.sessionSend(account.accountId, new RetData(true, "", data));
+            }
         }
+        data.data.detail = accountGroupData;
+        SessionManager.sessionSend(accountData.accountId, new RetData(true,"",data));
     }
 
     public void groupQuitNotice(AccountGroupData accountGroupData, AccountData accountData){
@@ -133,9 +137,10 @@ public class NotificationServiceImpl implements NotificationService {
         msgContentData.groupId = accountGroupData.groupId;
         msgContentData.groupName = accountGroupData.name;
         msgContentData.detail = accountData;
+        accountGroupData.accounts.add(accountData);
         NotificationData data = new NotificationData(NotificationData.Type.ACCOUNT_GROUP_QUIT,"group quit notice", msgContentData);
         for(AccountData account : accountGroupData.accounts){
-            SessionManager.sessionSend(account.accountId, data);
+            SessionManager.sessionSend(account.accountId, new RetData(true,"",data));
         }
     }
 
@@ -146,11 +151,10 @@ public class NotificationServiceImpl implements NotificationService {
         msgContentData.groupId = accountGroupData.groupId;
         msgContentData.groupName = accountGroupData.name;
         msgContentData.detail = accountData;
+        accountGroupData.accounts.add(accountData);
         NotificationData data = new NotificationData(NotificationData.Type.ACCOUNT_GROUP_KICK,"group kick notice", msgContentData);
         for(AccountData account : accountGroupData.accounts){
-            if(!account.accountId.equals(accountGroupData.owner.accountId)){
-                SessionManager.sessionSend(account.accountId, data);
-            }
+            SessionManager.sessionSend(account.accountId, new RetData(true,"",data));
         }
     }
 
@@ -165,7 +169,7 @@ public class NotificationServiceImpl implements NotificationService {
         msgContentData.detail = deviceMasterData;
         NotificationData data = new NotificationData(NotificationData.Type.DEVICE_SHARE,"device share notice", msgContentData);
         for(AccountData account : accountGroupData.accounts){
-            SessionManager.sessionSend(account.accountId, data);
+            SessionManager.sessionSend(account.accountId, new RetData(true,"",data));
         }
     }
 
@@ -180,7 +184,7 @@ public class NotificationServiceImpl implements NotificationService {
         msgContentData.detail = deviceMasterData;
         NotificationData data = new NotificationData(NotificationData.Type.DEVICE_UNSHARE,"device un_share notice", msgContentData);
         for(AccountData account : accountGroupData.accounts){
-            SessionManager.sessionSend(account.accountId, data);
+            SessionManager.sessionSend(account.accountId, new RetData(true,"",data));
         }
     }
 
@@ -193,7 +197,7 @@ public class NotificationServiceImpl implements NotificationService {
         msgContentData.detail = deviceMasterData;
         NotificationData data = new NotificationData(NotificationData.Type.DEVICE_CONNECT,"device connect notice", msgContentData);
         for(AccountData account:accountDatas){
-            SessionManager.sessionSend(account.accountId, data);
+            SessionManager.sessionSend(account.accountId, new RetData(true,"",data));
         }
     }
 
@@ -206,7 +210,7 @@ public class NotificationServiceImpl implements NotificationService {
         msgContentData.detail = deviceMasterData;
         NotificationData data = new NotificationData(NotificationData.Type.DEVICE_DISCONNECT,"device disconnect notice", msgContentData);
         for(AccountData account:accountDatas){
-            SessionManager.sessionSend(account.accountId, data);
+            SessionManager.sessionSend(account.accountId, new RetData(true,"",data));
         }
     }
 
@@ -219,7 +223,7 @@ public class NotificationServiceImpl implements NotificationService {
         msgContentData.detail = deviceMasterData;
         NotificationData data = new NotificationData(NotificationData.Type.DEVICE_MODIFY,"device modify notice", msgContentData);
         for(AccountData account:accountDatas){
-            SessionManager.sessionSend(account.accountId, data);
+            SessionManager.sessionSend(account.accountId, new RetData(true,"",data));
         }
     }
 
@@ -231,7 +235,7 @@ public class NotificationServiceImpl implements NotificationService {
         msgContentData.deviceName = deviceMasterData.name;
         msgContentData.detail = deviceMasterData;
         NotificationData data = new NotificationData(NotificationData.Type.DEVICE_BIND,"device bind notice", msgContentData);
-        SessionManager.sessionSend(deviceMasterData.owner, data);
+        SessionManager.sessionSend(deviceMasterData.owner, new RetData(true,"",data));
     }
 
     public void deviceUnbindNotice(DeviceMasterData deviceMasterDataData, AccountData accountData) {
@@ -242,7 +246,7 @@ public class NotificationServiceImpl implements NotificationService {
         msgContentData.deviceName = deviceMasterDataData.name;
         msgContentData.detail = deviceMasterDataData;
         NotificationData data = new NotificationData(NotificationData.Type.DEVICE_UNBIND,"device un_bind notice", msgContentData);
-        SessionManager.sessionSend(deviceMasterDataData.owner, data);
+        SessionManager.sessionSend(deviceMasterDataData.owner, new RetData(true,"",data));
     }
 
     public void appBindNotice(AppData appData){
@@ -251,7 +255,7 @@ public class NotificationServiceImpl implements NotificationService {
         msgContentData.fromName = appData.serviceName;
         msgContentData.detail = appData;
         NotificationData data = new NotificationData(NotificationData.Type.APP_BIND,"app bind notice", msgContentData);
-        SessionManager.sessionSend(appData.accountId, data);
+        SessionManager.sessionSend(appData.accountId, new RetData(true,"",data));
     }
 
     public void appUnBindNotice(AppData appData){
@@ -260,7 +264,7 @@ public class NotificationServiceImpl implements NotificationService {
         msgContentData.fromName = appData.serviceName;
         msgContentData.detail = appData;
         NotificationData data = new NotificationData(NotificationData.Type.APP_UNBIND,"app un_bind notice", msgContentData);
-        SessionManager.sessionSend(appData.accountId, data);
+        SessionManager.sessionSend(appData.accountId, new RetData(true,"",data));
     }
 
     public void appInstallNotice(AppData appData){
@@ -269,7 +273,7 @@ public class NotificationServiceImpl implements NotificationService {
         msgContentData.fromName = appData.serviceName;
         msgContentData.detail = appData;
         NotificationData data = new NotificationData(NotificationData.Type.APP_INSTALL,"app install notice", msgContentData);
-        SessionManager.sessionSend(appData.accountId, data);
+        SessionManager.sessionSend(appData.accountId, new RetData(true,"",data));
     }
 
     public void appUninstallNotice(AppData appData){
@@ -278,7 +282,7 @@ public class NotificationServiceImpl implements NotificationService {
         msgContentData.fromName = appData.serviceName;
         msgContentData.detail = appData;
         NotificationData data = new NotificationData(NotificationData.Type.APP_UNINSTALL,"app un_install notice", msgContentData);
-        SessionManager.sessionSend(appData.accountId, data);
+        SessionManager.sessionSend(appData.accountId, new RetData(true,"",data));
     }
 
     public void appStartNotice(AppData appData){
@@ -287,7 +291,7 @@ public class NotificationServiceImpl implements NotificationService {
         msgContentData.fromName = appData.serviceName;
         msgContentData.detail = appData;
         NotificationData data = new NotificationData(NotificationData.Type.APP_START,"app start notice", msgContentData);
-        SessionManager.sessionSend(appData.accountId, data);
+        SessionManager.sessionSend(appData.accountId, new RetData(true,"",data));
     }
     public void appStopNotice(AppData appData){
         MsgContentData msgContentData = new MsgContentData();
@@ -295,6 +299,6 @@ public class NotificationServiceImpl implements NotificationService {
         msgContentData.fromName = appData.serviceName;
         msgContentData.detail = appData;
         NotificationData data = new NotificationData(NotificationData.Type.APP_STOP,"app stop notice", msgContentData);
-        SessionManager.sessionSend(appData.accountId, data);
+        SessionManager.sessionSend(appData.accountId, new RetData(true,"",data));
     }
 }

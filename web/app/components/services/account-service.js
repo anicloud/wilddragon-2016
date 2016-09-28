@@ -72,7 +72,7 @@ angular.module('app.service.account', [])
       inviteResult:function (data) { //accept or refuse invite
         return $http({
           method: 'POST',
-          url: urlIp+'/group/invite',
+          url: urlIp+'/group/join',
           data: data
         }).then(function (response) {
           console.log(response);

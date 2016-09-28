@@ -57,7 +57,7 @@ angular.module('app.service.device', [])
       modifyDevice:function (data) {
         console.log('modify device: ', data);
         return $http({
-          method: 'PUT',
+          method: 'POST',
           url: 'device/modify',
           data: data
         }).then(function (response) {
