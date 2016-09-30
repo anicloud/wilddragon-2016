@@ -167,6 +167,7 @@ angular.module('app.view.device.detail.info', [
     $scope.gid = $scope.device.deviceId;
     $scope.sid = $scope.device.physicalId;
     $scope.mac = $scope.device.physicalAddress;
+    $scope.ownerId=$scope.device.owner;
     $scope.state = $scope.deviceStateFilter($scope.device.state);
     $scope.modifyDevice=function (key,value){
       var device=$scope.deviceMap[$scope.gid];

@@ -12,7 +12,7 @@
         <button class="btn btn-default" data-ng-click="cancel()">
           返回
         </button>
-        <button class="btn btn-default" data-ng-click="modifyDevice('description',description)">
+        <button data-ng-disabled="account.accountId!==ownerId" class="btn btn-default" data-ng-click="modifyDevice('description',description)">
           修改
         </button>
       </div>

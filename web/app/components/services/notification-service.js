@@ -107,11 +107,11 @@ angular.module('app.service.notification', [])
               case 'DEVICE_SHARE':
                   (function (message) { //be invieted to Group
                       var groupId=message.data.groupId,groupName=message.data.groupName,fromId=message.data.fromId,fromName=message.data.fromName;
-                      var body=mainScope.accountMap[message.data.detail.owner].name+" has shared the device "+fromName+"for the Group "+groupName;
+                      var body=mainScope.accountMap[message.data.detail.owner].name+" has shared the device "+message.data.deviceName+" to the Group "+groupName;
                       var choice=[],type=message.type;
                       var description='设备共享通知';
                       notificationCol=new NotificationCollection(type,body,choice,fromId,description,fromName,groupId,groupName);
-                      if(!mainScope.deviceMap[fromId]){
+                      if(!mainScope.deviceMap[message.data.detail.deviceId]){
                           mainScope.devices.push(message.data.detail);
                       }
                       mainScope.deviceMap[fromId]=message.data.detail;
@@ -119,8 +119,8 @@ angular.module('app.service.notification', [])
                   break;
               case 'DEVICE_UNSHARE':
                   (function (message) { //be invieted to Group
-                      var groupId=message.data.groupId,groupName=message.data.groupName,fromId=message.fromId,fromName=message.fromName;
-                      var body=mainScope.accountMap[mainScope.deviceMap[fromId].owner].name+" has cancel sharing the device "+fromName+"for the Group "+groupName;
+                      var groupId=message.data.groupId,groupName=message.data.groupName,fromId=message.data.fromId,fromName=message.data.fromName;
+                      var body=mainScope.accountMap[mainScope.deviceMap[fromId].owner].name+" has canceled sharing the device "+message.data.deviceName+" to the Group "+groupName;
                       var choice=[],type=message.type;
                       var description="设备取消共享通知";
                       notificationCol=new NotificationCollection(type,body,choice,fromId,description,fromName,groupId,groupName);
@@ -136,11 +136,11 @@ angular.module('app.service.notification', [])
                               sharedFlag=true;
                           }
                       });
-                      if(!sharedFlag){
-                          delete mainScope.deviceMap[fromId];
-                          var index=queryObjectByPropertyValue(mainScope.devices,'deviceId',fromId)[0];
+                      if(!sharedFlag&&fromId!==mainScope.account.accountId){
+                          delete mainScope.deviceMap[message.data.detail.deviceId];
+                          var index=queryObjectByPropertyValue(mainScope.devices,'deviceId',message.data.detail.deviceId)[0];
+                          mainScope.devices.splice(index,1);
                       }
-                      mainScope.devices.splice(index,1);
                   })(message);
                   break;
               case 'DEVICE_CONNECT':

@@ -211,8 +211,8 @@ public class ObjectMessageHandler implements ObjectMessageListener {
 
     private void onAccountGroupInvite(AccountGroupInviteMessage message) {
         AccountGroupData accountGroupData = accountServiceAdapter.findGroup(message.groupId);
-        AccountData accountData = accountServiceAdapter.findAccountById(message.accountId);
-        notificationService.groupInviteNotice(accountGroupData, accountData,null);
+//        AccountData accountData = accountServiceAdapter.findAccountById(message.accountId);
+        notificationService.groupInviteNotice(accountGroupData,null);
     }
 
     private void onAccountGroupJoin(AccountGroupJoinMessage message) {
@@ -234,11 +234,15 @@ public class ObjectMessageHandler implements ObjectMessageListener {
     }
 
     private void onAppBind(AppBindMessage message){
-        notificationService.appBindNotice(appServiceAdapter.findApp(message.appId, message.accountId));
+        AppData  appData= appServiceAdapter.findApp(message.appId, message.accountId);
+        AccountData accountData = accountServiceAdapter.findAccountById(message.accountId);
+        notificationService.appBindNotice(appData,accountData);
     }
 
     private void onAppUnbind(AppUnbindMessage message){
-        notificationService.appUnBindNotice(appServiceAdapter.findApp(message.appId, message.accountId));
+        AppData  appData= appServiceAdapter.findApp(message.appId, message.accountId);
+        AccountData accountData = accountServiceAdapter.findAccountById(message.accountId);
+        notificationService.appUnBindNotice(appData,accountData);
     }
 
     private void onAppInstall(AppInstallMessage message){

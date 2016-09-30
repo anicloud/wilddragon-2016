@@ -100,7 +100,7 @@ public class NotificationServiceImpl implements NotificationService {
         }
     }
 
-    public void groupInviteNotice(AccountGroupData accountGroupData, AccountData accountData , AccountGroupInviteData accountGroupInviteData){
+    public void groupInviteNotice(AccountGroupData accountGroupData, AccountGroupInviteData accountGroupInviteData){
         MsgContentData msgContentData = new MsgContentData();
         msgContentData.fromId = accountGroupData.owner.accountId;
         msgContentData.fromName = accountGroupData.owner.name;
@@ -235,7 +235,7 @@ public class NotificationServiceImpl implements NotificationService {
         msgContentData.deviceName = deviceMasterData.name;
         msgContentData.detail = deviceMasterData;
         NotificationData data = new NotificationData(NotificationData.Type.DEVICE_BIND,"device bind notice", msgContentData);
-        SessionManager.sessionSend(deviceMasterData.owner, new RetData(true,"",data));
+        SessionManager.sessionSend(accountData.accountId, new RetData(true,"",data));
     }
 
     public void deviceUnbindNotice(DeviceMasterData deviceMasterDataData, AccountData accountData) {
@@ -246,25 +246,25 @@ public class NotificationServiceImpl implements NotificationService {
         msgContentData.deviceName = deviceMasterDataData.name;
         msgContentData.detail = deviceMasterDataData;
         NotificationData data = new NotificationData(NotificationData.Type.DEVICE_UNBIND,"device un_bind notice", msgContentData);
-        SessionManager.sessionSend(deviceMasterDataData.owner, new RetData(true,"",data));
+        SessionManager.sessionSend(accountData.accountId, new RetData(true,"",data));
     }
 
-    public void appBindNotice(AppData appData){
+    public void appBindNotice(AppData appData , AccountData accountData){
         MsgContentData msgContentData = new MsgContentData();
         msgContentData.fromId = appData.id;
         msgContentData.fromName = appData.serviceName;
         msgContentData.detail = appData;
         NotificationData data = new NotificationData(NotificationData.Type.APP_BIND,"app bind notice", msgContentData);
-        SessionManager.sessionSend(appData.accountId, new RetData(true,"",data));
+        SessionManager.sessionSend(accountData.accountId, new RetData(true,"",data));
     }
 
-    public void appUnBindNotice(AppData appData){
+    public void appUnBindNotice(AppData appData,AccountData accountData){
         MsgContentData msgContentData = new MsgContentData();
         msgContentData.fromId = appData.id;
         msgContentData.fromName = appData.serviceName;
         msgContentData.detail = appData;
         NotificationData data = new NotificationData(NotificationData.Type.APP_UNBIND,"app un_bind notice", msgContentData);
-        SessionManager.sessionSend(appData.accountId, new RetData(true,"",data));
+        SessionManager.sessionSend(accountData.accountId, new RetData(true,"",data));
     }
 
     public void appInstallNotice(AppData appData){

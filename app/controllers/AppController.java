@@ -2,7 +2,9 @@ package controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import models.dto.RetData;
+import models.dto.account.AccountData;
 import models.dto.app.AppData;
+import models.service.account.AccountServiceAdapter;
 import models.service.app.AppServiceAdapter;
 import models.service.notification.NotificationService;
 import org.apache.commons.lang.exception.ExceptionUtils;
@@ -29,6 +31,9 @@ public class AppController extends JavaController {
     @Resource
     private NotificationService notificationService;
 
+    @Resource
+    private AccountServiceAdapter accountServiceAdapter;
+
 
     public Long getAccountId(){
         final CommonProfile profile = getUserProfile();
@@ -53,8 +58,9 @@ public class AppController extends JavaController {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             AppData appData = objectMapper.treeToValue(request().body().asJson(), AppData.class);
+            AccountData accountData = accountServiceAdapter.findAccountById(getAccountId());
             appData = appServiceAdapter.bindApp(appData);
-            notificationService.appBindNotice(appData);
+            notificationService.appBindNotice(appData,accountData);
             retData = new RetData(true, "", appData);
         } catch (Exception e) {
             retData = new RetData(false, ExceptionUtils.getStackTrace(e));
@@ -68,8 +74,9 @@ public class AppController extends JavaController {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             AppData appData = objectMapper.treeToValue(request().body().asJson(), AppData.class);
+            AccountData accountData = accountServiceAdapter.findAccountById(getAccountId());
             appData = appServiceAdapter.unbindApp(appData);
-            notificationService.appUnBindNotice(appData);
+            notificationService.appUnBindNotice(appData,accountData);
             retData = new RetData(true, "", appData);
         } catch (Exception e) {
             retData = new RetData(false, ExceptionUtils.getStackTrace(e));

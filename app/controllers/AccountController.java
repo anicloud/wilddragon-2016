@@ -102,8 +102,12 @@ public class AccountController extends JavaController {
             AccountGroupData groupData = objectMapper.treeToValue(request().body().asJson(), AccountGroupData.class);
             groupData.owner = accountServiceAdapter.findAccountById(getAccountId());
             groupData.type = AccountGroupType.CUSTOM;
+            AccountGroupInviteData groupInviteData = new AccountGroupInviteData();
+            groupInviteData.accountId = groupData.owner.accountId;
+            groupInviteData.groupId = groupData.groupId;
+            groupInviteData.accounts = groupData.accounts;
             groupData = accountServiceAdapter.createAccountGroup(groupData);
-//            notificationService.groupAddNotice(groupData);
+            notificationService.groupInviteNotice(groupData,groupInviteData);
             retData = new RetData(true, "", groupData);
         } catch (Exception e) {
             retData = new RetData(false, ExceptionUtils.getStackTrace(e));
@@ -137,7 +141,7 @@ public class AccountController extends JavaController {
             for(AccountData inviteAccountData : inviteData.accounts) {
                 groupData = accountServiceAdapter.inviteAccountGroup(Long.valueOf(inviteAccountData.accountId), Long.valueOf(inviteData.groupId));
             }
-            notificationService.groupInviteNotice(groupData, accountData,inviteData);
+            notificationService.groupInviteNotice(groupData,inviteData);
             retData = new RetData(true, "", groupData);
         } catch (Exception e) {
             retData = new RetData(false, ExceptionUtils.getStackTrace(e));
@@ -208,6 +212,20 @@ public class AccountController extends JavaController {
         } catch (Exception e) {
             retData = new RetData(false, ExceptionUtils.getStackTrace(e));
         } finally {
+            return ok(Json.toJson(retData));
+        }
+    }
+
+    public Result getAllGroupInvitations(){
+        RetData retData = null;
+        try{
+            ObjectMapper objectMapper =new ObjectMapper();
+            AccountData accountData = objectMapper.treeToValue(request().body().asJson(),AccountData.class);
+            Set<AccountGroupData> accountGroupDatas = accountServiceAdapter.getAllInvitationGroup(Long.parseLong(accountData.accountId));
+            retData = new RetData(true, "", accountGroupDatas);
+        }catch(Exception e){
+            retData = new RetData(false, ExceptionUtils.getStackTrace(e));
+        } finally{
             return ok(Json.toJson(retData));
         }
     }

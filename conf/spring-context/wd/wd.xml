@@ -2,6 +2,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jms="http://www.springframework.org/schema/jms"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context
@@ -52,7 +53,7 @@
     <!-- app service -->
     <bean id="aniSerAccountObjManager" class="org.springframework.jms.remoting.JmsInvokerProxyFactoryBean">
         <property name="connectionFactory" ref="connectionFactory"/>
-            <property name="queueName" value="${jms.queue.service.bus}.AniServiceManager"/>
+            <property name="queueName" value="${jms.queue.service.bus}.AniSerAccountObjManager"/>
         <property name="serviceInterface" value="com.ani.bus.service.core.interfaces.accountobj.AniSerAccountObjManager"/>
     </bean>
     <!--<bean id="appClientService" class="org.springframework.jms.remoting.JmsInvokerProxyFactoryBean">-->

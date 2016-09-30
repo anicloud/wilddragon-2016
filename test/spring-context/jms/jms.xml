@@ -27,4 +27,20 @@
         <!--<property name="exceptionListener" ref="jmsExceptionListener"/>-->
     </bean>
 
+   <amq:connectionFactory id="objectTargetConnectionFactory" brokerURL="tcp://${jms.broker.url.object}:${jms.broker.port}" clientID="${jms.clientId}1"/>
+
+    <bean id="objectConnectionFactory"
+          class="org.springframework.jms.connection.CachingConnectionFactory">
+        <property name="targetConnectionFactory" ref="objectTargetConnectionFactory"/>
+        <property name="sessionCacheSize" value="50"/>
+    </bean>
+
+    <amq:connectionFactory id="serviceTargetConnectionFactory" brokerURL="tcp://${jms.broker.url.object}:${jms.broker.port}" clientID="${jms.clientId}2"/>
+
+    <bean id="serviceBusConnectionFactory"
+          class="org.springframework.jms.connection.CachingConnectionFactory">
+        <property name="targetConnectionFactory" ref="serviceTargetConnectionFactory"/>
+        <property name="sessionCacheSize" value="50"/>
+    </bean>
+
 </beans>

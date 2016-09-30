@@ -46,8 +46,8 @@ var queryObjectByPropertyValue=function (body,property,value) {
 //@import Array=>existData      Array/Object=>DataCollection
 var dataFilter=function (exsitArray,Data) {
   var filterArray=[];
-  var exsitFlag=false;
   for(var i=0;i<Data.length;i++){
+    var exsitFlag=false;
     var cur=Data[i].accountId;
     for(var j=0;j<exsitArray.length;j++){
       if(cur===exsitArray[j]) {exsitFlag=true; break;}

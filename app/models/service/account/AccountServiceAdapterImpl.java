@@ -158,11 +158,10 @@ public class AccountServiceAdapterImpl implements AccountServiceAdapter {
         if(accountDtos == null){
             accountDtos = new HashSet<>();
         }
-        accountDtos.add(groupDto.owner);
         groupDto.accounts = null;
         groupDto = accountGroupServiceFacade.save(groupDto);
+        accountServiceFacade.addAccountGroup(groupDto.owner.accountId, groupDto.groupId);
         for (AccountDto accountDto : accountDtos) {
-            accountServiceFacade.addAccountGroup(accountDto.accountId, groupDto.groupId);
             if(!accountDto.accountId.equals(groupDto.owner)){
                 groupJoinInvitationServiceFacade.addGroup(accountDto.accountId, groupDto.groupId);
             }
@@ -269,6 +268,15 @@ public class AccountServiceAdapterImpl implements AccountServiceAdapter {
     @Override
     public void logoutAccountById(Long accountId) {
 
+    }
+
+    @Override
+    public Set<AccountGroupData> getAllInvitationGroup(Long accountId) {
+        if (accountId ==null){
+            return null;
+        }
+        Set<AccountGroupDto> groupDtos = groupJoinInvitationServiceFacade.getAllInvitedGroups(accountId);
+        return AccountDataUtils.fromAccountGroupDtos(groupDtos);
     }
 
     @Override

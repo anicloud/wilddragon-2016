@@ -44,6 +44,7 @@ public interface AccountServiceAdapter {
     void logoutAccountById(Long accountId);
 
     // invite, quit
+    Set<AccountGroupData> getAllInvitationGroup(Long accountId);
     AccountGroupData inviteAccountGroup(Long accountId, Long groupId);
     AccountGroupData joinAccountGroup(Long accountId, Long groupId);
     AccountGroupData quitAccountGroup(Long accountId, Long groupId);

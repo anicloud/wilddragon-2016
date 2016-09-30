@@ -22,7 +22,7 @@ public interface NotificationService {
 //    void groupAddNotice(AccountGroupData accountGroupData);
     void groupRemoveNotice(AccountGroupData accountGroupData);
     void groupModifyNotice(AccountGroupData accountGroupData);
-    void groupInviteNotice(AccountGroupData accountGroupData, AccountData accountData, AccountGroupInviteData accountGroupInviteData);
+    void groupInviteNotice(AccountGroupData accountGroupData, AccountGroupInviteData accountGroupInviteData);
     void groupJoinNotice(AccountGroupData accountGroupData, AccountData accountData);
     void groupQuitNotice(AccountGroupData accountGroupData, AccountData accountData);
     void groupKickNotice(AccountGroupData accountGroupData, AccountData accountData);
@@ -37,8 +37,8 @@ public interface NotificationService {
     void deviceUnbindNotice(DeviceMasterData deviceMasterDataData, AccountData accountData);
 
     //App
-    void appBindNotice(AppData appData);
-    void appUnBindNotice(AppData appData);
+    void appBindNotice(AppData appData,AccountData accountData);
+    void appUnBindNotice(AppData appData,AccountData accountData);
     void appInstallNotice(AppData appData);
     void appUninstallNotice(AppData appData);
     void appStartNotice(AppData appData);
