@@ -68,17 +68,17 @@ gulp.task('scripts', function () {
 
 gulp.task('copy', function () {
   gulp.src(paths.views.files)
-    // .pipe($.rev())
-    // .pipe($.revReplace())
-    .pipe(gulp.dest(app.dev));
+      // .pipe($.rev())
+      // .pipe($.revReplace())
+      .pipe(gulp.dest(app.dev));
   gulp.src(paths.images)
-    // .pipe($.rev())
-    // .pipe($.revReplace())
-    .pipe(gulp.dest(app.dev));
+      // .pipe($.rev())
+      // .pipe($.revReplace())
+      .pipe(gulp.dest(app.dev));
   gulp.src(paths.fonts)
-    // .pipe($.rev())
-    // .pipe($.revReplace())
-    .pipe(gulp.dest(app.dev));
+      // .pipe($.rev())
+      // .pipe($.revReplace())
+      .pipe(gulp.dest(app.dev));
 });
 
 gulp.task('inject', function () {
@@ -90,7 +90,7 @@ gulp.task('inject', function () {
     app.dev + '/**/*.js',
     '!' + app.dev + '/**/*test.js'
   ]).pipe($.angularFilesort()
-    .on('error', $.util.log));
+      .on('error', $.util.log));
 
   var injectOptions = {
     ignorePath: app.dev
@@ -102,10 +102,10 @@ gulp.task('inject', function () {
   };
 
   return gulp.src(paths.views.main)
-    .pipe($.inject(injectStyles, injectOptions))
-    .pipe($.inject(injectScripts, injectOptions))
-    .pipe(wiredep(wiredepOptions))
-    .pipe(gulp.dest(app.dev));
+      .pipe($.inject(injectStyles, injectOptions))
+      .pipe($.inject(injectScripts, injectOptions))
+      .pipe(wiredep(wiredepOptions))
+      .pipe(gulp.dest(app.dev));
 });
 
 //////////////////////
@@ -114,57 +114,57 @@ gulp.task('inject', function () {
 
 gulp.task('copy:prod', function () {
   gulp.src(paths.views.files)
-    .pipe(gulp.dest(app.dist));
+      .pipe(gulp.dest(app.dist));
   gulp.src(paths.images)
-    .pipe($.cache($.imagemin({
-      optimizationLevel: 5,
-      progressive: true,
-      interlaced: true
-    })))
-    .pipe(gulp.dest(app.dist));
+      .pipe($.cache($.imagemin({
+        optimizationLevel: 5,
+        progressive: true,
+        interlaced: true
+      })))
+      .pipe(gulp.dest(app.dist));
   gulp.src(paths.fonts)
-    .pipe(gulp.dest(app.dist));
+      .pipe(gulp.dest(app.dist));
 });
 
 gulp.task('minimize', function () {
   var jsFilter = $.filter('**/*.js');
   var cssFilter = $.filter('**/*.css');
   return gulp.src(app.dev + '/index.html')
-    .pipe($.useref({searchPath: [app.dev, app.src]}))
-    .pipe(jsFilter)
-    .pipe($.ngAnnotate())
-    .pipe($.uglify())
-    .pipe(jsFilter.restore())
-    .pipe(cssFilter)
-    .pipe($.minifyCss({cache: true}))
-    .pipe(cssFilter.restore())
-    // .pipe($.rev())
-    // .pipe($.revReplace())
-    .pipe(gulp.dest(app.dist));
+      .pipe($.useref({searchPath: [app.dev, app.src]}))
+      .pipe(jsFilter)
+      .pipe($.ngAnnotate())
+      .pipe($.uglify())
+      .pipe(jsFilter.restore())
+      .pipe(cssFilter)
+      .pipe($.minifyCss({cache: true}))
+      .pipe(cssFilter.restore())
+      // .pipe($.rev())
+      // .pipe($.revReplace())
+      .pipe(gulp.dest(app.dist));
 });
 
 gulp.task('watch', function () {
   $.watch(paths.styles)
-    .pipe($.plumber())
-    .pipe($.less())
-    .pipe($.autoprefixer('>1%'))
-    .pipe(gulp.dest(app.dev))
-         .pipe(gulp.dest(app.dist)) //add
-    .pipe($.connect.reload());
+      .pipe($.plumber())
+      .pipe($.less())
+      .pipe($.autoprefixer('>1%'))
+      .pipe(gulp.dest(app.dev))
+      .pipe(gulp.dest(app.dist)) //add
+      .pipe($.connect.reload());
 
   $.watch(paths.scripts)
-    .pipe($.plumber())
-    .pipe($.jshint('.jshintrc'))
-    .pipe($.jshint.reporter('jshint-stylish'))
-    .pipe(gulp.dest(app.dev))
+      .pipe($.plumber())
+      .pipe($.jshint('.jshintrc'))
+      .pipe($.jshint.reporter('jshint-stylish'))
+      .pipe(gulp.dest(app.dev))
       .pipe(gulp.dest(app.dist)) //add
-    .pipe($.connect.reload());
+      .pipe($.connect.reload());
 
   $.watch(paths.views.files)
-    .pipe($.plumber())
-    .pipe(gulp.dest(app.dev))
+      .pipe($.plumber())
+      .pipe(gulp.dest(app.dev))
       .pipe(gulp.dest(app.dist)) //add
-    .pipe($.connect.reload());
+      .pipe($.connect.reload());
 
   gulp.watch(paths.views.main, ['inject']);
   gulp.watch('bower.json', ['inject']);
@@ -194,50 +194,52 @@ gulp.task('link:prod', $.shell.task([
 
 gulp.task('serve', function (cb) {
   runSequence(
-    'build',
-    'start:server',
-    'start:client',
-    'watch',
-    cb);
+      'build',
+      'start:server',
+      'start:client',
+      'watch',
+      cb);
 });
-gulp.task('serve:node',function (cb) {
+
+gulp.task('serve:node',function(cb){
   runSequence(
       'build',
-      'watch'
-  )
+      'watch',
+      cb);
 });
+
 gulp.task('serve:prod', function (cb) {
   runSequence(
-    'build:prod',
-    // 'start:server:prod',
-    // 'start:client'
-      'watch',
-    cb);
+      'build:prod',
+      // 'start:server:prod',
+      // 'start:client',
+
+      cb);
 });
 
 gulp.task('build', function (cb) {
   runSequence(
-    'clean',
-    [
-      'copy',
-      'styles',
-      'scripts'
-    ],
-    'inject',
-    'link',
-    cb);
+      'clean',
+      [
+        'copy',
+        'styles',
+        'scripts'
+      ],
+      'inject',
+      'link',
+      cb);
 });
 
 gulp.task('build:prod', function (cb) {
   runSequence(
-    'build',
-    'clean:prod',
-    [
-      'copy:prod',
-      'minimize'
-    ],
-    'link:prod',
-    cb);
+      'build',
+      'clean:prod',
+      [
+        'copy:prod',
+        'minimize'
+      ],
+      'link:prod',
+      cb);
 });
 
 gulp.task('start:client', function () {
@@ -260,4 +262,5 @@ gulp.task('start:server:prod', function () {
     port: 8000
   });
 });
-gulp.task('default', ['serve:prod']);
+
+gulp.task('default', ['serve:node']);

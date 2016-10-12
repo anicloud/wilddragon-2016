@@ -27,8 +27,8 @@ angular.module('app.view.main', ['ui.router','angular-websocket'])
               devices: function (DeviceService) {
                 return DeviceService.getDevices();
               },
-              apps:function (AppService) {
-                return AppService.getApps();
+              apps:function (AppServiceDist) {
+                return AppServiceDist.getApps();
               }
             },                                                                                   
             controller: function ($rootScope, $scope, $window, $timeout, $state,account,groups,devices,contacts,

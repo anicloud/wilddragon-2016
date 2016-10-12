@@ -33,9 +33,9 @@
               </a>
             </div>
             <div ng-show="accountMap[device.owner].accountId===account.accountId" class="subtitle">
-              共享来自{{accountMap[device.owner].name}}
+              {{accountMap[device.owner].name}}的设备
             </div>
-            <div ng-show="accountMap[device.owner].accountId===account.accountId" class="subtitle">
+            <div ng-show="accountMap[device.owner].accountId!==account.accountId" class="subtitle">
               共享来自{{accountMap[device.owner].name}}
             </div>
           </div>
@@ -54,7 +54,7 @@
                     <i class="fa fa-share-alt"></i>&nbsp;&nbsp;共享管理
                   </a>
                   <!--<a href data-ng-show="device.owner==account.accountId">-->
-                    <!--<i class="fa fa-unlock"></i>&nbsp;&nbsp;解除绑定-->
+                  <!--<i class="fa fa-unlock"></i>&nbsp;&nbsp;解除绑定-->
                   <!--</a>-->
                 </li>
               </ul>

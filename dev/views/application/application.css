@@ -1,12 +1,12 @@
 .app-wrapper {
   position: relative;
   overflow: hidden;
-  padding: 10px 20px;
+  padding: 10px 30px;
 }
 .app-wrapper .app-card {
   position: relative;
   display: inline-block;
-  margin: 10px 4px;
+  margin: 10px 15px;
   width: 70px;
 }
 .app-wrapper .app-card .card-image {
@@ -46,7 +46,7 @@
   line-height: 20px;
   text-align: center;
   white-space: nowrap;
-  overflow: hidden;
   text-overflow: ellipsis;
   cursor: pointer;
+  overflow: hidden;
 }
