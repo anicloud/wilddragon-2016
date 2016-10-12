@@ -160,7 +160,7 @@ angular.module('app.view.group', [
                         //     });
                         // }, 0);
                         $timeout(function () {
-                            var newGroupData=$scope.groupData;
+                            var newGroupData=result.data;
                             console.log('groupData',newGroupData);
                             newGroupData.accounts=[$scope.account];
                             $scope.groups.push(newGroupData);

@@ -16,3 +16,4 @@ server.pid
 .settings
 public
 public.bak
+/web/gulpfile.js

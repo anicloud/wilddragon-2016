@@ -23,12 +23,13 @@ angular.module('app.service.notification', [])
                       var body=fromName+" has join the group "+groupName;
                       var choice=[],type=message.type;
                       var description="新人入群通知";
+                      console.log(groupId,mainScope.groupMap,mainScope.groups,message.data.detail);
                       if(fromId==mainScope.account.accountId){
                           mainScope.groupMap[groupId]=message.data.detail;
                           mainScope.groups.push(message.data.detail);
                       }else{
                           var account=message.data.detail;
-                          mainScope.groupMap[groupId].push(account);
+                          mainScope.groupMap[groupId].accounts.push(account);
                           mainScope.accountMap[fromId]=account;
                       }
                       notificationCol=new NotificationCollection(type,body,choice,fromId,description,fromName,groupId,groupName);
