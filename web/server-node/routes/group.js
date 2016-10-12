@@ -3,6 +3,7 @@
  */
 var express=require('express');
 var data=require('./accountData');
+var notificationData=require('../socketData');
 var router = express.Router();
 router.get('/all', function (req, res, next) {
     res.send(data().getGroups());
@@ -23,6 +24,9 @@ router.post('/quit',function (req,res,next) {
 });
 router.post('/kick',function (req,res) {
     res.send(data().kickGroup());
+});
+router.get('/invitation',function(req,res){
+    res.send(notificationData().groupInviteNotification());
 });
 module.exports=router;
     

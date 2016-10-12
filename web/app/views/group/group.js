@@ -252,7 +252,6 @@ angular.module('app.view.group', [
              }else {
                  alert('移除成员失败：'+$scope.memberAccount.name);
              }
-
          });
         }
     });

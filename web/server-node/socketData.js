@@ -175,6 +175,9 @@ var socketData=function(){
         groupInvite: function () {
             return new RetData(true, '', messages.groupInvite());
         },
+        groupInviteNotification:function () {
+            return new RetData(true,'',[messages.groupInvite()]);
+        },
         groupJoin: function () {
             return new RetData(true, '', messages.groupJoin());
         },
