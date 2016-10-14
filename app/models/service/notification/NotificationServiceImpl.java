@@ -115,17 +115,35 @@ public class NotificationServiceImpl implements NotificationService {
 
     public void groupJoinNotice(AccountGroupData accountGroupData, AccountData accountData){
         MsgContentData msgContentData = new MsgContentData();
+        if(accountGroupData!=null) {
+            msgContentData.fromId = accountData.accountId;
+            msgContentData.fromName = accountData.name;
+            msgContentData.groupId = accountGroupData.groupId;
+            msgContentData.groupName = accountGroupData.name;
+            msgContentData.detail = accountData;
+            NotificationData data = new NotificationData(NotificationData.Type.ACCOUNT_GROUP_JOIN, "group join notice", msgContentData);
+            for (AccountData account : accountGroupData.accounts) {
+                if (!account.accountId.equals(accountData.accountId)) {
+                    SessionManager.sessionSend(account.accountId, new RetData(true, "", data));
+                }
+            }
+            data.data.detail = accountGroupData;
+            SessionManager.sessionSend(accountData.accountId, new RetData(true, "", data));
+        }else{
+            NotificationData data = new NotificationData(NotificationData.Type.ACCOUNT_GROUP_JOIN, "group doesn't exit or has been dismissed.", msgContentData);
+            SessionManager.sessionSend(accountData.accountId, new RetData(false, "", data));
+        }
+    }
+
+    @Override
+    public void groupRefuseNotice(AccountGroupData accountGroupData, AccountData accountData) {
+        MsgContentData msgContentData = new MsgContentData();
         msgContentData.fromId = accountData.accountId;
         msgContentData.fromName = accountData.name;
         msgContentData.groupId = accountGroupData.groupId;
         msgContentData.groupName = accountGroupData.name;
         msgContentData.detail = accountData;
-        NotificationData data = new NotificationData(NotificationData.Type.ACCOUNT_GROUP_JOIN,"group join notice", msgContentData);
-        for(AccountData account : accountGroupData.accounts){
-            if(!account.accountId.equals(accountData.accountId)) {
-                SessionManager.sessionSend(account.accountId, new RetData(true, "", data));
-            }
-        }
+        NotificationData data = new NotificationData(NotificationData.Type.ACCOUNT_GROUP_REFUSE,"group refuse notice", msgContentData);
         data.data.detail = accountGroupData;
         SessionManager.sessionSend(accountData.accountId, new RetData(true,"",data));
     }

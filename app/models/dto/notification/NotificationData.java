@@ -40,6 +40,7 @@ public class NotificationData {
         ACCOUNT_GROUP_INVITE,
         ACCOUNT_GROUP_DISINVITE,
         ACCOUNT_GROUP_JOIN,
+        ACCOUNT_GROUP_REFUSE,
         ACCOUNT_GROUP_QUIT,
         ACCOUNT_GROUP_KICK,
 

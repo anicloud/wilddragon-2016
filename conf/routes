@@ -42,7 +42,7 @@ POST        /group/join                                @controllers.AccountContr
 POST        /group/quit                                @controllers.AccountController.quitAccountGroup()
 POST        /group/invite                              @controllers.AccountController.inviteAccount()
 POST        /group/modify                              @controllers.AccountController.modifyAccountGroup()
-POST        /group/invitation                          @controllers.AccountController.getAllGroupInvitations()
+GET         /group/invitation                          @controllers.AccountController.getAllGroupInvitations()
 
 # Device
 GET         /device/all                                @controllers.DeviceController.getAllDevices()
