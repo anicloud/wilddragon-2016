@@ -303,6 +303,26 @@ public class AccountServiceAdapterImpl implements AccountServiceAdapter {
             groupJoinInvitationServiceFacade.removeGroup(accountId, groupId);
             return AccountDataUtils.fromAccountGroupDto(groupDto);
         }
+        if(groupDto == null){
+            groupJoinInvitationServiceFacade.removeGroup(accountId, groupId);
+        }
+        return null;
+    }
+
+    @Override
+    public AccountGroupData refuseAccountGroup(Long accountId, Long groupId) {
+        if(accountId == null || groupId ==null){
+            return null;
+        }
+        AccountGroupDto groupDto = accountGroupServiceFacade.getById(groupId);
+        AccountDto accountDto = accountServiceFacade.getByAccountId(accountId);
+        if(groupDto !=null && accountDto!= null) {
+            groupJoinInvitationServiceFacade.removeGroup(accountId, groupId);
+            return AccountDataUtils.fromAccountGroupDto(groupDto);
+        }
+        if(groupDto ==null){
+            groupJoinInvitationServiceFacade.removeGroup(accountId,groupId);
+        }
         return null;
     }
 

@@ -47,6 +47,7 @@ public interface AccountServiceAdapter {
     Set<AccountGroupData> getAllInvitationGroup(Long accountId);
     AccountGroupData inviteAccountGroup(Long accountId, Long groupId);
     AccountGroupData joinAccountGroup(Long accountId, Long groupId);
+    AccountGroupData refuseAccountGroup(Long accountId, Long groupId);
     AccountGroupData quitAccountGroup(Long accountId, Long groupId);
     AccountGroupData modifyAccountGroup(Long accountId, AccountGroupData groupModifyData);
     AccountGroupData kickAccountGroup(Long accountId, AccountGroupKickData groupKickData);

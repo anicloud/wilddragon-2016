@@ -1,8 +1,11 @@
 package controllers;
 
+import com.ani.earth.interfaces.GroupJoinInvitationServiceFacadeImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import models.dto.RetData;
 import models.dto.account.*;
+import models.dto.notification.MsgContentData;
+import models.dto.notification.NotificationData;
 import models.service.account.AccountServiceAdapter;
 import models.service.notification.NotificationService;
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -14,6 +17,7 @@ import play.libs.Json;
 import play.mvc.Result;
 
 import javax.annotation.Resource;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -155,12 +159,16 @@ public class AccountController extends JavaController {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             AccountGroupJoinData groupJoinData = objectMapper.treeToValue(request().body().asJson(), AccountGroupJoinData.class);
+            AccountData accountData = accountServiceAdapter.findAccountById(getAccountId());
+            AccountGroupData groupData = null;
             if(groupJoinData.result.equals("true")) {
-                AccountGroupData groupData = accountServiceAdapter.joinAccountGroup(getAccountId(), Long.valueOf(groupJoinData.groupId));
-                AccountData accountData = accountServiceAdapter.findAccountById(getAccountId());
+                groupData = accountServiceAdapter.joinAccountGroup(getAccountId(), Long.valueOf(groupJoinData.groupId));
                 notificationService.groupJoinNotice(groupData, accountData);
-                retData = new RetData(true, "", groupData);
+            }else{
+                groupData = accountServiceAdapter.refuseAccountGroup(getAccountId(),Long.valueOf(groupJoinData.groupId));
+                notificationService.groupRefuseNotice(groupData,accountData);
             }
+            retData = new RetData(true, "", groupData);
         } catch (Exception e) {
             retData = new RetData(false, ExceptionUtils.getStackTrace(e));
         } finally {
@@ -219,10 +227,27 @@ public class AccountController extends JavaController {
     public Result getAllGroupInvitations(){
         RetData retData = null;
         try{
-            ObjectMapper objectMapper =new ObjectMapper();
-            AccountData accountData = objectMapper.treeToValue(request().body().asJson(),AccountData.class);
+            //ObjectMapper objectMapper =new ObjectMapper();
+            //AccountData accountData = objectMapper.treeToValue(request().body().asJson(),AccountData.class);
+            AccountData accountData = accountServiceAdapter.findAccountById(getAccountId());
             Set<AccountGroupData> accountGroupDatas = accountServiceAdapter.getAllInvitationGroup(Long.parseLong(accountData.accountId));
-            retData = new RetData(true, "", accountGroupDatas);
+            Set<NotificationData> notiData =new HashSet<>();
+            for(AccountGroupData accountGroupData : accountGroupDatas){
+                AccountGroupData GroupData = accountServiceAdapter.findGroup(Long.parseLong(accountGroupData.groupId));
+                if(GroupData!=null) {
+                    MsgContentData msgContentData = new MsgContentData();
+                    msgContentData.fromId = accountGroupData.owner.accountId;
+                    msgContentData.fromName = accountGroupData.owner.name;
+                    msgContentData.groupId = accountGroupData.groupId;
+                    msgContentData.groupName = accountGroupData.name;
+                    msgContentData.detail = accountGroupData;
+                    NotificationData data = new NotificationData(NotificationData.Type.ACCOUNT_GROUP_INVITE, "group invite notice", msgContentData);
+                    notiData.add(data);
+                }else{
+                    accountServiceAdapter.refuseAccountGroup(Long.parseLong(accountData.accountId),Long.parseLong(GroupData.groupId));
+                }
+            }
+            retData = new RetData(true, "", notiData);
         }catch(Exception e){
             retData = new RetData(false, ExceptionUtils.getStackTrace(e));
         } finally{

@@ -24,6 +24,7 @@ public interface NotificationService {
     void groupModifyNotice(AccountGroupData accountGroupData);
     void groupInviteNotice(AccountGroupData accountGroupData, AccountGroupInviteData accountGroupInviteData);
     void groupJoinNotice(AccountGroupData accountGroupData, AccountData accountData);
+    void groupRefuseNotice(AccountGroupData accountGroupData,AccountData accountData);
     void groupQuitNotice(AccountGroupData accountGroupData, AccountData accountData);
     void groupKickNotice(AccountGroupData accountGroupData, AccountData accountData);
 
