@@ -21,4 +21,8 @@ router.put('/modify',function (req,res) {
     console.log(device);
     res.send(data().modifyDevice(device));
 });
+router.post('/bind',function(req,res){
+    var device=req.body;
+   res.send(data().bindDevice(device)) 
+});
 module.exports=router;

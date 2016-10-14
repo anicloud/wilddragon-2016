@@ -208,6 +208,40 @@ var deviceData=function() {
             }
         ]
     };
+    var device4 = {
+        avatarUrl: '/images/microwave.svg',
+        physicalId: 'm1006',
+        physicalAddress: '00-01-6C-06-C8-D6',
+        name: 'testdevice6',
+        description: 'for test 6',
+        functions: [
+            {functionId: 1, groupId: 1},
+            {functionId: 2, groupId: 1}
+        ],
+        owner: 10101,
+        accountGroups: [],
+        state: 'ACTIVE',
+        deviceId: '562020284355710454',
+        slaves: [],
+        permissions: []
+    };
+    var device5 = {
+        avatarUrl: '/images/Fan.svg',
+        physicalId: 'm1001',
+        physicalAddress: '00-01-6C-06-C8-D1',
+        name: 'testdevice1',
+        description: 'for test 1',
+        functions: [
+            {functionId: 1, groupId: 1},
+            {functionId: 2, groupId: 1}
+        ],
+        owner: "",
+        accountGroups: [],
+        state: 'ACTIVE',
+        deviceId: '283902080612699564',
+        slaves: [],
+        permissions: []
+    };
     var funcMeta0 = {
         functionId: 1,
         name: 'powerOn',
@@ -232,7 +266,7 @@ var deviceData=function() {
         privilegeType: 'EXECUTABLE',
         connType: 'SYNC'
     };
-    var devices=[device0, device1, device2, device3];
+    var devices=[device0, device1, device2, device3,device4];
     return {
         getDevices: function () {
             return new RetData(true, '', [device0,device2]);
@@ -251,6 +285,16 @@ var deviceData=function() {
         },
         getDevice:function(deviceNum){
             return devices[deviceNum];
+        },
+        bindDevice:function (deviceInfo) {
+            var deviceObj=queryObjectByPropertyValue(devices,'physicalAddress',deviceInfo.physicalAddress);
+            if(deviceObj){
+                deviceObj[1].owner=10101;
+                return new RetData(true,"",deviceObj[1]);
+            }
+            else{
+                return new RetData(false,'the device you want to bind is not connected to server',null);
+            }
         }
     };
 };

@@ -10,10 +10,20 @@ angular.module('app.service.notification', [])
             switch (message.type) {
                 case 'ACCOUNT_GROUP_INVITE':
                     (function (message) { //be invieted to Group
-                        var groupId = message.data.groupId, groupName = message.data.groupName, fromId = message.fromId, fromName = message.data.fromName;
+                        var groupId = message.data.groupId, groupName = message.data.groupName, fromId = message.data.fromId, fromName = message.data.fromName;
                         var body = fromName + " invite you to join the group " + groupName;
                         var choice = ["同意", "拒绝"], type = message.type;
                         var description = "邀请入群通知";
+                        notificationCol = new NotificationCollection(type, body, choice, fromId, description, fromName, groupId, groupName);
+                    })(message);
+                    break;
+                case 'ACCOUNT_GROUP_REFUSE':
+                    (function (message) { //refuse to join the group
+                        var groupId = message.data.groupId, groupName = message.data.groupName, fromId = message.data.fromId, fromName = message.data.fromName;
+                        var body = fromName + " refused to join the group " + groupName;
+                        var choice = [], type = message.type;
+                        var description = "拒绝入群通知";
+                        console.log(groupId, mainScope.groupMap, mainScope.groups, message.data.detail);
                         notificationCol = new NotificationCollection(type, body, choice, fromId, description, fromName, groupId, groupName);
                     })(message);
                     break;

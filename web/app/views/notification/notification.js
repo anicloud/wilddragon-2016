@@ -13,7 +13,6 @@ angular.module('app.view.notification', ['ui.router'])
                 controller: 'NotificationCtrl'
             });
     }])
-
     .controller('NotificationCtrl',function ($scope,NotificationManager,AccountServiceDist) {
         $scope.showIndex=1;
         $scope.selectSideNavTab('notification');
@@ -32,11 +31,15 @@ angular.module('app.view.notification', ['ui.router'])
                         data.groupId=message.objId;
                         data.accountId=$scope.account.accountId;
                         data.result=result;
+                        data=new RetData(true, "", data);
                         console.log(data);
                         AccountServiceDist.inviteResult(data).then(function (response) {
                             var index=$scope.notifications.indexOf(message);
                             if(response.data!==null&&response.success===true){
                                 $scope.notifications.splice(index,1);
+                            }else if(!response.success){
+                                $scope.notifications.splice(index,1);
+                                alert("fail to join the group.reason:"+response.message);
                             }
                         });
                     })(message);

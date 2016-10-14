@@ -42,8 +42,8 @@ angular.module('app.view.device.bind', ['ui.router'])
       $scope.bindMethod = 'qrcode';
       $scope.bindData = {
         deviceId: '',
-        // physicalId: 'm0001',
-        // physicalAddress: '00-01-6C-06-A6-29'
+         // physicalId: 'm0001',
+         // physicalAddress: '00-01-6C-06-A6-29'
         physicalId: '',
         physicalAddress: ''
       };
@@ -191,11 +191,11 @@ angular.module('app.view.device.bind', ['ui.router'])
       $scope.wifiList=wifiList;
       $scope.autoWifi=true;
       // submit bind data
-      $scope.check = function () {
+      $scope.deviceBind = function () {
         console.log($scope.bindData);
         var bindResult = DeviceService.bindDevice($scope.bindData);
         bindResult.then(function (result) {
-          console.log("result");
+          console.log(result);
           if (result.success) {
             alert('绑定设备成功');
             $timeout(function () {
