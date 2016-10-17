@@ -243,8 +243,6 @@ public class AccountController extends JavaController {
                     msgContentData.detail = accountGroupData;
                     NotificationData data = new NotificationData(NotificationData.Type.ACCOUNT_GROUP_INVITE, "group invite notice", msgContentData);
                     notiData.add(data);
-                }else{
-                    accountServiceAdapter.refuseAccountGroup(Long.parseLong(accountData.accountId),Long.parseLong(GroupData.groupId));
                 }
             }
             retData = new RetData(true, "", notiData);
