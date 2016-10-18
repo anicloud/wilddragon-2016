@@ -4,10 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import models.dto.RetData;
 import models.dto.account.AccountData;
 import models.dto.account.AccountGroupData;
-import models.dto.device.DeviceBindData;
-import models.dto.device.DeviceMasterData;
-import models.dto.device.DeviceShareData;
-import models.dto.device.PermissionData;
+import models.dto.device.*;
 import models.dto.function.FunctionMetaData;
 import models.service.account.AccountServiceAdapter;
 import models.service.device.DeviceServiceAdapter;
@@ -68,7 +65,7 @@ public class DeviceController extends JavaController {
             DeviceBindData bindData = objectMapper.treeToValue(request().body().asJson(), DeviceBindData.class);
             DeviceMasterData device = deviceServiceAdapter.bindDevice(bindData.physicalId, bindData.physicalAddress, getAccountId());
             AccountData accountData = accountServiceAdapter.findAccountById(getAccountId());
-            notificationService.deviceBindNotice(device, accountData);
+            //notificationService.deviceBindNotice(device, accountData);
             if (device != null) {
                 retData = new RetData(true, "", device);
             } else {
@@ -85,10 +82,22 @@ public class DeviceController extends JavaController {
         RetData retData = null;
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-            DeviceBindData bindData = objectMapper.treeToValue(request().body().asJson(), DeviceBindData.class);
-            DeviceMasterData device = deviceServiceAdapter.unbindDevice(Long.valueOf(bindData.deviceId), getAccountId());
-            AccountData accountData = accountServiceAdapter.findAccountById(getAccountId());
-            notificationService.deviceUnbindNotice(device, accountData);
+            DeviceunBindData unbindData = objectMapper.treeToValue(request().body().asJson(), DeviceunBindData.class);
+            for(PermissionData permissionData:unbindData.permissions) {
+                DeviceShareData shareData = new DeviceShareData();
+                shareData.deviceId = unbindData.deviceId;
+                shareData.groupId  = permissionData.groupId;
+                shareData.types = permissionData.types;
+                List<PermissionData> permissionDatas = deviceServiceAdapter.unshareDevice(shareData);
+                DeviceMasterData deviceMasterData = deviceServiceAdapter.findDevice(Long.valueOf(shareData.deviceId));
+                AccountData accountData = accountServiceAdapter.findAccountById(getAccountId());
+                AccountGroupData accountGroupData = accountServiceAdapter.findGroup(Long.valueOf(shareData.groupId));
+                notificationService.deviceUnShareNotice(deviceMasterData, accountData, accountGroupData);
+            }
+            DeviceMasterData device = deviceServiceAdapter.unbindDevice(Long.valueOf(unbindData.deviceId), getAccountId());
+            //AccountData accountData = accountServiceAdapter.findAccountById(getAccountId());
+            //notificationService.deviceUnbindNotice(device, accountData);
+
             retData = new RetData(true, "", device);
         } catch (Exception e) {
             retData = new RetData(false, ExceptionUtils.getStackTrace(e));

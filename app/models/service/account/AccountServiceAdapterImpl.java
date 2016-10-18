@@ -234,6 +234,9 @@ public class AccountServiceAdapterImpl implements AccountServiceAdapter {
     public AccountGroupData deleteAccountGroup(Long accountId, Long groupId) {
         AccountGroupDto groupDto = accountGroupServiceFacade.getById(groupId);
         if (groupDto != null) {
+            for(AccountDto accountDto:groupDto.accounts) {
+                accountServiceFacade.removeAccountGroup(accountDto.accountId, groupDto.groupId);
+            }
             accountGroupServiceFacade.remove(accountId, groupId);
         }
 
@@ -302,9 +305,6 @@ public class AccountServiceAdapterImpl implements AccountServiceAdapter {
             accountServiceFacade.addAccountGroup(accountId, groupId);
             groupJoinInvitationServiceFacade.removeGroup(accountId, groupId);
             return AccountDataUtils.fromAccountGroupDto(groupDto);
-        }
-        if(groupDto == null){
-            groupJoinInvitationServiceFacade.removeGroup(accountId, groupId);
         }
         return null;
     }
