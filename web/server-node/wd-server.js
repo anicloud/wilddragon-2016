@@ -45,9 +45,9 @@ wss.on('connection', function connection(ws) {
     // setTimeout(function () {
     //     ws.send(JSON.stringify(socketData().groupInvite()));
     // },10000);
-    // setTimeout(function () {
-    //     ws.send(JSON.stringify(socketData().groupJoin()));
-    // },15000);
+    setTimeout(function () {
+        ws.send(JSON.stringify(socketData().groupJoin()));
+    },5000);
     // setTimeout(function () {
     //     ws.send(JSON.stringify(socketData().groupKick()));
     // },20000);
@@ -61,9 +61,9 @@ wss.on('connection', function connection(ws) {
     // setTimeout(function () {
     //     ws.send(JSON.stringify(socketData().deviceUnShare()));
     // },25000);
-    setTimeout(function () {
-        ws.send(JSON.stringify(socketData().groupQuit()));
-    },5000);
+    // setTimeout(function () {
+    //     ws.send(JSON.stringify(socketData().groupQuit()));
+    // },5000);
 });
 server.on('request', app);
  server.listen(port, function () { console.log('Listening on ' + server.address().port) });

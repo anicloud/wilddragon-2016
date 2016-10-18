@@ -9,7 +9,17 @@
             </h3>
         </div>
         <div class="modal-title">
-            是否确定退出该组
+            是否确认解除该设备绑定？
+        </div>
+    </div>
+    <div class="panel panel-default group-list-panel" ng-show="deviceInfo.accountGroups">
+        <div class="panel-heading">
+            <h5 class="panel-title">
+                这些群组将无法通过您的共享使用该设备
+            </h5>
+        </div>
+        <div class="panel-body">
+            <div class="group-list" data-ng-repeat="groupId in deviceInfo.accountGroups">{{groupMap[groupId].name}}</div>
         </div>
     </div>
     <div class="modal-body">

@@ -102,7 +102,7 @@ angular.module('app.view.device.detail.info', [
     ;
   }])
 
-  .controller('DeviceDetailInfoCtrl', function ($scope, $timeout, $state, DeviceService, functions) {
+  .controller('DeviceDetailInfoCtrl', function ($scope, $timeout, $state, DeviceService, functions,$uibModal) {
     $scope.selectDetailNavTab('info');
     $scope.masterFunctionMetas = [];
     if (functions.success) {
@@ -112,31 +112,75 @@ angular.module('app.view.device.detail.info', [
     } else {
       console.error('Error in getting functions');
     }
-
-    $scope.unbind = function(device) {
-      var data = {
-        deviceId: device.deviceId
-      };
-      DeviceService.unbindDevice(data).then(function (result) {
-        console.log(result);
-        if (result.success) {
-          alert("解除设备绑定成功");
-          $timeout(function () {
-            for (var i=0; i<$scope.devices.length; i++) {
-              if ($scope.devices[i].deviceId == result.data.deviceId) {
-                $scope.devices.splice(i, 1);
-                break;
-              }
-            }
-            delete $scope.deviceMap[result.data.deviceId];
-            $state.go('main.device.list');
-          }, 0);
-        } else {
-          alert("解除设备绑定失败,原因: " + result.message);
-        }
+    $scope.unbind=function(device){
+      $scope.deviceInfo=device;
+      var modal = $uibModal.open({
+        animation: false,
+        backdrop: false,
+        size: "sm",
+        templateUrl: 'views/device/detail/info/device-unbind-modal.html',
+        controller: 'DeviceUnbindCtrl',
+        scope: $scope
       });
-    }
+      modal.result.then(function(data){
+        if (data !== "confirm") return ;
+        $scope.DeviceData = {
+          deviceId: device.deviceId,
+          permission:device.permissions
+        };
+        DeviceService.unbindDevice($scope.DeviceData).then(function (result) {
+          console.log(result);
+          if (result.success) {
+            alert("解除设备绑定成功");
+            $timeout(function () {
+              for (var i=0; i<$scope.devices.length; i++) {
+                if ($scope.devices[i].deviceId == result.data.deviceId) {
+                  $scope.devices.splice(i, 1);
+                  break;
+                }
+              }
+              delete $scope.deviceMap[result.data.deviceId];
+              $state.go('main.device.list');
+            }, 0);
+          } else {
+            alert("解除设备绑定失败,原因: " + result.message);
+          }
+        });
+      })
+    };
+    // $scope.unbind = function(device) {
+    //   var data = {
+    //     deviceId: device.deviceId,
+    //     permission:device.permissions
+    //   };
+    //   DeviceService.unbindDevice(data).then(function (result) {
+    //     console.log(result);
+    //     if (result.success) {
+    //       alert("解除设备绑定成功");
+    //       $timeout(function () {
+    //         for (var i=0; i<$scope.devices.length; i++) {
+    //           if ($scope.devices[i].deviceId == result.data.deviceId) {
+    //             $scope.devices.splice(i, 1);
+    //             break;
+    //           }
+    //         }
+    //         delete $scope.deviceMap[result.data.deviceId];
+    //         $state.go('main.device.list');
+    //       }, 0);
+    //     } else {
+    //       alert("解除设备绑定失败,原因: " + result.message);
+    //     }
+    //   });
+    // }
   })
+    .controller('DeviceUnbindCtrl',function($scope,$uibModalInstance){
+      $scope.confirm = function () {
+        $uibModalInstance.close("confirm");
+      };
+      $scope.cancel = function () {
+        $uibModalInstance.dismiss("cancel");
+      }
+    })
 
   .controller('DeviceDetailInfoSlaveCtrl', function ($scope, $stateParams, functions) {
     $scope.slave = null;

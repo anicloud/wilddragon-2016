@@ -138,6 +138,16 @@
 .device-detail-settings .panel .panel-body .settings-action button + button {
   margin-left: 10px;
 }
+.group-list {
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  border-bottom: 1px solid #e8e8e8;
+}
+.panel.panel-default.group-list-panel {
+  text-align: center;
+  margin: 30px auto;
+}
 @media screen and (min-width: 768px) {
   .device-detail-settings .panel {
     width: 50%;

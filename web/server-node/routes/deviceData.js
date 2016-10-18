@@ -295,6 +295,9 @@ var deviceData=function() {
             else{
                 return new RetData(false,'the device you want to bind is not connected to server',null);
             }
+        },
+        unbindDevice:function(deviceInfo){
+            return new RetData(true,'',deviceInfo);
         }
     };
 };

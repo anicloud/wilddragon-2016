@@ -25,4 +25,7 @@ router.post('/bind',function(req,res){
     var device=req.body;
    res.send(data().bindDevice(device)) 
 });
+router.post('/unbind',function(req,res){
+    res.send(data().unbindDevice(req.body));
+});
 module.exports=router;
