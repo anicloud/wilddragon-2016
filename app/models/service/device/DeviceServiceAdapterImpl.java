@@ -218,7 +218,7 @@ public class DeviceServiceAdapterImpl implements DeviceServiceAdapter {
             }
         }
         DeviceMasterDto deviceMasterDto = deviceBusService.findDeviceMaster(deviceId);
-        deviceMasterDto.owner = null;
+        deviceMasterDto.owner = -1L;
         deviceBusService.saveDeviceMaster(deviceMasterDto);
         return DeviceDataUtils.fromDeviceMasterDto(deviceMasterDto, state);
     }

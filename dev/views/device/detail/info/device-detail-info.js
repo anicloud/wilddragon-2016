@@ -115,7 +115,8 @@ angular.module('app.view.device.detail.info', [
 
     $scope.unbind = function(device) {
       var data = {
-        deviceId: device.deviceId
+        deviceId: device.deviceId,
+        permissions:device.permissions
       };
       DeviceService.unbindDevice(data).then(function (result) {
         console.log(result);

@@ -5,7 +5,6 @@ package models.dto.device;
  */
 public class DeviceBindData {
     // device information
-    public String deviceId;
     public String physicalId;
     public String physicalAddress;
 }

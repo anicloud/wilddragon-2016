@@ -145,7 +145,7 @@ public class NotificationServiceImpl implements NotificationService {
         msgContentData.detail = accountData;
         NotificationData data = new NotificationData(NotificationData.Type.ACCOUNT_GROUP_REFUSE,"group refuse notice", msgContentData);
         data.data.detail = accountGroupData;
-        SessionManager.sessionSend(accountData.accountId, new RetData(true,"",data));
+        SessionManager.sessionSend(accountGroupData.owner.accountId, new RetData(true,"",data));
     }
 
     public void groupQuitNotice(AccountGroupData accountGroupData, AccountData accountData){

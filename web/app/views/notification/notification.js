@@ -29,9 +29,9 @@ angular.module('app.view.notification', ['ui.router'])
                     (function (message) {
                         var data={};
                         data.groupId=message.objId;
-                        data.accountId=$scope.account.accountId;
+                        data.accountId=message.fromId;
                         data.result=result;
-                        data=new RetData(true, "", data);
+                        // data=new RetData(true, "", data);
                         console.log(data);
                         AccountServiceDist.inviteResult(data).then(function (response) {
                             var index=$scope.notifications.indexOf(message);
