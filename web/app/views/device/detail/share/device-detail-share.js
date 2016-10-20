@@ -64,7 +64,7 @@ angular.module('app.view.device.detail.share', [
     };
     $scope.removeShare = function (share) {
       var shareData = {
-        deviceId: $scope.device.deviceId,
+        //deviceId: $scope.device.deviceId,
         types: share.types,
         groupId: share.group.groupId
       };
@@ -93,7 +93,18 @@ angular.module('app.view.device.detail.share', [
       groupId: '',
       types: []
     };
-
+    $scope.unSharedGroups=[];
+        (function (groups,sharedGroups) {
+      console.log(groups,sharedGroups);
+      angular.forEach(groups,function (group) {
+        var existFlag=false;
+        for(var i=0;i<sharedGroups.length;i++){
+          var sharedGroupId=sharedGroups[i];
+          (group.groupId===sharedGroupId)?(existFlag=true):null;
+        }
+        if(!existFlag) $scope.unSharedGroups.push(group);
+      });
+    })($scope.groups,$scope.device.accountGroups);
     $scope.permission = {
       readable: true,
       writable: true,
@@ -115,7 +126,6 @@ angular.module('app.view.device.detail.share', [
       if ($scope.permission.executable) {
         $scope.shareData.types.push('EXECUTABLE');
       }
-
       console.log($scope.shareData);
       DeviceService.shareDevice($scope.shareData).then(
         function (result) {
@@ -124,6 +134,7 @@ angular.module('app.view.device.detail.share', [
             console.log(result.data);
             $timeout(function () {
               $scope.device.permissions = result.data;
+              $scope.deviceMap[$scope.shareData.deviceId].accountGroups.push($scope.shareData.groupId);
               $scope.updateShareList();
             }, 0);
           } else {

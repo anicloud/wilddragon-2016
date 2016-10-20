@@ -15,7 +15,7 @@ var deviceData=function() {
             {functionId: 2, groupId: 2}
         ],
         owner: 10101,
-        accountGroups: [2000, 2001],
+        accountGroups: [2000],//, 2001
         state: 'ACTIVE',
         deviceId: 100001,
         slaves: [
@@ -51,10 +51,10 @@ var deviceData=function() {
                 groupId: 2000,
                 types: ['READABLE', 'EXECUTABLE']
             },
-            {
-                groupId: 2001,
-                types: ['READABLE', 'WRITABLE']
-            }
+            // {
+            //     groupId: 2001,
+            //     types: ['READABLE', 'WRITABLE']
+            // }
         ]
     };
     var device1 = {
@@ -298,6 +298,18 @@ var deviceData=function() {
         },
         unbindDevice:function(deviceInfo){
             return new RetData(true,'',deviceInfo);
+        },
+        shareDevice:function(){
+            return new RetData(true,'',[
+                {
+                    groupId: 2000,
+                    types: ['READABLE', 'EXECUTABLE']
+                },
+                {
+                    groupId: 2001,
+                    types: ['READABLE', 'EXECUTABLE']
+                }
+            ])
         }
     };
 };

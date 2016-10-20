@@ -28,4 +28,7 @@ router.post('/bind',function(req,res){
 router.post('/unbind',function(req,res){
     res.send(data().unbindDevice(req.body));
 });
+router.post('/share',function (req,res) {
+    res.send(data().shareDevice(req.body))
+});
 module.exports=router;

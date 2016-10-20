@@ -16,7 +16,7 @@
         <div class="item-group" data-ng-click="forward(1)">
           <i class="fa fa-plus"></i>
         </div>
-        <div class="item-group" data-ng-click="selectGroup()" data-ng-repeat="group in groups"
+        <div class="item-group" data-ng-click="selectGroup()" data-ng-repeat="group in unSharedGroups"
              data-ng-model="shareData.groupId" uib-btn-radio="group.groupId">
           {{group.name}}
         </div>
