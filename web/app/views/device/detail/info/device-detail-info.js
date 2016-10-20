@@ -126,7 +126,7 @@ angular.module('app.view.device.detail.info', [
         if (data !== "confirm") return ;
         $scope.DeviceData = {
           deviceId: device.deviceId,
-          permission:device.permissions
+          permissions:device.permissions
         };
         DeviceService.unbindDevice($scope.DeviceData).then(function (result) {
           console.log(result);
