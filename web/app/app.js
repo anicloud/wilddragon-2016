@@ -5,6 +5,8 @@ angular.module('app', [
   'ui.router',
   'ui.bootstrap',
   'ngWebSocket',
+  'ngCookies',
+  'pascalprecht.translate',
   'app.directive',
   'app.service',
   'app.view'

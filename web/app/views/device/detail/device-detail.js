@@ -41,11 +41,11 @@ angular.module('app.view.device.detail', [
 
     $scope.detailNavTabs = {
       info: {
-        name: '设备信息',
+        name: 'DEVICE_DETAIL_INFO',
         active: true
       },
       share: {
-        name: '共享管理',
+        name: 'DEVICE_DETAIL_SHARE_MANAGEMENT',
         active: false
       }
     };

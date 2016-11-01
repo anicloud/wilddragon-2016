@@ -11,14 +11,14 @@
         </div>
         <div class="info">
           <div class="title">
-            已共享至 {{share.group.name}}
+            {{"DEVICE_SHARE_SHARED"|translate}} {{share.group.name}}
           </div>
           <div class="subtitle">
-            权限: <span data-ng-repeat="type in share.types">{{getPermissionTypeName(type)}}</span>
+            {{"DEVICE_SHARE_PERMISSION"|translate}}: <span data-ng-repeat="type in share.types">{{getPermissionTypeName(type)}}</span>
           </div>
         </div>
         <div class="option">
-          <a class="removeshare" data-ng-click="removeShare(share)">移除共享</a>
+          <a class="removeshare" data-ng-click="removeShare(share)">{{"DEVICE_DETAIL_UNBIND"|translate}}</a>
         </div>
       </div>
     </div>
@@ -26,7 +26,7 @@
 
   <div class="sharebutton">
     <button class="btn btn-default" data-ng-click="addShare()">
-      创建共享
+      {{"DEVICE_SHARE_CREATE_SHARE"|translate}}
     </button>
   </div>
 </div>

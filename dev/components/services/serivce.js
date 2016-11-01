@@ -8,6 +8,7 @@ angular.module('app.service', [
   'app.service.device',
   'app.service.app',
   'app.service.notification',
-  'app.service.webSocket'
+  'app.service.webSocket',
+  'app.service.i18n'
 ]);
 

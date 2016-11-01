@@ -1,42 +1,42 @@
 <div class="content-body-memInfo">
     <div class="memInfo">
         <div class="memInfo-content">
-            <div class="title">成员信息</div>
+            <div class="title">{{"GROUP_MEMBER_INFO"|translate}}</div>
             <div class="center">
                 <div class="panel">
                     <div class="panel-body">
                         <div class="item avatar">
                             <a href="">
-                                <div class="item-name highlight highlight">头像</div>
+                                <div class="item-name highlight">{{"ACCOUNT_AVATAR"|translate}}</div>
                                 <div class="item-detail img"><img data-ng-src="{{memberAccount.avatarUrl}}"></div>
                             </a>
                         </div>
                         <div class="item">
                             <div href="">
-                                <div class="item-name highlight">名称</div>
+                                <div class="item-name highlight">{{"ACCOUNT_NAME"|translate}}</div>
                                 <div class="item-detail"> {{memberAccount.name}}</div>
                             </div>
                         </div>
                         <div class="item">
                             <div href="">
-                                <div class="item-name highlight">邮箱</div>
+                                <div class="item-name highlight">{{"ACCOUNT_EMAIL"|translate}}</div>
                                 <div class="item-detail">{{memberAccount.email}}</div>
                             </div>
                         </div>
                         <div class="item">
                             <div href="">
-                                <div class="item-name highlight">电话</div>
+                                <div class="item-name highlight">{{"ACCOUNT_PHONENUMBER"|translate}}</div>
                                 <div class="item-detail">{{memberAccount.phoneNumber}}</div>
                             </div>
                         </div>
                         <div class="item">
                             <div href="">
-                                <div class="item-name highlight">公司</div>
+                                <div class="item-name highlight">{{"ACCOUNT_COMPANY"|translate}}</div>
                                 <div class="item-detail">{{memberAccount.company}}</div>
                             </div>
                         </div>
                         <button id="kick-group-btn" class="btn btn-default" data-ng-click="kickGroup(memberAccount)"
-                                ng-show="group.owner.accountId==account.accountId&&memberAccount.accountId!=group.owner.accountId">移除该用户</button>
+                                ng-show="group.owner.accountId==account.accountId&&memberAccount.accountId!=group.owner.accountId">{{"GROUP_MEMBER_INFO_REMOVE"|translate}}</button>
                     </div>
                 </div>
             </div>

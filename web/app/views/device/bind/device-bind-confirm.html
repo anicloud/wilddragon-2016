@@ -1,32 +1,32 @@
 <div class="bind-wrapper">
   <div class="bind-title">
     <i class="fa fa-file-text"></i>
-    设备信息
+    {{"DEVICE_BIND_TITLE"|translate}}
   </div>
   <div class="bind-description">
-    已连接设备的相关信息，包含设备的提供商，MAC地址，出厂序列号，功能等
+    {{"DEVICE_BIND_CONFIRM_DESCRIPTION"|translate}}
   </div>
   <div class="bind-info">
     <div class="info-detail">
-      <label>提供商：</label>
+      <label>{{"DEVICE_BIND_CONFIRM_PROVIDER"|translate}}:</label>
       <span></span>
     </div>
     <div class="info-detail">
-      <label>序列号：</label>
+      <label>{{"UTIL_SERIAL_NUMBER"|translate}}:</label>
       <span>{{bindData.physicalId}}</span>
     </div>
     <div class="info-detail">
-      <label>MAC地址：</label>
+      <label>{{"UTIL_MAC"|translate}}：</label>
       <span>{{bindData.physicalAddress}}</span>
     </div>
     <div class="info-detail">
-      <label>描述：</label>
+      <label>{{"UTIL_DESCRIPTION"|translate}}：</label>
       <span></span>
     </div>
   </div>
   <div class="bind-action">
     <button class="btn btn-default" data-ng-click="deviceBind()">
-      绑定
+      {{"DEVICE_BIND"|translate}}
     </button>
   </div>
 </div>

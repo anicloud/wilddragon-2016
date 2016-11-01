@@ -7,7 +7,7 @@
       <i class="fa fa-share-alt"></i>
     </div>
     <div class="modal-title">
-      选择分组
+      {{"DEVICE_SHARE_MODAL_SELECT"|translate}}
     </div>
   </div>
   <div class="modal-body">
@@ -39,17 +39,17 @@
       <i class="fa fa-share-alt"></i>
     </div>
     <div class="modal-title">
-      新建分组
+      {{"DEVICE_SHARE_MODAL_NEW_GROUP"|translate}}
     </div>
   </div>
   <div class="modal-body">
     <div class="modal-item">
       <div class="item-input">
-        <input type="text" placeholder="输入分组名称" data-ng-model="groupData.name">
+        <input type="text" placeholder="{{'DEVICE_SHARE_MODAL_TYPE_GROUP_NAME'|translate}}" data-ng-model="groupData.name">
       </div>
       <div class="item-button">
-        <button class="btn btn-default" data-ng-click="backward(1)">上一步</button>
-        <button class="btn btn-default" data-ng-click="forward(1)">下一步</button>
+        <button class="btn btn-default" data-ng-click="backward(1)">{{"UTIL_PREV"|translate}}</button>
+        <button class="btn btn-default" data-ng-click="forward(1)">{{'UTIL_NEXT'|translate}}</button>
       </div>
     </div>
   </div>
@@ -60,20 +60,20 @@
       <i class="fa fa-share-alt"></i>
     </div>
     <div class="modal-title">
-      添加组成员
+      {{"DEVICE_SHARE_MODAL_ADD_GROUP_MEMBER"|translate}}
     </div>
   </div>
   <div class="modal-body">
     <div class="modal-item">
       <div class="item-input">
-        <tags-input type="text" placeholder="输入成员昵称或邮箱" data-ng-model="groupData.accounts"
+        <tags-input type="text" placeholder="{{'DEVICE_SHARE_MODAL_TYPE_GROUP_NAME'|translate}}" data-ng-model="groupData.accounts"
                     display-property="name" add-from-autocomplete-only="true">
           <auto-complete source="loadTags($query)"></auto-complete>
         </tags-input>
       </div>
       <div class="item-button">
-        <button class="btn btn-default" data-ng-click="backward(1)">上一步</button>
-        <button class="btn btn-default" data-ng-click="addGroup()">下一步</button>
+        <button class="btn btn-default" data-ng-click="backward(1)">{{"UTIL_PREV"|translate}}</button>
+        <button class="btn btn-default" data-ng-click="addGroup()">{{"UTIL_NEXT"|translate}}</button>
       </div>
     </div>
   </div>
@@ -84,26 +84,26 @@
       <i class="fa fa-share-alt"></i>
     </div>
     <div class="modal-title">
-      设置共享权限
+      {{"DEVICE_SHARE_MODAL_SET_PERMISSIONS"|translate}}
     </div>
   </div>
   <div class="modal-body">
     <div class="modal-item">
       <div class="item-input">
         <input type="checkbox" data-ng-model="permission.readable">
-        <span class="checkbox-label">允许读取设备信息</span>
+        <span class="checkbox-label">{{"DEVICE_SHARE_MODAL_ALLOW_READ"|translate}}</span>
       </div>
       <div class="item-input">
         <input type="checkbox" data-ng-model="permission.writable">
-        <span class="checkbox-label">允许更改设备</span>
+        <span class="checkbox-label">{{"DEVICE_SHARE_MODAL_ALLOW_WRITE"|translate}}</span>
       </div>
       <div class="item-input">
         <input type="checkbox" data-ng-model="permission.executable">
-        <span class="checkbox-label">允许访问设备功能</span>
+        <span class="checkbox-label">{{"DEVICE_SHARE_MODAL_ALLOW_EXECUTE"|translate}}</span>
       </div>
       <div class="item-button">
-        <button class="btn btn-default" data-ng-click="backward(3)">上一步</button>
-        <button class="btn btn-default" data-ng-click="submit()">确定</button>
+        <button class="btn btn-default" data-ng-click="backward(3)">{{"UTIL_PREV"|translate}}</button>
+        <button class="btn btn-default" data-ng-click="submit()">{{"UTIL_CONFIRM"|translate}}</button>
       </div>
     </div>
   </div>

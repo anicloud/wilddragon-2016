@@ -1,7 +1,7 @@
 <div class="group-detail">
   <div class="detail-item">
     <div class="left">
-      <div class="item-title">名称</div>
+      <div class="item-title">{{"UTIL_NAME"|translate}}</div>
     </div>
     <div class="right">
       <div class="item-content">
@@ -12,7 +12,7 @@
 
   <div class="detail-item">
     <div class="left">
-      <div class="item-title">成员</div>
+      <div class="item-title">{{"UTIL_MEMBER"|translate}}</div>
     </div>
     <div class="right">
       <div class="item-content">
@@ -31,32 +31,32 @@
 
   <div class="detail-item" data-ng-show="group.owner.accountId !== account.accountId">
     <div class="left">
-      <div class="item-title">退出</div>
+      <div class="item-title">{{"UTIL_EXIT"|translate}}</div>
     </div>
     <div class="right">
       <div class="item-content">
-        <button class="btn btn-default" data-ng-click="quitGroup(group)">退出</button>
+        <button class="btn btn-default" data-ng-click="quitGroup(group)">{{"UTIL_EXIT"|translate}}</button>
       </div>
     </div>
   </div>
 
   <div class="detail-item" data-ng-show="group.owner.accountId == account.accountId">
     <div class="left">
-      <div class="item-title">删除该群组</div>
+      <div class="item-title">{{"GROUP_REMOVE_GROUP"|translate}}</div>
     </div>
     <div class="right">
       <div class="item-content">
-        <button class="btn btn-default" data-ng-click="removeGroup(group)">删除</button>
+        <button class="btn btn-default" data-ng-click="removeGroup(group)">{{"UTIL_REMOVE"|translate}}</button>
       </div>
     </div>
   </div>
   <div class="detail-item" data-ng-show="group.owner.accountId == account.accountId">
     <div class="left">
-      <div class="item-title">邀请新成员</div>
+      <div class="item-title">{{"GROUP_INVITE_NEW_GROUP"|translate}}</div>
     </div>
     <div class="right">
       <div class="item-content">
-        <button class="btn btn-default" data-ng-click="inviteGroup()">邀请</button>
+        <button class="btn btn-default" data-ng-click="inviteGroup()">{{"UTIL_INVITE"|translate}}</button>
       </div>
     </div>
   </div>

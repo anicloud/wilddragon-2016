@@ -7,7 +7,7 @@
     </div>
     <div state-back current-state="currentState"></div>
     <div class="navbar-title">
-      设备列表
+      {{"DEVICE_LIST_TITLE"|translate}}
     </div>
     <div class="navbar-plus">
       <a href="#/device/bind/qrcode">
@@ -33,10 +33,10 @@
               </a>
             </div>
             <div ng-show="accountMap[device.owner].accountId===account.accountId" class="subtitle">
-              {{accountMap[device.owner].name}}的设备
+              {{accountMap[device.owner].name}}{{"DEVICE_LIST_OF_DEVICE"|translate}}
             </div>
             <div ng-show="accountMap[device.owner].accountId!==account.accountId" class="subtitle">
-              共享来自{{accountMap[device.owner].name}}
+              {{"DEVICE_LIST_SHARE_FROM"|translate}}{{accountMap[device.owner].name}}
             </div>
           </div>
           <div class="extra">
@@ -49,9 +49,9 @@
               </a>
               <ul uib-dropdown-menu>
                 <li>
-                  <a href="#/device/{{device.deviceId}}/info"><i class="fa fa-file"></i>&nbsp;&nbsp;设备详情</a>
+                  <a href="#/device/{{device.deviceId}}/info"><i class="fa fa-file"></i>&nbsp;&nbsp;{{"DEVICE_LIST_DEVICE_DETAIL"|translate}}</a>
                   <a href="#/device/{{device.deviceId}}/share" data-ng-show="device.owner==account.accountId">
-                    <i class="fa fa-share-alt"></i>&nbsp;&nbsp;共享管理
+                    <i class="fa fa-share-alt"></i>&nbsp;&nbsp;{{"DEVICE_LIST_SHARING_MANAGEMENT"|translate}}
                   </a>
                   <!--<a href data-ng-show="device.owner==account.accountId">-->
                   <!--<i class="fa fa-unlock"></i>&nbsp;&nbsp;解除绑定-->
@@ -81,7 +81,7 @@
             </div>
             <div class="more">
               <a href="#/device/{{device.deviceId}}/info/{{slave.deviceId}}">
-                更多
+                {{"UTIL_MORE"|translate}}
               </a>
             </div>
           </div>

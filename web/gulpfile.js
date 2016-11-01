@@ -41,6 +41,9 @@ var paths = {
     app.src + '/bower_components/bootstrap/fonts*/*',
     app.src + '/bower_components/font-awesome/fonts*/*'
   ],
+  langs:[
+    app.src+'/lang/*.json'
+  ],
   karma: 'karma.conf.js'
 };
 
@@ -79,6 +82,10 @@ gulp.task('copy', function () {
       // .pipe($.rev())
       // .pipe($.revReplace())
       .pipe(gulp.dest(app.dev));
+  gulp.src(paths.langs)
+      // .pipe($.rev())
+      // .pipe($.revReplace())
+      .pipe(gulp.dest(app.dev+'/lang'));
 });
 
 gulp.task('inject', function () {
@@ -124,6 +131,8 @@ gulp.task('copy:prod', function () {
       .pipe(gulp.dest(app.dist));
   gulp.src(paths.fonts)
       .pipe(gulp.dest(app.dist));
+  gulp.src(paths.langs)
+      .pipe(gulp.dest(app.dist+'/lang'));
 });
 
 gulp.task('minimize', function () {
@@ -165,7 +174,7 @@ gulp.task('watch', function () {
       .pipe(gulp.dest(app.dev))
       .pipe(gulp.dest(app.dist)) //add
       .pipe($.connect.reload());
-
+  
   gulp.watch(paths.views.main, ['inject']);
   gulp.watch('bower.json', ['inject']);
 

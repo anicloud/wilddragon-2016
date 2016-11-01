@@ -1,15 +1,15 @@
 <div class="bind-wrapper">
   <div class="bind-title">
     <i class="fa fa-wifi"></i>
-    配置WiFi连接
+    {{"DEVICE_BIND_WIFI_CONFIG_WIFI_CONNECTION"|translate}}
   </div>
   <div class="bind-description">
-    配置设备连接到WiFi，您需要提供一个可连接的WiFi，并手动输入WiFi的SSID和密码
+    {{"DEVICE_BIND_WIFI_CONFIG_DESCRIPTION"|translate}}
   </div>
   <div class="bind-info">
     <div class="info-item">
       <label>SSID:</label>
-      <input type="text" placeholder="请输入wifi名称" data-ng-model="wifiInfo.ssid" data-ng-disabled="wifiStart" ng-hide="autoWifi">
+      <input type="text" placeholder="{{'DEVICE_BIND_WIFI_TYPE_WIFI_NAME'|translate}}" data-ng-model="wifiInfo.ssid" data-ng-disabled="wifiStart" ng-hide="autoWifi">
       <!--<select class="form-control" id="ssid" data-ng-model="wifiInfo.ssid" data-ng-disabled="wifiStart" ng-options="wifi.name for wifi in wifiList" ng-show="autoWifi"></select>-->
       <div uib-dropdown is-open="false" ng-show="autoWifi">
         <button id="ssid-button" class="ssid" type="button" ng-class="{'disabled':wifiStart}" class="btn" uib-dropdown-toggle data-ng-disabled="wifiStart">
@@ -20,27 +20,27 @@
           <li ng-repeat="wifi in wifiList" class="ssid-li" ng-click="wifiInfo.ssid=wifi.name">{{wifi.name}}</li>
         </ul>
       </div>
-      <button class="btn btn-link btn-ani" ng-show="autoWifi" ng-click="autoWifi=false">手动输入SSID</button>
-      <button class="btn btn-link btn-ani" ng-hide="autoWifi" ng-click="autoWifi=true">从列表选择SSID</button>
+      <button class="btn btn-link btn-ani" ng-show="autoWifi" ng-click="autoWifi=false">{{"DEVICE_BIND_WIFI_TYPE_MANUAL"|translate}}</button>
+      <button class="btn btn-link btn-ani" ng-hide="autoWifi" ng-click="autoWifi=true">{{"DEVICE_BIND_WIFI_SELECT_LIST"|translate}}</button>
     </div>
     <div class="info-item">
-      <label>密码:</label>
-      <input type="password" placeholder="请输入密码" data-ng-model="wifiInfo.password" data-ng-disabled="wifiStart">
+      <label>{{"UTIL_PASSWORD"|translate}}:</label>
+      <input type="password" placeholder="{{'DEVICE_BIND_WIFI_TYPE_PASSWORD'|translate}}" data-ng-model="wifiInfo.password" data-ng-disabled="wifiStart">
     </div>
   </div>
   <div data-ng-show="!wifiStart">
     <div class="bind-action">
       <button class="btn btn-default" data-ng-click="startWifiConfig()">
-        开始配置
+        {{"DEVICE_BIND_WIFI_TYPE_PASSWORD"|translate}}
       </button>
     </div>
     <div class="bind-method">
-      <a href data-ng-click="ignoreWifi()">跳过</a>
+      <a href data-ng-click="ignoreWifi()">{{"UTIL_SKIP"|translate}}</a>
     </div>
   </div>
   <div class="bind-action" data-ng-show="wifiStart">
     <button class="btn btn-default" data-ng-click="stopWifiConfig()">
-      停止配置
+      {{"DEVICE_BIND_WIFI_STOP_CONFIG"}}
     </button>
   </div>
 </div>

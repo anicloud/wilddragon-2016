@@ -3,8 +3,20 @@
  */
 'use strict';
 
-angular.module('app.view.main', ['ui.router','angular-websocket'])
-
+angular.module('app.view.main', ['ui.router','angular-websocket','ngCookies','pascalprecht.translate'])
+    .config(['$translateProvider', function ($translateProvider) {
+      var lang=navigator.languages[1];
+      console.log(lang.indexOf('zh'));
+      if(lang.indexOf('tw')>-1){lang='tw'}
+      else if(lang.indexOf('zh')>-1){lang='zh'}
+      else{lang='en'}
+      $translateProvider.useStaticFilesLoader({
+        prefix: 'lang/',
+        suffix: '.json'
+      });
+      $translateProvider.preferredLanguage(lang);
+      $translateProvider.useLocalStorage();
+    }])
     .config(['$stateProvider', function ($stateProvider) {
       $stateProvider
           .state('main', {
@@ -30,6 +42,9 @@ angular.module('app.view.main', ['ui.router','angular-websocket'])
               apps:function (AppServiceDist) {
                 return AppServiceDist.getApps();
               }
+              // langConfig:function(I18nServiceDist){
+              //   return I18nServiceDist.initConfig();
+              // }
             },                                                                                   
             controller: function ($rootScope, $scope, $window, $timeout, $state,account,groups,devices,contacts,
                                   AccountServiceDist,WebSocketServiceDist,apps,notifications,NotificationServiceDist) {
@@ -122,27 +137,27 @@ angular.module('app.view.main', ['ui.router','angular-websocket'])
               (function () { //module about sidebar
                 $scope.sideNavTabs = {
                   app: {
-                    name: '应用',
+                    name: 'APPLICATION_TITLE',
                     active: true
                   },
                   device: {
-                    name: '设备',
+                    name: 'DEVICE_TITLE',
                     active: false
                   },
-                  store: {
-                    name: '商店',
-                    active: false
-                  },
+                  // store: {
+                  //   name: '商店',
+                  //   active: false
+                  // },
                   group: {
-                    name: '分组',
+                    name: 'GROUP_TITLE',
                     active: false
                   },
                   notification: {
-                    name: '通知',
+                    name: "NOTIFICATION_TITLE",
                     active: false
                   },
                   settings: {
-                    name: '设置',
+                    name: "SETTINGS_TITLE",
                     active: false
                   }
                 };
@@ -151,7 +166,7 @@ angular.module('app.view.main', ['ui.router','angular-websocket'])
                   $timeout(function() {
                     $scope.sideNavTabs.app.active = false;
                     $scope.sideNavTabs.device.active = false;
-                    $scope.sideNavTabs.store.active = false;
+                   // $scope.sideNavTabs.store.active = false;
                     $scope.sideNavTabs.group.active = false;
                     $scope.sideNavTabs.settings.active = false;
                     $scope.sideNavTabs.notification.active = false;

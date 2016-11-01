@@ -1,19 +1,19 @@
 <div class="device-detail-settings">
   <div class="panel">
     <div class="panel-body">
-      <div class="settings-name">描述</div>
+      <div class="settings-name">{{"UTIL_DESCRIPTION"|translate}}</div>
       <div class="settings-description">
-        您可以修改设备显示的描述
+        {{"DEVICE_DETAIL_INFO_SETTINGS_DESCRIPTION"|translate}}
       </div>
       <div class="settings-content">
         <input type="text" data-ng-model="description">
       </div>
       <div class="settings-action">
         <button class="btn btn-default" data-ng-click="cancel()">
-          返回
+          {{"UTIL_BACK"|translate}}
         </button>
         <button data-ng-disabled="account.accountId!==ownerId" class="btn btn-default" data-ng-click="modifyDevice('description',description)">
-          修改
+          {{"UTIL_MODIFY"|translate}}
         </button>
       </div>
     </div>

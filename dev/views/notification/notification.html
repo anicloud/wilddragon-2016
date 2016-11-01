@@ -1,7 +1,7 @@
 <div class="content-header">
   <div class="navbar">
     <div class="navbar-title">
-      通知
+      {{"NOTIFICATION_TITLE"|translate}}
     </div>
     <div class="navbar-toggle" data-ng-click="toggleSidebar()">
       <span class="icon-bar"></span>
@@ -13,11 +13,11 @@
 <div class="content-body">
   <table class="table-bordered table-striped">
     <thead>
-    <tr><th>序号</th><th>消息内容</th><th>操作</th></tr>
+    <tr><th>{{"NOTIFICATION_NO"|translate}}</th><th>{{"NOTIFICATION_CONTENT"|translate}}</th><th>{{"NOTIFICATION_OPERATION"|translate}}</th></tr>
     </thead>
     <tbody data-ng-repeat="message in notifications">
     <tr>
-      <button class="btn btn-sm btn-clear btn-danger">删除所有消息</button>
+      <button class="btn btn-sm btn-clear btn-danger">{{"NOTIFICATION_REMOVE_ALL"|translate}}</button>
       <td data-ng-bind="$index+1"></td>
       <td data-ng-bind="message.body"></td>
       <td class="operation">
@@ -25,7 +25,7 @@
           <button class="btn btn-xs btn-success" data-ng-bind="message.choice[0]" data-ng-click="dealMessage(message,true)"></button>
           <button class="btn btn-xs btn-danger" data-ng-bind="message.choice[1]" data-ng-click="dealMessage(message,false)"></button>
         </span>
-        <button class="btn btn-xs btn-default" data-ng-click="deleteMessage(message,fals)">删除</button>
+        <button class="btn btn-xs btn-default" data-ng-click="deleteMessage(message)">{{"UTIL_REMOVE"|translate}}</button>
       </td>
     </tr>
     </tbody>

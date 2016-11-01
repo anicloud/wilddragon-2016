@@ -8,7 +8,7 @@ angular.module('app.view', [
   'app.view.account',
   'app.view.application',
   'app.view.device',
-  'app.view.store',
+  // 'app.view.store',
   'app.view.settings',
   'app.view.group',
       'app.view.notification'

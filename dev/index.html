@@ -59,8 +59,8 @@
 <!-- In production use:
 <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
 -->
-<script src="node_modules/eruda/eruda.min.js"></script>
-<script>eruda.init();</script>
+<!--<script src="node_modules/eruda/eruda.min.js"></script>-->
+<!--<script>eruda.init();</script>-->
 <!-- bower:js -->
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -79,6 +79,10 @@
 <script src="bower_components/fastclick/lib/fastclick.js"></script>
 <script src="bower_components/ng-tags-input/ng-tags-input.min.js"></script>
 <script src="bower_components/toastr/toastr.js"></script>
+<script src="bower_components/angular-translate/angular-translate.js"></script>
+<script src="bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.js"></script>
+<script src="bower_components/angular-translate-storage-local/angular-translate-storage-local.js"></script>
+<script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
 <!-- endbower -->
 
 <!-- build:js scripts/app.min.js -->
@@ -101,6 +105,7 @@
 <script src="/components/services/websocket.js"></script>
 <script src="/components/services/serivce.js"></script>
 <script src="/components/services/notification-service.js"></script>
+<script src="/components/services/i18n-service.js"></script>
 <script src="/components/services/device-service.js"></script>
 <script src="/components/services/app-service.js"></script>
 <script src="/components/services/account-service.js"></script>

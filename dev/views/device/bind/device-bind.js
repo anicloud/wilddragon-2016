@@ -41,7 +41,6 @@ angular.module('app.view.device.bind', ['ui.router'])
     .controller('DeviceBindCtrl', function ($scope, $state, $timeout, DeviceService,wifiList) {
       $scope.bindMethod = 'qrcode';
       $scope.bindData = {
-        deviceId: '',
          // physicalId: 'm0001',
          // physicalAddress: '00-01-6C-06-A6-29'
         physicalId: '',

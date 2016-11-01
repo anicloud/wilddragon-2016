@@ -97,6 +97,41 @@
 .settings .settings-content .right button:hover {
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.26);
 }
+.dropdown-wrapper {
+  position: absolute;
+  left: calc 0%;
+  width: 100%;
+  color: #757575;
+}
+.dropdown-wrapper ul {
+  position: absolute;
+  left: 0;
+}
+.dropdown-wrapper ul li {
+  width: 82px;
+}
+#lang-btn {
+  color: #757575;
+  font-size: 14px;
+  position: absolute;
+  text-align: center;
+  border-radius: 0;
+}
+#lang-ul {
+  border-radius: 0;
+  width: 100px;
+  position: absolute;
+  top: 30px;
+  margin-left: 15px;
+}
+#lang-li {
+  border-radius: 0;
+  color: #757575;
+  text-align: center;
+  margin: 0;
+  width: 100%;
+  cursor: pointer;
+}
 @media screen and (min-width: 768px) {
   .settings {
     padding: 0 30px;
