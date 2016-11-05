@@ -29,6 +29,10 @@ var paths = {
   ],
   views: {
     main: app.src + '/index.html',
+    login:[
+      app.src + '/entry.html',
+      app.src + "/login.html"
+    ],
     files: [
       app.src + '/views*/**/*.html'
     ]
@@ -71,6 +75,10 @@ gulp.task('scripts', function () {
 
 gulp.task('copy', function () {
   gulp.src(paths.views.files)
+      // .pipe($.rev())
+      // .pipe($.revReplace())
+      .pipe(gulp.dest(app.dev));
+  gulp.src(paths.views.login)
       // .pipe($.rev())
       // .pipe($.revReplace())
       .pipe(gulp.dest(app.dev));
@@ -121,6 +129,8 @@ gulp.task('inject', function () {
 
 gulp.task('copy:prod', function () {
   gulp.src(paths.views.files)
+      .pipe(gulp.dest(app.dist));
+  gulp.src(paths.views.login)
       .pipe(gulp.dest(app.dist));
   gulp.src(paths.images)
       .pipe($.cache($.imagemin({
@@ -272,4 +282,4 @@ gulp.task('start:server:prod', function () {
   });
 });
 
-gulp.task('default', ['serve:prod']);
+gulp.task('default', ['serve:node']);

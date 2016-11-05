@@ -64,7 +64,7 @@ angular.module('app.view.device.detail.share', [
     };
     $scope.removeShare = function (share) {
       var shareData = {
-        //deviceId: $scope.device.deviceId,
+        deviceId: $scope.device.deviceId,
         types: share.types,
         groupId: share.group.groupId
       };
@@ -72,9 +72,14 @@ angular.module('app.view.device.detail.share', [
         function (result) {
           if (result.success && result.data !== null) {
             alert('移除共享成功');
-            console.log(result.data);
             $timeout(function () {
               $scope.device.permissions = result.data;
+              var accountGroups=$scope.deviceMap[shareData.deviceId].accountGroups;
+              var index=null;
+              for(var i=0;i<accountGroups.length;i++){
+                (accountGroups[i]==shareData.groupId)?(index=i):null;
+              }
+              if(index!==null) accountGroups.splice(index,1);
               $scope.updateShareList();
             }, 0);
           } else {

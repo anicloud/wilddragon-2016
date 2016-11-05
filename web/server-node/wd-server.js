@@ -20,17 +20,19 @@ var account=require('./routes/account');
 var group=require('./routes/group');
 var device = require('./routes/device');
 var application=require('./routes/app');
+var login=require('./routes/login');
 
 var socketData=require('./socketData');
 // var websocket=require('./websocket');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.get('/node_modules/eruda/eruda.min.js',function (req,res) {
-    console.log(path.join(__dirname, '../node_modules/eruda/eruda.min.js'));
-    res.sendfile(path.join(__dirname, '../node_modules/eruda/eruda.min.js'))
-});
-app.use(express.static(path.join(__dirname, '../../dev')));
+// app.get('/node_modules/eruda/eruda.min.js',function (req,res) {
+//     console.log(path.join(__dirname, '../node_modules/eruda/eruda.min.js'));
+//     res.sendfile(path.join(__dirname, '../node_modules/eruda/eruda.min.js'))
+// });
 app.use('/',routes);
+app.use(express.static(path.join(__dirname, '../../dev')));
+app.use('/login',login);
 app.use('/account',account);
 app.use('/group',group);
 app.use('/device',device);
