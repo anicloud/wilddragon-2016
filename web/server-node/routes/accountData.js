@@ -122,7 +122,7 @@ var accountData=function(){
             return new RetData(true,'','');
         },
         getJoinAccount:function () {
-            return accounts[3];
+            return accounts[1];
         },
         getKickAccount:function () {
             return account0;

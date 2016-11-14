@@ -1,0 +1,65 @@
+<div class="device-detail" id="salveBindPanel">
+    <div class="detail-content">
+        <div class="title">{{"bind new slave"|translate}}</div>
+        <div class="left">
+            <div class="description">
+                {{"search the slave device the master can bind and select the device you want"|translate}}
+            </div>
+        </div>
+        <div class="right">
+            <div class="panel">
+                <div class="panel-body" >
+                    <div ng-show="true">
+                        <div class="item" ng-show="device.toBindSlave.state==='bindSelecting'">
+                            <div class="item-name highlight">name</div>
+                            <div class="item-detail">description</div>
+                        </div>
+                        <div class="item" ng-repeat="slave in device.toBindSlave.list">
+                            <div class="item-name highlight">{{slave.name}}</div>
+                            <div class="item-detail">{{slave.description}}</div>
+                            <div class="item-next">
+                                <input type="checkbox" ng-true-value="true" ng-false-value="false" ng-model="slave.selected">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <button id="search-btn1" class="btn btn-default" ng-click="getSlaveList(device.deviceId)" ng-show="device.toBindSlave.state===null">click to search</button>
+                            <div id="search-btn2" ng-show="device.toBindSlave.state==='bindListWaiting'">slave searching,please wait</div>
+                        <button id="search-btn3" class="btn btn-default" ng-click="sendBindList(device.deviceId)" ng-show="device.toBindSlave.state==='bindSelecting'">confirm to bind</button>
+                            <div id="search-btn4" ng-show="device.toBindSlave.state==='bindResultWaiting'">device is binding ,please waiting</div>
+                            <div id="search-btn5"   ng-show="device.toBindSlave.state==='bindEnd'">bind successfully</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="detail-content">
+        <div class="title">{{"binded data list"|translate}}</div>
+        <div class="left">
+            <div class="description">
+                {{"this is a list that binded"|translate}}
+            </div>
+        </div>
+        <div class="right">
+            <div class="panel">
+                <div class="panel-body">
+                    <div class="item">
+                        <div class="item-name highlight">name</div>
+                        <div class="item-detail">description</div>
+                    </div>
+                    <div class="item" ng-repeat="slave in device.slaves">
+                            <div class="item-name highlight">{{slave.name}}</div>
+                            <div class="item-detail">{{slave.description}}</div>
+                    </div>
+                    <!--<div class="item">-->
+                        <!--<a href="#/device/{{device.deviceId}}/info/name">-->
+                            <!--<div class="item-name highlight">{{"UTIL_NAME"|translate}}</div>-->
+                            <!--<div class="item-detail">{{device.name}}</div>-->
+                            <!--<div class="item-next"><i class="fa fa-angle-right"></i></div>-->
+                        <!--</a>-->
+                    <!--</div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

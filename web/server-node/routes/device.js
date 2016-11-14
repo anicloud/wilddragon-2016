@@ -3,6 +3,7 @@
  */
 var express=require('express');
 var data=require('./deviceData');
+var RetData=require('./ret-data');
 var router = express.Router();
 router.get('/all', function (req, res, next) {
     res.send(data().getDevices());
@@ -30,5 +31,15 @@ router.post('/unbind',function(req,res){
 });
 router.post('/share',function (req,res) {
     res.send(data().shareDevice(req.body))
+});
+router.get('/getSlaveList',function (req,res) {
+    var masterId=req.query.masterId;
+    console.log(masterId);
+    res.send(data().getSlaveList(masterId));
+});
+router.post('/sendBindList',function (req,res) {
+    var content=req.body;
+    console.log('content',content);
+    res.send(new RetData(true,'',true));
 });
 module.exports=router;

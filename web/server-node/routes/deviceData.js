@@ -310,6 +310,19 @@ var deviceData=function() {
                     types: ['READABLE', 'EXECUTABLE']
                 }
             ])
+        },
+        getSlaveList:function(masterId){
+            console.log('2222',masterId);
+            if(masterId==100001){
+                return new RetData(true,'',true);
+            }else 
+                return new RetData(true,'',false);
+        },
+        sendSlaveList:function (masterId) {
+            if(masterId==100001){
+                return device2.slaves;
+            }else
+                return [];
         }
     };
 };

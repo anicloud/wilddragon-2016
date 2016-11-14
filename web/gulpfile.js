@@ -31,7 +31,8 @@ var paths = {
     main: app.src + '/index.html',
     login:[
       app.src + '/entry.html',
-      app.src + "/login.html"
+      app.src + "/login.html",
+      app.src + "/login2.html"
     ],
     files: [
       app.src + '/views*/**/*.html'

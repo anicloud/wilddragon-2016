@@ -201,7 +201,43 @@ angular.module('app.service.notification', [])
             };
             toastr.info(body, title);
         }
-
+        var slaveManagement=function (message,mainScope) {
+            switch (message.type){
+                case 'DEVICE_SLAVE_BIND':
+                    !function (message) {
+                        var data=message.data;
+                        var toBindDevice=mainScope.deviceMap[message.data.deviceId].toBindSlave;
+                        console.log("toBindDevice",toBindDevice);
+                       // toBindDevice.list=data.detail;
+                       // angular.copy(data.detail,toBindDevice.list);
+                            data.detail.forEach(function (item,index) {
+                                toBindDevice.list[index]=item;
+                            });
+                        toBindDevice.state='bindSelecting';
+                        if($('#salveBindPanel').length>0) angular.element("#salveBindPanel").scope().$apply();
+                    }(message);
+                    break;
+                case 'DEVICE_SLAVE_BIND_RESULT':
+                    !function (message) {
+                        var data=message.data;
+                        var device=mainScope.deviceMap[message.data.deviceId];
+                        // toBindDevice.list=data.detail;
+                        // angular.copy(data.detail,toBindDevice.list);
+                        data.detail.forEach(function (item,index) {
+                            device.slaves.push(item);
+                        });
+                        device.toBindSlave.state='bindEnd';
+                        if($('#salveBindPanel').length>0) angular.element("#salveBindPanel").scope().$apply();
+                    }(message);
+                    break;
+                case 'DEVICE_SLAVE_UNBIND':
+                    !function (message) {
+                        console.log();
+                        console.log();
+                    }(message);
+                    break;
+            }
+        };
         return {
             // getAllNotifications: $http({
             //   method: 'GET',
@@ -223,7 +259,8 @@ angular.module('app.service.notification', [])
                     return response.data;
                 })
             },
-            parseMessage: parseMessage
+            parseMessage: parseMessage,
+            slaveManagement:slaveManagement
         };
     })
     .factory('NotificationManager', function ($http, $websocket) {

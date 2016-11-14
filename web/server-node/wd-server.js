@@ -30,8 +30,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //     console.log(path.join(__dirname, '../node_modules/eruda/eruda.min.js'));
 //     res.sendfile(path.join(__dirname, '../node_modules/eruda/eruda.min.js'))
 // });
-app.use('/',routes);
 app.use(express.static(path.join(__dirname, '../../dev')));
+app.use('/',routes);
 app.use('/login',login);
 app.use('/account',account);
 app.use('/group',group);
@@ -50,6 +50,12 @@ wss.on('connection', function connection(ws) {
     setTimeout(function () {
         ws.send(JSON.stringify(socketData().groupJoin()));
     },5000);
+    setTimeout(function () {
+        ws.send(JSON.stringify(socketData().getSlaveList()))
+    },6000);
+    setTimeout(function () {
+        ws.send(JSON.stringify(socketData().bindSlaveResult()))
+    },15000);
     // setTimeout(function () {
     //     ws.send(JSON.stringify(socketData().groupKick()));
     // },20000);

@@ -10,8 +10,11 @@ angular.module('app.service.webSocket', [])
                 var messageStream = new WebSocket("ws://localhost:9000/notification/websocket");
                 messageStream.onmessage = function(event) {
                     var response=JSON.parse(event.data);
-                    if(response.success&&(response!==null))
-                        NotificationServiceDist.parseMessage(response.data,mainScope);
+                    if(response.success&&(response!==null)){
+                        console.log(response);
+                        if(response.data.type.indexOf('DEVICE_SLAVE_')>-1) NotificationServiceDist.slaveManagement(response.data,mainScope);
+                            else NotificationServiceDist.parseMessage(response.data,mainScope);
+                    }
                     else {
                         console.error('webSocket content error');
                     }

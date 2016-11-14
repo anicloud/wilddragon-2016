@@ -120,6 +120,10 @@ angular.module('app.view.main', ['ui.router','angular-websocket','ngCookies','pa
                   $scope.devices = devices.data;
                   $scope.deviceMap = {};
                   angular.forEach($scope.devices, function (device) {
+                    device.toBindSlave={
+                      list:[],
+                      state:null
+                    };
                     $scope.deviceMap[device.deviceId] = device;
                   });
                 } else {

@@ -81,6 +81,24 @@ angular.module('app.service.device', [])
         }).then(function (response) {
           return response.data;
         });
+      },
+      getSlaveList:function (masterId) {
+        return $http({
+          method:'GET',
+          url:'device/getSlaveList?masterId='+masterId
+        }).then(function (response) {
+          return response.data;
+        })
+      },
+      sendBindList:function (data) {
+        return $http({
+          method:'POST',
+          url:'device/sendBindList',
+          data:data
+        }).
+        then(function (response) {
+          return response.data;
+        })
       }
     };
   })

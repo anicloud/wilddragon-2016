@@ -169,6 +169,80 @@ var socketData=function(){
                     detail:deviceData().getDevice(1)
                 }
             };
+        },
+        getSlaveList:function () {
+            return{
+                type:"DEVICE_SLAVE_BIND",
+                description:'getSlaveList',
+                data:{
+                    deviceId:'100001',
+                    detail:[
+                        {
+                            physicalId: 'b00001',
+                            physicalAddress: '',
+                            name: '会议室台灯',
+                            description: 'A light in meeting room',
+                            functions: [
+                                {functionId: 1, groupId: 1},
+                                {functionId: 2, groupId: 1}
+                            ],
+                            state: 'ACTIVE',
+                            deviceId: 1,
+                            masterId: 100004
+                        },
+                        {
+                            physicalId: 'b00002',
+                            physicalAddress: '',
+                            name: '休息室咖啡机',
+                            description: 'A coffee boiler in restroom',
+                            functions: [
+                                {functionId: 1, groupId: 1},
+                                {functionId: 2, groupId: 1}
+                            ],
+                            state: 'ACTIVE',
+                            deviceId: 2,
+                            masterId: 100004
+                        }
+                    ]
+                }
+            }
+        },
+        bindSlaveResult:function () {
+            return{
+                type:"DEVICE_SLAVE_BIND_RESULT",
+                description:'getSlaveList',
+                data:{
+                    deviceId:'100001',
+                    detail:[
+                        {
+                            physicalId: 'b00001',
+                            physicalAddress: '',
+                            name: '会议室台灯',
+                            description: 'A light in meeting room',
+                            functions: [
+                                {functionId: 1, groupId: 1},
+                                {functionId: 2, groupId: 1}
+                            ],
+                            state: 'ACTIVE',
+                            deviceId: 1,
+                            masterId: 100004
+                        },
+                        {
+                            physicalId: 'b00002',
+                            physicalAddress: '',
+                            name: '休息室咖啡机',
+                            description: 'A coffee boiler in restroom',
+                            functions: [
+                                {functionId: 1, groupId: 1},
+                                {functionId: 2, groupId: 1}
+                            ],
+                            state: 'ACTIVE',
+                            deviceId: 2,
+                            masterId: 100004
+                        }
+                    ]
+                }
+            }
         }
     };
     return {
@@ -204,6 +278,12 @@ var socketData=function(){
         },
         groupQuit:function () {
             return new RetData(true, '', messages.groupQuit());
+        },
+        getSlaveList:function () {
+            return new RetData(true,"",messages.getSlaveList())
+        },
+        bindSlaveResult:function () {
+            return new RetData(true,'',messages.bindSlaveResult());
         }
     }
 };

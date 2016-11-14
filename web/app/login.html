@@ -10,22 +10,40 @@
     <input type="password" name="password" id="password" placeholder="password">
     <input type="hidden" name="lt" value="" id="lt" />
     <input type="hidden" name="execution" value="" id="execution" />
-    <input type="hidden" name="_eventId" value="submit" /> <input type="button" value="登录" class="login-bnt" onclick="javascript:login();" />
+    <input type="hidden" name="_eventId" value="submit" /> 
+    <input type="submit" value="登录" class="login-bnt" id="login" />
 </form>
 <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<script src="//oss.maxcdn.com/jquery.form/3.50/jquery.form.min.js"></script>
 <script type="text/javascript">
+$(document).ready(function(){
+login();
+    $('#login-form').ajaxForm(function(res){
+        console.log(res);
+    })
+});
+
     function login () {
         console.log("haha");
         $.ajax({
             url: "/login/getLt", //get lt and execution
             type: "get",
             success: function (data) {
-                submitFormData(data)
+             //   submitFormData(data)
+             console.log('hihi')
+             $('#lt').val(data.lt);
+             $('#execution').val(data.execution);
+             $('submit')
+             //$('#login-form').ajaxForm();
+//             $('#login-form').ajaxForm(function(res){
+//                 console.log(res);
+       //   $("#login-form").submit();
             },
             error:function(){
                 alert('网络访问错误!');
             } });
     }
+    //$('#login-form').submit();
     function submitFormData(data) {
         var formData=new FormData();
         formData.append('username',$("#username").val());
@@ -45,6 +63,7 @@
             }
         }
     }
+
 </script>
 </body>
 </html>

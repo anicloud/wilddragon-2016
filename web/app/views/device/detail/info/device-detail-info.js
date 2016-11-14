@@ -14,9 +14,6 @@ angular.module('app.view.device.detail.info', [
         templateUrl: 'views/device/detail/info/device-detail-info.html',
         controller: 'DeviceDetailInfoCtrl',
         resolve: {
-          // functions: function ($stateParams, DeviceService) {
-          //   return DeviceService.getMasterFunctions($stateParams.id);
-          // }
            functions: function ($stateParams, DeviceServiceMock) {
              return DeviceServiceMock.getMasterFunctions($stateParams.id);
            }
@@ -36,6 +33,15 @@ angular.module('app.view.device.detail.info', [
           }
         }
       })
+        .state('main.device.detail.info.slaveManagement',{
+          url:'/slaveManagement',
+          views: {
+            '@main.device.detail': {
+              templateUrl: "views/device/detail/info/device-detail-slaveManagement.html",
+              controller: 'DeviceDetailInfoSlaveManagementCtrl'
+            }
+          }
+        })
       .state('main.device.detail.info.name', {
         url: '/name',
         views: {
@@ -148,30 +154,6 @@ angular.module('app.view.device.detail.info', [
         });
       })
     };
-    // $scope.unbind = function(device) {
-    //   var data = {
-    //     deviceId: device.deviceId,
-    //     permission:device.permissions
-    //   };
-    //   DeviceService.unbindDevice(data).then(function (result) {
-    //     console.log(result);
-    //     if (result.success) {
-    //       alert("解除设备绑定成功");
-    //       $timeout(function () {
-    //         for (var i=0; i<$scope.devices.length; i++) {
-    //           if ($scope.devices[i].deviceId == result.data.deviceId) {
-    //             $scope.devices.splice(i, 1);
-    //             break;
-    //           }
-    //         }
-    //         delete $scope.deviceMap[result.data.deviceId];
-    //         $state.go('main.device.list');
-    //       }, 0);
-    //     } else {
-    //       alert("解除设备绑定失败,原因: " + result.message);
-    //     }
-    //   });
-    // }
   })
     .controller('DeviceUnbindCtrl',function($scope,$uibModalInstance){
       $scope.confirm = function () {
@@ -181,7 +163,6 @@ angular.module('app.view.device.detail.info', [
         $uibModalInstance.dismiss("cancel");
       }
     })
-
   .controller('DeviceDetailInfoSlaveCtrl', function ($scope, $stateParams, functions) {
     $scope.slave = null;
     if (typeof($stateParams.slaveId) != 'undefined') {
@@ -233,5 +214,37 @@ angular.module('app.view.device.detail.info', [
       $state.go('^');
     }
   })
+    .controller("DeviceDetailInfoSlaveManagementCtrl",function ($scope,$stateParams,DeviceService) {
+      console.log($scope);
+      $scope.searchingFlag=false;
+      $scope.getSlaveList=function (masterId) {
+        DeviceService.getSlaveList(masterId).then(function (res) {
+          if(res.data.toString()==='true'){
+            alert('request send successfully,please waiting for searching');
+            $scope.device.toBindSlave.state='bindListWaiting';
+            //'null','bindListWaiting','bindSelecting','bindResultWaiting','bindResultWaiting','bindEnd'
+          }else {
+            alert('request fail');
+          }
+        });
+      };
+      $scope.sendBindList=function () {
+        var list=$scope.device.toBindSlave.list;
+        var sendList=[];
+        list.forEach(function (slave) {
+          if(slave.selected) sendList.push(slave.deviceId)
+        });
+        DeviceService.sendBindList({
+          masterId:$scope.device.deviceId,
+          bindList:sendList
+        }).then(function (res) {
+          if(res.data.toString()==="true"){
+            alert('request send successfully,please waiting for binding');
+            $scope.device.toBindSlave.state='bindResultWaiting';
+          }
+        })
+      };
+      console.log($stateParams);
+    })
 ;
 
