@@ -5,7 +5,7 @@ import play.libs.Json;
 /**
  * Created by huangbin on 12/29/15.
  */
-public class NotificationData {
+public class  NotificationData {
     public Type type;
     public String message;
     public MsgContentData data;
@@ -32,6 +32,8 @@ public class NotificationData {
         // device share
         DEVICE_SHARE,
         DEVICE_UNSHARE,
+        //search for slaves
+        DEVICE_SEARCHSLAVES,
 
         // account group
         ACCOUNT_GROUP_ADD,

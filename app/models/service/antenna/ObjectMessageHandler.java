@@ -1,11 +1,11 @@
 package models.service.antenna;
 
+import com.ani.earth.commons.message.group.*;
 import com.ani.octopus.account.domain.model.account.AccountGroup;
-import com.ani.octopus.antenna.core.dto.message.ObjectMessage;
-import com.ani.octopus.antenna.core.dto.message.account.*;
-import com.ani.octopus.antenna.core.dto.message.app.*;
-import com.ani.octopus.antenna.core.dto.message.device.*;
 import com.ani.octopus.antenna.infrastructure.service.ObjectMessageListener;
+import com.ani.octopus.commons.message.object.ObjectMessage;
+import com.ani.octopus.commons.object.message.app.*;
+import com.ani.octopus.commons.object.message.device.*;
 import models.domain.session.SessionManager;
 import models.dto.account.AccountData;
 import models.dto.account.AccountGroupData;
@@ -52,7 +52,7 @@ public class ObjectMessageHandler implements ObjectMessageListener {
                     onDeviceConnect((DeviceConnectMessage) message);
                     break;
                 case DEVICE_DISCONNECTED:
-                    onDeviceDisconnect((DeviceConnectMessage) message);
+                    onDeviceDisconnect((DeviceDisconnectMessage) message);
                     break;
                 case DEVICE_BOUND:
                     onDeviceBind((DeviceBindMessage) message);
@@ -66,6 +66,8 @@ public class ObjectMessageHandler implements ObjectMessageListener {
                 case DEVICE_UNSHARED:
                     onDeviceUnshare((DeviceUnshareMessage) message);
                     break;
+                case DEVICE_SEARCHSLAVES:
+                    onDeviceSearchSlaves((DeviceSearchSlavesMessage) message);
 //                case ACCOUNT_GROUP_ADDED:
 //                    onAccountGroupAdd((AccountGroupAddMessage) message);
 //                    break;
@@ -152,7 +154,7 @@ public class ObjectMessageHandler implements ObjectMessageListener {
         }
     }
 
-    private void onDeviceDisconnect(DeviceConnectMessage message) {
+    private void onDeviceDisconnect(DeviceDisconnectMessage message) {
         DeviceMasterData deviceMasterData = deviceServiceAdapter.findDevice(message.deviceId);
         AccountData accountData = accountServiceAdapter.findAccountById(Long.valueOf(deviceMasterData.owner));
         if (deviceMasterData != null && deviceMasterData.accountGroups != null) {
@@ -195,6 +197,12 @@ public class ObjectMessageHandler implements ObjectMessageListener {
         AccountData accountData = accountServiceAdapter.findAccountById(Long.valueOf(deviceMasterData.owner));
         AccountGroupData groupData = accountServiceAdapter.findGroup(message.groupId);
         notificationService.deviceUnShareNotice(deviceMasterData, accountData, groupData);
+    }
+
+    private void onDeviceSearchSlaves(DeviceSearchSlavesMessage message){
+        DeviceMasterData deviceMasterData = deviceServiceAdapter.findDevice(message.deviceId);
+        AccountData accountData = accountServiceAdapter.findAccountById(Long.valueOf(deviceMasterData.owner));
+        notificationService.deviceSearchSlavesNotice(deviceMasterData,accountData,message.slavesList);
     }
 
 //    private void onAccountGroupAdd(AccountGroupAddMessage message) {

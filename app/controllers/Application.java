@@ -4,6 +4,7 @@ import org.pac4j.play.java.JavaController;
 import org.pac4j.play.java.RequiresAuthentication;
 import org.springframework.stereotype.Component;
 import play.Play;
+import play.libs.Json;
 import play.mvc.Result;
 
 
@@ -13,18 +14,24 @@ import play.mvc.Result;
 @Component
 public class Application extends JavaController {
 //    @Security.Authenticated(AccessAuthenticator.class)
+    final String baseUrl = Play.application().configuration().getString("baseUrl");
+    final String casUrl = Play.application().configuration().getString("casUrl");
+
     @RequiresAuthentication(clientName = "CasClient")
     public Result index() {
-//        return ok(index.render());
-//        File indexFile = Play.application().getFile("/public/index.html");
         return ok(Application.class.getResourceAsStream("/public/index.html")).as("text/html");
     }
 
-    public Result login(String service) { return ok();
-//        final String appLoginUrl = Play.application().configuration().getString("baseUrl") + "/login";
-//        final String casLoginUrl = Play.application().configuration().getString("casUrl") + "/login";
-//        return ok(login.render(casLoginUrl, appLoginUrl, service));
+    //get lt、execution parameters
+    public Result getParametersFromCAS(){
+        String getParametersUrl = casUrl + "/login?mode=app&service=" + baseUrl +"/";
+        return ok(Json.toJson(getParametersUrl));
     }
+    public Result postLoginUrl(){
+        return ok(Json.toJson(casUrl));
+    }
+
+
 
     public Result register() { return ok();
 //        return ok(register.render());

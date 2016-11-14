@@ -1,5 +1,6 @@
 package models.service.notification;
 
+import com.ani.octopus.commons.object.dto.object.ObjectSlaveQueryDto;
 import models.domain.session.SessionManager;
 import models.dto.RetData;
 import models.dto.account.AccountData;
@@ -264,6 +265,17 @@ public class NotificationServiceImpl implements NotificationService {
         msgContentData.deviceName = deviceMasterDataData.name;
         msgContentData.detail = deviceMasterDataData;
         NotificationData data = new NotificationData(NotificationData.Type.DEVICE_UNBIND,"device un_bind notice", msgContentData);
+        SessionManager.sessionSend(accountData.accountId, new RetData(true,"",data));
+    }
+
+    public void deviceSearchSlavesNotice(DeviceMasterData deviceMasterDataData, AccountData accountData, List<ObjectSlaveQueryDto> slaveList){
+        MsgContentData msgContentData = new MsgContentData();
+        msgContentData.fromId = accountData.accountId;
+        msgContentData.fromName = accountData.name;
+        msgContentData.deviceId = deviceMasterDataData.deviceId;
+        msgContentData.deviceName = deviceMasterDataData.name;
+        msgContentData.detail = slaveList;
+        NotificationData data = new NotificationData(NotificationData.Type.DEVICE_SEARCHSLAVES,"get slaves list notice", msgContentData);
         SessionManager.sessionSend(accountData.accountId, new RetData(true,"",data));
     }
 

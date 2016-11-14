@@ -7,12 +7,18 @@ import com.ani.earth.commons.dto.AccountDto;
 import com.ani.earth.commons.dto.AccountGroupDto;
 import com.ani.earth.interfaces.AccountServiceFacade;
 import com.ani.octopus.antenna.core.AntennaTemplate;
+import com.ani.octopus.antenna.core.dto.stub.StubInvocationDto;
+import com.ani.octopus.antenna.core.service.stub.AniStubMetaInfoService;
+import com.ani.octopus.commons.dto.object.ObjectQueryDto;
 import com.ani.octopus.commons.object.dto.object.ObjectMainInfoDto;
 import com.ani.octopus.commons.object.dto.object.ObjectMainQueryDto;
+import com.ani.octopus.commons.object.dto.object.ObjectSlaveQueryDto;
 import com.ani.octopus.commons.object.dto.object.privilege.ObjectPrivilegeGrantDto;
 import com.ani.octopus.commons.object.enumeration.AniObjectState;
 import com.ani.octopus.commons.object.enumeration.AniObjectType;
+import com.ani.octopus.commons.stub.dto.StubDto;
 import com.ani.octopus.commons.stub.enumeration.PrivilegeType;
+import com.ani.octopus.stub.core.domain.stub.Stub;
 import models.dto.device.*;
 import org.springframework.stereotype.Component;
 
@@ -32,6 +38,9 @@ public class DeviceServiceAdapterImpl implements DeviceServiceAdapter {
 
     @Resource
     private AntennaTemplate antennaTemplate;
+
+    @Resource
+    private AniStubMetaInfoService aniStubMetaInfoService;
 
     @Override
     public DeviceMasterData findDevice(Long deviceId) {
@@ -159,6 +168,46 @@ public class DeviceServiceAdapterImpl implements DeviceServiceAdapter {
             return null;
         }
         return findDevices(accountDto.accountId);
+    }
+
+    @Override
+    public boolean searchForSlavesList(Long deviceId){
+        try {
+            ObjectQueryDto targetObject = new ObjectMainQueryDto(deviceId);
+            List<StubInvocationDto> stubInvocationDtoList = new ArrayList<>();
+            Stub stub = aniStubMetaInfoService.getStub(new StubDto(1024L, 1));
+            StubInvocationDto invocationDto = new StubInvocationDto(
+                    stub,
+                    false,
+                    null,
+                    null
+            );
+            stubInvocationDtoList.add(invocationDto);
+            stubInvocationDtoList = antennaTemplate.objectInvokeService.invokeObject(null, targetObject, stubInvocationDtoList);
+            return stubInvocationDtoList.get(0).success;
+        }catch (Exception e){
+            return false;
+        }
+    }
+    @Override
+    public boolean addNewSlaves(Long deviceId, List<ObjectSlaveQueryDto> newSlavesList){
+        try {
+            ObjectQueryDto targetObject = new ObjectMainQueryDto(deviceId);
+            List<StubInvocationDto> stubInvocationDtoList = new ArrayList<>();
+
+            Stub stub = aniStubMetaInfoService.getStub(new StubDto(1024L, 2));
+            StubInvocationDto invocationDto = new StubInvocationDto(
+                    stub,
+                    false,
+                    newSlavesList,
+                    null
+            );
+            stubInvocationDtoList.add(invocationDto);
+            stubInvocationDtoList = antennaTemplate.objectInvokeService.invokeObject(null, targetObject, stubInvocationDtoList);
+            return stubInvocationDtoList.get(0).success;
+        }catch (Exception e){
+            return false;
+        }
     }
 
     @Override

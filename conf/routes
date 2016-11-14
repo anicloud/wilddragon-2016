@@ -4,7 +4,8 @@
 
 # Home page
 GET         /                                          @controllers.Application.index()
-
+GET         /naparam                                   @controllers.Application.getParametersFromCAS()
+GET         /getcasurl                                 @controllers.Application.postLoginUrl()
 GET         /callback                                  org.pac4j.play.CallbackController.callback()
 POST        /callback                                  org.pac4j.play.CallbackController.callback()
 GET         /casProxyCallback                          org.pac4j.play.CallbackController.callback()
@@ -15,6 +16,7 @@ GET         /logout                                    org.pac4j.play.CallbackCo
 GET         /images/*file                              controllers.Assets.at(path="/public/images", file)
 GET         /fonts/*file                               controllers.Assets.at(path="/public/fonts", file)
 GET         /views/*file                               controllers.Assets.at(path="/public/views", file)
+GET         /lang/*file                                controllers.Assets.at(path="/public/lang", file)
 GET         /styles/*file                              controllers.Assets.at(path="/public/styles", file)
 GET         /scripts/*file                             controllers.Assets.at(path="/public/scripts", file)
 GET         /components/*file                          controllers.Assets.at(path="/public/components", file)
@@ -46,6 +48,8 @@ GET         /group/invitation                          @controllers.AccountContr
 
 # Device
 GET         /device/all                                @controllers.DeviceController.getAllDevices()
+POST        /device/findslaves                         @controllers.DeviceController.searchAllSlaves()
+POST        /device/addslaves                          @controllers.DeviceController.addNewSlaves()
 POST        /device/bind                               @controllers.DeviceController.bindDevice()
 POST        /device/unbind                             @controllers.DeviceController.unbindDevice()
 POST        /device/modify                             @controllers.DeviceController.updateDevice()

@@ -1,6 +1,5 @@
 package controllers;
 
-import com.ani.earth.interfaces.GroupJoinInvitationServiceFacadeImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import models.dto.RetData;
 import models.dto.account.*;

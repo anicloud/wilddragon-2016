@@ -1,5 +1,7 @@
 package models.dto.account;
 
+import com.ani.earth.commons.enumeration.AccountType;
+
 /**
  * Created by huangbin on 12/11/15.
  */

@@ -1,5 +1,13 @@
 package controllers;
 
+import com.ani.octopus.antenna.core.AntennaTemplate;
+import com.ani.octopus.antenna.core.dto.stub.StubInvocationDto;
+import com.ani.octopus.antenna.core.service.stub.AniStubMetaInfoService;
+import com.ani.octopus.commons.dto.object.ObjectQueryDto;
+import com.ani.octopus.commons.object.dto.object.ObjectMainQueryDto;
+import com.ani.octopus.commons.object.dto.object.ObjectSlaveQueryDto;
+import com.ani.octopus.commons.stub.dto.StubDto;
+import com.ani.octopus.stub.core.domain.stub.Stub;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import models.dto.RetData;
 import models.dto.account.AccountData;
@@ -41,6 +49,7 @@ public class DeviceController extends JavaController {
     @Resource
     private NotificationService notificationService;
 
+
     private Long getAccountId() {
         final CommonProfile profile = getUserProfile();
         return Long.parseLong((String) profile.getAttribute("accountId"));
@@ -56,6 +65,56 @@ public class DeviceController extends JavaController {
         } finally {
             return ok(Json.toJson(retData));
         }
+    }
+    //search for all available slaves list nearby
+    public Result searchAllSlaves(){
+        RetData retData = null;
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            DeviceSearchSlavesData searchSlavesData = objectMapper.treeToValue(request().body().asJson(),DeviceSearchSlavesData.class);
+            Long deviceId = Long.parseLong(searchSlavesData.deviceId);
+            String owner = deviceServiceAdapter.findDevice(deviceId).owner;
+            //only owner can search for slaves
+            if(getAccountId().equals(Long.parseLong(owner))) {
+                boolean result = deviceServiceAdapter.searchForSlavesList(deviceId);
+                if(result) {
+                    retData = new RetData(true, "search request success");
+                }else{
+                    retData = new RetData(false, "search request fail");
+                }
+            }else{
+                retData = new RetData(false,"fail,no privilege");
+            }
+        }catch (Exception e) {
+            retData = new RetData(false, ExceptionUtils.getStackTrace(e));
+        }
+        return ok(Json.toJson(retData));
+    }
+
+    //add new slaves chosen by owner of master device
+    public Result addNewSlaves(){
+        RetData retData = null;
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+            DeviceAddSlavesData addSlavesData = objectMapper.treeToValue(request().body().asJson(),DeviceAddSlavesData.class);
+            Long deviceId = Long.parseLong(addSlavesData.deviceId);
+            List<ObjectSlaveQueryDto> newSlavesList = addSlavesData.slaves;
+            String owner = deviceServiceAdapter.findDevice(deviceId).owner;
+            if(getAccountId().equals(Long.parseLong(owner))) {
+                boolean result = deviceServiceAdapter.addNewSlaves(deviceId,newSlavesList);
+                if(result) {
+                    retData = new RetData(true, "addSlaves request success");
+                }else{
+                    retData = new RetData(false, "addSlaves request fail");
+                }
+            }else{
+                retData = new RetData(false,"fail,no privilege");
+            }
+        }catch (Exception e)
+        {
+            retData = new RetData(false, ExceptionUtils.getStackTrace(e));
+        }
+        return ok(Json.toJson(retData));
     }
 
     public Result bindDevice() {

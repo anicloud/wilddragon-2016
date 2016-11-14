@@ -1,6 +1,8 @@
 package models.dto.account;
 
-import com.ani.earth.commons.dto.NationalcodeEnum;
+
+import com.ani.earth.commons.enumeration.AccountType;
+import com.ani.earth.commons.enumeration.NationalcodeEnum;
 
 import java.util.Set;
 
