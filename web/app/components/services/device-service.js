@@ -84,8 +84,9 @@ angular.module('app.service.device', [])
       },
       getSlaveList:function (masterId) {
         return $http({
-          method:'GET',
-          url:'device/getSlaveList?masterId='+masterId
+          method:'POST',
+          url:'device/findslaves',
+          data:{deviceId:masterId}
         }).then(function (response) {
           return response.data;
         })
@@ -93,7 +94,7 @@ angular.module('app.service.device', [])
       sendBindList:function (data) {
         return $http({
           method:'POST',
-          url:'device/sendBindList',
+          url:'device/addslaves',
           data:data
         }).
         then(function (response) {
