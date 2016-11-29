@@ -28,7 +28,7 @@ angular.module('app.service.notification', [])
                     })(message);
                     break;
                 case 'ACCOUNT_GROUP_JOIN':
-                    (function (message) { //be invieted to Group
+                    (function (message) { //be invited to Group
                         var groupId = message.data.groupId, groupName = message.data.groupName, fromId = message.data.fromId, fromName = message.data.fromName;
                         var body=null;
                         var choice = [], type = message.type;
@@ -177,6 +177,23 @@ angular.module('app.service.notification', [])
                         mainScope.deviceMap[fromId].state = 'INACTIVE';
                     })(message);
                     break;
+                case 'DEVICE_UPDATE':
+                    (function(message){
+                        var type=message.type;
+                        var fromId=message.data.deviceId,fromName=mainScope.deviceMap[fromId].name;
+                        var description='MESSAGE_TITLE_DEVICE_UPDATE';
+                        var index=queryObjectByPropertyValue(mainScope.devices,'deviceId',fromId)[0];
+                        var body="",choice=[];
+                        // mainScope.devices[index]=message.data.detail;
+                        // mainScope.deviceMap[fromId]=message.data.detail;
+                        Object.assign(mainScope.devices[index],message.data.detail);
+                        Object.assign(mainScope.deviceMap[fromId],message.data.detail);
+                        notificationCol=new NotificationCollection(type,body,choice,fromId,description,fromName);
+                        //angular.element("#content").scope().$apply();
+                    })(message);
+                    break;
+                default:
+                    return;
             }
             console.log(notificationCol);
             $translate("MESSAGE_"+notificationCol.type,notificationCol).then(function (body) {

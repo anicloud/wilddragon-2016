@@ -14,8 +14,8 @@ angular.module('app.view.device.detail.info', [
         templateUrl: 'views/device/detail/info/device-detail-info.html',
         controller: 'DeviceDetailInfoCtrl',
         resolve: {
-           functions: function ($stateParams, DeviceServiceMock) {
-             return DeviceServiceMock.getMasterFunctions($stateParams.id);
+           functions: function ($stateParams, DeviceService) {
+             return DeviceService.getMasterFunctions($stateParams.id);
            }
         }
       })
@@ -26,8 +26,8 @@ angular.module('app.view.device.detail.info', [
             templateUrl: 'views/device/detail/info/settings/device-detail-info-slave.html',
             controller: 'DeviceDetailInfoSlaveCtrl',
             resolve: {
-              functions: function ($stateParams, DeviceServiceMock) {
-                return DeviceServiceMock.getSlaveFunctions($stateParams.id, $stateParams.slaveId)
+              functions: function ($stateParams, DeviceService) {
+                return DeviceService.getSlaveFunctions($stateParams.id, $stateParams.slaveId)
               }
             }
           }
@@ -154,6 +154,17 @@ angular.module('app.view.device.detail.info', [
         });
       })
     };
+    $scope.slaveManage=function(device){
+      $scope.deviceInfo=device;
+      var modal=$uibModal.open({
+        animation: false,
+        backdrop: false,
+        size: "sm",
+        templateUrl: 'views/device/detail/info/device-detail-slaveManagememt-modal.html',
+        controller: 'DeviceSlaveManagementModalCtrl',
+        scope: $scope
+      })
+    }
   })
     .controller('DeviceUnbindCtrl',function($scope,$uibModalInstance){
       $scope.confirm = function () {
@@ -214,9 +225,88 @@ angular.module('app.view.device.detail.info', [
       $state.go('^');
     }
   })
-    .controller("DeviceDetailInfoSlaveManagementCtrl",function ($scope,$stateParams,DeviceService) {
+    // .controller("DeviceDetailInfoSlaveManagementCtrl",function ($scope,$stateParams,DeviceService) {
+    //   console.log($scope);
+    //   $scope.searchingFlag=false;
+    //   $scope.getSlaveList=function (masterId) {
+    //     DeviceService.getSlaveList(masterId).then(function (res) {
+    //       if(res.data.toString()==='true'){
+    //         alert('request send successfully,please waiting for searching');
+    //         $scope.device.toBindSlave.state='bindListWaiting';
+    //         //'null','bindListWaiting','bindSelecting','bindResultWaiting','bindResultWaiting','bindEnd'
+    //       }else {
+    //         alert('request fail');
+    //       }
+    //     });
+    //   };
+    //   $scope.sendBindList=function () {
+    //     var list=$scope.device.toBindSlave.list;
+    //     var sendList=[];
+    //     list.forEach(function (slave) {
+    //       if(slave.selected) sendList.push(slave.deviceId);
+    //     });
+    //     DeviceService.sendBindList({
+    //       masterId:$scope.device.deviceId,
+    //       bindList:sendList
+    //     }).then(function (res) {
+    //       if(res.data.toString()==="true"){
+    //         alert('request send successfully,please waiting for binding');
+    //         $scope.device.toBindSlave.state='bindResultWaiting';
+    //       }
+    //     })
+    //   };
+    //   console.log($stateParams);
+    // })
+    .controller("DeviceSlaveManagementModalCtrl",function ($uibModalInstance,$scope,DeviceService) {
       console.log($scope);
-      $scope.searchingFlag=false;
+      $scope.stage = 0;
+      var functionMeta=[
+        {
+          groupId:0,
+          functionId:1,
+          name:"ZigBee"
+        },
+        {
+          groupId:0,
+          functionId:2,
+          name:"BlueTooth"
+        }
+      ];
+        $scope.slaveBindFunctions=[];
+        $scope.selectedFunctionId="";
+        $scope.device.functions.forEach(function(item){
+          if(item.groupId.toString()==="0"){
+            $scope.slaveBindFunctions.push(queryObjectByPropertyValue(functionMeta,'functionId',item.functionId)[1])
+          }
+        });
+      $scope.forward = function (step) {
+        $scope.stage += step;
+      };
+      $scope.backward = function (step) {
+        $scope.stage -= step;
+      };
+      $scope.gotoBindModal=function(functionId){
+        if(functionId.toString()==="1"){
+          $scope.forward(1);
+        }else if(functionId.toString()==="2"){
+          $scope.forward(2);
+        }else{
+          console.log('goto param error')
+        }
+      };
+      $scope.zigbeeBind=function () {
+        DeviceService.getSlaveList($scope.device.deviceId).then(function (res) {
+          if(res.data.toString()==='true'){
+            alert('request send successfully,the device will send the notification when bind success');
+          }else {
+            alert('request fail');
+          }
+        });
+      };
+      console.log('slaveBindFunctions',$scope.slaveBindFunctions);
+      $scope.cancel = function () {
+        $uibModalInstance.dismiss();
+      };
       $scope.getSlaveList=function (masterId) {
         DeviceService.getSlaveList(masterId).then(function (res) {
           if(res.data.toString()==='true'){
@@ -232,7 +322,7 @@ angular.module('app.view.device.detail.info', [
         var list=$scope.device.toBindSlave.list;
         var sendList=[];
         list.forEach(function (slave) {
-          if(slave.selected) sendList.push(slave.deviceId)
+          if(slave.selected) sendList.push(slave.deviceId);
         });
         DeviceService.sendBindList({
           masterId:$scope.device.deviceId,
@@ -244,7 +334,5 @@ angular.module('app.view.device.detail.info', [
           }
         })
       };
-      console.log($stateParams);
-    })
-;
+    });
 

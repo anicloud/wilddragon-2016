@@ -12,7 +12,9 @@ var deviceData=function() {
         description: 'home controller center',
         functions: [
             {functionId: 1, groupId: 1},
-            {functionId: 2, groupId: 2}
+            {functionId: 2, groupId: 2},
+            {functionId: 1, groupId: 0},
+            {functionId: 2, groupId: 0}
         ],
         owner: 10101,
         accountGroups: [2000],//, 2001

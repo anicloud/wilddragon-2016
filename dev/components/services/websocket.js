@@ -12,7 +12,7 @@ angular.module('app.service.webSocket', [])
                     var response=JSON.parse(event.data);
                     if(response.success&&(response!==null)){
                         console.log(response);
-                        if(response.data.type.indexOf('DEVICE_SLAVE_')>-1) NotificationServiceDist.slaveManagement(response.data,mainScope);
+                        if(response.data.type.indexOf('DEVICE_SEARCHSLAVES')>-1||response.data.type.indexOf('DEVICE_SEARCHSLAVES')>-1) NotificationServiceDist.slaveManagement(response.data,mainScope);
                             else NotificationServiceDist.parseMessage(response.data,mainScope);
                     }
                     else {

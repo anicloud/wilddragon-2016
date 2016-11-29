@@ -1,0 +1,113 @@
+<div class="modal-close" data-ng-click="cancel()">
+    x
+</div>
+<div class="group-modal" data-ng-class="{'active': stage==0}">
+    <div class="modal-header">
+        <div class="modal-icon">
+            <i class="fa fa-share-alt"></i>
+        </div>
+        <div class="modal-title">
+            slave binding
+        </div>
+    </div>
+    <div class="modal-body">
+        <div class="modal-item">
+            <div class="item-groups"  data-ng-class="{'collapsed': isGroupsCollapsed}">
+                <div ng-repeat="oneFunc in slaveBindFunctions" class="item-group" data-ng-model="$parent.selectedFunctionId" uib-btn-radio="oneFunc.functionId">
+                        {{oneFunc.name}}
+                </div>
+            </div>
+            <div class="item-button">
+                <button class="btn btn-default" data-ng-disabled="selectedFunctionId===''" data-ng-click="gotoBindModal(selectedFunctionId)">{{"UTIL_NEXT"|translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="group-modal" data-ng-class="{'active': stage==1}">
+    <div class="modal-header">
+        <div class="modal-icon">
+            <i class="fa fa-share-alt"></i>
+        </div>
+        <div class="modal-title">
+            ZigBee Binding
+        </div>
+    </div>
+    <div class="modal-body">
+        <div class="modal-item">
+            <div class="item-input">
+                <span style="padding-top: 20px; font-size: 14px;color: #aeaeae;">please reset the device you want to bind and then click the button "start to bind"</span>
+            </div>
+            <div class="item-button">
+                <button class="btn btn-default" data-ng-click="backward(1)">{{"UTIL_PREV"|translate}}</button>
+                <button class="btn btn-default" data-ng-click="zigbeeBind()">start to bind</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="group-modal" data-ng-class="{'active': stage==2}">
+    <div class="modal-header">
+        <div class="modal-icon">
+            <i class="fa fa-share-alt"></i>
+        </div>
+        <div class="modal-title">
+            BlueTooth Binding
+        </div>
+    </div>
+    <div class="modal-list">
+        <div class="panel" id="salveBindPanel">
+            <div class="panel-body" >
+                <div ng-show="true">
+                    <div class="item" ng-show="device.toBindSlave.state==='bindSelecting'">
+                        <div class="item-name highlight">name</div>
+                        <div class="item-detail highlight">description</div>
+                    </div>
+                    <div class="item" ng-repeat="slave in device.toBindSlave.list">
+                        <div class="item-name">{{slave.name}}</div>
+                        <div class="item-detail">{{slave.description}}</div>
+                        <div class="item-next">
+                            <input type="checkbox" ng-true-value="true" ng-false-value="false" ng-model="slave.selected">
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <button id="search-btn1" class="btn btn-default" ng-click="getSlaveList(device.deviceId)" ng-show="device.toBindSlave.state===null">click to search</button>
+                    <div id="search-btn2" ng-show="device.toBindSlave.state==='bindListWaiting'">slave searching,please wait</div>
+                    <button id="search-btn3" class="btn btn-default" ng-click="sendBindList(device.deviceId)" ng-show="device.toBindSlave.state==='bindSelecting'">confirm to bind</button>
+                    <div id="search-btn4" ng-show="device.toBindSlave.state==='bindResultWaiting'">device is binding ,please waiting</div>
+                    <div id="search-btn5"   ng-show="device.toBindSlave.state==='bindEnd'">bind successfully</div>
+                    <button id="search-btn6" style="height: 34px" class="btn btn-default" ng-show="device.toBindSlave.state==='bindEnd'" ng-click="cancel()">finish</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="group-modal" data-ng-class="{'active': stage==3}">
+    <div class="modal-header">
+        <div class="modal-icon">
+            <i class="fa fa-share-alt"></i>
+        </div>
+        <div class="modal-title">
+            {{"DEVICE_SHARE_MODAL_SET_PERMISSIONS"|translate}}
+        </div>
+    </div>
+    <div class="modal-body">
+        <div class="modal-item">
+            <div class="item-input">
+                <input type="checkbox" data-ng-model="permission.readable">
+                <span class="checkbox-label">{{"DEVICE_SHARE_MODAL_ALLOW_READ"|translate}}</span>
+            </div>
+            <div class="item-input">
+                <input type="checkbox" data-ng-model="permission.writable">
+                <span class="checkbox-label">{{"DEVICE_SHARE_MODAL_ALLOW_WRITE"|translate}}</span>
+            </div>
+            <div class="item-input">
+                <input type="checkbox" data-ng-model="permission.executable">
+                <span class="checkbox-label">{{"DEVICE_SHARE_MODAL_ALLOW_EXECUTE"|translate}}</span>
+            </div>
+            <div class="item-button">
+                <button class="btn btn-default" data-ng-click="backward(3)">{{"UTIL_PREV"|translate}}</button>
+                <button class="btn btn-default" data-ng-click="submit()">{{"UTIL_CONFIRM"|translate}}</button>
+            </div>
+        </div>
+    </div>
+</div>

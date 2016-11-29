@@ -52,10 +52,13 @@ wss.on('connection', function connection(ws) {
     },5000);
     setTimeout(function () {
         ws.send(JSON.stringify(socketData().getSlaveList()))
-    },6000);
+    },15000);
     setTimeout(function () {
         ws.send(JSON.stringify(socketData().bindSlaveResult()))
-    },15000);
+    },20000);
+    // setTimeout(function () {
+    //     ws.send(JSON.stringify(socketData().deviceUpdate()));
+    // },8000);
     // setTimeout(function () {
     //     ws.send(JSON.stringify(socketData().groupKick()));
     // },20000);

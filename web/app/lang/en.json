@@ -122,6 +122,7 @@
   "MESSAGE_DEVICE_UNSHARE":"{{fromName}} has canceled sharing the device {{deviceName}} to the group {{groupName}}",
   "MESSAGE_DEVICE_CONNECT":"{{fromName}} was connected",
   "MESSAGE_DEVICE_DISCONNECT":"{{fromName}} was disconnected",
+  "MESSAGE_DEVICE_UPDATE":"{{fromName}} was update",
   "MESSAGE_TITLE_ACCOUNT_GROUP_INVITE":"Incoming notification",
   "MESSAGE_TITLE_ACCOUNT_GROUP_REFUSE":"Reject Incoming Notification",
   "MESSAGE_TITLE_ACCOUNT_GROUP_JOIN":"Newcomer notification",
@@ -132,5 +133,6 @@
   "MESSAGE_TITLE_DEVICE_SHARE":"Device sharing notification",
   "MESSAGE_TITLE_DEVICE_UNSHARE":"Device unsharing notification",
   "MESSAGE_TITLE_DEVICE_CONNECT":"Device connecting notification",
-  "MESSAGE_TITLE_DEVICE_DISCONNECT":"Device disconnecting notification"
+  "MESSAGE_TITLE_DEVICE_DISCONNECT":"Device disconnecting notification",
+  "MESSAGE_TITLE_DEVICE_UPDATE":"Device information update notification"
 }

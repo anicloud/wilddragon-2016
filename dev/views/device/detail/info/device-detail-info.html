@@ -86,7 +86,7 @@
       <div class="description">
         {{"DEVICE_DETAIL_SLAVE_DESCRIPTION"|translate}}
       </div>
-        <a href="#/device/{{device.deviceId}}/info/slaveManagement"><button id="slave-man-btn" class="btn btn-default" ng-show="device.owner===account.accountId">slave management</button></a>
+        <button id="slave-man-btn" class="btn btn-default" ng-click="slaveManage(device)" ng-show="device.owner===account.accountId">slave management</button></a>
     </div>
     <div class="right">
       <div class="panel">
