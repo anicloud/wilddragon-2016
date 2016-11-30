@@ -298,6 +298,7 @@ angular.module('app.view.device.detail.info', [
         DeviceService.getSlaveList($scope.device.deviceId).then(function (res) {
           if(res.data.toString()==='true'){
             alert('request send successfully,the device will send the notification when bind success');
+            $scope.device.toBindSlave.state='bindListWaiting';
           }else {
             alert('request fail');
           }

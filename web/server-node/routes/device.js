@@ -32,8 +32,8 @@ router.post('/unbind',function(req,res){
 router.post('/share',function (req,res) {
     res.send(data().shareDevice(req.body))
 });
-router.get('/getSlaveList',function (req,res) {
-    var masterId=req.query.masterId;
+router.post('/findslaves',function (req,res) {
+    var masterId=req.body.deviceId;
     console.log(masterId);
     res.send(data().getSlaveList(masterId));
 });

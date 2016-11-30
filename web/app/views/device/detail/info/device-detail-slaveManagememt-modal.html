@@ -37,9 +37,22 @@
             <div class="item-input">
                 <span style="padding-top: 20px; font-size: 14px;color: #aeaeae;">please reset the device you want to bind and then click the button "start to bind"</span>
             </div>
-            <div class="item-button">
+            <div class="modal-list">
+                <div class="item" ng-show="device.toBindSlave.state==='bindSelecting'">
+                    <div class="item-name highlight">name</div>
+                    <div class="item-detail highlight">description</div>
+                </div>
+                <div class="item">
+                    <div class="item-name">{{device.toBindSlave.list[0].name}}</div>
+                    <div class="item-detail">{{device.toBindSlave.list[0].description}}</div>
+                </div>
+            </div>
+            <div class="item-button" ng-show="device.toBindSlave.state==='bindSelecting'">
+                <button class="btn btn-default" data-ng-click="cancel()">finish</button>
+            </div>
+            <div class="item-button" ng-hide="device.toBindSlave.state==='bindSelecting'">
                 <button class="btn btn-default" data-ng-click="backward(1)">{{"UTIL_PREV"|translate}}</button>
-                <button class="btn btn-default" data-ng-click="zigbeeBind()">start to bind</button>
+                <button class="btn btn-default" data-ng-click="zigbeeBind()" data-ng-disabled="device.toBindSlave.state==='bindListWaiting'">start to bind</button>
             </div>
         </div>
     </div>

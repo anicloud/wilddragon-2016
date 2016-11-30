@@ -50,12 +50,12 @@ wss.on('connection', function connection(ws) {
     setTimeout(function () {
         ws.send(JSON.stringify(socketData().groupJoin()));
     },5000);
-    setTimeout(function () {
-        ws.send(JSON.stringify(socketData().getSlaveList()))
-    },15000);
-    setTimeout(function () {
-        ws.send(JSON.stringify(socketData().bindSlaveResult()))
-    },20000);
+    // setTimeout(function () {
+    //     ws.send(JSON.stringify(socketData().getSlaveList()))
+    // },15000);
+    // setTimeout(function () {
+    //     ws.send(JSON.stringify(socketData().bindSlaveResult()))
+    // },20000);
     // setTimeout(function () {
     //     ws.send(JSON.stringify(socketData().deviceUpdate()));
     // },8000);
