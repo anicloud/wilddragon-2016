@@ -48,6 +48,12 @@ libraryDependencies += "org.springframework" % "spring-expression" % "4.3.1.RELE
 
 libraryDependencies += "org.springframework" % "spring-jms" % "4.2.1.RELEASE"
 
+
+libraryDependencies += "org.springframework.security" % "spring-security-core" % "3.2.7.RELEASE"
+
+libraryDependencies += "org.hibernate" % "hibernate-core" % "4.3.11.Final"
+
+
 //activemq
 libraryDependencies += "org.apache.activemq" % "activemq-core" % "5.7.0"
 
@@ -55,21 +61,29 @@ libraryDependencies += "org.apache.activemq" % "activemq-pool" % "5.11.1"
 
 libraryDependencies += "org.apache.activemq" % "activemq-spring" % "5.11.1"
 
-// octopus
-libraryDependencies += "com.ani.octopus" % "octopus-commons" % "1.0"
+//aliyun
+libraryDependencies += "com.aliyun" % "aliyun-java-sdk-core" % "3.0.7"
 
-libraryDependencies += "com.ani.bus.commons" % "device-bus-commons" % "1.0"
+libraryDependencies += "com.aliyun" % "aliyun-java-sdk-sts" % "2.1.6"
 
-libraryDependencies += "com.ani.bus.commons" % "service-bus-commons" % "1.0"
+//amazon s3
+libraryDependencies += "com.amazonaws" % "aws-java-sdk-s3" % "1.11.58"
 
-libraryDependencies += "com.ani.earth" % "earth-service" % "1.0"
-
-libraryDependencies += "com.ani.octopus.account" % "account-manager" % "1.0"
-
-libraryDependencies += "com.ani.octopus.stub" % "stub-meta" % "1.0"
-
-libraryDependencies += "com.ani.octopus.antenna" % "octopus-antenna" % "1.0"
-
-libraryDependencies += "com.ani.bus.device" % "device-bus" % "1.0"
-
-libraryDependencies += "com.ani.bus.service" % "service-core" % "1.0"
+//// octopus
+//libraryDependencies += "com.ani.octopus" % "octopus-commons" % "1.0"
+//
+//libraryDependencies += "com.ani.bus.commons" % "device-bus-commons" % "1.0"
+//
+//libraryDependencies += "com.ani.bus.commons" % "service-bus-commons" % "1.0"
+//
+////libraryDependencies += "com.ani.earth" % "earth-service" % "1.0"
+//
+//libraryDependencies += "com.ani.octopus.account" % "account-manager" % "1.0"
+//
+//libraryDependencies += "com.ani.octopus.stub" % "stub-meta" % "1.0"
+//
+//libraryDependencies += "com.ani.octopus.antenna" % "octopus-antenna" % "1.0"
+//
+//libraryDependencies += "com.ani.bus.device" % "device-bus" % "1.0"
+//
+//libraryDependencies += "com.ani.bus.service" % "service-core" % "1.0"

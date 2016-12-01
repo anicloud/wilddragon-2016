@@ -9,5 +9,5 @@ import java.util.List;
  */
 public class DeviceAddSlavesData {
     public String deviceId;
-    public List<ObjectSlaveQueryDto> slaves;
+    public List<Integer> slaveIdList;
 }

@@ -120,18 +120,21 @@ public class ObjectMessageHandler implements ObjectMessageListener {
         DeviceMasterData deviceMasterData = deviceServiceAdapter.findDevice(message.deviceId);
         AccountData accountData = accountServiceAdapter.findAccountById(Long.valueOf(deviceMasterData.owner));
         if (deviceMasterData != null && deviceMasterData.accountGroups != null) {
-            List<AccountData> accounts = new ArrayList<>(Collections.EMPTY_LIST);
-            Set<String> accountIds = new HashSet<>();
-            for(String groupId:deviceMasterData.accountGroups){
-                AccountGroupData groupData = accountServiceAdapter.findGroup(Long.valueOf(groupId));
-                for(AccountData account:groupData.accounts){
-                    if(!accountIds.contains(account.accountId)){
-                        accountIds.add(account.accountId);
-                        accounts.add(account);
+            boolean a = deviceMasterData.owner.equals("0");
+            if (!deviceMasterData.owner.equals("0")) {
+                List<AccountData> accounts = new ArrayList<>(Collections.EMPTY_LIST);
+                Set<String> accountIds = new HashSet<>();
+                for (String groupId : deviceMasterData.accountGroups) {
+                    AccountGroupData groupData = accountServiceAdapter.findGroup(Long.valueOf(groupId));
+                    for (AccountData account : groupData.accounts) {
+                        if (!accountIds.contains(account.accountId)) {
+                            accountIds.add(account.accountId);
+                            accounts.add(account);
+                        }
                     }
                 }
+                notificationService.deviceUpdateNotice(deviceMasterData, accountData, accounts);
             }
-            notificationService.deviceUpdateNotice(deviceMasterData, accountData, accounts);
         }
     }
 

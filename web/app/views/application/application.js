@@ -43,7 +43,20 @@ angular.module('app.view.application', ['ui.router'])
   })
 
   .controller('ApplicationListCtrl', function ($scope) {
-      
+      $scope.login=function(){
+          $.ajax({
+              url: 'http://localhost:8082/cas/login?mode=rlogin&service=http://localhost:9000/login',
+              dataType: "jsonp",
+              jsonpCallback: "jsonpcallback",
+              success: function (data) {
+                  console.log(data);
+                  $('#lt').val(data.lt);
+                  $('#execution').val(data.execution);
+                  $('#login-form').submit();
+                  },
+                  error:function(){ alert('网络访问错误!');}
+          });
+      }
   })
 
   .controller('ApplicationContainerCtrl', function ($scope, $stateParams) {

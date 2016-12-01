@@ -61,6 +61,7 @@ public class DeviceController extends JavaController {
             List<DeviceMasterData> devices = deviceServiceAdapter.findDevices(getAccountId());
             retData = new RetData(true, "", devices);
         } catch (Exception e) {
+            e.printStackTrace();
             retData = new RetData(false, ExceptionUtils.getStackTrace(e));
         } finally {
             return ok(Json.toJson(retData));
@@ -76,9 +77,10 @@ public class DeviceController extends JavaController {
             String owner = deviceServiceAdapter.findDevice(deviceId).owner;
             //only owner can search for slaves
             if(getAccountId().equals(Long.parseLong(owner))) {
-                boolean result = deviceServiceAdapter.searchForSlavesList(deviceId);
-                if(result) {
-                    retData = new RetData(true, "search request success");
+                List<Integer> result = deviceServiceAdapter.searchForSlavesList(deviceId);
+                if(result!=null) {
+                    SlaveListData slaveListData = new SlaveListData();
+                    retData = new RetData(true, "search request success",slaveListData);
                 }else{
                     retData = new RetData(false, "search request fail");
                 }
@@ -98,10 +100,10 @@ public class DeviceController extends JavaController {
             ObjectMapper objectMapper = new ObjectMapper();
             DeviceAddSlavesData addSlavesData = objectMapper.treeToValue(request().body().asJson(),DeviceAddSlavesData.class);
             Long deviceId = Long.parseLong(addSlavesData.deviceId);
-            List<ObjectSlaveQueryDto> newSlavesList = addSlavesData.slaves;
+            List<Integer> newSlavesList = addSlavesData.slaveIdList;
             String owner = deviceServiceAdapter.findDevice(deviceId).owner;
             if(getAccountId().equals(Long.parseLong(owner))) {
-                boolean result = deviceServiceAdapter.addNewSlaves(deviceId,newSlavesList);
+                boolean result = deviceServiceAdapter.addNewSlaves(deviceId, newSlavesList);
                 if(result) {
                     retData = new RetData(true, "addSlaves request success");
                 }else{

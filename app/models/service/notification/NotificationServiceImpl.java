@@ -1,5 +1,6 @@
 package models.service.notification;
 
+import com.ani.octopus.commons.object.dto.object.ObjectSlaveInfoDto;
 import com.ani.octopus.commons.object.dto.object.ObjectSlaveQueryDto;
 import models.domain.session.SessionManager;
 import models.dto.RetData;
@@ -268,7 +269,7 @@ public class NotificationServiceImpl implements NotificationService {
         SessionManager.sessionSend(accountData.accountId, new RetData(true,"",data));
     }
 
-    public void deviceSearchSlavesNotice(DeviceMasterData deviceMasterDataData, AccountData accountData, List<ObjectSlaveQueryDto> slaveList){
+    public void deviceSearchSlavesNotice(DeviceMasterData deviceMasterDataData, AccountData accountData, List<ObjectSlaveInfoDto> slaveList){
         MsgContentData msgContentData = new MsgContentData();
         msgContentData.fromId = accountData.accountId;
         msgContentData.fromName = accountData.name;

@@ -304,7 +304,7 @@ angular.module('app.view.device.detail.info', [
           if(res.success.toString()==='true'){
            // alert('request send successfully,the device will send the notification when bind success');
             $scope.device.toBindSlave.state='bindSelecting';
-            $scope.device.toBindSlave.list[0]=res.data.slaveId;
+            $scope.device.toBindSlave.list[0]=res.data.slaveIdList[0];
           }else {
             alert('request fail');
           }
@@ -327,8 +327,8 @@ angular.module('app.view.device.detail.info', [
       };
       $scope.zigbeeSendBind=function(){
         DeviceService.sendBindList(
-            {masterId:$scope.device.deviceId,
-              bindList:[$scope.device.toBindSlave.list[0]]}).
+            {deviceId:$scope.device.deviceId,
+              slaveIdList:[$scope.device.toBindSlave.list[0]]}).
         then(function(res){
           if(res.success.toString()==='true'){
             $scope.device.toBindSlave.state='bindResultWaiting';

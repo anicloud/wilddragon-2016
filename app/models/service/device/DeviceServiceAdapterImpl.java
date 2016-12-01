@@ -1,6 +1,8 @@
 package models.service.device;
 
 import com.ani.bus.device.application.service.DeviceBusService;
+import com.ani.bus.device.commons.dto.device.ArgumentDto;
+import com.ani.bus.device.commons.dto.device.ArgumentType;
 import com.ani.bus.device.commons.dto.device.DeviceMasterDto;
 import com.ani.bus.device.commons.dto.device.FunctionDto;
 import com.ani.earth.commons.dto.AccountDto;
@@ -20,6 +22,7 @@ import com.ani.octopus.commons.stub.dto.StubDto;
 import com.ani.octopus.commons.stub.enumeration.PrivilegeType;
 import com.ani.octopus.stub.core.domain.stub.Stub;
 import models.dto.device.*;
+import org.apache.commons.ssl.Ping;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -171,41 +174,64 @@ public class DeviceServiceAdapterImpl implements DeviceServiceAdapter {
     }
 
     @Override
-    public boolean searchForSlavesList(Long deviceId){
+    public List<Integer> searchForSlavesList(Long deviceId){
         try {
             ObjectQueryDto targetObject = new ObjectMainQueryDto(deviceId);
             List<StubInvocationDto> stubInvocationDtoList = new ArrayList<>();
-            Stub stub = aniStubMetaInfoService.getStub(new StubDto(1024L, 1));
+            Stub stub = aniStubMetaInfoService.getStub(new StubDto(0L, 1));
+            List<ArgumentDto> inputarg = new ArrayList<>();
+            List<ArgumentDto> outputarg = new ArrayList<>();
+            ArgumentDto inpoutArgumentDto =new ArgumentDto(ArgumentType.LONG,deviceId);
+            ArgumentDto outputArgumentDto =new ArgumentDto(ArgumentType.INTEGER,1);
+            inputarg.add(inpoutArgumentDto);
+            outputarg.add(outputArgumentDto);
             StubInvocationDto invocationDto = new StubInvocationDto(
                     stub,
                     false,
-                    null,
-                    null
+                    inputarg,
+                    outputarg
             );
             stubInvocationDtoList.add(invocationDto);
             stubInvocationDtoList = antennaTemplate.objectInvokeService.invokeObject(null, targetObject, stubInvocationDtoList);
-            return stubInvocationDtoList.get(0).success;
+            if(stubInvocationDtoList.get(0).success ==true)
+            {
+                List<Integer> slaveId = new ArrayList<>();
+                slaveId.add((int)((ArgumentDto)stubInvocationDtoList.get(0).outputArgsValue.get(0)).value);
+                addNewSlaves(deviceId,slaveId);
+                List<Integer> slaveIdList =new ArrayList<>();
+//                for(int i:){
+//                    stubInvocationDtoList.get(0).outputArgsValue;
+//                }
+                return slaveIdList;
+            }
+            return null;
         }catch (Exception e){
-            return false;
+            e.printStackTrace();
+            return null;
         }
     }
     @Override
-    public boolean addNewSlaves(Long deviceId, List<ObjectSlaveQueryDto> newSlavesList){
+    public boolean addNewSlaves(Long deviceId,List<Integer> slaveId){
         try {
             ObjectQueryDto targetObject = new ObjectMainQueryDto(deviceId);
             List<StubInvocationDto> stubInvocationDtoList = new ArrayList<>();
-
-            Stub stub = aniStubMetaInfoService.getStub(new StubDto(1024L, 2));
+            List<ArgumentDto> inputarg = new ArrayList<>();
+            for(Integer id :slaveId) {
+                ArgumentDto argumentDto = new ArgumentDto(ArgumentType.INTEGER, id);
+                inputarg.add(argumentDto);
+            }
+            Stub stub = aniStubMetaInfoService.getStub(new StubDto(0L, 2));
             StubInvocationDto invocationDto = new StubInvocationDto(
                     stub,
                     false,
-                    newSlavesList,
+                    inputarg,
                     null
             );
             stubInvocationDtoList.add(invocationDto);
             stubInvocationDtoList = antennaTemplate.objectInvokeService.invokeObject(null, targetObject, stubInvocationDtoList);
             return stubInvocationDtoList.get(0).success;
         }catch (Exception e){
+            e.printStackTrace();
             return false;
         }
     }
