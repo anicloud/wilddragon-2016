@@ -37,6 +37,11 @@ router.post('/findslaves',function (req,res) {
     console.log(masterId);
     res.send(data().getSlaveList(masterId));
 });
+router.post('/addslaves',function(req,res){
+    var masterId=req.body.masterId;
+    console.log(req.body);
+    res.send(data().sendSlaveList(masterId))
+});
 router.post('/sendBindList',function (req,res) {
     var content=req.body;
     console.log('content',content);

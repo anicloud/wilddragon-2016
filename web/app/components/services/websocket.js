@@ -12,7 +12,8 @@ angular.module('app.service.webSocket', [])
                     var response=JSON.parse(event.data);
                     if(response.success&&(response!==null)){
                         console.log(response);
-                        if(response.data.type.indexOf('DEVICE_SLAVE_BIND')>-1||response.data.type.indexOf('DEVICE_SLAVE_BIND_RESULT')>-1) NotificationServiceDist.slaveManagement(response.data,mainScope);
+                    //    if(response.data.type.indexOf('DEVICE_SLAVE_BIND')>-1||response.data.type.indexOf('DEVICE_SLAVE_BIND_RESULT')>-1) NotificationServiceDist.slaveManagement(response.data,mainScope);
+                        if((response.data.type.indexOf('DEVICE_UPDATE')>-1)&&(response.data.detail.slaves.length===mainScope.deviceMap[response.data.detail.deviceId].slaves.length+1))NotificationServiceDist.slaveManagement(response.data,mainScope);
                             else NotificationServiceDist.parseMessage(response.data,mainScope);
                     }
                     else {

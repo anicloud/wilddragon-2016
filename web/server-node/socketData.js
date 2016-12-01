@@ -209,23 +209,50 @@ var socketData=function(){
         },
         bindSlaveResult: function () {
             return {
-                type: "DEVICE_SLAVE_BIND_RESULT",
+                type: "DEVICE_UPDATE",
                 description: 'getSlaveList',
-                data: {
-                    deviceId: '100001',
-                    detail: [
+                detail: {
+                    avatarUrl: '/images/Washing_machine.svg',
+                    physicalId: 's011110',
+                    physicalAddress: '00-01-6C-06-A6-29',
+                    name: '家庭控制中心',
+                    description: 'home controller center',
+                    functions: [
+                        {functionId: 1, groupId: 1},
+                        {functionId: 2, groupId: 2},
+                        {functionId: 1, groupId: 0},
+                        {functionId: 2, groupId: 0}
+                    ],
+                    owner: 10101,
+                    accountGroups: [2000],//, 2001
+                    state: 'ACTIVE',
+                    deviceId: 100001,
+                    slaves: [
                         {
-                            physicalId: 'b00001',
+                            physicalId: 'a00001',
                             physicalAddress: '',
-                            name: '会议室台灯',
-                            description: 'A light in meeting room',
+                            name: '空气净化器',
+                            description: '',
                             functions: [
                                 {functionId: 1, groupId: 1},
                                 {functionId: 2, groupId: 1}
                             ],
                             state: 'ACTIVE',
                             deviceId: 1,
-                            masterId: 100004
+                            masterId: 100001
+                        },
+                        {
+                            physicalId: 'a00002',
+                            physicalAddress: '',
+                            name: '客厅空调',
+                            description: '',
+                            functions: [
+                                {functionId: 1, groupId: 1},
+                                {functionId: 2, groupId: 1}
+                            ],
+                            state: 'INACTIVE',
+                            deviceId: 2,
+                            masterId: 100001
                         },
                         {
                             physicalId: 'b00002',
@@ -238,8 +265,18 @@ var socketData=function(){
                             ],
                             state: 'ACTIVE',
                             deviceId: 2,
-                            masterId: 100004
+                            masterId: 100003
                         }
+                    ],
+                    permissions: [
+                        {
+                            groupId: 2000,
+                            types: ['READABLE', 'EXECUTABLE']
+                        },
+                        // {
+                        //     groupId: 2001,
+                        //     types: ['READABLE', 'WRITABLE']
+                        // }
                     ]
                 }
             }

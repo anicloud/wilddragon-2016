@@ -35,24 +35,29 @@
     <div class="modal-body">
         <div class="modal-item">
             <div class="item-input">
-                <span style="padding-top: 20px; font-size: 14px;color: #aeaeae;">please reset the device you want to bind and then click the button "start to bind"</span>
+                <span style="padding-top: 20px; font-size: 14px;color: #aeaeae;" ng-show="device.toBindSlave.state===null">please reset the device you want to bind and then click the button "start to search"</span>
+                <span style="padding-top: 20px; font-size: 14px;color: #aeaeae;" ng-show="device.toBindSlave.state==='bindListWaiting'">please wait for searching</span>
+                <span style="padding-top: 20px; font-size: 14px;color: #aeaeae;" ng-show="device.toBindSlave.state==='bindSelecting'">'A new slave device is found,confirm to bind?'</span>
+                <span style="padding-top: 20px; font-size: 14px;color: #aeaeae;" ng-show="device.toBindSlave.state==='bindResultWaiting'">'device is binding,please wait'</span>
+                <span style="padding-top: 20px; font-size: 14px;color: #aeaeae;" ng-show="device.toBindSlave.state==='bindEnd'">'device bind successfully,'</span>
             </div>
-            <div class="modal-list">
-                <div class="item" ng-show="device.toBindSlave.state==='bindSelecting'">
-                    <div class="item-name highlight">name</div>
-                    <div class="item-detail highlight">description</div>
-                </div>
-                <div class="item">
-                    <div class="item-name">{{device.toBindSlave.list[0].name}}</div>
-                    <div class="item-detail">{{device.toBindSlave.list[0].description}}</div>
-                </div>
-            </div>
-            <div class="item-button" ng-show="device.toBindSlave.state==='bindSelecting'">
+            <!--<div class="modal-list" ng-show="device.toBindSlave.state==='bindEnd'">-->
+                <!--<div class="item" >-->
+                    <!--<div class="item-name highlight">name</div>-->
+                    <!--<div class="item-detail highlight">description</div>-->
+                <!--</div>-->
+                <!--<div class="item">-->
+                    <!--<div class="item-name">{{device.toBindSlave.list[0].name}}</div>-->
+                    <!--<div class="item-detail">{{device.toBindSlave.list[0].description}}</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <div class="item-button" ng-show="device.toBindSlave.state==='bindEnd'">
                 <button class="btn btn-default" data-ng-click="cancel()">finish</button>
             </div>
-            <div class="item-button" ng-hide="device.toBindSlave.state==='bindSelecting'">
-                <button class="btn btn-default" data-ng-click="backward(1)">{{"UTIL_PREV"|translate}}</button>
-                <button class="btn btn-default" data-ng-click="zigbeeBind()" data-ng-disabled="device.toBindSlave.state==='bindListWaiting'">start to bind</button>
+            <div class="item-button">
+                <button class="btn btn-default" data-ng-click="backward(1)" ng-hide="device.toBindSlave.state==='bindEnd'">{{"UTIL_PREV"|translate}}</button>
+                <button class="btn btn-default" data-ng-click="zigbeeBind()" ng-show="device.toBindSlave.state===null||device.toBindSlave.state==='bindListWaiting'" data-ng-disabled="device.toBindSlave.state==='bindSelecting'">start to search</button>
+                <button class="btn btn-default" data-ng-click="zigbeeSendBind()" ng-show="device.toBindSlave.state==='bindSelecting'">confirm</button>
             </div>
         </div>
     </div>

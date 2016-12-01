@@ -272,6 +272,10 @@ angular.module('app.view.device.detail.info', [
           name:"BlueTooth"
         }
       ];
+      $scope.device.toBindSlave={
+        list:[],
+        state:null
+      };
         $scope.slaveBindFunctions=[];
         $scope.selectedFunctionId="";
         $scope.device.functions.forEach(function(item){
@@ -296,9 +300,11 @@ angular.module('app.view.device.detail.info', [
       };
       $scope.zigbeeBind=function () {
         DeviceService.getSlaveList($scope.device.deviceId).then(function (res) {
-          if(res.data.toString()==='true'){
-            alert('request send successfully,the device will send the notification when bind success');
-            $scope.device.toBindSlave.state='bindListWaiting';
+          $scope.device.toBindSlave.state='bindListWaiting';
+          if(res.success.toString()==='true'){
+           // alert('request send successfully,the device will send the notification when bind success');
+            $scope.device.toBindSlave.state='bindSelecting';
+            $scope.device.toBindSlave.list[0]=res.data.slaveId;
           }else {
             alert('request fail');
           }
@@ -310,14 +316,26 @@ angular.module('app.view.device.detail.info', [
       };
       $scope.getSlaveList=function (masterId) {
         DeviceService.getSlaveList(masterId).then(function (res) {
-          if(res.data.toString()==='true'){
-            alert('request send successfully,please waiting for searching');
-            $scope.device.toBindSlave.state='bindListWaiting';
+          if(res.success.toString()==='true'){
+            $scope.device.toBindSlave.state='bindSelecting';
             //'null','bindListWaiting','bindSelecting','bindResultWaiting','bindResultWaiting','bindEnd'
+            $scope.device.toBindSlave.list[0]=res.data.slaveId;
           }else {
             alert('request fail');
           }
         });
+      };
+      $scope.zigbeeSendBind=function(){
+        DeviceService.sendBindList(
+            {masterId:$scope.device.deviceId,
+              bindList:[$scope.device.toBindSlave.list[0]]}).
+        then(function(res){
+          if(res.success.toString()==='true'){
+            $scope.device.toBindSlave.state='bindResultWaiting';
+          }else{
+            alert('request fail')
+          }
+        })
       };
       $scope.sendBindList=function () {
         var list=$scope.device.toBindSlave.list;

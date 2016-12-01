@@ -316,15 +316,16 @@ var deviceData=function() {
         getSlaveList:function(masterId){
             console.log('2222',masterId);
             if(masterId==100001){
-                return new RetData(true,'',true);
+                return new RetData(true,'',{slaveId:1001});
             }else 
-                return new RetData(true,'',false);
+                return new RetData(false,'','');
         },
         sendSlaveList:function (masterId) {
+            console.log('11111',masterId);
             if(masterId==100001){
-                return device2.slaves;
+                return new RetData(true,'','');
             }else
-                return [];
+                return new RetData(false,'','');
         }
     };
 };
