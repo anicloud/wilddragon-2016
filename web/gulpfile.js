@@ -49,6 +49,17 @@ var paths = {
   langs:[
     app.src+'/lang/*.json'
   ],
+  pluginReplace:{
+  toastr:{
+    src:app.src+'/plugin-replace/toastr.less',
+    target:app.src+'/bower_components/toastr'
+  },
+   bootstrap:{
+     src:[app.src+'/plugin-replace/bootstrap.css',
+          app.src+'/plugin-replace/bootstrap.min.css'],
+     target:app.src+'/bower_components/bootstrap/dist/css'
+   }
+},
   karma: 'karma.conf.js'
 };
 
@@ -97,6 +108,14 @@ gulp.task('copy', function () {
       .pipe(gulp.dest(app.dev+'/lang'));
 });
 
+gulp.task('replace',function () {
+  gulp.src(paths.pluginReplace.toastr.src)
+      .pipe($.less())
+      .pipe($.autoprefixer('>1%'))
+      .pipe(gulp.dest(paths.pluginReplace.toastr.target));
+  gulp.src(paths.pluginReplace.bootstrap.src[0])
+      .pipe(gulp.dest(paths.pluginReplace.bootstrap.target))
+});
 gulp.task('inject', function () {
   var injectStyles = gulp.src([
     app.dev + '/**/*.css'
@@ -145,7 +164,16 @@ gulp.task('copy:prod', function () {
   gulp.src(paths.langs)
       .pipe(gulp.dest(app.dist+'/lang'));
 });
-
+gulp.task('replace:prod',function () {
+  gulp.src(paths.pluginReplace.toastr.src)
+      .pipe($.less())
+      .pipe($.autoprefixer('>1%'))
+      .pipe($.minifyCss({cache: true}))
+      .pipe($.rename('toastr.min.css'))
+      .pipe(gulp.dest(paths.pluginReplace.toastr.target));
+  gulp.src(paths.pluginReplace.bootstrap.src[1])
+      .pipe(gulp.dest(paths.pluginReplace.bootstrap.target))
+});
 gulp.task('minimize', function () {
   var jsFilter = $.filter('**/*.js');
   var cssFilter = $.filter('**/*.css');
@@ -243,8 +271,9 @@ gulp.task('build', function (cb) {
       [
         'copy',
         'styles',
-        'scripts'
+        'scripts',
       ],
+      'replace',
       'inject',
       'link',
       cb);
@@ -258,6 +287,7 @@ gulp.task('build:prod', function (cb) {
         'copy:prod',
         'minimize'
       ],
+      'replace:prod',
       'link:prod',
       cb);
 });

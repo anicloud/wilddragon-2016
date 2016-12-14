@@ -53,9 +53,9 @@ wss.on('connection', function connection(ws) {
     // setTimeout(function () {
     //     ws.send(JSON.stringify(socketData().getSlaveList()))
     // },15000);
-    setTimeout(function () {
-        ws.send(JSON.stringify(socketData().bindSlaveResult()))
-    },10000);
+    // setTimeout(function () {
+    //     ws.send(JSON.stringify(socketData().bindSlaveResult()))
+    // },10000);
     // setTimeout(function () {
     //     ws.send(JSON.stringify(socketData().deviceUpdate()));
     // },8000);

@@ -212,11 +212,27 @@ angular.module('app.service.notification', [])
             });
         };
 
-        function popNotification(title, body) { //"/images/notifications.png"
-            toastr.options.onclick = function () {
-                $state.go('main.notification');
-            };
-            toastr.info(body, title);
+        function popNotification(title, body,type) { //"/images/notifications.png"
+            var type=type||'info';
+            switch (type){
+                case 'info':
+                    toastr.options.onclick = function () {
+                        $state.go('main.notification');
+                    };
+                    toastr.options.positionClass='toast-top-right';
+                    toastr.info(body, title);
+                    break;
+                case 'success':
+                    toastr.options.onclick=null;
+                    toastr.options.positionClass='toast-top-center';
+                    toastr.success(body,title);
+                    break;
+                case  'error':
+                    toastr.options.onclick=null;
+                    toastr.options.positionClass='toast-top-center';
+                    toastr.error(body,title);
+                    break;
+            }
         }
         var slaveManagement=function (message,mainScope) {
             switch (message.type){
@@ -291,7 +307,8 @@ angular.module('app.service.notification', [])
                 })
             },
             parseMessage: parseMessage,
-            slaveManagement:slaveManagement
+            slaveManagement:slaveManagement,
+            popNotification:popNotification
         };
     })
     .factory('NotificationManager', function ($http, $websocket) {

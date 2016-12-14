@@ -53,7 +53,7 @@ angular.module('app.view.group', [
                 });
         };
     })
-    .controller('GroupDetailCtrl', function ($scope, $timeout, $state, $stateParams, $uibModal, AccountServiceDist) {
+    .controller('GroupDetailCtrl', function ($scope, $timeout, $state, $stateParams, $uibModal, AccountServiceDist,NotificationServiceDist) {
         $scope.group = $scope.groupMap[$stateParams.id];
         $scope.quitGroup = function (group) {
             var modal = $uibModal.open({
@@ -68,7 +68,7 @@ angular.module('app.view.group', [
                 if (data !== "confirm") return;
                 AccountServiceDist.quitGroup(group).then(function (result) {
                     if (result.success && result.data !== null) {
-                        alert('退出分组成功: ' + result.data.name);
+                        NotificationServiceDist.popNotification('退出分组成功',result.data.name,'success');
                         $timeout(function () {
                             for (var i = 0; i < $scope.groups.length; i++) {
                                 if ($scope.groups[i].groupId == result.data.groupId) {
@@ -80,7 +80,7 @@ angular.module('app.view.group', [
                             $state.go('main.group.list');
                         }, 0);
                     } else {
-                        alert('分组失败,原因: ' + result.message);
+                        NotificationServiceDist.popNotification('退出分组失败',result.message,'error');
                     }
                 });
             });
@@ -98,7 +98,7 @@ angular.module('app.view.group', [
                 if (data !== "confirm") return;
                 AccountServiceDist.deleteGroup(group).then(function (result) {
                     if (result.success && result.data !== null) {
-                        alert('删除分组成功: ' + result.data.name);
+                        NotificationServiceDist.popNotification('删除分组成功',result.data.name,'success');
                         // $timeout(function () {
                         //     for (var i = 0; i < $scope.groups.length; i++) {
                         //         if ($scope.groups[i].groupId == result.data.groupId) {
@@ -110,7 +110,7 @@ angular.module('app.view.group', [
                         // }, 0);
                         $state.go('main.group.list');
                     } else {
-                        alert('删除分组失败,原因: ' + result.message);
+                        NotificationServiceDist.popNotification('删除分组失败',result.message,'error');
                     }
                 });
             });
@@ -134,7 +134,7 @@ angular.module('app.view.group', [
 
         };
     })
-    .controller('GroupModalCtrl', function ($scope, $timeout, $uibModalInstance, AccountService, AccountServiceDist) {
+    .controller('GroupModalCtrl', function ($scope, $timeout, $uibModalInstance, AccountService, AccountServiceDist,NotificationServiceDist) {
         $scope.stage = 0;
         $scope.groupData = {
             name: '',
@@ -151,7 +151,7 @@ angular.module('app.view.group', [
             AccountServiceDist.createGroup($scope.groupData).then(
                 function (result) {
                     if (result.success) {
-                        alert('添加分组成功：');
+                        NotificationServiceDist.popNotification('添加分组成功',null,'success');
                         // $timeout(function () {
                         //     $scope.groups.push(result.data);
                         //     $scope.groupMap[result.data.groupId] = result.data;
@@ -167,7 +167,7 @@ angular.module('app.view.group', [
                             $scope.groupMap[newGroupData.groupId] = newGroupData;
                         }, 0);
                     } else {
-                        console.log('添加分组失败：' + result.message);
+                        NotificationServiceDist.popNotification('添加分组失败',result.message,'error');
                     }
                 });
             $uibModalInstance.close();
@@ -204,16 +204,16 @@ angular.module('app.view.group', [
             $uibModalInstance.dismiss("cancel");
         }
     })
-    .controller('GroupInviteCtrl', function ($scope, $timeout, $uibModalInstance, AccountService, AccountServiceDist,$stateParams) {
+    .controller('GroupInviteCtrl', function ($scope, $timeout, $uibModalInstance, AccountService, AccountServiceDist,$stateParams,NotificationServiceDist) {
         $scope.group=$scope.$parent.group;
     $scope.submit = function () {
         console.log($scope.groupData);
         AccountServiceDist.inviteAccount({accounts:$scope.groupData.accounts,groupId:$scope.group.groupId,accountId:$scope.account.accountId}).then(
             function (result) {
                 if (result.success && result.data !== null) {
-                    alert('邀请发送成功：'+result.data.name);
+                    NotificationServiceDist.popNotification('邀请发送成功',result.data.name,'success');
                 } else {
-                    console.log('邀请发送失败：' + result.message);
+                    NotificationServiceDist.popNotification('邀请发送失败',result.message,'error');
                 }
             });
         $uibModalInstance.close();
@@ -235,7 +235,7 @@ angular.module('app.view.group', [
         });
     };
 })
-    .controller('GroupMemberInfoCtrl', function ($stateParams, $scope,AccountServiceDist,$state) {
+    .controller('GroupMemberInfoCtrl', function ($stateParams, $scope,AccountServiceDist,$state,NotificationServiceDist) {
         console.log("statePara", $stateParams);//groupId accountId
         var paraAry = $stateParams["id"].split("&");
         var groupId = paraAry[0], accountId = paraAry[1];
@@ -245,12 +245,12 @@ angular.module('app.view.group', [
             var data={groupId:$scope.group.groupId,accountId:memberAccount.accountId};
          AccountServiceDist.kickGroup(data).then(function (response) {
              if(response.success===true){
-                 alert('移除成员成功：'+$scope.memberAccount.name);
+                 NotificationServiceDist.popNotification('移除成员成功',$scope.memberAccount.name,'success');
                  var index=$scope.groupMap[groupId].accounts.indexOf($scope.memberAccount);
                  // $scope.groupMap[groupId].accounts.splice(index,1);
                  $state.go('main.group.detail',{id:groupId});
              }else {
-                 alert('移除成员失败：'+$scope.memberAccount.name);
+                 NotificationServiceDist.popNotification('移除成员失败',response.message,'error');
              }
          });
         }

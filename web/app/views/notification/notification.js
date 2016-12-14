@@ -13,7 +13,7 @@ angular.module('app.view.notification', ['ui.router'])
                 controller: 'NotificationCtrl'
             });
     }])
-    .controller('NotificationCtrl',function ($scope,NotificationManager,AccountServiceDist) {
+    .controller('NotificationCtrl',function ($scope,NotificationManager,AccountServiceDist,NotificationServiceDist) {
         $scope.showIndex=1;
         $scope.selectSideNavTab('notification');
        // NotificationService.deleteNotification($scope.notifications,index);
@@ -37,10 +37,10 @@ angular.module('app.view.notification', ['ui.router'])
                             var index=$scope.notifications.indexOf(message);
                             if(response.data!==null&&response.success===true){
                                 $scope.notifications.splice(index,1);
-                                alert('join the group successful');
+                                NotificationServiceDist.popNotification('join the group successfully',null,'success');
                             }else if(!response.success){
                                 $scope.notifications.splice(index,1);
-                                alert("fail to join the group.reason:"+response.message);
+                                NotificationServiceDist.popNotification('fail to join the group',response.message,'error');
                             }
                         });
                     })(message);

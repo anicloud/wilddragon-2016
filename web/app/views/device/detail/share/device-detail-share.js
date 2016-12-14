@@ -16,7 +16,7 @@ angular.module('app.view.device.detail.share', [
       })
   }])
 
-  .controller('DeviceDetailShareCtrl', function ($scope, $uibModal, $timeout, DeviceService) {
+  .controller('DeviceDetailShareCtrl', function ($scope, $uibModal, $timeout, DeviceService,NotificationServiceDist) {
     $scope.selectDetailNavTab('share');
     $scope.shareList = [];
     $scope.nextAvaliable=false;
@@ -71,7 +71,7 @@ angular.module('app.view.device.detail.share', [
       DeviceService.unShareDevice(shareData).then(
         function (result) {
           if (result.success && result.data !== null) {
-            alert('移除共享成功');
+            NotificationServiceDist.popNotification('移除共享成功',null,'success');
             $timeout(function () {
               $scope.device.permissions = result.data;
               var accountGroups=$scope.deviceMap[shareData.deviceId].accountGroups;
@@ -83,7 +83,7 @@ angular.module('app.view.device.detail.share', [
               $scope.updateShareList();
             }, 0);
           } else {
-            alert('移除共享失败,原因: ' + result.message);
+            NotificationServiceDist.popNotification('移除共享失败',result.message,'error');
           }
         }
       );
@@ -91,7 +91,7 @@ angular.module('app.view.device.detail.share', [
 
   })
 
-  .controller('ShareModalCtrl', function ($scope, $timeout, $uibModalInstance, AccountServiceDist, DeviceService) {
+  .controller('ShareModalCtrl', function ($scope, $timeout, $uibModalInstance, AccountServiceDist, DeviceService,NotificationServiceDist) {
     $scope.stage = 0;
     $scope.shareData = {
       deviceId: $scope.device.deviceId,
@@ -135,7 +135,7 @@ angular.module('app.view.device.detail.share', [
       DeviceService.shareDevice($scope.shareData).then(
         function (result) {
           if (result.success && result.data !== null) {
-            alert('共享设备成功');
+            NotificationServiceDist.popNotification('共享设备成功',null,'success');
             console.log(result.data);
             $timeout(function () {
               $scope.device.permissions = result.data;
@@ -143,7 +143,7 @@ angular.module('app.view.device.detail.share', [
               $scope.updateShareList();
             }, 0);
           } else {
-            alert('共享设备失败,原因: ' + result.message);
+            NotificationServiceDist.popNotification('共享设备失败',result.message,'error');
           }
         }
       );

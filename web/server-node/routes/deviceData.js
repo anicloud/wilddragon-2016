@@ -316,7 +316,7 @@ var deviceData=function() {
         getSlaveList:function(masterId){
             console.log('2222',masterId);
             if(masterId==100001){
-                return new RetData(true,'',{slaveId:1001});
+                return new RetData(true,'',{slaveIdList:[1001]});
             }else 
                 return new RetData(false,'','');
         },
