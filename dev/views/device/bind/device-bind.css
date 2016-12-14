@@ -5,7 +5,7 @@
 .bind-wrapper .bind-title {
   text-align: center;
   font-size: 16px;
-  color: #4DA47C;
+  color: #008000;
 }
 .bind-wrapper .bind-description {
   padding-top: 20px;
@@ -22,7 +22,7 @@
 }
 .bind-wrapper .bind-method a {
   font-size: 14px;
-  color: #4DA47C;
+  color: #008000;
   text-decoration: underline;
 }
 .bind-wrapper .bind-video {
@@ -155,7 +155,7 @@
   color: #aeaeae;
 }
 .bind-wrapper .btn-ani {
-  color: #4DA47C;
+  color: #008000;
 }
 #ssid-button.disabled {
   background-color: #ebebe4;

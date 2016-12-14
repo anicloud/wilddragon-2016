@@ -10,7 +10,7 @@
 }
 .list .list-item.active {
   background-color: #f1f2f6;
-  color: #4DA47C;
+  color: #008000;
 }
 .list .list-item + .list-item {
   margin: 5px 0;

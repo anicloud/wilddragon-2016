@@ -39,8 +39,8 @@ angular.module('app.view.main', ['ui.router','angular-websocket','ngCookies','pa
               devices: function (DeviceService) {
                 return DeviceService.getDevices();
               },
-              apps:function (AppServiceDist) {
-                return AppServiceDist.getApps();
+              apps:function (AppService) {
+                return AppService.getApps();
               }
               // langConfig:function(I18nServiceDist){
               //   return I18nServiceDist.initConfig();

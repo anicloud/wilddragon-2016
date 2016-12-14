@@ -94,6 +94,7 @@
   "GROUP_REMOVE_GROUP":"移除该群组",
   "GROUP_INVITE_NEW_GROUP":"邀请新成员",
   "GROUP_INVITE_MODAL_TITLE":"添加群成员",
+  "GROUP_INVITE_TYPE_EMAIL":"输入用户的昵称或邮箱",
   "GROUP_QUIT_MODAL":"确认退出?",
   "GROUP_REMOVE_MODAL":"确认删除该群组?",
   "NOTIFICATION_TITLE":"通知",

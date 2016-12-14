@@ -19,7 +19,7 @@
 }
 .navbar .navbar-back:hover,
 .navbar .navbar-back:focus {
-  color: #4DA47C;
+  color: #008000;
   cursor: pointer;
 }
 .navbar-toggle {
@@ -55,13 +55,13 @@
 }
 .navbar-toggle:hover .icon-bar,
 .navbar-toggle:focus .icon-bar {
-  background-color: #4DA47C;
+  background-color: #719c32;
 }
 .navbar-toggle .icon-bar {
   display: block;
   width: 20px;
   height: 2px;
-  border-radius: 1px;
+  border-radius: 0;
   background-color: black;
 }
 .navbar-toggle .icon-bar + .icon-bar {
@@ -101,8 +101,8 @@
   font-size: 16px;
 }
 .nav-tab.active {
-  color: #4DA47C;
-  border-bottom: 3px solid #4DA47C;
+  color: #008000;
+  border-bottom: 3px solid #719c32;
 }
 .nav-tab .icon {
   font-size: 18px;

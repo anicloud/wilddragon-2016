@@ -38,7 +38,7 @@ angular.module('app.view.device.bind', ['ui.router'])
       ;
     }])
 
-    .controller('DeviceBindCtrl', function ($scope, $state, $timeout, DeviceService,wifiList) {
+    .controller('DeviceBindCtrl', function ($scope, $state, $timeout, DeviceService,wifiList,NotificationServiceDist) {
       $scope.bindMethod = 'qrcode';
       $scope.bindData = {
          // physicalId: 'm0001',
@@ -196,7 +196,7 @@ angular.module('app.view.device.bind', ['ui.router'])
         bindResult.then(function (result) {
           console.log(result);
           if (result.success) {
-            alert('绑定设备成功');
+            NotificationServiceDist.popNotification('绑定设备成功',null,'success');
             $timeout(function () {
               $scope.devices.push(result.data);
               $scope.deviceMap[result.data.deviceId] = result.data;
@@ -204,7 +204,7 @@ angular.module('app.view.device.bind', ['ui.router'])
               $scope.switchState(-3);
             }, 0);
           } else {
-            alert('绑定设备失败,原因: '+ result.message);
+            NotificationServiceDist.popNotification('绑定设备失败',result.message,'error');
           }
         });
       };

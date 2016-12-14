@@ -94,6 +94,7 @@
   "GROUP_REMOVE_GROUP":"remove this group",
   "GROUP_INVITE_NEW_GROUP":"invite new member",
   "GROUP_INVITE_MODAL_TITLE":"add group member",
+  "GROUP_INVITE_TYPE_EMAIL":"type in the nickname or email",
   "GROUP_QUIT_MODAL":"confirm to quit?",
   "GROUP_REMOVE_MODAL":"confirm to remove the group?",
   "NOTIFICATION_TITLE":"NOTIFICATION",

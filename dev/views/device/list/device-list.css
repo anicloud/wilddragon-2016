@@ -91,7 +91,7 @@
   color: #e8e8e8;
 }
 .device-item .header.active {
-  color: #4DA47C;
+  color: #008000;
 }
 .device-item .title {
   float: left;
@@ -116,7 +116,7 @@
   margin-right: 20px;
   line-height: 50px;
   font-size: 14px;
-  color: #4DA47C;
+  color: #008000;
   white-space: nowrap;
 }
 .dropdown-menu {

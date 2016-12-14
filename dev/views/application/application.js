@@ -42,7 +42,7 @@ angular.module('app.view.application', ['ui.router'])
     }
   })
 
-  .controller('ApplicationListCtrl', function ($scope) {
+  .controller('ApplicationListCtrl', function ($scope,NotificationServiceDist) {
       $scope.login=function(){
           $.ajax({
               url: 'http://localhost:8082/cas/login?mode=rlogin&service=http://localhost:9000/login',
@@ -54,7 +54,7 @@ angular.module('app.view.application', ['ui.router'])
                   $('#execution').val(data.execution);
                   $('#login-form').submit();
                   },
-                  error:function(){ alert('网络访问错误!');}
+                  error:function(){ NotificationServiceDist.popNotification('网络访问错误!',null,'error');}
           });
       }
   })

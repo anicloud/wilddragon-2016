@@ -108,7 +108,7 @@ angular.module('app.view.device.detail.info', [
     ;
   }])
 
-  .controller('DeviceDetailInfoCtrl', function ($scope, $timeout, $state, DeviceService, functions,$uibModal) {
+  .controller('DeviceDetailInfoCtrl', function ($scope, $timeout, $state, DeviceService, functions,$uibModal,NotificationServiceDist) {
     $scope.selectDetailNavTab('info');
     $scope.masterFunctionMetas = [];
     if (functions.success) {
@@ -137,7 +137,7 @@ angular.module('app.view.device.detail.info', [
         DeviceService.unbindDevice($scope.DeviceData).then(function (result) {
           console.log(result);
           if (result.success) {
-            alert("解除设备绑定成功");
+            NotificationServiceDist.popNotification("解除设备绑定成功",null,'success');
             $timeout(function () {
               for (var i=0; i<$scope.devices.length; i++) {
                 if ($scope.devices[i].deviceId == result.data.deviceId) {
@@ -149,7 +149,7 @@ angular.module('app.view.device.detail.info', [
               $state.go('main.device.list');
             }, 0);
           } else {
-            alert("解除设备绑定失败,原因: " + result.message);
+            NotificationServiceDist.popNotification("解除设备绑定失败",result.message,'error');
           }
         });
       })
@@ -197,7 +197,7 @@ angular.module('app.view.device.detail.info', [
       console.error('Error in getting functions');
     }
   })
-  .controller('DeviceDetailInfoSettingsCtrl', function ($scope, $state,DeviceService) {
+  .controller('DeviceDetailInfoSettingsCtrl', function ($scope, $state,DeviceService,NotificationServiceDist) {
     $scope.name = $scope.device.name;
     $scope.description = $scope.device.description;
     $scope.gid = $scope.device.deviceId;
@@ -215,9 +215,9 @@ angular.module('app.view.device.detail.info', [
           $scope.deviceMap[$scope.gid][key] =value;
           var modiDevice=queryObjectByPropertyValue($scope.devices,'deviceId',$scope.gid)[1];
           modiDevice[key]=value;
-          return alert('更改成功');
+          return NotificationServiceDist.popNotification('更改成功',null,'success');
         }else{
-          return alert('更改失败');
+          return NotificationServiceDist.popNotification('更改失败',res.message,'error');
         }
       });
     };
@@ -257,7 +257,7 @@ angular.module('app.view.device.detail.info', [
     //   };
     //   console.log($stateParams);
     // })
-    .controller("DeviceSlaveManagementModalCtrl",function ($uibModalInstance,$scope,DeviceService) {
+    .controller("DeviceSlaveManagementModalCtrl",function ($uibModalInstance,$scope,DeviceService,NotificationServiceDist) {
       console.log($scope);
       $scope.stage = 0;
       var functionMeta=[
@@ -306,7 +306,7 @@ angular.module('app.view.device.detail.info', [
             $scope.device.toBindSlave.state='bindSelecting';
             $scope.device.toBindSlave.list[0]=res.data.slaveIdList[0];
           }else {
-            alert('request fail');
+            NotificationServiceDist.popNotification('request fail',null,'error');
           }
         });
       };
@@ -319,9 +319,9 @@ angular.module('app.view.device.detail.info', [
           if(res.success.toString()==='true'){
             $scope.device.toBindSlave.state='bindSelecting';
             //'null','bindListWaiting','bindSelecting','bindResultWaiting','bindResultWaiting','bindEnd'
-            $scope.device.toBindSlave.list[0]=res.data.slaveId;
+            $scope.device.toBindSlave.list[0]=res.data.slaveIdList[0];
           }else {
-            alert('request fail');
+            NotificationServiceDist.popNotification('request fail',null,'error');
           }
         });
       };
@@ -333,7 +333,7 @@ angular.module('app.view.device.detail.info', [
           if(res.success.toString()==='true'){
             $scope.device.toBindSlave.state='bindResultWaiting';
           }else{
-            alert('request fail')
+            NotificationServiceDist.popNotification('request fail',null,'error');
           }
         })
       };
@@ -348,7 +348,7 @@ angular.module('app.view.device.detail.info', [
           bindList:sendList
         }).then(function (res) {
           if(res.data.toString()==="true"){
-            alert('request send successfully,please waiting for binding');
+            NotificationServiceDist.popNotification('request send successfully,please waiting for binding',null,'success');
             $scope.device.toBindSlave.state='bindResultWaiting';
           }
         })

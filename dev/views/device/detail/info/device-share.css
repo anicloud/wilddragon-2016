@@ -60,14 +60,14 @@
   line-height: 42px;
 }
 .device-share .panel-wrapper .panel .panel-header .option button {
-  border-radius: 16px;
-  color: #4DA47C;
+  border-radius: 0;
+  color: #008000;
   font-size: 10px;
   padding-left: 12px;
   padding-right: 12px;
 }
 .device-share .panel-wrapper .panel .panel-header .option button:hover {
-  background-color: #4DA47C;
+  background-color: #8dc23f;
   color: #fff;
 }
 .device-share .panel-wrapper .panel .panel-header .option .removeshare {
@@ -75,15 +75,15 @@
   font-size: 12px;
 }
 .device-share .panel-wrapper .panel .panel-header .option .removeshare:hover {
-  color: #4DA47C;
+  color: #008000;
 }
 .device-share .sharebutton {
   margin-top: 18px;
   text-align: center;
 }
 .device-share .sharebutton button {
-  color: #4DA47C;
-  border: solid 1px #4DA47C;
+  color: #008000;
+  border: solid 1px #008000;
 }
 .modal-list {
   width: 100%;
