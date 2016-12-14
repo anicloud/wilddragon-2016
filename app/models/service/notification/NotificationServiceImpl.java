@@ -241,7 +241,8 @@ public class NotificationServiceImpl implements NotificationService {
         msgContentData.deviceId = deviceMasterData.deviceId;
         msgContentData.deviceName = deviceMasterData.name;
         msgContentData.detail = deviceMasterData;
-        NotificationData data = new NotificationData(NotificationData.Type.DEVICE_MODIFY,"device modify notice", msgContentData);
+        NotificationData data = new NotificationData(NotificationData.Type.DEVICE_UPDATE,"device update notice", msgContentData);
+        SessionManager.sessionSend(accountData.accountId, new RetData(true,"",data));
         for(AccountData account:accountDatas){
             SessionManager.sessionSend(account.accountId, new RetData(true,"",data));
         }

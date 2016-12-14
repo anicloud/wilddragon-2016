@@ -80,6 +80,7 @@ public class DeviceController extends JavaController {
                 List<Integer> result = deviceServiceAdapter.searchForSlavesList(deviceId);
                 if(result!=null) {
                     SlaveListData slaveListData = new SlaveListData();
+                    slaveListData.slaveIdList = result;
                     retData = new RetData(true, "search request success",slaveListData);
                 }else{
                     retData = new RetData(false, "search request fail");
