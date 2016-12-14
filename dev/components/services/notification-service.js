@@ -247,6 +247,20 @@ angular.module('app.service.notification', [])
                         if($('#salveBindPanel').length>0) angular.element("#salveBindPanel").scope().$apply();
                     }(message);
                     break;
+                case 'DEVICE_UPDATE': //add slave
+                    !function (message) {
+                        //var data=message.detail;
+                        var device=mainScope.deviceMap[message.detail.deviceId];
+                        // toBindDevice.list=data.detail;
+                        // angular.copy(data.detail,toBindDevice.list);
+                        device.slaves.splice(0);
+                        message.detail.slaves.forEach(function (item,index) {
+                            device.slaves.push(item);
+                        });
+                        device.toBindSlave.state='bindEnd';
+                        if($('#salveBindPanel').length>0) angular.element("#salveBindPanel").scope().$apply();
+                    }(message);
+                    break;
                 case 'DEVICE_SLAVE_UNBIND':
                     !function (message) {
                         console.log();

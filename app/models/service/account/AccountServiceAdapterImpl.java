@@ -8,6 +8,8 @@ import com.ani.earth.interfaces.AccountGroupServiceFacade;
 import com.ani.earth.interfaces.AccountServiceFacade;
 import com.ani.earth.interfaces.GroupJoinInvitationServiceFacade;
 import com.ani.octopus.antenna.core.AntennaTemplate;
+import com.ani.octopus.antenna.core.service.account.AccountAccessService;
+import com.ani.octopus.antenna.core.service.account.AccountGroupAccessService;
 import com.ani.octopus.commons.object.dto.object.ObjectMainInfoDto;
 import com.ani.octopus.commons.object.dto.object.ObjectMainQueryDto;
 import com.ani.octopus.commons.object.dto.object.privilege.ObjectPrivilegeGrantDto;
@@ -27,26 +29,21 @@ import java.util.Set;
 @Component("accountServiceAdapter")
 public class AccountServiceAdapterImpl implements AccountServiceAdapter {
     @Resource
-    AccountServiceFacade accountServiceFacade;
+    AccountGroupAccessService accountGroupAccessService;
 
     @Resource
-    AccountGroupServiceFacade accountGroupServiceFacade;
+    AccountAccessService accountAccessService;
 
-    @Resource
-    AccountContactServiceFacade accountContactServiceFacade;
-
-    @Resource
-    GroupJoinInvitationServiceFacade groupJoinInvitationServiceFacade;
 
     @Resource
     AntennaTemplate antennaTemplate;
-//
+
     @Override
     public AccountData findAccountById(Long accountId) {
         if (accountId == null) {
             return null;
         }
-        return AccountDataUtils.fromAccountDto(accountServiceFacade.getByAccountId(accountId));
+        return AccountDataUtils.fromAccountDto(accountAccessService.getByAccountId(accountId));
     }
 
     @Override
@@ -54,7 +51,7 @@ public class AccountServiceAdapterImpl implements AccountServiceAdapter {
         if (email == null || email.trim().length() == 0) {
             return null;
         }
-        return AccountDataUtils.fromAccountDto(accountServiceFacade.getByEmail(email));
+        return AccountDataUtils.fromAccountDto(accountAccessService.getByEmail(email));
     }
 
     @Override
@@ -62,7 +59,7 @@ public class AccountServiceAdapterImpl implements AccountServiceAdapter {
         if (phoneNumber == null || phoneNumber.trim().length() == 0) {
             return null;
         }
-        return AccountDataUtils.fromAccountDto(accountServiceFacade.getByPhoneNumber(phoneNumber));
+        return AccountDataUtils.fromAccountDto(accountAccessService.getByPhoneNumber(phoneNumber));
     }
 
     @Override
@@ -70,7 +67,7 @@ public class AccountServiceAdapterImpl implements AccountServiceAdapter {
         if (query == null || query.trim().length() == 0) {
             return null;
         }
-        return AccountDataUtils.fromAccountDtos(accountServiceFacade.getByEmailOrScreenNameLike(query));
+        return AccountDataUtils.fromAccountDtos(accountAccessService.getByEmailOrScreenNameLike(query));
     }
 
     @Override
@@ -78,7 +75,7 @@ public class AccountServiceAdapterImpl implements AccountServiceAdapter {
         if (name == null || name.trim().length() == 0) {
             return null;
         }
-        return AccountDataUtils.fromAccountDtos(accountServiceFacade.getByScreenNameLike(name));
+        return AccountDataUtils.fromAccountDtos(accountAccessService.getByScreenNameLike(name));
     }
 
     @Override
@@ -86,7 +83,7 @@ public class AccountServiceAdapterImpl implements AccountServiceAdapter {
         if (email == null || email.trim().length() == 0) {
             return null;
         }
-        return AccountDataUtils.fromAccountDtos(accountServiceFacade.getByEmailLike(email));
+        return AccountDataUtils.fromAccountDtos(accountAccessService.getByEmailLike(email));
     }
 
     @Override
@@ -94,7 +91,7 @@ public class AccountServiceAdapterImpl implements AccountServiceAdapter {
         if (groupId == null) {
             return null;
         }
-        return AccountDataUtils.fromAccountGroupDto(accountGroupServiceFacade.getById(groupId));
+        return AccountDataUtils.fromAccountGroupDto(accountGroupAccessService.getById(groupId));
     }
 
     @Override
@@ -102,12 +99,12 @@ public class AccountServiceAdapterImpl implements AccountServiceAdapter {
         if (accountId == null) {
             return null;
         }
-        Set<AccountGroupDto> groupDtos = accountServiceFacade.getAccountInGroups(accountId);
+        Set<AccountGroupDto> groupDtos = accountAccessService.getAccountInGroups(accountId);
         if (groupDtos != null) {
             Set<AccountGroupData> groupDatas = new HashSet<>();
             for (AccountGroupDto groupDto : groupDtos) {
                 groupDatas.add(AccountDataUtils.fromAccountGroupDto(
-                        accountGroupServiceFacade.getById(groupDto.groupId)));
+                        accountGroupAccessService.getById(groupDto.groupId)));
             }
             return groupDatas;
         } else {
@@ -120,7 +117,8 @@ public class AccountServiceAdapterImpl implements AccountServiceAdapter {
         if (accountId == null) {
             return null;
         }
-        return AccountDataUtils.fromAccountDtos(accountContactServiceFacade.getAllContacts(accountId));
+        //return AccountDataUtils.fromAccountDtos(accountContactServiceFacade.getAllContacts(accountId));
+        return null;
     }
 
     @Override
@@ -128,11 +126,12 @@ public class AccountServiceAdapterImpl implements AccountServiceAdapter {
         if (email == null || email.trim().length() == 0) {
             return null;
         }
-        AccountDto accountDto = accountServiceFacade.getByEmail(email);
+        AccountDto accountDto = accountAccessService.getByEmail(email);
         if (accountDto == null) {
             return null;
         }
-        return AccountDataUtils.fromAccountDtos(accountContactServiceFacade.getAllContacts(accountDto.accountId));
+        //return AccountDataUtils.fromAccountDtos(accountContactServiceFacade.getAllContacts(accountDto.accountId));
+        return null;
     }
 
     @Override
@@ -144,7 +143,7 @@ public class AccountServiceAdapterImpl implements AccountServiceAdapter {
         if (accountDto == null) {
             return null;
         }
-        return AccountDataUtils.fromAccountDto(accountServiceFacade.save(accountDto));
+        return AccountDataUtils.fromAccountDto(accountAccessService.save(accountDto));
     }
 
     @Override
@@ -154,19 +153,7 @@ public class AccountServiceAdapterImpl implements AccountServiceAdapter {
         }
         groupData.type = AccountGroupType.CUSTOM;
         AccountGroupDto groupDto = AccountDataUtils.toAccountGroupDto(groupData);
-        Set<AccountDto> accountDtos = groupDto.accounts;
-        if(accountDtos == null){
-            accountDtos = new HashSet<>();
-        }
-        groupDto.accounts = null;
-        groupDto = accountGroupServiceFacade.save(groupDto);
-        accountServiceFacade.addAccountGroup(groupDto.owner.accountId, groupDto.groupId);
-        for (AccountDto accountDto : accountDtos) {
-            if(!accountDto.accountId.equals(groupDto.owner)){
-                groupJoinInvitationServiceFacade.addGroup(accountDto.accountId, groupDto.groupId);
-            }
-        }
-        groupDto.accounts = accountDtos;
+        groupDto = accountGroupAccessService.createAccountGroup(groupDto);
         return AccountDataUtils.fromAccountGroupDto(groupDto);
     }
 
@@ -176,7 +163,7 @@ public class AccountServiceAdapterImpl implements AccountServiceAdapter {
             return null;
         }
         AccountDto accountDto = AccountDataUtils.toAccountDto(accountData);
-        return AccountDataUtils.fromAccountDto(accountServiceFacade.modify(accountDto));
+        return AccountDataUtils.fromAccountDto(accountAccessService.modify(accountDto));
     }
 
     @Override
@@ -185,7 +172,7 @@ public class AccountServiceAdapterImpl implements AccountServiceAdapter {
             return null;
         }
         AccountGroupDto groupDto = AccountDataUtils.toAccountGroupDto(groupData);
-        return AccountDataUtils.fromAccountGroupDto(accountGroupServiceFacade.save(groupDto));
+        return AccountDataUtils.fromAccountGroupDto(accountGroupAccessService.save(groupDto));
     }
 
     @Override
@@ -193,9 +180,9 @@ public class AccountServiceAdapterImpl implements AccountServiceAdapter {
         if (accountId == null) {
             return null;
         }
-        AccountDto accountDto = accountServiceFacade.getByAccountId(accountId);
+        AccountDto accountDto = accountAccessService.getByAccountId(accountId);
         if (accountDto != null) {
-            accountServiceFacade.removeByAccountId(accountId, false);
+            accountAccessService.removeByAccountId(accountId, false);
         }
         return AccountDataUtils.fromAccountDto(accountDto);
     }
@@ -205,9 +192,9 @@ public class AccountServiceAdapterImpl implements AccountServiceAdapter {
         if (email == null || email.trim().length() == 0) {
             return null;
         }
-        AccountDto accountDto = accountServiceFacade.getByEmail(email);
+        AccountDto accountDto = accountAccessService.getByEmail(email);
         if (accountDto != null) {
-            accountServiceFacade.removeByEmail(email, false);
+            accountAccessService.removeByEmail(email, false);
         }
         return AccountDataUtils.fromAccountDto(accountDto);
     }
@@ -217,9 +204,9 @@ public class AccountServiceAdapterImpl implements AccountServiceAdapter {
         if (phoneNumber == null || phoneNumber.trim().length() == 0) {
             return null;
         }
-        AccountDto accountDto = accountServiceFacade.getByPhoneNumber(phoneNumber);
+        AccountDto accountDto = accountAccessService.getByPhoneNumber(phoneNumber);
         if (accountDto != null) {
-            accountServiceFacade.removeByAccountId(accountDto.accountId, false);
+            accountAccessService.removeByAccountId(accountDto.accountId, false);
         }
         return AccountDataUtils.fromAccountDto(accountDto);
     }
@@ -232,29 +219,8 @@ public class AccountServiceAdapterImpl implements AccountServiceAdapter {
 
     @Override
     public AccountGroupData deleteAccountGroup(Long accountId, Long groupId) {
-        AccountGroupDto groupDto = accountGroupServiceFacade.getById(groupId);
-        if (groupDto != null) {
-            for(AccountDto accountDto:groupDto.accounts) {
-                accountServiceFacade.removeAccountGroup(accountDto.accountId, groupDto.groupId);
-            }
-            accountGroupServiceFacade.remove(accountId, groupId);
-        }
-
-        try {
-            // get owned devices
-            List<ObjectMainInfoDto> objectDtos = antennaTemplate.objectInfoService.getObjectMainByAccountAndType(accountId, AniObjectType.DEVICE_OBJ, true, true);
-            if (objectDtos != null) {
-                for (ObjectMainInfoDto objectDto : objectDtos) {
-                    ObjectMainQueryDto mainQueryDto = new ObjectMainQueryDto(objectDto.objectId);
-                    Set<PrivilegeType> privilegeTypes = new HashSet<>();
-
-                    ObjectPrivilegeGrantDto privilegeGrantDto = new ObjectPrivilegeGrantDto(groupId, privilegeTypes);
-                    antennaTemplate.objectInfoService.grantAccountGroupPrivilege(mainQueryDto, privilegeGrantDto, true);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        AccountGroupDto groupDto = accountGroupAccessService.getById(groupId);
+        accountGroupAccessService.deleteAccountGroup(accountId, groupId);
         return AccountDataUtils.fromAccountGroupDto(groupDto);
     }
 
@@ -278,7 +244,7 @@ public class AccountServiceAdapterImpl implements AccountServiceAdapter {
         if (accountId ==null){
             return null;
         }
-        Set<AccountGroupDto> groupDtos = groupJoinInvitationServiceFacade.getAllInvitedGroups(accountId);
+        Set<AccountGroupDto> groupDtos = accountGroupAccessService.getAllInvitedGroups(accountId);
         return AccountDataUtils.fromAccountGroupDtos(groupDtos);
     }
 
@@ -287,8 +253,8 @@ public class AccountServiceAdapterImpl implements AccountServiceAdapter {
         if (accountId == null || groupId == null) {
             return null;
         }
-        groupJoinInvitationServiceFacade.addGroup(accountId, groupId);
-        return AccountDataUtils.fromAccountGroupDto(accountGroupServiceFacade.getById(groupId));
+        AccountGroupDto accountGroupDto = accountGroupAccessService.inviteAccountGroup(accountId, groupId);
+        return AccountDataUtils.fromAccountGroupDto(accountGroupDto);
     }
 
     @Override
@@ -296,17 +262,10 @@ public class AccountServiceAdapterImpl implements AccountServiceAdapter {
         if (accountId == null || groupId == null) {
             return null;
         }
-        AccountGroupDto groupDto = accountGroupServiceFacade.getById(groupId);
-        AccountDto accountDto = accountServiceFacade.getByAccountId(accountId);
-        if (groupDto != null && accountDto != null) {
-            groupDto.accounts.add(accountDto);
-            //accountDto.groupSet.add(groupDto);
-            accountServiceFacade.modify(accountDto);
-            accountServiceFacade.addAccountGroup(accountId, groupId);
-            groupJoinInvitationServiceFacade.removeGroup(accountId, groupId);
+        AccountGroupDto groupDto = accountGroupAccessService.joinAccountGroup(accountId, groupId);
+        if(groupDto!=null) {
             return AccountDataUtils.fromAccountGroupDto(groupDto);
-        }
-        return null;
+        }else return null;
     }
 
     @Override
@@ -314,16 +273,10 @@ public class AccountServiceAdapterImpl implements AccountServiceAdapter {
         if(accountId == null || groupId ==null){
             return null;
         }
-        AccountGroupDto groupDto = accountGroupServiceFacade.getById(groupId);
-        AccountDto accountDto = accountServiceFacade.getByAccountId(accountId);
-        if(groupDto !=null && accountDto!= null) {
-            groupJoinInvitationServiceFacade.removeGroup(accountId, groupId);
+        AccountGroupDto groupDto = accountGroupAccessService.refuseAccountGroup(accountId, groupId);
+        if(groupDto!=null) {
             return AccountDataUtils.fromAccountGroupDto(groupDto);
-        }
-        if(groupDto ==null){
-            groupJoinInvitationServiceFacade.removeGroup(accountId,groupId);
-        }
-        return null;
+        }else return null;
     }
 
     @Override
@@ -331,13 +284,10 @@ public class AccountServiceAdapterImpl implements AccountServiceAdapter {
         if (accountId == null || groupId == null) {
             return null;
         }
-        AccountGroupDto groupDto = accountGroupServiceFacade.getById(groupId);
-        AccountDto accountDto = accountServiceFacade.getByAccountId(accountId);
-        if (groupDto != null && accountDto != null) {
-            accountServiceFacade.removeAccountGroup(accountId, groupId);
-            return AccountDataUtils.fromAccountGroupDto(accountGroupServiceFacade.getById(groupDto.groupId));
-        }
-        return null;
+        AccountGroupDto groupDto = accountGroupAccessService.quitAccountGroup(accountId, groupId);
+        if(groupDto!=null) {
+            return AccountDataUtils.fromAccountGroupDto(groupDto);
+        }else return null;
     }
 
     @Override
@@ -345,13 +295,10 @@ public class AccountServiceAdapterImpl implements AccountServiceAdapter {
         if (accountId == null || groupKickData == null) {
             return null;
         }
-        AccountGroupDto groupDto = accountGroupServiceFacade.getById(Long.valueOf(groupKickData.groupId));
-        AccountDto accountDto = accountServiceFacade.getByAccountId(accountId);
-        if (groupDto == null || accountDto == null || accountId.equals(groupKickData.accountId)) {
-            return null;
-        }
-        accountServiceFacade.removeAccountGroup(accountDto.accountId, groupDto.groupId);
-        return AccountDataUtils.fromAccountGroupDto(accountGroupServiceFacade.getById(groupDto.groupId));
+        AccountGroupDto groupDto = accountGroupAccessService.kickAccountGroup(accountId, Long.parseLong(groupKickData.groupId),Long.parseLong(groupKickData.accountId));
+        if(groupDto!=null) {
+            return AccountDataUtils.fromAccountGroupDto(groupDto);
+        }else return null;
     }
 
     @Override
@@ -359,7 +306,7 @@ public class AccountServiceAdapterImpl implements AccountServiceAdapter {
         if(accountId == null || groupModifyData == null){
             return null;
         }
-        AccountGroupDto groupDto = accountGroupServiceFacade.getById(Long.valueOf(groupModifyData.groupId));
+        AccountGroupDto groupDto = accountGroupAccessService.getById(Long.valueOf(groupModifyData.groupId));
         if(!accountId.equals(groupDto.owner.accountId)){
             return null;
         }
@@ -369,16 +316,7 @@ public class AccountServiceAdapterImpl implements AccountServiceAdapter {
         if(groupModifyData.type != null){
             groupDto.groupType = AccountDataUtils.toGroupType(groupModifyData.type);
         }
-        Set<AccountDto> accountDtos = groupDto.accounts;
-        if(accountDtos == null){
-            accountDtos = new HashSet<>();
-        }
-        groupDto.accounts = null;
-        groupDto = accountGroupServiceFacade.modify(groupDto);
-        for(AccountDto account:accountDtos){
-            accountServiceFacade.addAccountGroup(account.accountId, groupDto.groupId);
-        }
-        groupDto.accounts = accountDtos;
+        groupDto = accountGroupAccessService.modify(groupDto);
         return AccountDataUtils.fromAccountGroupDto(groupDto);
     }
 

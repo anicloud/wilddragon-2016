@@ -1,5 +1,7 @@
 package models.service.notification;
 
+import com.ani.octopus.commons.object.dto.object.ObjectInfoDto;
+import com.ani.octopus.commons.object.dto.object.ObjectSlaveInfoDto;
 import com.ani.octopus.commons.object.dto.object.ObjectSlaveQueryDto;
 import models.dto.account.AccountData;
 import models.dto.account.AccountGroupData;
@@ -37,7 +39,7 @@ public interface NotificationService {
     void deviceUpdateNotice(DeviceMasterData deviceMasterDataData, AccountData accountData, List<AccountData> accountDatas);
     void deviceBindNotice(DeviceMasterData deviceMasterDataData, AccountData accountData);
     void deviceUnbindNotice(DeviceMasterData deviceMasterDataData, AccountData accountData);
-    void deviceSearchSlavesNotice(DeviceMasterData deviceMasterDataData, AccountData accountData, List<ObjectSlaveQueryDto> slaveList);
+    void deviceSearchSlavesNotice(DeviceMasterData deviceMasterDataData, AccountData accountData, List<ObjectSlaveInfoDto> slaveList);
 
     //App
     void appBindNotice(AppData appData,AccountData accountData);

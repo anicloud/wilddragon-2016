@@ -17,7 +17,7 @@ public class Global extends GlobalSettings {
         // spring
         this.ctx = new ClassPathXmlApplicationContext("spring-context/application-context.xml");
 
-        // CAS
+//        // CAS
         final String baseUrl = Play.application().configuration().getString("baseUrl");
         final String casUrl = Play.application().configuration().getString("casUrl");
         final CasClient casClient = new CasClient();

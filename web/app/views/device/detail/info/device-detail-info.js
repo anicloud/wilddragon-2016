@@ -327,8 +327,8 @@ angular.module('app.view.device.detail.info', [
       };
       $scope.zigbeeSendBind=function(){
         DeviceService.sendBindList(
-            {masterId:$scope.device.deviceId,
-              bindList:[$scope.device.toBindSlave.list[0]]}).
+            {deviceId:$scope.device.deviceId,
+              slaveIdList:[$scope.device.toBindSlave.list[0]]}).
         then(function(res){
           if(res.success.toString()==='true'){
             $scope.device.toBindSlave.state='bindResultWaiting';

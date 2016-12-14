@@ -1,5 +1,6 @@
 package models.service.device;
 
+import com.ani.octopus.antenna.core.dto.stub.StubInvocationDto;
 import com.ani.octopus.commons.object.dto.object.ObjectSlaveQueryDto;
 import models.dto.account.AccountData;
 import models.dto.device.DeviceMasterData;
@@ -33,6 +34,6 @@ public interface DeviceServiceAdapter {
     List<PermissionData> unshareDevice(DeviceShareData shareData);
 
     //search for slave
-    boolean searchForSlavesList(Long deviceId);
-    boolean addNewSlaves(Long deviceId, List<ObjectSlaveQueryDto> newSlavesList);
+    List<Integer> searchForSlavesList(Long deviceId);
+    boolean addNewSlaves(Long deviceId, List<Integer> slaveIdList);
 }
