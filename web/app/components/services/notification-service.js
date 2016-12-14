@@ -265,6 +265,7 @@ angular.module('app.service.notification', [])
                     break;
                 case 'DEVICE_UPDATE': //add slave
                     !function (message) {
+                        message=message.data;
                         //var data=message.detail;
                         var device=mainScope.deviceMap[message.detail.deviceId];
                         // toBindDevice.list=data.detail;

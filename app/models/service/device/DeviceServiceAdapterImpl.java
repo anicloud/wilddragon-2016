@@ -20,7 +20,11 @@ import com.ani.octopus.commons.object.enumeration.AniObjectState;
 import com.ani.octopus.commons.object.enumeration.AniObjectType;
 import com.ani.octopus.commons.stub.dto.StubDto;
 import com.ani.octopus.commons.stub.enumeration.PrivilegeType;
+import com.ani.octopus.commons.stub.type.DataPrimitiveType;
+import com.ani.octopus.commons.stub.type.DataPrimitiveTypes;
+import com.ani.octopus.commons.stub.type.DataType;
 import com.ani.octopus.stub.core.domain.stub.Stub;
+import com.ani.octopus.stub.core.domain.stub.StubArgument;
 import models.dto.device.*;
 import org.apache.commons.ssl.Ping;
 import org.springframework.stereotype.Component;
@@ -179,29 +183,26 @@ public class DeviceServiceAdapterImpl implements DeviceServiceAdapter {
             ObjectQueryDto targetObject = new ObjectMainQueryDto(deviceId);
             List<StubInvocationDto> stubInvocationDtoList = new ArrayList<>();
             Stub stub = aniStubMetaInfoService.getStub(new StubDto(0L, 1));
-            List<ArgumentDto> inputarg = new ArrayList<>();
-            List<ArgumentDto> outputarg = new ArrayList<>();
-            ArgumentDto inpoutArgumentDto =new ArgumentDto(ArgumentType.LONG,deviceId);
-            ArgumentDto outputArgumentDto =new ArgumentDto(ArgumentType.INTEGER,1);
-            inputarg.add(inpoutArgumentDto);
-            outputarg.add(outputArgumentDto);
+            DataPrimitiveType dataPrimitiveType =new DataPrimitiveType(DataPrimitiveTypes.INTEGER);
+            StubArgument stubArgument = new StubArgument((DataType)dataPrimitiveType,"search slave");
+//            stub.outputArguments = new ArrayList<>();
+//            stub.outputArguments.add(stubArgument);
             StubInvocationDto invocationDto = new StubInvocationDto(
                     stub,
                     false,
-                    inputarg,
-                    outputarg
+                    null,
+                    null
             );
             stubInvocationDtoList.add(invocationDto);
             stubInvocationDtoList = antennaTemplate.objectInvokeService.invokeObject(null, targetObject, stubInvocationDtoList);
             if(stubInvocationDtoList.get(0).success ==true)
             {
-                List<Integer> slaveId = new ArrayList<>();
-                slaveId.add((int)((ArgumentDto)stubInvocationDtoList.get(0).outputArgsValue.get(0)).value);
-                addNewSlaves(deviceId,slaveId);
-                List<Integer> slaveIdList =new ArrayList<>();
-//                for(int i:){
-//                    stubInvocationDtoList.get(0).outputArgsValue;
-//                }
+                List<Integer> slaveIdList = new ArrayList<>();
+                for(int i=0;i<stubInvocationDtoList.get(0).outputArgsValue.size();i++) {
+                    ArgumentDto argumentDto = (ArgumentDto) stubInvocationDtoList.get(0).outputArgsValue.get(i);
+                    slaveIdList.add((int)argumentDto.value);
+//                    addNewSlaves(deviceId, slaveIdList);
+                }
                 return slaveIdList;
             }
             return null;
@@ -215,12 +216,15 @@ public class DeviceServiceAdapterImpl implements DeviceServiceAdapter {
         try {
             ObjectQueryDto targetObject = new ObjectMainQueryDto(deviceId);
             List<StubInvocationDto> stubInvocationDtoList = new ArrayList<>();
-            List<ArgumentDto> inputarg = new ArrayList<>();
-            for(Integer id :slaveId) {
-                ArgumentDto argumentDto = new ArgumentDto(ArgumentType.INTEGER, id);
-                inputarg.add(argumentDto);
-            }
+            List<Integer> inputarg = new ArrayList<>();
+//            DataPrimitiveType dataPrimitiveType =new DataPrimitiveType(DataPrimitiveTypes.INTEGER);
+//            StubArgument stubArgument = new StubArgument((DataType)dataPrimitiveType,"search slave");
             Stub stub = aniStubMetaInfoService.getStub(new StubDto(0L, 2));
+            inputarg = slaveId;
+//            for(Integer id :slaveId) {
+////                ArgumentDto argumentDto = new ArgumentDto(ArgumentType.INTEGER, id);
+//                inputarg.add(slaveId);
+//            }
             StubInvocationDto invocationDto = new StubInvocationDto(
                     stub,
                     false,

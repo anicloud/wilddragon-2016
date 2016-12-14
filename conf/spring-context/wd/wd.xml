@@ -10,6 +10,7 @@
 
     <context:property-placeholder location="spring-context/wd/wd.properties" ignore-unresolvable="true" order="1"/>
 
+    <bean id= "casRestLogin" class="models.service.account.CasRestLoginImpl"/>
     <!-- account service -->
     <bean id="accountServiceFacade" class="org.springframework.jms.remoting.JmsInvokerProxyFactoryBean">
         <property name="connectionFactory"
