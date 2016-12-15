@@ -23,6 +23,7 @@ public class  NotificationData {
         DEVICE_ADD,
         DEVICE_REMOVE,
         DEVICE_MODIFY,
+        DEVICE_UPDATE,
         // device connect state
         DEVICE_CONNECT,
         DEVICE_DISCONNECT,
