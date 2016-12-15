@@ -10,7 +10,8 @@ angular.module('app.view', [
   'app.view.device',
   // 'app.view.store',
   'app.view.settings',
-  'app.view.group',
+  'app.view.group', 
+    'app.view.iframe', 
       'app.view.notification'
 ])
 
