@@ -12,7 +12,7 @@
 </div>
 <div class="content-body">
   <div class="app-wrapper">
-    <a class="app-card" data-ng-repeat="app in apps" ui-sref="main.iframe({urlIndex:{{app}}})">
+    <a href={{app.serviceServerUrl}} target="view_window" class="app-card" data-ng-repeat="app in apps" >
       <div target="view_window";>
       <div class="card-image">
           <div class="card-option">
