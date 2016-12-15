@@ -58,13 +58,6 @@ angular.module('app.view.application', ['ui.router'])
                   error:function(){ NotificationServiceDist.popNotification('网络访问错误!',null,'error');}
           });
       }
-      $scope.openIframe=function (url) {
-          console.log('url',url);
-          state.go('main.iframe',{url:url})
-      }
-      $scope.showDiff=function () {
-          console.log('showDiff');
-      }
   })
 
   .controller('ApplicationContainerCtrl', function ($scope, $stateParams,$state) {
