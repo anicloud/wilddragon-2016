@@ -19,7 +19,7 @@ angular.module('app.service.app', [])
   .factory('AppService', function ($http) {
     var app0 = {
       serviceName: 'sunny',
-      logoPath: 'https://raw.githubusercontent.com/anicloud/anicloud.github.io/master/images/logo/ani_logo.png',
+      logoPath: '/images/ani_sunny_logo.png',
       serviceServerUrl: 'http://s0.drtt.bj.anicel.cn:8080/sunny'
     };
     return {
