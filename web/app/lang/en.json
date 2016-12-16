@@ -36,7 +36,7 @@
   "DEVICE_BIND_QRCODE_WRONG_DESCRIPTION1":"nothing we want has been scanned",
   "DEVICE_BIND_QRCODE_WRONG_DESCRIPTION2":"make sure your QRcode is right",
   "DEVICE_BIND_QRCODE_START_SCAN":"start scanning",
-  "DEVICE_BIND_QRCODE_STOP_SCANNING":"stop scanning",
+  "DEVICE_BIND_QRCODE_STOP_SCAN":"stop scanning",
   "DEVICE_BIND_QRCODE_RESCAN":"rescan",
   "DEVICE_BIND_QRCODE_MANUAL":"add manually",
   "DEVICE_BIND_QRCODE_ADD_BY_QRCODE":"add by qrcode",
