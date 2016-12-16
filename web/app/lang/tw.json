@@ -112,6 +112,7 @@
   "ACCOUNT_COMPANY":"公司",
   "SETTINGS_LANGUAGE_SWITCH":"切換語言",
   "SETTINGS_LANGUAGE_SWITCH_DESCRIPTION":"您可以切換應用的語言",
+  "SETTINGS_LANGUAGE_FILING_INFORMATION":"備案信息",
   "MESSAGE_ACCOUNT_GROUP_INVITE":"{{fromName}} 邀請您加入群組 {{objName}}",
   "MESSAGE_ACCOUNT_GROUP_REFUSE":"{{fromName}} 拒絕加入組 {{objName}}",
   "MESSAGE_ACCOUNT_GROUP_JOIN":"{{fromName}} 已加入組 {{objName}}",

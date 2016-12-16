@@ -112,6 +112,7 @@
   "ACCOUNT_COMPANY":"company",
   "SETTINGS_LANGUAGE_SWITCH":"language switch",
   "SETTINGS_LANGUAGE_SWITCH_DESCRIPTION":"you can switch the language of the application",
+  "SETTINGS_LANGUAGE_FILING_INFORMATION":"filing information",
   "MESSAGE_ACCOUNT_GROUP_INVITE":"{{fromName}} invite you to join the group {{objName}}",
   "MESSAGE_ACCOUNT_GROUP_REFUSE":"{{fromName}} refuse to join the group {{objName}}",
   "MESSAGE_ACCOUNT_GROUP_JOIN":"{{fromName}} has join the group {{objName}}",
