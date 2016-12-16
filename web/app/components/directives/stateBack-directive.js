@@ -58,7 +58,11 @@ angular.module('app.directive.stateBack', [])
                         }else if(state==='main.device.detail.info.slave'){
                               return $state.go('main.device.detail.info',{id:content});
                         }
-                    };
+                    }else if(moduleKey==='application'){
+                       if(state==='main.application.container'){
+                            return $state.go('main.application.list')
+                        }
+                    }
                 }
             }
         }

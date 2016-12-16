@@ -13,7 +13,7 @@
 <div class="content-body">
   <div class="app-wrapper">
     <div class="app-card" data-ng-repeat="app in apps">
-      <div href="/#/application/" ui-sref="main.application.container({index:{{$index}}})">
+      <a href="/#/application/container/{{$index}}">
       <div class="card-image">
           <div class="card-option">
               <i class="fa fa-ellipsis-v"></i>
@@ -29,7 +29,7 @@
           <!--<i class="fa fa-ellipsis-v"></i>-->
         <!--</a>-->
       <!--</div>-->
-      </div>
+      </a>
     </div>
 
   </div>
