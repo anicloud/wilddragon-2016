@@ -61,4 +61,20 @@ var dataFilter=function (exsitArray,Data) {
   return filterArray;
   
 };
+function macToInt(macAddr) {
+  var _16Int = macAddr.split('-').join("");
+  return parseInt(_16Int, 16)
+}
+
+function intToMac(intNum) {
+  function numDivide(restString, ary) {
+    if (!restString.length) return ary;
+    ary.push(restString.slice(0, 2));
+    numDivide(restString.slice(2), ary);
+  }
+  var _16Int = parseInt(intNum, 10).toString(16);
+  var macAry = [];
+  numDivide(_16Int, macAry);
+  return macAry.join('-');
+}
 

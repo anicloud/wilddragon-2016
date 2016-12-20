@@ -191,8 +191,12 @@ angular.module('app.view.device.bind', ['ui.router'])
       $scope.autoWifi=true;
       // submit bind data
       $scope.deviceBind = function () {
-        console.log($scope.bindData);
-        var bindResult = DeviceService.bindDevice($scope.bindData);
+        var bindData={
+          physicalAddress:macToInt($scope.bindData.physicalAddress),
+          physicalId:$scope.bindData.physicalId
+        };
+        console.log(bindData);
+        var bindResult = DeviceService.bindDevice(bindData);
         bindResult.then(function (result) {
           console.log(result);
           if (result.success) {
