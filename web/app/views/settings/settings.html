@@ -71,19 +71,34 @@
             <div class="right">
                 <div class="panel">
                     <div class="panel-body">
-                            <div class="item-detail">
-                                <div class="dropdown-wrapper">
-                                    <div uib-dropdown is-open="false">
-                                        <button id="lang-btn" class="lang-btn btn" uib-dropdown-toggle>
-                                            {{curLang}}
-                                        </button>
-                                        <ul uib-dropdown-menu id="lang-ul" class="lang-ul" role="menu" aria-labelledby="lang-btn">
-                                            <li id="lang-li" ng-repeat="lang in langAry" ng-click="switchLanguage(lang)">{{lang}}</li>
-                                        </ul>
-                                    </div>
+                        <div class="item-detail">
+                            <div class="dropdown-wrapper">
+                                <div uib-dropdown is-open="false">
+                                    <button id="lang-btn" class="lang-btn btn" uib-dropdown-toggle>
+                                        {{curLang}}
+                                    </button>
+                                    <ul uib-dropdown-menu id="lang-ul" class="lang-ul" role="menu"
+                                        aria-labelledby="lang-btn">
+                                        <li id="lang-li" ng-repeat="lang in langAry" ng-click="switchLanguage(lang)">
+                                            {{lang}}
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
+                        </div>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="settings-content">
+            <div class="title">{{"SETTINGS_LANGUAGE_FILING_INFORMATION"|translate}}</div>
+            <div class="left">
+                <div class="description">
+                </div>
+            </div>
+            <div class="right">
+                <div class="item-detail" style="font-size: 15px">
+                    京ICP备16031742号
                 </div>
             </div>
         </div>
