@@ -10,6 +10,8 @@
   "license": "MIT",
   "devDependencies": {
     "bower": "^1.3.1",
+    "express": "^4.14.0",
+    "formidable": "^1.0.17",
     "gulp": "^3.9.1",
     "gulp-angular-filesort": "^1.1.1",
     "gulp-autoprefixer": "2.3.1",
@@ -46,7 +48,9 @@
     "wiredep": "^2.2.2",
     "ws": "^1.1.1"
   },
-  "scripts": {},
+  "scripts": {
+    "dev": "node server-node/wd-server.js"
+  },
   "bugs": {
     "url": "https://github.com/yqz411/wilddragon/issues"
   },
