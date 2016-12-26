@@ -1,6 +1,8 @@
 package models.dto.function;
 
 
+import com.ani.octopus.commons.stub.domain.StubArgument;
+import com.ani.octopus.commons.stub.domain.StubGroup;
 import com.ani.octopus.commons.stub.enumeration.PrivilegeType;
 import com.ani.octopus.commons.stub.enumeration.StubConnType;
 import com.ani.octopus.commons.stub.type.DataCollectionType;
@@ -23,7 +25,7 @@ public class FunctionDataUtils {
                 type = new ArgumentType(ArgumentType.Type.ARRAY, fromArgumentTypeDto(collectionType.membersDataType));
             } else {
                 DataPrimitiveType primitiveType = (DataPrimitiveType) dataType;
-                switch (primitiveType.type) {
+                switch (primitiveType.getType()) {
                     case BOOLEAN:
                         type = new ArgumentType(ArgumentType.Type.BOOLEAN);
                         break;

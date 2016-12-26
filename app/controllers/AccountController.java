@@ -9,6 +9,7 @@ import models.service.account.AccountServiceAdapter;
 import models.service.notification.NotificationService;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.pac4j.core.profile.CommonProfile;
+import org.pac4j.play.CallbackController;
 import org.pac4j.play.java.JavaController;
 import org.pac4j.play.java.RequiresAuthentication;
 import org.springframework.stereotype.Component;
@@ -196,7 +197,8 @@ public class AccountController extends JavaController {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             AccountGroupKickData groupKickData = objectMapper.treeToValue(request().body().asJson(), AccountGroupKickData.class);
-            AccountGroupData groupData = accountServiceAdapter.kickAccountGroup(Long.parseLong(groupKickData.accountId), groupKickData);
+            AccountGroupData groupData = accountServiceAdapter.findGroup(Long.parseLong(groupKickData.groupId));
+            AccountGroupData group = accountServiceAdapter.kickAccountGroup(Long.parseLong(groupKickData.accountId), groupKickData);
             AccountData accountData = accountServiceAdapter.findAccountById(Long.parseLong(groupKickData.accountId));
             notificationService.groupKickNotice(groupData, accountData);
             retData = new RetData(true, "", groupData);
@@ -273,6 +275,20 @@ public class AccountController extends JavaController {
             Long id = Long.valueOf(request().cookie("accountId").value());
             accountServiceAdapter.logoutAccountById(id);
             retData = new RetData(true, "");
+        } catch (Exception e) {
+            retData = new RetData(false, ExceptionUtils.getStackTrace(e));
+        } finally {
+            return ok(Json.toJson(retData));
+        }
+    }
+
+    public Result nalogout(){
+        RetData retData = null;
+        try {
+            Result result = CallbackController.logoutAndOk();
+            if(result.equals(ok())) {
+                retData = new RetData(true, "NA logout success");
+            }
         } catch (Exception e) {
             retData = new RetData(false, ExceptionUtils.getStackTrace(e));
         } finally {

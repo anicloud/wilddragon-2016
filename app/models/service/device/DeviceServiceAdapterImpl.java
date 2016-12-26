@@ -1,15 +1,16 @@
 package models.service.device;
 
-import com.ani.bus.device.application.service.DeviceBusService;
 import com.ani.bus.device.commons.dto.device.ArgumentDto;
 import com.ani.bus.device.commons.dto.device.ArgumentType;
 import com.ani.bus.device.commons.dto.device.DeviceMasterDto;
 import com.ani.bus.device.commons.dto.device.FunctionDto;
+import com.ani.bus.device.infrastructure.service.DeviceBusService;
 import com.ani.earth.commons.dto.AccountDto;
 import com.ani.earth.commons.dto.AccountGroupDto;
 import com.ani.earth.interfaces.AccountServiceFacade;
 import com.ani.octopus.antenna.core.AntennaTemplate;
 import com.ani.octopus.antenna.core.dto.stub.StubInvocationDto;
+import com.ani.octopus.antenna.core.service.ObjectInvokeService;
 import com.ani.octopus.antenna.core.service.stub.AniStubMetaInfoService;
 import com.ani.octopus.commons.dto.object.ObjectQueryDto;
 import com.ani.octopus.commons.object.dto.object.ObjectMainInfoDto;
@@ -18,13 +19,13 @@ import com.ani.octopus.commons.object.dto.object.ObjectSlaveQueryDto;
 import com.ani.octopus.commons.object.dto.object.privilege.ObjectPrivilegeGrantDto;
 import com.ani.octopus.commons.object.enumeration.AniObjectState;
 import com.ani.octopus.commons.object.enumeration.AniObjectType;
+import com.ani.octopus.commons.stub.domain.StubArgument;
 import com.ani.octopus.commons.stub.dto.StubDto;
 import com.ani.octopus.commons.stub.enumeration.PrivilegeType;
 import com.ani.octopus.commons.stub.type.DataPrimitiveType;
 import com.ani.octopus.commons.stub.type.DataPrimitiveTypes;
 import com.ani.octopus.commons.stub.type.DataType;
 import com.ani.octopus.stub.core.domain.stub.Stub;
-import com.ani.octopus.stub.core.domain.stub.StubArgument;
 import models.dto.device.*;
 import org.apache.commons.ssl.Ping;
 import org.springframework.stereotype.Component;
@@ -48,6 +49,9 @@ public class DeviceServiceAdapterImpl implements DeviceServiceAdapter {
 
     @Resource
     private AniStubMetaInfoService aniStubMetaInfoService;
+
+    @Resource
+    private ObjectInvokeService objectInvokeService;
 
     @Override
     public DeviceMasterData findDevice(Long deviceId) {
@@ -84,7 +88,7 @@ public class DeviceServiceAdapterImpl implements DeviceServiceAdapter {
     }
 
     @Override
-    public DeviceMasterData findDevice(String physicalId, String physicalAddress) {
+    public DeviceMasterData findDevice(Integer physicalId, Long physicalAddress) {
         DeviceMasterDto deviceMasterDto = deviceBusService.findDeviceMaster(physicalId, physicalAddress);
         if (deviceMasterDto == null) {
             return null;
@@ -185,8 +189,6 @@ public class DeviceServiceAdapterImpl implements DeviceServiceAdapter {
             Stub stub = aniStubMetaInfoService.getStub(new StubDto(0L, 1));
             DataPrimitiveType dataPrimitiveType =new DataPrimitiveType(DataPrimitiveTypes.INTEGER);
             StubArgument stubArgument = new StubArgument((DataType)dataPrimitiveType,"search slave");
-//            stub.outputArguments = new ArrayList<>();
-//            stub.outputArguments.add(stubArgument);
             StubInvocationDto invocationDto = new StubInvocationDto(
                     stub,
                     false,
@@ -194,16 +196,19 @@ public class DeviceServiceAdapterImpl implements DeviceServiceAdapter {
                     null
             );
             stubInvocationDtoList.add(invocationDto);
-            stubInvocationDtoList = antennaTemplate.objectInvokeService.invokeObject(null, targetObject, stubInvocationDtoList);
-            if(stubInvocationDtoList.get(0).success ==true)
-            {
-                List<Integer> slaveIdList = new ArrayList<>();
-                for(int i=0;i<stubInvocationDtoList.get(0).outputArgsValue.size();i++) {
-                    ArgumentDto argumentDto = (ArgumentDto) stubInvocationDtoList.get(0).outputArgsValue.get(i);
-                    slaveIdList.add((int)argumentDto.value);
-//                    addNewSlaves(deviceId, slaveIdList);
+            if(objectInvokeService.StubInvocationArgumentCheck(stubInvocationDtoList,0)){
+                stubInvocationDtoList = antennaTemplate.objectInvokeService.invokeObject(null, targetObject, stubInvocationDtoList);
+                if(stubInvocationDtoList.get(0).success ==true)
+                {
+                    List<Integer> slaveIdList = new ArrayList<>();
+                    for(int i=0;i<stubInvocationDtoList.get(0).outputArgsValue.size();i++) {
+                        ArgumentDto argumentDto = (ArgumentDto) stubInvocationDtoList.get(0).outputArgsValue.get(i);
+                        slaveIdList.add((int)argumentDto.value);
+    //                    addNewSlaves(deviceId, slaveIdList);
+                    }
+                    return slaveIdList;
                 }
-                return slaveIdList;
+                return null;
             }
             return null;
         }catch (Exception e){
@@ -219,21 +224,24 @@ public class DeviceServiceAdapterImpl implements DeviceServiceAdapter {
             List<Integer> inputarg = new ArrayList<>();
 //            DataPrimitiveType dataPrimitiveType =new DataPrimitiveType(DataPrimitiveTypes.INTEGER);
 //            StubArgument stubArgument = new StubArgument((DataType)dataPrimitiveType,"search slave");
-            Stub stub = aniStubMetaInfoService.getStub(new StubDto(0L, 2));
-            inputarg = slaveId;
+            if(objectInvokeService.StubInvocationArgumentCheck(stubInvocationDtoList,0)) {
+                Stub stub = aniStubMetaInfoService.getStub(new StubDto(0L, 2));
+                inputarg = slaveId;
 //            for(Integer id :slaveId) {
 ////                ArgumentDto argumentDto = new ArgumentDto(ArgumentType.INTEGER, id);
 //                inputarg.add(slaveId);
 //            }
-            StubInvocationDto invocationDto = new StubInvocationDto(
-                    stub,
-                    false,
-                    inputarg,
-                    null
-            );
-            stubInvocationDtoList.add(invocationDto);
-            stubInvocationDtoList = antennaTemplate.objectInvokeService.invokeObject(null, targetObject, stubInvocationDtoList);
-            return stubInvocationDtoList.get(0).success;
+                StubInvocationDto invocationDto = new StubInvocationDto(
+                        stub,
+                        false,
+                        inputarg,
+                        null
+                );
+                stubInvocationDtoList.add(invocationDto);
+                stubInvocationDtoList = antennaTemplate.objectInvokeService.invokeObject(null, targetObject, stubInvocationDtoList);
+                return stubInvocationDtoList.get(0).success;
+            }
+            return false;
         }catch (Exception e){
             e.printStackTrace();
             return false;
@@ -261,13 +269,11 @@ public class DeviceServiceAdapterImpl implements DeviceServiceAdapter {
             }
         }
         DeviceMasterDto deviceMasterDto = deviceBusService.findDeviceMaster(deviceId);
-        deviceMasterDto.owner = accountId;
-        deviceBusService.saveDeviceMaster(deviceMasterDto);
         return DeviceDataUtils.fromDeviceMasterDto(deviceMasterDto, state);
     }
 
     @Override
-    public DeviceMasterData bindDevice(String physicalId, String physicalAddress, Long accountId) {
+    public DeviceMasterData bindDevice(Integer physicalId, Long physicalAddress, Long accountId) {
         DeviceMasterDto deviceMasterDto = deviceBusService.findDeviceMaster(physicalId, physicalAddress);
         if (deviceMasterDto == null) {
             return null;
@@ -297,8 +303,6 @@ public class DeviceServiceAdapterImpl implements DeviceServiceAdapter {
             }
         }
         DeviceMasterDto deviceMasterDto = deviceBusService.findDeviceMaster(deviceId);
-        deviceMasterDto.owner = -1L;
-        deviceBusService.saveDeviceMaster(deviceMasterDto);
         return DeviceDataUtils.fromDeviceMasterDto(deviceMasterDto, state);
     }
 
@@ -316,9 +320,6 @@ public class DeviceServiceAdapterImpl implements DeviceServiceAdapter {
         }
         if(device.tags != null){
             deviceMasterDto.tags = device.tags;
-        }
-        if(device.owner != null){
-            deviceMasterDto.owner = Long.valueOf(device.owner);
         }
         if(device.avatarUrl != null){
             deviceMasterDto.avatarUrl = device.avatarUrl;
@@ -357,11 +358,6 @@ public class DeviceServiceAdapterImpl implements DeviceServiceAdapter {
         if (mainInfoDto == null) {
             return null;
         } else {
-            DeviceMasterDto deviceMasterDto = deviceBusService.findDeviceMaster(Long.valueOf(shareData.deviceId));
-            if(deviceMasterDto.accountGroups!=null && !deviceMasterDto.accountGroups.contains(shareData.groupId)){
-                deviceMasterDto.accountGroups.add(Long.valueOf(shareData.groupId));
-                deviceBusService.saveDeviceMaster(deviceMasterDto);
-            }
             return DeviceDataUtils.fromPrivilegeDtos(mainInfoDto.privileges);
         }
     }
@@ -382,11 +378,6 @@ public class DeviceServiceAdapterImpl implements DeviceServiceAdapter {
         if (mainInfoDto == null) {
             return null;
         } else {
-            DeviceMasterDto deviceMasterDto = deviceBusService.findDeviceMaster(Long.valueOf(shareData.deviceId));
-            if(deviceMasterDto.accountGroups!=null){
-                deviceMasterDto.accountGroups.remove(Long.valueOf(shareData.groupId));
-                deviceBusService.saveDeviceMaster(deviceMasterDto);
-            }
             return DeviceDataUtils.fromPrivilegeDtos(mainInfoDto.privileges);
         }
     }

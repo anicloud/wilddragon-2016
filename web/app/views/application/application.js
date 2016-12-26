@@ -24,8 +24,7 @@ angular.module('app.view.application', ['ui.router'])
         controller: 'ApplicationListCtrl'
       })
       .state('main.application.container', {
-          url:'/container/{index:[0-9]+}',
-        //params:{index:'index'},
+        url: '/{id:[0-9]+}',
         templateUrl: 'views/application/application-container.html',
         controller: 'ApplicationContainerCtrl'
       })
@@ -60,11 +59,9 @@ angular.module('app.view.application', ['ui.router'])
       }
   })
 
-  .controller('ApplicationContainerCtrl', function ($scope, $stateParams,$state) {
-      $scope.currentState=$state;
-      console.log($stateParams);
-    $scope.app = $stateParams.index===0?'sunny':null;
-      $scope.name=$scope.apps[$stateParams.index].serviceName;
-      $scope.app=$scope.name;
+  .controller('ApplicationContainerCtrl', function ($scope, $stateParams) {
+    $scope.app = {};
+    console.log()
+
   })
 ;

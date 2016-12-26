@@ -7,8 +7,8 @@ import java.util.List;
  */
 public class DeviceData {
 
-    public String physicalId;
-    public String physicalAddress;
+    public Integer physicalId;
+    public Long physicalAddress;
     public String name;
     public String description;
 
@@ -16,13 +16,13 @@ public class DeviceData {
 
     public String avatarUrl;
 
-    public List<String> tags;
+    public List<Integer> tags;
 
     public DeviceState state;
 
     public DeviceData(){}
 
-    public DeviceData(String physicalId, String physicalAddress, String name, String description, List<FunctionData> functions, String avatarUrl, List<String> tags, DeviceState state) {
+    public DeviceData(Integer physicalId, Long physicalAddress, String name, String description, List<FunctionData> functions, String avatarUrl, List<Integer> tags, DeviceState state) {
         this.physicalId = physicalId;
         this.physicalAddress = physicalAddress;
         this.name = name;
