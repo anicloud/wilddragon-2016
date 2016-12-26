@@ -45,6 +45,7 @@ angular.module('app.directive.stateBack', [])
                                 return;
                             case 'main.group.memberInfo':
                                 $state.go('main.group.detail', {id: content.split('&')[0]});
+                                return;
                         }
                     }else if(moduleKey === 'device') {
                         if (params) {
@@ -58,11 +59,9 @@ angular.module('app.directive.stateBack', [])
                         }else if(state==='main.device.detail.info.slave'){
                               return $state.go('main.device.detail.info',{id:content});
                         }
-                    }else if(moduleKey==='application'){
-                       if(state==='main.application.container'){
-                            return $state.go('main.application.list')
-                        }
-                    }
+                    }else if(moduleKey==='iframe'){
+                        $state.go('main.application.list');
+                    };
                 }
             }
         }

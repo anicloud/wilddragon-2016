@@ -20,7 +20,7 @@ angular.module('app.service.app', [])
     var app0 = {
       serviceName: 'sunny',
       logoPath: '/images/ani_sunny_logo.png',
-      serviceServerUrl: 'http://sandbox.bj.anicel.cn:8000/sunny/home#/app/dashboard'
+      serviceServerUrl: 'http://sandbox.bj.anicel.cn:8000/sunny'
     };
     return {
       getApps: function () {
