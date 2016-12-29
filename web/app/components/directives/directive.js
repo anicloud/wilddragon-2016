@@ -13,5 +13,6 @@ angular.module('app.directive', [
   'app.directive.switchPage',
   'app.directive.ngTouch', 
   'app.directive.sidebarSlide',
-  'app.directive.stateBack'
+  'app.directive.stateBack',
+  'app.directive.refresh'
 ]);
