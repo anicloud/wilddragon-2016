@@ -184,6 +184,10 @@ angular.module('app.service.notification', [])
                         var description='MESSAGE_TITLE_DEVICE_UPDATE';
                         var index=queryObjectByPropertyValue(mainScope.devices,'deviceId',fromId)[0];
                         var body="",choice=[];
+                        message.data.detail.toBindSlave={
+                            list:[],
+                            state:null
+                        };
                         // mainScope.devices[index]=message.data.detail;
                         // mainScope.deviceMap[fromId]=message.data.detail;
                         Object.assign(mainScope.devices[index],message.data.detail);

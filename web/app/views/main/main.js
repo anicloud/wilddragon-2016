@@ -5,8 +5,7 @@
 
 angular.module('app.view.main', ['ui.router','angular-websocket','ngCookies','pascalprecht.translate'])
     .config(['$translateProvider', function ($translateProvider) {
-      var lang=navigator.language|'zh';
-      console.log(lang.indexOf('zh'));
+      var lang=navigator.language||'zh';
       if(lang.indexOf('tw')>-1){lang='tw'}
       else if(lang.indexOf('zh')>-1){lang='zh'}
       else{lang='en'}

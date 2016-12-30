@@ -206,8 +206,9 @@ angular.module('app.view.device.detail.info', [
     $scope.ownerId=$scope.device.owner;
     $scope.state = $scope.deviceStateFilter($scope.device.state);
     $scope.modifyDevice=function (key,value){
-      var device=$scope.deviceMap[$scope.gid];
+      var device=angular.copy($scope.deviceMap[$scope.gid]);
       device[key]=value;
+      delete device['toBindSlave'];
       DeviceService.modifyDevice(device).then(function (res){
         console.log(res.data);
         if(res.success){
