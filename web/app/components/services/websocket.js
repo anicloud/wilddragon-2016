@@ -7,7 +7,7 @@ angular.module('app.service.webSocket', [])
     .factory('WebSocketServiceDist', function ($http, $websocket,DeviceService,AccountService,NotificationServiceDist) {
         return {
             connect:function (mainScope) {
-                var messageStream = new WebSocket("ws://localhost:9000/notification/websocket");
+                var messageStream = new WebSocket("wss://anicloud.cn:9443/notification/websocket");
                 messageStream.onmessage = function(event) {
                     var response=JSON.parse(event.data);
                     if(response.success&&(response!==null)){

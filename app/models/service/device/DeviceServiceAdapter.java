@@ -17,13 +17,13 @@ import java.util.Set;
 public interface DeviceServiceAdapter {
     // find
     DeviceMasterData findDevice(Long deviceId);
-    DeviceMasterData findDevice(String physicalId, String physicalAddress);
+    DeviceMasterData findDevice(Integer physicalId, Long physicalAddress);
     List<DeviceMasterData> findDevices(Long accountId);
     List<DeviceMasterData> findDevices(String email);
 
     // bind
     DeviceMasterData bindDevice(Long deviceId, Long accountId);
-    DeviceMasterData bindDevice(String physicalId, String physicalAddress, Long accountId);
+    DeviceMasterData bindDevice(Integer physicalId, Long physicalAddress, Long accountId);
     DeviceMasterData unbindDevice(Long deviceId, Long accountId);
 
     // update

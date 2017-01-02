@@ -10,7 +10,7 @@ public class DeviceSlaveData extends DeviceData {
     public Integer deviceId;
     public String masterId;
 
-    public DeviceSlaveData(String physicalId, String physicalAddress, String name, String description, List<FunctionData> functions, String avatarUrl, List<String> tags, DeviceState state, Integer deviceId, String masterId) {
+    public DeviceSlaveData(Integer physicalId, Long physicalAddress, String name, String description, List<FunctionData> functions, String avatarUrl, List<Integer> tags, DeviceState state, Integer deviceId, String masterId) {
         super(physicalId, physicalAddress, name, description, functions, avatarUrl, tags, state);
         this.deviceId = deviceId;
         this.masterId = masterId;

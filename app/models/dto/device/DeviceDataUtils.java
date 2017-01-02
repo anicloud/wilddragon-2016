@@ -83,9 +83,8 @@ public class DeviceDataUtils {
                 masterDto.tags,
                 state,
                 String.valueOf(masterDto.deviceId),
-                fromDeviceSlaveDtos(masterDto.slaves),
-                String.valueOf(masterDto.owner),
-                fromAccountGroupDtos(masterDto.accountGroups));
+                fromDeviceSlaveDtos(masterDto.slaves)
+        );
         return masterData;
     }
 

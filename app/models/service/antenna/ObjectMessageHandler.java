@@ -1,9 +1,11 @@
 package models.service.antenna;
 
 import com.ani.earth.commons.message.group.*;
-import com.ani.octopus.account.domain.model.account.AccountGroup;
+import com.ani.octopus.antenna.core.AntennaTemplate;
 import com.ani.octopus.antenna.infrastructure.service.ObjectMessageListener;
 import com.ani.octopus.commons.message.object.ObjectMessage;
+import com.ani.octopus.commons.object.dto.object.ObjectMainInfoDto;
+import com.ani.octopus.commons.object.dto.object.ObjectMainQueryDto;
 import com.ani.octopus.commons.object.message.app.*;
 import com.ani.octopus.commons.object.message.device.*;
 import models.domain.session.SessionManager;
@@ -40,6 +42,9 @@ public class ObjectMessageHandler implements ObjectMessageListener {
 
     @Resource
     private NotificationService notificationService;
+
+    @Resource
+    private AntennaTemplate antennaTemplate;
 
     @Override
     public void onNotifyMessage(ObjectMessage message) {
@@ -118,10 +123,10 @@ public class ObjectMessageHandler implements ObjectMessageListener {
 
     private void onDeviceUpdate(DeviceUpdateMessage message) {
         DeviceMasterData deviceMasterData = deviceServiceAdapter.findDevice(message.deviceId);
-        AccountData accountData = accountServiceAdapter.findAccountById(Long.valueOf(deviceMasterData.owner));
-        if (deviceMasterData != null && deviceMasterData.accountGroups != null) {
-            boolean a = deviceMasterData.owner.equals("0");
-            if (!deviceMasterData.owner.equals("0")) {
+        ObjectMainInfoDto objectMainInfoDto = antennaTemplate.objectInfoService.getObjectMain(new ObjectMainQueryDto(Long.parseLong(deviceMasterData.deviceId)), false);
+        AccountData accountData = accountServiceAdapter.findAccountById(objectMainInfoDto.owner.accountId);
+        if (deviceMasterData != null) {
+            if (!(accountData.accountId==null)) {
                 List<AccountData> accounts = new ArrayList<>(Collections.EMPTY_LIST);
                 Set<String> accountIds = new HashSet<>();
                 for (String groupId : deviceMasterData.accountGroups) {
@@ -140,8 +145,9 @@ public class ObjectMessageHandler implements ObjectMessageListener {
 
     private void onDeviceConnect(DeviceConnectMessage message) {
         DeviceMasterData deviceMasterData = deviceServiceAdapter.findDevice(message.deviceId);
-        AccountData accountData = accountServiceAdapter.findAccountById(Long.valueOf(deviceMasterData.owner));
-        if (deviceMasterData != null && deviceMasterData.accountGroups != null) {
+        ObjectMainInfoDto objectMainInfoDto = antennaTemplate.objectInfoService.getObjectMain(new ObjectMainQueryDto(Long.parseLong(deviceMasterData.deviceId)), false);
+        AccountData accountData = accountServiceAdapter.findAccountById(objectMainInfoDto.owner.accountId);
+        if (deviceMasterData != null) {
             List<AccountData> accounts = new ArrayList<>(Collections.EMPTY_LIST);
             Set<String> accountIds = new HashSet<>();
             for(String groupId:deviceMasterData.accountGroups){
@@ -159,7 +165,8 @@ public class ObjectMessageHandler implements ObjectMessageListener {
 
     private void onDeviceDisconnect(DeviceDisconnectMessage message) {
         DeviceMasterData deviceMasterData = deviceServiceAdapter.findDevice(message.deviceId);
-        AccountData accountData = accountServiceAdapter.findAccountById(Long.valueOf(deviceMasterData.owner));
+        ObjectMainInfoDto objectMainInfoDto = antennaTemplate.objectInfoService.getObjectMain(new ObjectMainQueryDto(Long.parseLong(deviceMasterData.deviceId)), false);
+        AccountData accountData = accountServiceAdapter.findAccountById(objectMainInfoDto.owner.accountId);
         if (deviceMasterData != null && deviceMasterData.accountGroups != null) {
             List<AccountData> accounts = new ArrayList<>(Collections.EMPTY_LIST);
             Set<String> accountIds = new HashSet<>();
@@ -190,21 +197,24 @@ public class ObjectMessageHandler implements ObjectMessageListener {
 
     private void onDeviceShare(DeviceShareMessage message){
         DeviceMasterData deviceMasterData = deviceServiceAdapter.findDevice(message.deviceId);
-        AccountData accountData = accountServiceAdapter.findAccountById(Long.valueOf(deviceMasterData.owner));
+        ObjectMainInfoDto objectMainInfoDto = antennaTemplate.objectInfoService.getObjectMain(new ObjectMainQueryDto(Long.parseLong(deviceMasterData.deviceId)), false);
+        AccountData accountData = accountServiceAdapter.findAccountById(objectMainInfoDto.owner.accountId);
         AccountGroupData groupData = accountServiceAdapter.findGroup(message.groupId);
         notificationService.deviceShareNotice(deviceMasterData, accountData, groupData);
     }
 
     private void onDeviceUnshare(DeviceUnshareMessage message){
         DeviceMasterData deviceMasterData = deviceServiceAdapter.findDevice(message.deviceId);
-        AccountData accountData = accountServiceAdapter.findAccountById(Long.valueOf(deviceMasterData.owner));
+        ObjectMainInfoDto objectMainInfoDto = antennaTemplate.objectInfoService.getObjectMain(new ObjectMainQueryDto(Long.parseLong(deviceMasterData.deviceId)), false);
+        AccountData accountData = accountServiceAdapter.findAccountById(objectMainInfoDto.owner.accountId);
         AccountGroupData groupData = accountServiceAdapter.findGroup(message.groupId);
         notificationService.deviceUnShareNotice(deviceMasterData, accountData, groupData);
     }
 
     private void onDeviceSearchSlaves(DeviceSearchSlavesMessage message){
         DeviceMasterData deviceMasterData = deviceServiceAdapter.findDevice(message.deviceId);
-        AccountData accountData = accountServiceAdapter.findAccountById(Long.valueOf(deviceMasterData.owner));
+        ObjectMainInfoDto objectMainInfoDto = antennaTemplate.objectInfoService.getObjectMain(new ObjectMainQueryDto(Long.parseLong(deviceMasterData.deviceId)), false);
+        AccountData accountData = accountServiceAdapter.findAccountById(objectMainInfoDto.owner.accountId);
         notificationService.deviceSearchSlavesNotice(deviceMasterData,accountData,message.slavesList);
     }
 

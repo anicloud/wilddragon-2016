@@ -15,11 +15,16 @@
     <!-- jms factory-->
     <amq:connectionFactory id="targetConnectionFactory" brokerURL="tcp://${jms.broker.url}:${jms.broker.port}" clientID="${jms.clientId}"/>
 
-    <bean id="pooledConnectionFactory" class="org.apache.activemq.pool.PooledConnectionFactory">
-        <property name="connectionFactory" ref="targetConnectionFactory"/>
-        <property name="maxConnections" value="10"/>
-    </bean>
+    <!--<bean id="pooledConnectionFactory" class="org.apache.activemq.pool.PooledConnectionFactory">-->
+        <!--<property name="connectionFactory" ref="targetConnectionFactory"/>-->
+        <!--<property name="maxConnections" value="10"/>-->
+    <!--</bean>-->
 
+    <bean id="pooledConnectionFactory" class="org.springframework.jms.connection.UserCredentialsConnectionFactoryAdapter">
+        <property name="targetConnectionFactory" ref="targetConnectionFactory"/>
+        <!--<property name="connectionFactory" ref="targetConnectionFactory"/>-->
+        <!--<property name="maxConnections" value="10"/>-->
+    </bean>
     <bean id="connectionFactory"
           class="org.springframework.jms.connection.CachingConnectionFactory">
         <property name="targetConnectionFactory" ref="pooledConnectionFactory"/>

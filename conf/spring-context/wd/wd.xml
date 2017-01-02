@@ -48,7 +48,7 @@
     <bean id="deviceBusService" class="org.springframework.jms.remoting.JmsInvokerProxyFactoryBean">
         <property name="connectionFactory" ref="connectionFactory"/>
         <property name="queueName" value="${jms.queue.service.bus}.DeviceBusService"/>
-        <property name="serviceInterface" value="com.ani.bus.device.application.service.DeviceBusService"/>
+        <property name="serviceInterface" value="com.ani.bus.device.infrastructure.service.DeviceBusService"/>
     </bean>
 
     <!-- app service -->

@@ -11,6 +11,7 @@ POST        /callback                                  org.pac4j.play.CallbackCo
 GET         /casProxyCallback                          org.pac4j.play.CallbackController.callback()
 POST        /casProxyCallback                          org.pac4j.play.CallbackController.callback()
 GET         /logout                                    org.pac4j.play.CallbackController.logoutAndRedirect()
+GET         /nalogout                                  @controllers.AccountController.nalogout()
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /images/*file                              controllers.Assets.at(path="/public/images", file)

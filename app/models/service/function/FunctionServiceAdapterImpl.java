@@ -1,9 +1,9 @@
 package models.service.function;
 
-import com.ani.bus.device.application.service.DeviceBusService;
 import com.ani.bus.device.commons.dto.device.DeviceMasterDto;
 import com.ani.bus.device.commons.dto.device.DeviceSlaveDto;
 import com.ani.bus.device.commons.dto.device.FunctionDto;
+import com.ani.bus.device.infrastructure.service.DeviceBusService;
 import com.ani.octopus.commons.stub.dto.StubDto;
 import com.ani.octopus.stub.core.domain.stub.Stub;
 import com.ani.octopus.stub.core.service.AniStubMetaService;
